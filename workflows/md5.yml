@@ -1,0 +1,23 @@
+name: MD5
+
+on: [pull_request]
+
+jobs:
+  checksum:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Checkout config files
+        uses: actions/checkout@v2
+        with:
+          repository: rolling-scopes-school/basic-nodejs-2021Q2
+          ref: course-template-ci
+          path: config2021q2
+
+      - name: Check workflows checksum
+        run: md5sum --strict --check config2021q2/workflows.md5
+
+      - name: Check tests checksum
+        run: md5sum --strict --check config2021q2/tests.md5

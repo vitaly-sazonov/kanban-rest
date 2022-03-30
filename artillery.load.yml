@@ -1,0 +1,72 @@
+config:
+  target: 'http://localhost:4000'
+  phases:
+    - duration: 60
+      arrivalRate: 20
+      name: 'testing'
+  processor: './artillery.processor.js'
+
+before:
+  flow:
+    - log: 'Get auth token'
+    - post:
+        url: '/login'
+        json:
+          login: 'admin'
+          password: 'admin'
+        capture:
+          json: '$.token'
+          as: access_token
+        expect:
+          - statusCode: 201
+
+scenarios:
+  - name: 'Test CRUD /users'
+    flow:
+      - get:
+          url: '/users'
+          expect:
+            - statusCode: 401
+      - get:
+          headers:
+            Authorization: 'Bearer {{ access_token }}'
+          url: '/users'
+          expect:
+            - statusCode: 200
+      - post:
+          headers:
+            Authorization: 'Bearer {{ access_token }}'
+          url: '/users'
+          beforeRequest: generateUserData
+          json:
+            name: '{{gen_username}}'
+            login: '{{gen_login}}'
+            password: '{{gen_password}}'
+          capture:
+            - json: $.id
+              as: user_id
+          expect:
+            - statusCode: 201
+      - get:
+          headers:
+            Authorization: 'Bearer {{ access_token }}'
+          url: '/users/{{ user_id }}'
+          expect:
+            - statusCode: 200
+      - put:
+          headers:
+            Authorization: 'Bearer {{ access_token }}'
+          url: '/users/{{ user_id }}'
+          json:
+            id: '{{ user_id }}'
+            name: 'udpated_username'
+            login: 'user_udpated_login'
+            password: 'user_udpated_password'
+          expect:
+            - statusCode: 201
+      - delete:
+          headers:
+            Authorization: 'Bearer {{ access_token }}'
+          url: '/users/{{ user_id }}'
+          expect:
+            - statusCode: 204

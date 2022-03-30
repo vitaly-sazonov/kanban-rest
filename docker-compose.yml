@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    depends_on:
+      - db
+    container_name: web
+    env_file: .env
+    ports:
+      - ${PORT}:${PORT}
+    # restart: always
+    volumes:
+      - app:/home/app
+      # - ./backend/migrations:/home/app/migrations
+      # - ./backend/src:/home/app/src
+      # - ./backend/logs:/home/app/logs
+      # - ./backend/uploads:/home/app/uploads
+      # - ./backend/typings:/home/app/typings
+    networks:
+      - app-network
+    command: sh -c "npm run typeorm:migration && npm run start:prod"
+  db:
+    image: postgres:alpine3.15
+    container_name: db
+    env_file: .env
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - pgdb:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - app-network
+volumes:
+  app:
+  pgdb:
+networks:
+  app-network:
+    name: custom-network
+    driver: bridge

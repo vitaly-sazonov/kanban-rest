@@ -1,0 +1,6 @@
+.DS_Store
+dist
+node_modules
+*.code-workspace
+.DS_Store
+src/.DS_Store
