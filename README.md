@@ -9,7 +9,7 @@
 
 ```bash
 $user: git clone {repository URL}
-$user: cd nodejs2021Q4-service
+$user: cd kanban-rest
 ```
 
 ## Run Docker
