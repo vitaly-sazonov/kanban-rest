@@ -23,7 +23,7 @@
     "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts",
     "typeorm:migration": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts migration:run",
     "typeorm:generate": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts migration:generate -n newTables -d migrations",
-    "heroku-postbuild": "npm run typeorm:migration"
+    "heroku-postbuild": "nest build && npm run typeorm:migration"
   },
   "keywords": [
     "rs",
