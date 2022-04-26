@@ -9,7 +9,8 @@
   "description": "REST service starter for RS School",
   "main": "src/server.js",
   "scripts": {
-    "start": "nest start",
+    "start": "node dist/main",
+    "start:nest": "nest start",
     "build": "nest build",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -21,7 +22,8 @@
     "artillery:cli": "./node_modules/artillery/bin/artillery",
     "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts",
     "typeorm:migration": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts migration:run",
-    "typeorm:generate": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts migration:generate -n newTables -d migrations"
+    "typeorm:generate": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts migration:generate -n newTables -d migrations",
+    "heroku-postbuild": "npm run typeorm:migration"
   },
   "keywords": [
     "rs",
