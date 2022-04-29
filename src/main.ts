@@ -21,7 +21,7 @@ async function _initApp(isFastify: boolean, isLogger: boolean) {
     return app;
   }
   const app = await NestFactory.create(AppModule, { logger: isLogger ? ['verbose'] : false });
-  app.use(cors());
+  app.use(cors({ origin: ['*'] }));
   return app;
 }
 
