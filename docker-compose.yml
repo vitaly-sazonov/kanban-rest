@@ -11,7 +11,7 @@ services:
       - ${PORT}:${PORT}
     networks:
       - app-network
-    command: sh -c "npm run typeorm:migration && npm run start:prod"
+    command: sh -c "npm run typeorm:migration && npm run build && npm run start:prod"
   db:
     image: postgres:alpine3.15
     container_name: db
