@@ -10,13 +10,12 @@ services:
     ports:
       - ${PORT}:${PORT}
     # restart: always
-    volumes:
-      #- ./:/home/app
-      - ./migrations:/home/app/migrations
-      - ./src:/home/app/src
-      - ./logs:/home/app/logs
-      - ./uploads:/home/app/uploads
-      - ./typings:/home/app/typings
+    #volumes:
+    # - ./migrations:/home/app/migrations
+    # - ./src:/home/app/src
+    # - ./logs:/home/app/logs
+    # - ./uploads:/home/app/uploads
+    # - ./typings:/home/app/typings
     networks:
       - app-network
     command: sh -c "npm run typeorm:migration && npm run start:dev"

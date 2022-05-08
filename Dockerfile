@@ -7,7 +7,6 @@ WORKDIR /home/app/
 RUN mkdir -p ./dist
 RUN mkdir -p ./uploads
 
-
 COPY migrations ./migrations
 COPY typings ./typings
 COPY src ./src
