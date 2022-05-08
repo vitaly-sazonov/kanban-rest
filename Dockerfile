@@ -4,9 +4,11 @@ EXPOSE ${PORT}
 
 WORKDIR /home/app/
 
-COPY dist ./dist
+RUN mkdir -p ./dist
+RUN mkdir -p ./uploads
+
+
 COPY migrations ./migrations
-COPY uploads ./uploads
 COPY typings ./typings
 COPY src ./src
 COPY logs ./logs

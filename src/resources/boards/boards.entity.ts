@@ -14,6 +14,7 @@ export interface IColumn {
 export interface IBoard {
   id: UUIDType;
   title: string;
+  description: string;
 }
 
 /**
@@ -30,6 +31,11 @@ export class Board extends BaseEntity {
   @ApiProperty({ example: 'Homework tasks', description: 'Board title' })
   @ColumnPg()
   title!: string;
+
+  /** @public description board */
+  @ApiProperty({ example: 'My board tasks', description: 'Board description' })
+  @ColumnPg()
+  description!: string;
 
   /** @public array of objects the column */
   @OneToMany(() => Column, (column) => column.board, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })

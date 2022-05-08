@@ -54,6 +54,7 @@ export class UsersService {
     user.login = body.login;
     user.password = password;
     const data = await user.save();
-    return data;
+
+    return { id: data.id, name: data.name, login: data.login };
   }
 }

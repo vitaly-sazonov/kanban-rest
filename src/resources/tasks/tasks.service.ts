@@ -28,6 +28,7 @@ export class TasksService {
       .select([
         'tasks.id',
         'tasks.title',
+        'tasks.done',
         'tasks.order',
         'tasks.description',
         'tasks.userId',
@@ -50,6 +51,7 @@ export class TasksService {
       .select([
         'tasks.id',
         'tasks.title',
+        'tasks.done',
         'tasks.order',
         'tasks.description',
         'tasks.userId',
@@ -69,7 +71,8 @@ export class TasksService {
   async create(boardId: UUIDType, columnId: UUIDType, taskDto: CreateTaskDto): Promise<ITask> {
     this.boardRepository.isExist(boardId);
     this.columnRepository.isExist(columnId);
-    const modelTask = await this.tasksRepository.create({ ...taskDto, columnId, boardId }).save();
+    const { done } = taskDto;
+    const modelTask = await this.tasksRepository.create({ ...taskDto, done: !!done, columnId, boardId }).save();
     return modelTask;
   }
 
@@ -93,6 +96,7 @@ export class TasksService {
 
     task.title = body.title;
     task.order = body.order;
+    task.done = !!body.done;
     task.description = body.description;
     task.userId = body.userId;
     task.boardId = body.boardId;
