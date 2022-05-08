@@ -10,7 +10,8 @@ services:
     ports:
       - ${PORT}:${PORT}
     # restart: always
-    #volumes:
+    volumes:
+      - app:/home/app
     # - ./migrations:/home/app/migrations
     # - ./src:/home/app/src
     # - ./logs:/home/app/logs
