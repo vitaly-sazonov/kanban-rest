@@ -6,11 +6,11 @@ WORKDIR /home/app/
 
 RUN mkdir -p ./dist
 RUN mkdir -p ./uploads
+RUN mkdir -p ./logs
 
 COPY migrations ./migrations
 COPY typings ./typings
 COPY src ./src
-COPY logs ./logs
 
 COPY package*.json tsconfig.json tsconfig.build.json ./
 
