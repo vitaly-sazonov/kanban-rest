@@ -6,4 +6,9 @@ export class UpdateBoardDto {
   @IsString()
   @IsNotEmpty()
   readonly title!: string;
+
+  @ApiProperty({ example: 'My board tasks', description: 'Board description' })
+  @IsString()
+  @IsNotEmpty()
+  readonly description!: string;
 }

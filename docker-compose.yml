@@ -12,14 +12,14 @@ services:
     # restart: always
     volumes:
       - app:/home/app
-      # - ./backend/migrations:/home/app/migrations
-      # - ./backend/src:/home/app/src
-      # - ./backend/logs:/home/app/logs
-      # - ./backend/uploads:/home/app/uploads
-      # - ./backend/typings:/home/app/typings
+    # - ./migrations:/home/app/migrations
+    # - ./src:/home/app/src
+    # - ./logs:/home/app/logs
+    # - ./uploads:/home/app/uploads
+    # - ./typings:/home/app/typings
     networks:
       - app-network
-    command: sh -c "npm run typeorm:migration && npm run start:prod"
+    command: sh -c "npm run typeorm:migration && npm run start:dev"
   db:
     image: postgres:alpine3.15
     container_name: db

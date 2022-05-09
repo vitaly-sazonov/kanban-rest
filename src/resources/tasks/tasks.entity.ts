@@ -18,6 +18,7 @@ import { File } from '../file/files.entity';
 export interface ITask {
   id: UUIDType;
   title: string;
+  done: boolean;
   order: number;
   description: string;
   userId: string | null;
@@ -38,6 +39,10 @@ export class Task extends BaseEntity {
   @ApiProperty({ example: 'Task: pet the cat', description: 'Task title' })
   @ColumnPg()
   title!: string;
+
+  @ApiProperty({ example: 'false', description: 'Task status' })
+  @ColumnPg()
+  done!: boolean;
 
   /** @public the order of the task in the list */
   @ApiProperty({ example: '1', description: 'Task order' })
@@ -83,6 +88,15 @@ export class Task extends BaseEntity {
   @ColumnPg({ nullable: true })
   columnId!: string;
 
+  @ApiProperty({
+    example: [
+      {
+        filename: 'foto.jpg',
+        fileSize: 6105000,
+      },
+    ],
+    description: 'Array of files associated with the task',
+  })
   @OneToMany(() => File, (file) => file.task, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   files!: File[];
 }

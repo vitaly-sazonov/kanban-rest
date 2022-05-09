@@ -7,6 +7,7 @@ export default {
     title: {
       example: 'Homework tasks',
     },
+    description: { example: 'Board description' },
     columns: {
       type: 'array',
       items: {
