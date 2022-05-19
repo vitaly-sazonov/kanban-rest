@@ -15,7 +15,9 @@ const LOG_CONSOLE = JSON.parse(process.env.LOG_CONSOLE as string);
 
 async function _initApp(isFastify: boolean, isLogger: boolean) {
   if (isFastify) {
-    const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter({ logger: isLogger }));
+    const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter({ logger: isLogger }), {
+      cors: true,
+    });
     app.register(contentParser);
     return app;
   }
@@ -48,7 +50,7 @@ async function bootstrap() {
     .setTitle('Kanban service')
     .setDescription('The kanban service API description')
     .setVersion('1.0')
-    .addServer(`http://localhost:${PORT}`)
+    // .addServer(`http://localhost:${PORT}`)
     .addBearerAuth(
       {
         in: 'header',
