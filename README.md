@@ -18,8 +18,8 @@ Install docker and docker-compose using the instruction https://docs.docker.com/
 
 Run command:
 
-```
-docker-compose up
+```bash
+$user: docker-compose up
 ```
 
 ## Run Xeroku
