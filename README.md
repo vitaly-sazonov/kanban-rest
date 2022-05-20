@@ -22,6 +22,28 @@ Run command:
 docker-compose up
 ```
 
+## Run Xeroku
+
+
+Run command:
+
+```bash
+$user: git clone {repository URL}
+$user: cd kanban-rest
+$user: git switch source
+$user: heroku create --region eu
+$user: heroku addons:create heroku-postgresql:hobby-dev
+$user: heroku config:set NPM_CONFIG_PRODUCTION=false
+$user: heroku config:set LOG_CONSOLE=false
+$user: heroku config:set LOG_ERR_LEVEL=warn
+$user: heroku config:set LOG_INFO_LEVEL=info
+$user: heroku config:set JWT_SECRET_KEY=secret-key
+$user: heroku config:set SALT_SIZE=10
+$user: heroku config:set USE_FASTIFY=true
+$user: heroku git:remote -a <YOUR_APP_NAME>
+$user: git push heroku source:master
+```
+
 # REST service docs
 
 ## Endpoints:
