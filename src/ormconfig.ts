@@ -8,14 +8,13 @@ dotenv.config({
 
 export default {
   type: 'postgres',
-  host: 'db',
-  port: parseInt(process.env.POSTGRES_PORT as string, 10) as number,
   cache: false,
-  username: process.env.POSTGRES_USER as string,
-  password: process.env.POSTGRES_PASSWORD as string,
-  database: process.env.POSTGRES_DB as string,
+  url: process.env.DATABASE_URL as string,
   synchronize: false,
   logging: false,
+  ssl: {
+    rejectUnauthorized: false,
+  },
   entities: ['src/resources/**/**.entity{.ts,.js}'],
   migrations: ['./migrations/*.ts'],
 } as ConnectionOptions;

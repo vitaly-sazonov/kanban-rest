@@ -9,7 +9,8 @@
   "description": "REST service starter for RS School",
   "main": "src/server.js",
   "scripts": {
-    "start": "nest start",
+    "start": "node dist/main",
+    "start:nest": "nest start",
     "build": "nest build",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -21,7 +22,8 @@
     "artillery:cli": "./node_modules/artillery/bin/artillery",
     "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts",
     "typeorm:migration": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts migration:run",
-    "typeorm:generate": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts migration:generate -n newTables -d migrations"
+    "typeorm:generate": "ts-node ./node_modules/typeorm/cli -f ./src/ormconfig.ts migration:generate -n newTables -d migrations",
+    "heroku-postbuild": "nest build && npm run typeorm:migration"
   },
   "keywords": [
     "rs",
@@ -67,6 +69,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "close-with-grace": "^1.1.0",
+    "cors": "^2.8.5",
     "cross-env": "7.0.3",
     "dotenv": "10.0.0",
     "fastify-file-interceptor": "^1.0.6",
@@ -89,6 +92,7 @@
     "@nestjs/testing": "^8.2.6",
     "@tsconfig/node16": "^1.0.2",
     "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.4.0",
     "@types/jsonwebtoken": "^8.5.8",
