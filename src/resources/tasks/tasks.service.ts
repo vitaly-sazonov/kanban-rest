@@ -20,8 +20,8 @@ export class TasksService {
   ) {}
 
   async getAll(boardId: UUIDType, columnId: UUIDType): Promise<ITask[]> {
-    this.boardRepository.isExist(boardId);
-    this.columnRepository.isExist(columnId);
+    await this.boardRepository.isExist(boardId);
+    await this.columnRepository.isExist(columnId);
     const resp = await this.tasksRepository
       .createQueryBuilder('tasks')
       .where({ boardId, columnId })
@@ -42,8 +42,8 @@ export class TasksService {
   }
 
   async getById(boardId: UUIDType, columnId: UUIDType, taskId: UUIDType): Promise<ITask> {
-    this.boardRepository.isExist(boardId);
-    this.columnRepository.isExist(columnId);
+    await this.boardRepository.isExist(boardId);
+    await this.columnRepository.isExist(columnId);
     const task = await this.tasksRepository
       .createQueryBuilder('tasks')
       .where({ boardId, columnId, id: taskId })
@@ -67,8 +67,8 @@ export class TasksService {
   }
 
   async create(boardId: UUIDType, columnId: UUIDType, taskDto: CreateTaskDto): Promise<ITask> {
-    this.boardRepository.isExist(boardId);
-    this.columnRepository.isExist(columnId);
+    await this.boardRepository.isExist(boardId);
+    await this.columnRepository.isExist(columnId);
 
     const task = (await this.tasksRepository.find({
       where: { boardId, columnId },
@@ -82,8 +82,8 @@ export class TasksService {
   }
 
   async remove(boardId: UUIDType, columnId: UUIDType, taskId: UUIDType): Promise<void> {
-    this.boardRepository.isExist(boardId);
-    this.columnRepository.isExist(columnId);
+    await this.boardRepository.isExist(boardId);
+    await this.columnRepository.isExist(columnId);
     const tasks = (await this.tasksRepository.find({
       where: { boardId, columnId },
       order: { order: 'ASC' },
@@ -107,8 +107,8 @@ export class TasksService {
 
   // TODO: add functional to update when tasks moves between columns
   async update(boardId: UUIDType, columnId: UUIDType, taskId: UUIDType, body: UpdateTaskDto): Promise<ITask> {
-    this.boardRepository.isExist(boardId);
-    this.columnRepository.isExist(columnId);
+    await this.boardRepository.isExist(boardId);
+    await this.columnRepository.isExist(columnId);
     const tasks = (await this.tasksRepository.find({
       where: { boardId, columnId },
       order: { order: 'ASC' },
