@@ -1,21 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, ValidateIf, IsNumber, IsBoolean } from 'class-validator';
+import { IsString, IsNotEmpty, ValidateIf } from 'class-validator';
 
 export class CreateTaskDto {
   @ApiProperty({ example: 'Task: pet the cat', description: 'Task name' })
   @IsString()
   @IsNotEmpty()
   readonly title!: string;
-
-  @ApiProperty({ example: 'false', description: 'Task status' })
-  @IsBoolean()
-  @IsNotEmpty()
-  readonly done!: boolean;
-
-  @ApiProperty({ example: '1', description: 'Task order' })
-  @IsNumber()
-  @IsNotEmpty()
-  readonly order!: number;
 
   @ApiProperty({ example: 'Domestic cat needs to be stroked gently', description: 'Task description' })
   @IsString()

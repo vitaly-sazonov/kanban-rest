@@ -47,6 +47,7 @@ module.exports = {
         allowModules: ['uuid'],
       },
     ],
+    'no-param-reassign': ['error', { props: false }],
     'node/no-missing-import': 'off',
     'node/no-unpublished-import': 'off',
     'node/no-unsupported-features/es-syntax': 'off',

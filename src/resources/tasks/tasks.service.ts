@@ -28,7 +28,6 @@ export class TasksService {
       .select([
         'tasks.id',
         'tasks.title',
-        'tasks.done',
         'tasks.order',
         'tasks.description',
         'tasks.userId',
@@ -51,7 +50,6 @@ export class TasksService {
       .select([
         'tasks.id',
         'tasks.title',
-        'tasks.done',
         'tasks.order',
         'tasks.description',
         'tasks.userId',
@@ -71,37 +69,125 @@ export class TasksService {
   async create(boardId: UUIDType, columnId: UUIDType, taskDto: CreateTaskDto): Promise<ITask> {
     this.boardRepository.isExist(boardId);
     this.columnRepository.isExist(columnId);
-    const { done } = taskDto;
-    const modelTask = await this.tasksRepository.create({ ...taskDto, done: !!done, columnId, boardId }).save();
+
+    const task = (await this.tasksRepository.find({
+      where: { boardId, columnId },
+      order: { order: 'DESC' },
+      take: 1,
+    })) as Task[];
+    const autoOrder = task ? task[0].order + 1 : 1;
+
+    const modelTask = await this.tasksRepository.create({ ...taskDto, columnId, order: autoOrder, boardId }).save();
     return modelTask;
   }
 
   async remove(boardId: UUIDType, columnId: UUIDType, taskId: UUIDType): Promise<void> {
     this.boardRepository.isExist(boardId);
     this.columnRepository.isExist(columnId);
-    const task = (await this.tasksRepository.findOne({ where: { boardId, columnId, id: taskId } })) as Task;
-    if (!task) {
+    const tasks = (await this.tasksRepository.find({
+      where: { boardId, columnId },
+      order: { order: 'ASC' },
+    })) as Task[];
+
+    const currentTask = tasks.find((task) => task.id === taskId);
+    if (!currentTask) {
       throw new HttpException('Task was not founded!', HttpStatus.NOT_FOUND);
     }
-    await task.remove();
+
+    const arrayTasksToSort = tasks.filter((task) => task.order > currentTask.order);
+
+    this.tasksRepository.manager.transaction(async (transact) => {
+      await currentTask.remove();
+      arrayTasksToSort.forEach(async (task) => {
+        task.order -= 1;
+        await transact.save(task);
+      });
+    });
   }
 
+  // TODO: add functional to update when tasks moves between columns
   async update(boardId: UUIDType, columnId: UUIDType, taskId: UUIDType, body: UpdateTaskDto): Promise<ITask> {
     this.boardRepository.isExist(boardId);
     this.columnRepository.isExist(columnId);
-    const task = (await this.tasksRepository.findOne({ where: { boardId, columnId, id: taskId } })) as Task;
-    if (!task) {
+    const tasks = (await this.tasksRepository.find({
+      where: { boardId, columnId },
+      order: { order: 'ASC' },
+    })) as Task[];
+
+    const currentTask = tasks.find((task) => task.id === taskId);
+    if (!currentTask) {
       throw new HttpException('Task was not founded!', HttpStatus.NOT_FOUND);
     }
 
-    task.title = body.title;
-    task.order = body.order;
-    task.done = !!body.done;
-    task.description = body.description;
-    task.userId = body.userId;
-    task.boardId = body.boardId;
-    task.columnId = body.columnId;
-    const data = await task.save();
+    if (body.order < 1) {
+      throw new HttpException('The task order number cannot be less than 1!', HttpStatus.BAD_REQUEST);
+    }
+
+    if (tasks.length + 1 < body.order) {
+      throw new HttpException(
+        'The task order number cannot be greater than the total number of tasks!',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    currentTask.title = body.title;
+    currentTask.description = body.description;
+    currentTask.userId = body.userId;
+    currentTask.boardId = body.boardId;
+
+    if (currentTask.columnId !== body.columnId) {
+      const tasksInOtherColumn = (await this.tasksRepository.find({
+        where: { boardId, columnId: body.columnId },
+        order: { order: 'ASC' },
+      })) as Task[];
+
+      tasksInOtherColumn.forEach((task) => {
+        if (body.order <= task.order) {
+          task.order += 1;
+        }
+      });
+
+      tasks.forEach((task) => {
+        if (currentTask.order < task.order) {
+          task.order -= 1;
+        }
+      });
+
+      currentTask.columnId = body.columnId;
+      currentTask.order = body.order;
+
+      this.tasksRepository.manager.transaction(async (transact) => {
+        [...tasks, ...tasksInOtherColumn].forEach(async (record) => {
+          await transact.save(record);
+        });
+      });
+
+      return {
+        id: taskId,
+        title: body.title,
+        order: body.order,
+        description: body.description,
+        userId: body.userId,
+        boardId: body.boardId,
+        columnId: body.columnId,
+      } as Task;
+    }
+
+    if (currentTask.order !== body.order) {
+      this.columnRepository.transactSortingRecords(this.tasksRepository, tasks, currentTask, body.order);
+
+      return {
+        id: taskId,
+        title: body.title,
+        order: body.order,
+        description: body.description,
+        userId: body.userId,
+        boardId: body.boardId,
+        columnId: body.columnId,
+      } as Task;
+    }
+
+    const data = await currentTask.save();
     return data;
   }
 }

@@ -18,7 +18,6 @@ import { File } from '../file/files.entity';
 export interface ITask {
   id: UUIDType;
   title: string;
-  done: boolean;
   order: number;
   description: string;
   userId: string | null;
@@ -28,7 +27,7 @@ export interface ITask {
 }
 
 @Entity('tasks')
-@Unique('tasks_order_unique_constraint', ['order', 'id'])
+// @Unique('tasks_order_unique_constraint', ['order', 'columnId'])
 export class Task extends BaseEntity {
   /** @public record uuid */
   @ApiProperty({ example: '40af606c-c0bb-47d1-bc20-a2857242cde3', description: 'Unique task ID' })
@@ -39,10 +38,6 @@ export class Task extends BaseEntity {
   @ApiProperty({ example: 'Task: pet the cat', description: 'Task title' })
   @ColumnPg()
   title!: string;
-
-  @ApiProperty({ example: 'false', description: 'Task status' })
-  @ColumnPg()
-  done!: boolean;
 
   /** @public the order of the task in the list */
   @ApiProperty({ example: '1', description: 'Task order' })

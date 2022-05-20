@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateColumnDto {
   @ApiProperty({ example: 'Done', description: 'Column title' })
@@ -7,8 +7,8 @@ export class CreateColumnDto {
   @IsNotEmpty()
   readonly title!: string;
 
-  @ApiProperty({ example: '1', description: 'Column order' })
-  @IsNumber()
-  @IsNotEmpty()
-  readonly order!: number;
+  // @ApiProperty({ example: '1', description: 'Column order' })
+  // @IsNumber()
+  // @IsNotEmpty()
+  // readonly order!: number;
 }

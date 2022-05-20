@@ -14,7 +14,7 @@ export interface IColumn {
  * Class Board format.
  */
 @Entity('columns')
-@Unique('columns_order_unique_constraint', ['order', 'boardId'])
+// @Unique('columns_order_unique_constraint', ['order', 'boardId'])
 export class Column extends BaseEntity {
   /** @public uuid record */
   @ApiProperty({ example: '08cc10f4-1aeb-4cce-9793-9fea8313b592', description: 'ID Column' })

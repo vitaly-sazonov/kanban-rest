@@ -36,9 +36,6 @@ export default {
                 order: {
                   example: 1,
                 },
-                done: {
-                  example: false,
-                },
                 description: {
                   example: 'Domestic cat needs to be stroked gently',
                 },
