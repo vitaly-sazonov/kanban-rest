@@ -67,7 +67,8 @@ export class ColumnsService {
       order: { order: 'DESC' },
       take: 1,
     })) as Column[];
-    const autoOrder = columns ? columns[0].order + 1 : 1;
+    
+    const autoOrder = !!columns.length ? columns[0].order + 1 : 1;
 
     const { id, title, order } = await this.columnsRepository
       .create({ ...columnDto, order: autoOrder, boardId })

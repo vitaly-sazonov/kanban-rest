@@ -75,7 +75,7 @@ export class TasksService {
       order: { order: 'DESC' },
       take: 1,
     })) as Task[];
-    const autoOrder = task ? task[0].order + 1 : 1;
+    const autoOrder = !!task.length ? task[0].order + 1 : 1;
 
     const modelTask = await this.tasksRepository.create({ ...taskDto, columnId, order: autoOrder, boardId }).save();
     return modelTask;
