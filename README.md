@@ -89,4 +89,4 @@ $user: git push heroku source:master
 
 * `Logs files`:
   - `GET logs/error` - download 'error' log file 
-  - `GET logs/info/` - upload 'info' log file 
+  - `GET logs/info/` - download 'info' log file 
