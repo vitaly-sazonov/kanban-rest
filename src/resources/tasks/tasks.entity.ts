@@ -27,7 +27,6 @@ export interface ITask {
 }
 
 @Entity('tasks')
-// @Unique('tasks_order_unique_constraint', ['order', 'columnId'])
 export class Task extends BaseEntity {
   /** @public record uuid */
   @ApiProperty({ example: '40af606c-c0bb-47d1-bc20-a2857242cde3', description: 'Unique task ID' })
