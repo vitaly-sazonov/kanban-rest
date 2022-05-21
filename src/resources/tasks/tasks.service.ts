@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-tasks.dto';
 import { UpdateTaskDto } from './dto/update-tasks.dto';
 
+import { UsersService } from '../users/users.service';
 import { BoardsService } from '../boards/boards.service';
 import { ColumnsService } from '../columns/columns.service';
 
@@ -17,6 +18,7 @@ export class TasksService {
     @InjectRepository(Task) private tasksRepository: Repository<Task>,
     private columnRepository: ColumnsService,
     private boardRepository: BoardsService,
+    private userRepository: UsersService,
   ) {}
 
   async getAll(boardId: UUIDType, columnId: UUIDType): Promise<ITask[]> {
@@ -69,13 +71,14 @@ export class TasksService {
   async create(boardId: UUIDType, columnId: UUIDType, taskDto: CreateTaskDto): Promise<ITask> {
     await this.boardRepository.isExist(boardId);
     await this.columnRepository.isExist(columnId);
+    await this.userRepository.getById(taskDto.userId as string);
 
     const task = (await this.tasksRepository.find({
       where: { boardId, columnId },
       order: { order: 'DESC' },
       take: 1,
     })) as Task[];
-    const autoOrder = !!task.length ? task[0].order + 1 : 1;
+    const autoOrder = task.length ? task[0].order + 1 : 1;
 
     const modelTask = await this.tasksRepository.create({ ...taskDto, columnId, order: autoOrder, boardId }).save();
     return modelTask;
