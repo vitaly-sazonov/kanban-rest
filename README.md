@@ -86,3 +86,7 @@ $user: git push heroku source:master
 * `File`:
   - `GET file/:taskId/:filename/` - download file
   - `POST file/` - upload file `multipart/form-data`
+
+* `Logs files`:
+  - `GET logs/error` - download 'error' log file 
+  - `GET logs/info/` - upload 'info' log file 
