@@ -9,6 +9,7 @@ import { BoardsModule } from './resources/boards/boards.module';
 import { TasksModule } from './resources/tasks/tasks.module';
 import { ColumnsModule } from './resources/columns/columns.module';
 import { FileModule } from './resources/file/files.module';
+import { LogsModule } from './resources/logs/logs.module';
 
 import ormconfig from './ormconfig';
 
@@ -29,6 +30,7 @@ import ormconfig from './ormconfig';
     ColumnsModule,
     TasksModule,
     FileModule,
+    LogsModule,
   ],
   controllers: [AppController],
 })
