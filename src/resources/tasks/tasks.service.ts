@@ -126,13 +126,6 @@ export class TasksService {
       throw new HttpException('The task order number cannot be less than 1!', HttpStatus.BAD_REQUEST);
     }
 
-    if (tasks.length + 1 < body.order) {
-      throw new HttpException(
-        'The task order number cannot be greater than the total number of tasks!',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
     currentTask.title = body.title;
     currentTask.description = body.description;
     currentTask.userId = body.userId;
@@ -143,6 +136,13 @@ export class TasksService {
         where: { boardId, columnId: body.columnId },
         order: { order: 'ASC' },
       })) as Task[];
+
+      if (tasksInOtherColumn.length + 1 < body.order) {
+        throw new HttpException(
+          'The task order number cannot be greater than the total number of tasks!',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
 
       tasksInOtherColumn.forEach((task) => {
         if (body.order <= task.order) {
@@ -177,6 +177,13 @@ export class TasksService {
     }
 
     if (currentTask.order !== body.order) {
+      if (tasks.length + 1 < body.order) {
+        throw new HttpException(
+          'The task order number cannot be greater than the total number of tasks!',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
       this.columnRepository.transactSortingRecords(this.tasksRepository, tasks, currentTask, body.order);
 
       return {
