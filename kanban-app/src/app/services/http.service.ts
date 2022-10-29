@@ -4,7 +4,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, tap, throwError } from 'rxjs';
+import { catchError, map, of, tap, throwError } from 'rxjs';
 import { APP_URL, QUERY_PARAMS_FIRST } from '../constants';
 import {
   ErrorResponse,
@@ -19,20 +19,16 @@ import { LocalstorageService } from './localstorage.service';
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(
-    private http: HttpClient,
-    private localstorageService: LocalstorageService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getBoards() {
     return this.http.get(QUERY_PARAMS_FIRST.boards);
   }
 
   signIn(user: UserLogin) {
-    return this.http.post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user).pipe(
-      catchError(this.handleError),
-      tap(x => this.localstorageService.setToken(x.token))
-    );
+    return this.http
+      .post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user)
+      .pipe(catchError(this.handleError));
   }
 
   signUp(user: UserRegistration) {
