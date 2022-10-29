@@ -1,0 +1,12 @@
+<div class="footer">
+  <a class="logo" href="https://rs.school/js/" target="_blank"></a>
+  <div class="authors-links">
+    <a
+      *ngFor="let developer of developers"
+      href="{{ developer.git }}"
+      target="_blank">
+      <div [style]="getGitIcon(developer)" class="author-link"></div>
+    </a>
+  </div>
+  <div class="footer-year">© 2022</div>
+</div>
