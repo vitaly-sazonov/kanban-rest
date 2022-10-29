@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap, tap } from 'rxjs';
-import { user2 } from './constants';
 import { HttpService } from './services/http.service';
+import { TranslateService } from './services/translate.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +9,15 @@ import { HttpService } from './services/http.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'kanban-app';
+  title = 'TITLE';
+  constructor(
+    private translateService: TranslateService,
+    private httpService: HttpService
+  ) {}
 
-  constructor(private httpService: HttpService) {}
+  setLang(lang: string) {
+    this.translateService.use(lang);
+  }
   ngOnInit(): void {
     this.httpService
       .signIn({

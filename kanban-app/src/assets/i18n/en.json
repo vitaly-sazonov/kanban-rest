@@ -1,0 +1,4 @@
+{
+  "HELLO": "hello {{value}}",
+  "TITLE": "My application (en)"
+}
