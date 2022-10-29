@@ -1,16 +1,19 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs';
-import { APP_URL } from '../constants';
-import { LoginResponse, UserLogin } from '../interfaces';
+import { catchError, map, tap, throwError } from 'rxjs';
+import { APP_URL, QUERY_PARAMS_FIRST } from '../constants';
+import {
+  ErrorResponse,
+  GetUserByIdResponse,
+  LoginResponse,
+  UserLogin,
+  UserRegistration,
+} from '../interfaces';
 import { LocalstorageService } from './localstorage.service';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    responseType: 'text',
-  }),
-};
 
 @Injectable({
   providedIn: 'root',
@@ -20,17 +23,52 @@ export class HttpService {
     private http: HttpClient,
     private localstorageService: LocalstorageService
   ) {}
-  getHello() {
-    return this.http.get('', httpOptions);
+
+  getBoards() {
+    return this.http.get(QUERY_PARAMS_FIRST.boards);
   }
 
-  loginUser(user: UserLogin) {
-    return this.http
-      .post<LoginResponse>('signin', user, httpOptions)
-      .pipe(tap(x => this.localstorageService.setToken(x.token)));
+  signIn(user: UserLogin) {
+    return this.http.post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user).pipe(
+      catchError(this.handleError),
+      tap(x => this.localstorageService.setToken(x.token))
+    );
+  }
+
+  signUp(user: UserRegistration) {
+    return this.http.post<GetUserByIdResponse>(QUERY_PARAMS_FIRST.signup, user);
   }
 
   getAllUsers() {
-    return this.http.get('users');
+    return this.http.get<GetUserByIdResponse[]>(QUERY_PARAMS_FIRST.users);
+  }
+
+  getUserById(id: string) {
+    return this.http.get<GetUserByIdResponse>(QUERY_PARAMS_FIRST.users + id);
+  }
+
+  deleteUser(id: string) {
+    this.http.delete(QUERY_PARAMS_FIRST.users + id);
+  }
+
+  putUser(id: string, user: UserLogin) {
+    return this.http.put<GetUserByIdResponse>(
+      QUERY_PARAMS_FIRST.users + id,
+      user
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('An error occurred:', error.error);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
+    }
+    return throwError(
+      () => new Error('Something bad happened; please try again later.')
+    );
   }
 }

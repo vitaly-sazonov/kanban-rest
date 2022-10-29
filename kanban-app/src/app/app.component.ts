@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
+import { user2 } from './constants';
 import { HttpService } from './services/http.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
   constructor(private httpService: HttpService) {}
   ngOnInit(): void {
     this.httpService
-      .loginUser({
+      .signIn({
         login: 'user001',
         password: 'userpass@123',
       })
