@@ -1,19 +1,13 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, of, tap, throwError } from 'rxjs';
-import { APP_URL, QUERY_PARAMS_FIRST } from '../constants';
+import { QUERY_PARAMS_FIRST } from 'src/app/enums';
 import {
-  ErrorResponse,
   GetUserByIdResponse,
   LoginResponse,
   UserLogin,
   UserRegistration,
-} from '../interfaces';
-import { LocalstorageService } from './localstorage.service';
+} from '../../interfaces';
 
 @Injectable({
   providedIn: 'root',

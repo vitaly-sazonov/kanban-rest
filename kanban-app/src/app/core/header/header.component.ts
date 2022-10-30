@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from 'src/app/services/http.service';
-import { TranslateService } from 'src/app/services/translate.service';
+import { HttpService } from 'src/app/core/services/http.service';
+import { TranslateService } from 'src/app/core/services/translate.service';
 
 @Component({
   selector: 'app-header',

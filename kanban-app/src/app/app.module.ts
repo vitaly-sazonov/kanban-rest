@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
-import { TranslateService } from './services/translate.service';
+import { TranslateService } from './core/services/translate.service';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { WelcomeModule } from './pages/welcome/welcome.module';
@@ -19,7 +19,6 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { reducers, metaReducers } from './redux/reducers';
 import { userReducer } from './redux/reducers/user.reducer';
 import { UserEffect } from './redux/effects/user.effect';
 

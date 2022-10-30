@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { filter, map, switchMap, takeUntil, tap } from 'rxjs';
-import { UserLogin } from '../interfaces';
-import { HttpService } from './http.service';
-import { LocalstorageService } from './localstorage.service';
+import { UserLogin } from 'src/app/interfaces';
+import { HttpService } from 'src/app/core/services/http.service';
+import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 
 @Injectable({
   providedIn: 'root',

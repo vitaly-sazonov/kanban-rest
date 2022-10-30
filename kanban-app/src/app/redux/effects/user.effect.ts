@@ -10,7 +10,6 @@ export class UserEffect {
     () => {
       return this.actions$.pipe(
         ofType(loginUser),
-        tap(x => console.log(x)),
         catchError(() => EMPTY)
       );
     },

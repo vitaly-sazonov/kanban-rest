@@ -1,28 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { map, switchMap, tap } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
 import { Store } from '@ngrx/store';
-import {
-  selectFeatureUser,
-  selectFeatureUserLoggedIn,
-  selectUser,
-} from 'src/app/redux/selectors/user.selectors';
+import { selectFeatureUser } from 'src/app/redux/selectors/user.selectors';
 import { loginUser } from 'src/app/redux/actions/user.actions';
-import { GetUserByIdResponse } from 'src/app/interfaces';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss'],
 })
-export class WelcomeComponent implements OnInit {
+export class WelcomeComponent {
   title = 'TITLE';
   user$ = this.store.select(selectFeatureUser);
-  name!: GetUserByIdResponse;
   constructor(private authService: AuthService, private store: Store) {}
-  ngOnInit(): void {
-    this.user$.pipe(map(x => x?.name)).subscribe(x => console.log(x));
-  }
 
   logUser() {
     this.authService
@@ -32,7 +22,6 @@ export class WelcomeComponent implements OnInit {
       })
       .subscribe(x => {
         if (x) {
-          this.name = x;
           this.store.dispatch(loginUser({ user: x }));
         }
       });

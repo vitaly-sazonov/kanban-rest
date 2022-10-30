@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { GetUserByIdResponse } from 'src/app/interfaces';
-import { GetUsersStatus, loginUser } from '../actions/user.actions';
+import { loginUser } from '../actions/user.actions';
 
 export interface StateStore {
   userState: StateUser;
