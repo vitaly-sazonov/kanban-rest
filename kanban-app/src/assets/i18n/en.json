@@ -1,7 +1,13 @@
 {
+  "Welcome to": "Welcome to",
   "HELLO": "hello {{value}}",
   "TITLE": "My application (en)",
   "AGREE": "Agree",
   "CANCEL": "Cancel",
-  "SAMPLE_CONFIRM_INFO": "Are you agree?"
+  "SAMPLE_CONFIRM_INFO": "Are you agree?",
+  "Eng": {
+    "cat": "meou",
+    "dog": "second"
+  }
+
 }

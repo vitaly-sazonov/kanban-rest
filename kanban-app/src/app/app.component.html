@@ -1,15 +1,8 @@
-<h1>Welcome to {{ title | translate }}!</h1>
-
-<div>
-  <button (click)="setLang('ru')">Language: RU</button>
-  <button (click)="setLang('en')">Language: EN</button>
-</div>
-
+<app-header></app-header>
 <!--This is for testing ConfirmService and modal component-->
-
 <button (click)="callModal('SAMPLE_CONFIRM_INFO')">Call modal window</button>
 <p>Modal window result: {{ userResult | async }}</p>
-
 <!--Then it should be deleted-->
-
+<router-outlet></router-outlet>
+<app-footer></app-footer>
 <app-modal></app-modal>
