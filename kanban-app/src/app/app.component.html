@@ -4,3 +4,12 @@
   <button (click)="setLang('ru')">Language: RU</button>
   <button (click)="setLang('en')">Language: EN</button>
 </div>
+
+<!--This is for testing ConfirmService and modal component-->
+
+<button (click)="callModal('SAMPLE_CONFIRM_INFO')">Call modal window</button>
+<p>User confirmation result: {{ userResult | async }}</p>
+
+<!--Then it should be deleted-->
+
+<app-modal></app-modal>

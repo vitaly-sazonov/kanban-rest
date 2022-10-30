@@ -1,4 +1,7 @@
 {
   "HELLO": "Привет {{value}}",
-  "TITLE": "Мое приложение (ru)"
+  "TITLE": "Мое приложение (ru)",
+  "AGREE": "Согласен",
+  "CANCEL": "Отмена",
+  "SAMPLE_CONFIRM_INFO": "Вы согласны?"
 }

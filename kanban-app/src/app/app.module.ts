@@ -12,6 +12,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
 import { TranslateService } from './services/translate.service';
 import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -21,7 +22,13 @@ export function setupTranslateServiceFactory(
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, SharedModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    SharedModule,
+    CoreModule,
+  ],
   providers: [
     TranslateService,
     {

@@ -1,4 +1,7 @@
 {
   "HELLO": "hello {{value}}",
-  "TITLE": "My application (en)"
+  "TITLE": "My application (en)",
+  "AGREE": "Agree",
+  "CANCEL": "Cancel",
+  "SAMPLE_CONFIRM_INFO": "Are you agree?"
 }
