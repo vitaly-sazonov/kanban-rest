@@ -11,7 +11,7 @@ import { TranslateService } from './services/translate.service';
 })
 export class AppComponent implements OnInit {
   title = 'TITLE';
-  userResult?: Observable<boolean>; // it is for tasting the modal window,then it should be deleted
+  userResult?: Observable<boolean | null>; // it is for tasting the modal window,then it should be deleted
   constructor(
     private translateService: TranslateService,
     private httpService: HttpService,

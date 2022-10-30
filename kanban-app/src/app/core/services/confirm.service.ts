@@ -6,14 +6,15 @@ import { Observable, Subject } from 'rxjs';
 })
 export class ConfirmService {
   confirmInfo$$ = new Subject<string>();
-  confirmResult$$ = new Subject<boolean>();
+  confirmResult$$ = new Subject<boolean | null>();
   constructor() {}
 
   setConfirmInfo(info: string) {
     this.confirmInfo$$.next(info);
+    this.setConfirmResult(null);
   }
 
-  setConfirmResult(result: boolean) {
+  setConfirmResult(result: boolean | null) {
     this.confirmResult$$.next(result);
   }
 

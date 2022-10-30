@@ -2,7 +2,9 @@
   class="modal-container"
   [class.invisible]="!isModalVisible"
   [class.visible]="isModalVisible">
-  <div class="modal-background"></div>
+  <div
+    class="modal-background"
+    (click)="setResult(false); isModalVisible = false"></div>
   <div class="modal-window">
     <div class="confirmation-info-block">
       <p class="confirmation-info">{{ (info$ | async)! | translate }}</p>
