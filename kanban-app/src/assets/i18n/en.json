@@ -1,0 +1,9 @@
+{
+  "Welcome to": "Welcome to",
+  "HELLO": "hello {{value}}",
+  "TITLE": "My application (en)",
+  "Eng": {
+    "cat": "meou",
+    "dog": "second"
+  }
+}

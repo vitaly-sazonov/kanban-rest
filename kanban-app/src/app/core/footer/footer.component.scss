@@ -1,0 +1,42 @@
+.footer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+  width: 50px;
+  height: 18px;
+  background-image: url(^assets/img/rs_school.svg);
+
+  &:hover {
+    transform: scale(.95);
+  }
+
+  &:active {
+    transform: scale(.90);
+  }
+}
+
+.authors-links {
+  display: flex;
+  gap: 5px;
+  margin: 30px;
+}
+
+.author-link {
+  width: 30px;
+  height: 30px;
+
+  &:hover {
+    transform: scale(.95);
+  }
+
+  &:active {
+    transform: scale(.90);
+  }
+}
+
+// .footer-year {
+//   @include font14;
+// }
