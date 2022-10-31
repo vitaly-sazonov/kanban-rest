@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { GetUserByIdResponse } from 'src/app/interfaces';
 import {
   loginUser,
+  logoutUser,
   setLoadingFalse,
   setLoadingTrue,
 } from '../actions/user.actions';
@@ -30,7 +31,14 @@ export const userReducer = createReducer(
     loginUser,
     (state, { user }): StateStore => ({
       ...state,
-      userState: { user: user, userLoggedIn: true },
+      userState: { user, userLoggedIn: true },
+    })
+  ),
+  on(
+    logoutUser,
+    (state): StateStore => ({
+      ...state,
+      userState: { user: null, userLoggedIn: false },
     })
   ),
   on(setLoadingTrue, (state): StateStore => ({ ...state, isLoading: true })),

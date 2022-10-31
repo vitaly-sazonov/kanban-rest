@@ -1,0 +1,58 @@
+<div class="d-flex align-items-center justify-content-center">
+  <form [formGroup]="login" (ngSubmit)="onSubmit()">
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="inputName" class="text-muted">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="inputName"
+        formControlName="userName"
+        placeholder="Enter email" />
+      <p *ngIf="_user?.hasError('required') && _user?.dirty">
+        Please enter a login email.
+      </p>
+      <p *ngIf="_user?.hasError('email')">The login email is invalid.</p>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword" class="text-muted">Password</label>
+      <input
+        formControlName="password"
+        type="password"
+        class="form-control"
+        id="inputPassword"
+        placeholder="Password" />
+      <div *ngIf="_password?.dirty && _password?.invalid" class="error">
+        <h3 class="m-0">Your password isn't strong enough.</h3>
+        <p *ngIf="_password?.errors?.[PasswordValidatorSymbols.minLength]">
+          Add at least 8 characters.
+        </p>
+        <p *ngIf="_password?.errors?.[PasswordValidatorSymbols.upperCase]">
+          Add letter in uppercase.
+        </p>
+        <p *ngIf="_password?.errors?.[PasswordValidatorSymbols.lowerCase]">
+          Add letter in lowercase.
+        </p>
+        <p *ngIf="_password?.errors?.[PasswordValidatorSymbols.numbers]">
+          Add number.
+        </p>
+        <p *ngIf="_password?.errors?.[PasswordValidatorSymbols.special]">
+          Add special symbol ({{ PasswordValidatorSymbols.symbol }})
+        </p>
+      </div>
+    </div>
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="!login.valid || (isLoading$ | async)">
+      <div class="d-flex">
+        <mat-spinner
+          class="m-0 p-0"
+          diameter="20"
+          color="primary"
+          *ngIf="isLoading$ | async"></mat-spinner>
+        <p class="m-0 p-0 pl-2">Submit</p>
+      </div>
+    </button>
+  </form>
+</div>

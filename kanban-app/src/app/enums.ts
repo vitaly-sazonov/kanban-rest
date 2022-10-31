@@ -12,3 +12,18 @@ export enum QUERY_PARAMS_SECOND {
   error = '/error',
   info = '/info',
 }
+
+export enum RouterStateValue {
+  main = 'main',
+  registration = 'registration',
+  login = 'login',
+}
+
+export enum PasswordValidatorSymbols {
+  upperCase = 'uppercase',
+  lowerCase = 'lowercase',
+  numbers = 'numbers',
+  special = 'special',
+  minLength = 'minlength',
+  symbol = '*@!#%&()^~{}',
+}

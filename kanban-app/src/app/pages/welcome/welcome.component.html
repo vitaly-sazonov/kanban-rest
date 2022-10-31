@@ -3,3 +3,5 @@
 {{ (user$ | async)?.name }}
 LOADING>>>>>>>{{ isLoading$ | async }}
 <button (click)="logUser()">logUser</button>
+
+<router-outlet></router-outlet>
