@@ -5,6 +5,7 @@
   "AGREE": "Agree",
   "CANCEL": "Cancel",
   "SAMPLE_CONFIRM_INFO": "Are you agree?",
+  "ERROR":"Error: ",
   "Eng": {
     "cat": "meou",
     "dog": "second"

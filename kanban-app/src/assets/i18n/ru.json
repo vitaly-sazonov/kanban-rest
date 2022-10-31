@@ -5,9 +5,9 @@
   "AGREE": "Согласен",
   "CANCEL": "Отмена",
   "SAMPLE_CONFIRM_INFO": "Вы согласны?",
+  "ERROR": "Ошибка: ",
   "Eng": {
     "cat": "МЯУ",
     "dog": "ГАФ"
   }
-
 }

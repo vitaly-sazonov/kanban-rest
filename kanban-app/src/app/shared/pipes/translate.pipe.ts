@@ -9,7 +9,9 @@ export class TranslatePipe implements PipeTransform {
   constructor(private translate: TranslateService) {}
 
   transform(key: string): string {
-    return key.split('.').length > 1
+    return !key
+      ? ''
+      : key.split('.').length > 1
       ? key
           .split('.')
           .reduce((curr, next) => this.translate.data?.[curr]?.[next])
