@@ -16,6 +16,9 @@ import { environment } from '../environments/environment';
 import { userReducer } from './redux/reducers/user.reducer';
 import { UserEffect } from './redux/effects/user.effect';
 import { EffectsModule } from '@ngrx/effects';
+import { reducers } from './redux/reducers';
+import { NotificationEffect } from './redux/effects/notification.effect';
+import { notificationReducer } from './redux/reducers/notification.reducer';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -33,12 +36,15 @@ export function setupTranslateServiceFactory(
     CoreModule,
     WelcomeModule,
     MainModule,
-    StoreModule.forRoot({ users: userReducer }, {}),
+    StoreModule.forRoot(
+      { users: userReducer, notifications: notificationReducer },
+      {}
+    ),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([UserEffect]),
+    EffectsModule.forRoot([UserEffect, NotificationEffect]),
   ],
   providers: [
     TranslateService,

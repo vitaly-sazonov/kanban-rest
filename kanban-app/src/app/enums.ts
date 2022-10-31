@@ -12,3 +12,8 @@ export enum QUERY_PARAMS_SECOND {
   error = '/error',
   info = '/info',
 }
+
+export enum NotificationActions{
+AddNotification='[Notification] Add Notification',
+DeleteNotification='[Notification] Delete Notification',
+}
