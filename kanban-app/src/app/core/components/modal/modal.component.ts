@@ -9,15 +9,19 @@ import { ConfirmService } from '../../services/confirm.service';
 })
 export class ModalComponent implements OnInit {
   isModalVisible = false;
-  info$?: Observable<string>;
+  info$?: Observable<string | null | undefined>;
   buttonAgree = 'AGREE';
   buttonCancel = 'CANCEL';
   constructor(private confirmService: ConfirmService) {}
 
   ngOnInit(): void {
-    this.info$ = this.confirmService
-      .getConfirmInfo()
-      .pipe(tap(() => (this.isModalVisible = true)));
+    this.info$ = this.confirmService.getConfirmInfo().pipe(
+      tap(observable => {
+        if (observable) {
+          this.isModalVisible = true;
+        }
+      })
+    );
   }
 
   setResult(result: boolean) {

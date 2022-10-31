@@ -13,7 +13,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
   styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent implements OnInit {
-  userResult?: Observable<boolean | null>; // it is for testing the modal window,then it should be deleted
+  userResult?: Observable<boolean | null | undefined>; // it is for testing the modal window,then it should be deleted
   title = 'TITLE';
   user$ = this.store.select(selectFeatureUser);
   constructor(

@@ -1,28 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Observable} from 'rxjs';
+import { addConfirmMessage, addConfirmResult } from 'src/app/redux/actions/confirm.actions';
+import { State } from 'src/app/redux/reducers';
+import { selectConfirmationMessage, selectConfirmationResult } from 'src/app/redux/selectors/confirmation.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConfirmService {
-  confirmInfo$$ = new Subject<string>();
-  confirmResult$$ = new Subject<boolean | null>();
-  constructor() {}
+  confirmInfo$ = this.store.select(selectConfirmationMessage);
+  confirmResult$ = this.store.select(selectConfirmationResult);
+  constructor(private store: Store<State>) {}
 
   setConfirmInfo(info: string) {
-    this.confirmInfo$$.next(info);
-    this.setConfirmResult(null);
+    this.store.dispatch(addConfirmMessage({message:info}))
   }
 
   setConfirmResult(result: boolean | null) {
-    this.confirmResult$$.next(result);
+    this.store.dispatch(addConfirmResult({result}))
   }
 
-  getConfirmResult() {
-    return this.confirmResult$$.asObservable();
+  getConfirmResult():Observable<boolean|null|undefined>{
+    return this.confirmResult$;
   }
 
-  getConfirmInfo(): Observable<string> {
-    return this.confirmInfo$$.asObservable();
+  getConfirmInfo():Observable<string|null|undefined>{
+    return this.confirmInfo$;
   }
 }
