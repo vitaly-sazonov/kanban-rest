@@ -5,3 +5,6 @@ export const loginUser = createAction(
   '[User] Login User',
   props<{ user: GetUserByIdResponse }>()
 );
+
+export const setLoadingTrue = createAction('[State] LoadingState True');
+export const setLoadingFalse = createAction('[State] LoadingState False');

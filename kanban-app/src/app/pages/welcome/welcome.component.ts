@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectFeatureUser } from 'src/app/redux/selectors/user.selectors';
+import {
+  selectFeatureIsLoading,
+  selectFeatureUser,
+} from 'src/app/redux/selectors/user.selectors';
 import { loginUser } from 'src/app/redux/actions/user.actions';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
@@ -12,6 +15,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class WelcomeComponent {
   title = 'TITLE';
   user$ = this.store.select(selectFeatureUser);
+  isLoading$ = this.store.select(selectFeatureIsLoading);
   constructor(private authService: AuthService, private store: Store) {}
 
   logUser() {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from 'src/app/core/services/http.service';
-import { TranslateService } from 'src/app/core/services/translate.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +7,7 @@ import { TranslateService } from 'src/app/core/services/translate.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(
-    private translateService: TranslateService,
-    private httpService: HttpService
-  ) {}
+  constructor(private translateService: TranslateService) {}
 
   setLang(lang: string) {
     this.translateService.use(lang);
