@@ -8,21 +8,31 @@ import {
   UserLogin,
   UserRegistration,
 } from '../../interfaces';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private notification: NotificationService
+  ) {}
 
   getBoards() {
     return this.http.get(QUERY_PARAMS_FIRST.boards);
   }
 
   signIn(user: UserLogin) {
-    return this.http
-      .post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user)
-      .pipe(catchError(this.handleError));
+    return this.http.post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user).pipe(
+      catchError(error => {
+        this.notification.setNotification(`Backend returned error with name: ${
+          error.name
+        }, and message: 
+        ${JSON.stringify(error.message)}`);
+        return this.handleError(error);
+      })
+    );
   }
 
   signUp(user: UserRegistration) {
@@ -48,7 +58,7 @@ export class HttpService {
     );
   }
 
-  private handleError(error: HttpErrorResponse) {
+  handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
     } else {
