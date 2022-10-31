@@ -1,6 +1,5 @@
-import { createFeatureSelector, createSelector} from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { State } from '../reducers';
-
 
 export const selectConfirmation = createFeatureSelector<State>('confirmations');
 

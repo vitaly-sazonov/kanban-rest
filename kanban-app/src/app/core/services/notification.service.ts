@@ -9,7 +9,6 @@ import { selectNotificationMessage } from 'src/app/redux/selectors/notification.
   providedIn: 'root',
 })
 export class NotificationService {
-  
   notification$ = this.store.select(selectNotificationMessage);
 
   constructor(private store: Store<State>) {}

@@ -14,7 +14,10 @@ export class ToastComponent implements OnInit {
   isVisible?: boolean;
   notification$?: Observable<string | undefined>;
   error = 'ERROR';
-  constructor(private notificationService: NotificationService, private store:Store<State>) {}
+  constructor(
+    private notificationService: NotificationService,
+    private store: Store<State>
+  ) {}
 
   ngOnInit(): void {
     this.notification$ = this.notificationService.getNotification().pipe(
@@ -23,7 +26,7 @@ export class ToastComponent implements OnInit {
           this.isVisible = true;
           setTimeout(() => {
             this.isVisible = false;
-            this.store.dispatch(deleteNotification())
+            this.store.dispatch(deleteNotification());
           }, 5000);
         }
       })

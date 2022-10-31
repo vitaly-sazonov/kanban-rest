@@ -12,13 +12,11 @@ import { StateUser } from './user.reducer';
 
 export interface State {
   notification?: StateNotification;
-  confirmation?:StateConfirm;
+  confirmation?: StateConfirm;
   userState?: StateUser;
 }
 
-export const reducers: ActionReducerMap<State> = {
-   
-};
+export const reducers: ActionReducerMap<State> = {};
 
 export const metaReducers: MetaReducer<State>[] = !environment.production
   ? []

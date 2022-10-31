@@ -7,7 +7,12 @@ import { SharedModule } from '../shared/shared.module';
 import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
-  declarations: [FooterComponent, HeaderComponent, ModalComponent, ToastComponent],
+  declarations: [
+    FooterComponent,
+    HeaderComponent,
+    ModalComponent,
+    ToastComponent,
+  ],
   imports: [CommonModule, SharedModule],
   exports: [FooterComponent, HeaderComponent, ModalComponent, ToastComponent],
 })

@@ -1,5 +1,8 @@
-<div class="toast-container" [class.visible]="isVisible"   [class.invisible]="!isVisible">
+<div
+  class="toast-container"
+  [class.visible]="isVisible"
+  [class.invisible]="!isVisible">
   <p class="toast-notification">
-    {{ error | translate }} {{notification$ | async }}
+    {{ error | translate }} {{ notification$ | async }}
   </p>
 </div>
