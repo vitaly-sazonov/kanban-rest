@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
 import { deleteNotification } from 'src/app/redux/actions/notification.actions';
-import { State } from 'src/app/redux/reducers';
 import { NotificationService } from '../../services/notification.service';
 
 @Component({
@@ -16,7 +15,7 @@ export class ToastComponent implements OnInit {
   error = 'ERROR';
   constructor(
     private notificationService: NotificationService,
-    private store: Store<State>
+    private store: Store
   ) {}
 
   ngOnInit(): void {

@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { State } from '.';
+import { State } from '..';
 import {
   addNotification,
   deleteNotification,

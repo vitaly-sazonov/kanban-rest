@@ -1,16 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
-import { State } from '.';
+import { State } from '..';
 import {
   addConfirmMessage,
   addConfirmResult,
   deleteConfirmMessage,
   deleteConfirmResult,
 } from '../actions/confirm.actions';
-import {
-  addNotification,
-  deleteNotification,
-} from '../actions/notification.actions';
-
 export interface StateConfirm {
   message: string;
   result: boolean | null;

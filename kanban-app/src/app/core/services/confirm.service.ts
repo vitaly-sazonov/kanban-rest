@@ -5,7 +5,6 @@ import {
   addConfirmMessage,
   addConfirmResult,
 } from 'src/app/redux/actions/confirm.actions';
-import { State } from 'src/app/redux/reducers';
 import {
   selectConfirmationMessage,
   selectConfirmationResult,
@@ -17,7 +16,7 @@ import {
 export class ConfirmService {
   confirmInfo$ = this.store.select(selectConfirmationMessage);
   confirmResult$ = this.store.select(selectConfirmationResult);
-  constructor(private store: Store<State>) {}
+  constructor(private store: Store) {}
 
   setConfirmInfo(info: string) {
     this.store.dispatch(addConfirmMessage({ message: info }));

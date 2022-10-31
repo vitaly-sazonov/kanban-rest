@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { State } from '../reducers';
+import { State } from '..';
 
 export const selectNotification = createFeatureSelector<State>('notifications');
 
