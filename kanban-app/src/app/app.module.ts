@@ -1,11 +1,6 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {
-  HttpClient,
-  HttpClientModule,
-  HTTP_INTERCEPTORS,
-} from '@angular/common/http';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
@@ -18,9 +13,13 @@ import { MainModule } from './pages/main/main.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { EffectsModule } from '@ngrx/effects';
 import { userReducer } from './redux/reducers/user.reducer';
 import { UserEffect } from './redux/effects/user.effect';
+import { EffectsModule } from '@ngrx/effects';
+import { NotificationEffect } from './redux/effects/notification.effect';
+import { notificationReducer } from './redux/reducers/notification.reducer';
+import { confirmationReducer } from './redux/reducers/confirm.reducer';
+import { ConfirmationEffect } from './redux/effects/confirm.effect';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -38,12 +37,19 @@ export function setupTranslateServiceFactory(
     CoreModule,
     WelcomeModule,
     MainModule,
-    StoreModule.forRoot({ users: userReducer }, {}),
+    StoreModule.forRoot(
+      {
+        users: userReducer,
+        notifications: notificationReducer,
+        confirmations: confirmationReducer,
+      },
+      {}
+    ),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([UserEffect]),
+    EffectsModule.forRoot([UserEffect, NotificationEffect, ConfirmationEffect]),
   ],
   providers: [
     TranslateService,
