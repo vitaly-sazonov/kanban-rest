@@ -23,3 +23,20 @@ export interface ErrorResponse {
 export interface LoginResponse {
   token: string;
 }
+
+export interface Board {
+  id: number | string;
+  title: string;
+  columns?: Column[];
+}
+
+export interface Column {
+  id: number | string;
+  title: string;
+  tasks?: Task[];
+}
+
+export interface Task{
+  id: number|string;
+  title: string;
+}

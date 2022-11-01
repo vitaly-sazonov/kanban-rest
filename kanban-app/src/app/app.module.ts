@@ -21,6 +21,7 @@ import { notificationReducer } from './redux/reducers/notification.reducer';
 import { confirmationReducer } from './redux/reducers/confirm.reducer';
 import { ConfirmationEffect } from './redux/effects/confirm.effect';
 import { modalReducer } from './redux/reducers/modal.reducer';
+import { boardsReducer } from './redux/reducers/boards.reducers';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -44,6 +45,7 @@ export function setupTranslateServiceFactory(
         modals: modalReducer,
         notifications: notificationReducer,
         confirmations: confirmationReducer,
+        boards:boardsReducer,
       },
       {}
     ),

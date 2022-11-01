@@ -26,7 +26,14 @@ export enum ConfirmActions {
 }
 export enum ModalActions{
   SetType='[Modal] Set Type',
-  SetVisibility='[Modal] Set Visibility'
+  SetVisibility='[Modal] Set Visibility',
+}
+
+export enum BoardsActions{
+  AddBoard ='[Boards] Add Board',
+  DeleteBoardById='[Boards] Delete Board By ID',
+  LoadBoards='[Boards] Load Boards',
+  LoadBoardById='[Boards] Load Board By ID'
 }
 
 export enum ModalTypes{

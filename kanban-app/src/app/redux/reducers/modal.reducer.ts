@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { ModalActions, ModalTypes } from 'src/app/enums';
+import {  ModalTypes } from 'src/app/enums';
 import { State } from '..';
 import { setType, setVisibility } from '../actions/modal.actions';
 
