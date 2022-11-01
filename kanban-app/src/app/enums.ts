@@ -27,3 +27,15 @@ export enum PasswordValidatorSymbols {
   minLength = 'minlength',
   symbol = '*@!#%&()^~{}',
 }
+
+export enum NotificationActions {
+  AddNotification = '[Notification] Add Notification',
+  DeleteNotification = '[Notification] Delete Notification',
+}
+
+export enum ConfirmActions {
+  AddConfirmMessage = '[Confirmation] Add Confirm Message',
+  DeleteConfirmMessage = '[Confirmation] Delete Confirm Message',
+  AddConfirmResult = '[Confirmation] Add Confirm Result',
+  DeleteConfirmResult = '[Confirmation] Delete Confirm Result',
+}

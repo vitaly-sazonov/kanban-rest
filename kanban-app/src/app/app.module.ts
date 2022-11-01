@@ -11,13 +11,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { userReducer } from './redux/reducers/user.reducer';
 import { UserEffect } from './redux/effects/user.effect';
 
 import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
@@ -28,6 +26,12 @@ import { MainModule } from './pages/main/main.module';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { NotificationEffect } from './redux/effects/notification.effect';
+import { notificationReducer } from './redux/reducers/notification.reducer';
+import { confirmationReducer } from './redux/reducers/confirm.reducer';
+import { ConfirmationEffect } from './redux/effects/confirm.effect';
+import { userReducer } from './redux/reducers/user.reducer';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -52,13 +56,20 @@ export function HttpLoaderFactory(http: HttpClient) {
     CoreModule,
     WelcomeModule,
     MainModule,
-    StoreModule.forRoot({ users: userReducer }, {}),
+    StoreModule.forRoot(
+      {
+        users: userReducer,
+        notifications: notificationReducer,
+        confirmations: confirmationReducer,
+      },
+      {}
+    ),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([UserEffect]),
     BrowserAnimationsModule,
+    EffectsModule.forRoot([UserEffect, NotificationEffect, ConfirmationEffect]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true },

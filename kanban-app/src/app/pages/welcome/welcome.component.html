@@ -5,3 +5,10 @@ LOADING>>>>>>>{{ isLoading$ | async }}
 <button (click)="logUser()">logUser</button>
 
 <router-outlet></router-outlet>
+
+<!--This is for testing ConfirmService, NotificationService, modal component and notification toast-->
+<p></p>
+<button (click)="callModal('SAMPLE_CONFIRM_INFO')">Call modal window</button>
+<p>Modal window result: {{ userResult | async }}</p>
+<button (click)="emitNotification('Something went wrong!')">Emit error</button>
+<!--Then it should be deleted-->

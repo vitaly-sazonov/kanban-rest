@@ -2,6 +2,10 @@
   "Welcome to": "Добро пожаловать в ",
   "HELLO": "Привет {{value}}",
   "TITLE": "Мое приложение (ru)",
+  "AGREE": "Согласен",
+  "CANCEL": "Отмена",
+  "SAMPLE_CONFIRM_INFO": "Вы согласны?",
+  "ERROR": "Ошибка: ",
   "Eng": {
     "cat": "МЯУ",
     "dog": "ГАФ"

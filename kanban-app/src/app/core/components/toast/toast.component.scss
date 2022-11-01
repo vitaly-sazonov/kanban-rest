@@ -1,0 +1,24 @@
+@import '../../../colors.scss';
+
+.toast-container {
+  position: absolute;
+  left: 50%;
+  transform: translate(0, -50%);
+  width: 300px;
+  min-height: 100px;
+  height:fit-content;
+  word-wrap: break-word;
+  padding: 10px;
+  background-color: $toastBackgroundColor;
+}
+.toast-notification {
+  color: $toastTextColor;
+}
+.invisible {
+  transform: translateY(-100vh);
+  transition: 1s;
+}
+.visible {
+  transform: translateY(0vh);
+  transition: 1s;
+}

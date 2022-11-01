@@ -1,0 +1,34 @@
+@import '../../../colors.scss';
+
+.modal-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: $modalBackgroundColor;
+}
+.modal-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  height: 50vh;
+  background-color: $modalWindowColor;
+  border-radius: 10px;
+}
+.invisible{
+  opacity:0;
+  visibility: hidden;
+  transition: 1s;
+}
+.visible{
+  opacity:1;
+  visibility: visible;
+  transition: 1s;
+}
