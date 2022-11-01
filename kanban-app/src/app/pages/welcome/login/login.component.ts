@@ -3,13 +3,12 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-// import { PasswordValidatorSymbols } from 'src/app/constants';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { PasswordValidatorSymbols, RouterStateValue } from 'src/app/enums';
 import { UserLogin } from 'src/app/interfaces';
-import { loginUser } from 'src/app/redux/actions/user.actions';
 import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
+import { passwordValidator } from '../password-validator';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +23,7 @@ export class LoginComponent implements OnDestroy {
     password: new FormControl('', [
       Validators.minLength(8),
       Validators.required,
-      this.passwordValidator,
+      passwordValidator,
     ]),
   });
   PasswordValidatorSymbols = PasswordValidatorSymbols;
@@ -39,18 +38,11 @@ export class LoginComponent implements OnDestroy {
   constructor(
     private authService: AuthService,
     private store: Store,
-    private router: Router // private spinnerService: SpinnerService
+    private router: Router
   ) {}
 
   logIn(user: UserLogin) {
-    this.authService
-      .login(user)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(x => {
-        if (x) this.store.dispatch(loginUser({ user: x }));
-        this.router.navigate([RouterStateValue.main]);
-        // this.spinnerService.requestEnded(SpinnerStateName.login);
-      });
+    this.authService.login(user).pipe(takeUntil(this.unsubscribe$)).subscribe();
   }
 
   logOut() {
@@ -61,30 +53,15 @@ export class LoginComponent implements OnDestroy {
     const userName = this.login.value.password;
     const password = this.login.value.password;
     if (userName && password)
-      // this.spinnerService.requestStarted(SpinnerStateName.login);
       this.logIn({ password: password, login: userName });
+  }
+
+  goToRegistration() {
+    this.router.navigate([RouterStateValue.registration]);
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next(0);
     this.unsubscribe$.complete();
-  }
-
-  passwordValidator(control: FormControl): { [s: string]: boolean } | null {
-    const upperCase = new RegExp('[A-Z]');
-    const lowerCase = new RegExp('[a-z]');
-    const numbers = new RegExp('[0-9]');
-    const special = new RegExp('[*@!#%&()^~{}]');
-    let obj: { [s: string]: boolean } = {};
-    if (!control.value.match(upperCase))
-      obj[PasswordValidatorSymbols.upperCase] = true;
-    if (!control.value.match(lowerCase))
-      obj[PasswordValidatorSymbols.lowerCase] = true;
-    if (!control.value.match(numbers))
-      obj[PasswordValidatorSymbols.numbers] = true;
-    if (!control.value.match(special))
-      obj[PasswordValidatorSymbols.special] = true;
-    if (Object.keys(obj).length === 0) return null;
-    return obj;
   }
 }

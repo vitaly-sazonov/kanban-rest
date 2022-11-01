@@ -1,9 +1,11 @@
-<h1>{{ 'Welcome to' | translate }} {{ title | translate }}!</h1>
-<h1>{{ 'Eng.cat' | translate }}</h1>
-{{ (user$ | async)?.name }}
-LOADING>>>>>>>{{ isLoading$ | async }}
-<button (click)="logUser()">logUser</button>
-
+<div class="buttons">
+  <a routerLink="/login" routerLinkActive="active"
+    ><button mat-stroked-button color="primary">Login</button></a
+  >
+  <a a routerLink="/registration" routerLinkActive="active"
+    ><button mat-stroked-button color="primary">Registration</button></a
+  >
+</div>
 <router-outlet></router-outlet>
 
 <!--This is for testing ConfirmService, NotificationService, modal component and notification toast-->

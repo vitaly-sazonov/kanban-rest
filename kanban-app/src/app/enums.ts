@@ -7,6 +7,11 @@ export enum QUERY_PARAMS_FIRST {
   logs = '/logs',
 }
 
+export enum Language {
+  En = 'en',
+  Ru = 'ru',
+}
+
 export enum QUERY_PARAMS_SECOND {
   columns = '/columns',
   error = '/error',
@@ -26,6 +31,8 @@ export enum PasswordValidatorSymbols {
   special = 'special',
   minLength = 'minlength',
   symbol = '*@!#%&()^~{}',
+  required = 'required',
+  email = 'email',
 }
 
 export enum NotificationActions {
