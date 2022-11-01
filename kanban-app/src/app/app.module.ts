@@ -20,6 +20,7 @@ import { NotificationEffect } from './redux/effects/notification.effect';
 import { notificationReducer } from './redux/reducers/notification.reducer';
 import { confirmationReducer } from './redux/reducers/confirm.reducer';
 import { ConfirmationEffect } from './redux/effects/confirm.effect';
+import { modalReducer } from './redux/reducers/modal.reducer';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -40,6 +41,7 @@ export function setupTranslateServiceFactory(
     StoreModule.forRoot(
       {
         users: userReducer,
+        modals: modalReducer,
         notifications: notificationReducer,
         confirmations: confirmationReducer,
       },

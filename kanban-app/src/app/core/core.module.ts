@@ -5,6 +5,8 @@ import { HeaderComponent } from './header/header.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { SharedModule } from '../shared/shared.module';
 import { ToastComponent } from './components/toast/toast.component';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { FormModalComponent } from './components/form-modal/form-modal.component';
 
 @NgModule({
   declarations: [
@@ -12,6 +14,8 @@ import { ToastComponent } from './components/toast/toast.component';
     HeaderComponent,
     ModalComponent,
     ToastComponent,
+    ConfirmModalComponent,
+    FormModalComponent,
   ],
   imports: [CommonModule, SharedModule],
   exports: [FooterComponent, HeaderComponent, ModalComponent, ToastComponent],

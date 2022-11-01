@@ -24,3 +24,12 @@ export enum ConfirmActions {
   AddConfirmResult = '[Confirmation] Add Confirm Result',
   DeleteConfirmResult = '[Confirmation] Delete Confirm Result',
 }
+export enum ModalActions{
+  SetType='[Modal] Set Type',
+  SetVisibility='[Modal] Set Visibility'
+}
+
+export enum ModalTypes{
+  ConfirmType,
+  FormType
+}
