@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { LocalstorageService } from '../core/services/localstorage.service';
 
 @Injectable()
@@ -17,12 +17,16 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     const authToken = this.localstorageService.getToken();
-    if (authToken) {
-      const authReq = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${authToken}`),
-      });
-      return next.handle(authReq);
-    }
-    return next.handle(request);
+
+    return authToken
+      ? next.handle(
+          request.clone({
+            headers: request.headers.set(
+              'Authorization',
+              `Bearer ${authToken}`
+            ),
+          })
+        )
+      : next.handle(request);
   }
 }

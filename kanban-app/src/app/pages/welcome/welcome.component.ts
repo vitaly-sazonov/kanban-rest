@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectFeatureUser } from 'src/app/redux/selectors/user.selectors';
+import {
+  selectFeatureIsLoading,
+  selectFeatureUser,
+} from 'src/app/redux/selectors/user.selectors';
 import { loginUser } from 'src/app/redux/actions/user.actions';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ConfirmService } from 'src/app/core/services/confirm.service';
@@ -14,8 +17,9 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 })
 export class WelcomeComponent implements OnInit {
   userResult?: Observable<boolean | null | undefined>; // it is for testing the modal window,then it should be deleted
-  title = 'TITLE';
   user$ = this.store.select(selectFeatureUser);
+  isLoading$ = this.store.select(selectFeatureIsLoading);
+
   constructor(
     private authService: AuthService,
     private store: Store,

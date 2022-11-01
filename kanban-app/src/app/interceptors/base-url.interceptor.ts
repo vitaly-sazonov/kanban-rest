@@ -16,7 +16,18 @@ export class BaseUrlInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    if (request.url.split('/').includes('i18n')) return next.handle(request);
+    if (request.url.split('/').includes('i18n')) {
+      // return next.handle(
+      //   request.clone({
+      //     url: request.url
+      //       .split('/')
+      //       .map(x => (x === 'assets' ? 'project-management-app/assets' : x))
+      //       .join('/'),
+      //   })
+      // );
+
+      return next.handle(request);
+    }
     return next.handle(request.clone({ url: APP_URL + request.url }));
   }
 }
