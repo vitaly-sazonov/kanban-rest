@@ -17,7 +17,6 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 })
 export class WelcomeComponent implements OnInit {
   userResult?: Observable<boolean | null | undefined>; // it is for testing the modal window,then it should be deleted
-  title = 'TITLE';
   user$ = this.store.select(selectFeatureUser);
   isLoading$ = this.store.select(selectFeatureIsLoading);
 
