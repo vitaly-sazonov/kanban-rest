@@ -1,0 +1,8 @@
+.boards-container{
+    display: flex;
+    width:fit-content;
+    height: auto;
+    min-height: 300px;
+    overflow-x: auto;
+    gap:20px;
+}

@@ -1,0 +1,6 @@
+<div class="board-container">
+  <p>ID: {{ board?.id }}</p>
+  <p>TITLE: {{ board?.title }}</p>
+  <p>DESCRIPTION: {{ board?.description }}</p>
+  <button (click)="deleteBoard(board?.id!)">DELETE</button>
+</div>

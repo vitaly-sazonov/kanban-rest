@@ -22,6 +22,7 @@ import { confirmationReducer } from './redux/reducers/confirm.reducer';
 import { ConfirmationEffect } from './redux/effects/confirm.effect';
 import { modalReducer } from './redux/reducers/modal.reducer';
 import { boardsReducer } from './redux/reducers/boards.reducers';
+import { BoardsEffect } from './redux/effects/boards.effects';
 
 export function setupTranslateServiceFactory(
   service: TranslateService
@@ -53,7 +54,7 @@ export function setupTranslateServiceFactory(
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([UserEffect, NotificationEffect, ConfirmationEffect]),
+    EffectsModule.forRoot([UserEffect, NotificationEffect, ConfirmationEffect, BoardsEffect]),
   ],
   providers: [
     TranslateService,

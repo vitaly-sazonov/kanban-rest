@@ -1,1 +1,10 @@
-<p>form-modal works!</p>
+<form [formGroup]="createBoardForm" novalidate (ngSubmit)="submit()">
+    <div class="form-group">
+        <h3>Create Board</h3>
+        <label for title>Title</label>
+        <input class="form-control" name="title" formControlName="title" />
+        <label for description>Descriptiom</label>
+        <input class="form-control" name="description" formControlName="description" />
+        <button type="submit" >Create</button>
+    </div>
+</form>  

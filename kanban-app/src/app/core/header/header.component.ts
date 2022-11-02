@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from 'src/app/core/services/translate.service';
 import { ModalTypes } from 'src/app/enums';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
-import { ConfirmService } from '../services/confirm.service';
+import { selectFeatureUserLoggedIn } from 'src/app/redux/selectors/user.selectors';
 import { ModalService } from '../services/modal.service';
 
 @Component({
@@ -14,6 +14,7 @@ import { ModalService } from '../services/modal.service';
 export class HeaderComponent {
 
   createBoard = 'CREATE_BOARD';
+  isUserLogged$= this.store.select(selectFeatureUserLoggedIn)
   constructor(
     private translateService: TranslateService,
     private modalService :ModalService,

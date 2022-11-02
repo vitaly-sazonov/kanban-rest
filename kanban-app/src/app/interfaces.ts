@@ -25,18 +25,29 @@ export interface LoginResponse {
 }
 
 export interface Board {
-  id: number | string;
+  id?: string;
   title: string;
+  description: string;
   columns?: Column[];
 }
 
 export interface Column {
-  id: number | string;
+  id?: string;
   title: string;
+  order?: number;
   tasks?: Task[];
 }
 
-export interface Task{
-  id: number|string;
+export interface Task {
+  id?: number | string;
   title: string;
+  order?: number;
+  userId?: string;
+  description?: string;
+  files?: File[];
+}
+
+export interface File {
+  filename: string;
+  fileSize: number;
 }

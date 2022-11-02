@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { tap } from 'rxjs';
+import { HttpService } from 'src/app/core/services/http.service';
+import { loadBoards } from 'src/app/redux/actions/boards.actions';
+import {  selectUserBoards } from 'src/app/redux/selectors/boards.selectors';
 
 @Component({
   selector: 'app-main',
@@ -6,7 +11,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  constructor() {}
+  boards$  = this.store.select(selectUserBoards);
+  constructor(private store: Store, private http:HttpService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.dispatch(loadBoards());
+    
+  }
 }

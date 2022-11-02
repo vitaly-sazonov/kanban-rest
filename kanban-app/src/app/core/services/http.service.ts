@@ -20,8 +20,16 @@ export class HttpService {
     private notification: NotificationService
   ) {}
 
-  getBoards():Observable<any> {
+  getBoards(): Observable<any> {
     return this.http.get(QUERY_PARAMS_FIRST.boards);
+  }
+
+  addBoard(board: Board) {
+    return this.http.post(QUERY_PARAMS_FIRST.boards, board);
+  }
+
+  deleteBoard(id?: string) {
+    return this.http.delete(QUERY_PARAMS_FIRST.boards + `/${id}`);
   }
 
   signIn(user: UserLogin) {

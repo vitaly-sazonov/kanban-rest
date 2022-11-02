@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ToastComponent } from './components/toast/toast.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { FormModalComponent } from './components/form-modal/form-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { FormModalComponent } from './components/form-modal/form-modal.component
     ConfirmModalComponent,
     FormModalComponent,
   ],
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, SharedModule,FormsModule, ReactiveFormsModule],
   exports: [FooterComponent, HeaderComponent, ModalComponent, ToastComponent],
 })
 export class CoreModule {}
