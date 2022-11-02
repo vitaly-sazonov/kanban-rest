@@ -11,3 +11,8 @@ export const selectFeatureUserLoggedIn = createSelector(
   selectUser,
   (state: StateStore) => state.userState.userLoggedIn
 );
+
+export const selectFeatureIsLoading = createSelector(
+  selectUser,
+  (state: StateStore) => state.isLoading
+);

@@ -1,21 +1,32 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { UserEffect } from './redux/effects/user.effect';
+
+import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { SpinnerInterceptor } from './interceptors/spinner.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
-import { TranslateService } from './core/services/translate.service';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { WelcomeModule } from './pages/welcome/welcome.module';
 import { MainModule } from './pages/main/main.module';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { environment } from '../environments/environment';
-import { userReducer } from './redux/reducers/user.reducer';
-import { UserEffect } from './redux/effects/user.effect';
-import { EffectsModule } from '@ngrx/effects';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { NotificationEffect } from './redux/effects/notification.effect';
 import { notificationReducer } from './redux/reducers/notification.reducer';
 import { confirmationReducer } from './redux/reducers/confirm.reducer';
@@ -23,17 +34,25 @@ import { ConfirmationEffect } from './redux/effects/confirm.effect';
 import { modalReducer } from './redux/reducers/modal.reducer';
 import { boardsReducer } from './redux/reducers/boards.reducers';
 import { BoardsEffect } from './redux/effects/boards.effects';
+import { userReducer } from './redux/reducers/user.reducer';
 
-export function setupTranslateServiceFactory(
-  service: TranslateService
-): Function {
-  return () => service.use('en');
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
@@ -54,18 +73,15 @@ export function setupTranslateServiceFactory(
       maxAge: 25,
       logOnly: environment.production,
     }),
+
+    BrowserAnimationsModule,
     EffectsModule.forRoot([UserEffect, NotificationEffect, ConfirmationEffect, BoardsEffect]),
+
   ],
   providers: [
-    TranslateService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: setupTranslateServiceFactory,
-      deps: [TranslateService],
-      multi: true,
-    },
     { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

@@ -7,10 +7,32 @@ export enum QUERY_PARAMS_FIRST {
   logs = '/logs',
 }
 
+export enum Language {
+  En = 'en',
+  Ru = 'ru',
+}
+
 export enum QUERY_PARAMS_SECOND {
   columns = '/columns',
   error = '/error',
   info = '/info',
+}
+
+export enum RouterStateValue {
+  main = 'main',
+  registration = 'registration',
+  login = 'login',
+}
+
+export enum PasswordValidatorSymbols {
+  upperCase = 'uppercase',
+  lowerCase = 'lowercase',
+  numbers = 'numbers',
+  special = 'special',
+  minLength = 'minlength',
+  symbol = '*@!#%&()^~{}',
+  required = 'required',
+  email = 'email',
 }
 
 export enum NotificationActions {

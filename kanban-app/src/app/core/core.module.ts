@@ -2,23 +2,28 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { ModalComponent } from './components/modal/modal.component';
 import { SharedModule } from '../shared/shared.module';
-import { ToastComponent } from './components/toast/toast.component';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalComponent } from './components/modal/modal.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { FormModalComponent } from './components/form-modal/form-modal.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
-  declarations: [
-    FooterComponent,
-    HeaderComponent,
-    ModalComponent,
-    ToastComponent,
-    ConfirmModalComponent,
-    FormModalComponent,
+  declarations: [FooterComponent, HeaderComponent,ConfirmModalComponent,
+    FormModalComponent,ModalComponent,ToastComponent],
+  imports: [
+    CommonModule,
+    
+    MatButtonModule,
+    MatButtonToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    
   ],
-  imports: [CommonModule, SharedModule,FormsModule, ReactiveFormsModule],
-  exports: [FooterComponent, HeaderComponent, ModalComponent, ToastComponent],
+  exports: [FooterComponent, HeaderComponent,ModalComponent,ToastComponent],
 })
 export class CoreModule {}

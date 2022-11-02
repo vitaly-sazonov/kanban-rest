@@ -1,15 +1,40 @@
 {
+  "auth": {
+    "EnterPassword":"Enter password",
+    "Password": "Password",
+    "Registration": "Registration",
+    "EnterEmail": "Enter email",
+    "EnterLogin": "Enter login",
+    "Login": "Login",
+    "Name": "Name",
+    "EmailError": {
+      "invalid": "The email is invalid.",
+      "required": "Please enter a email."
+    },
+    "LoginError": {
+      "minLength": "The login is invalid. Add at least 7 characters.",
+      "required": "Please enter a login."
+    },
+    "PasswordError": {
+      "strong": "Your password isn't strong enough.",
+      "minLength": "Add at least 8 characters.",
+      "uppercase": "Add letter in uppercase.",
+      "lowercase": "Add letter in lowercase.",
+      "number": "Add number.",
+      "symbol": "Add special symbol "
+    }
+  },
   "Welcome to": "Welcome to",
   "HELLO": "hello {{value}}",
   "TITLE": "My application (en)",
   "AGREE": "Agree",
   "CANCEL": "Cancel",
   "SAMPLE_CONFIRM_INFO": "Are you agree?",
-  "ERROR":"Error: ",
   "CREATE_BOARD": "Create board",
+  "ERROR": "Error: ",
+
   "Eng": {
     "cat": "meou",
     "dog": "second"
   }
-
 }

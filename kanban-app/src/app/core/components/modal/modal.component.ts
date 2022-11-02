@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
 import { ModalTypes } from 'src/app/enums';
 import { addConfirmResult } from 'src/app/redux/actions/confirm.actions';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
-import { selectModalVisibility } from 'src/app/redux/selectors/modal.selectors';
-import { ConfirmService } from '../../services/confirm.service';
+import { selectModalVisibility } from 'src/app/redux/selectors/modal.selectors';;
 import { ModalService } from '../../services/modal.service';
 
 @Component({

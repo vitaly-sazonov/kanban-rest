@@ -1,0 +1,79 @@
+<form [formGroup]="login" (ngSubmit)="onSubmit()" class="form">
+  <h2>{{ 'auth.Login' | translate }}</h2>
+  <p>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>{{ 'auth.Name' | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="userName"
+        [placeholder]="'auth.EnterEmail' | translate" />
+      <mat-error
+        *ngIf="
+          _user?.hasError(PasswordValidatorSymbols.required) && _user?.touched
+        ">
+        {{ 'auth.EmailError.required' | translate }}
+      </mat-error>
+      <mat-error *ngIf="_user?.hasError(PasswordValidatorSymbols.email)">
+        {{ 'auth.EmailError.invalid' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>{{ 'auth.Password' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        type="password"
+        [placeholder]="'auth.EnterPassword' | translate" />
+      <mat-error *ngIf="_password?.dirty && _password?.invalid" class="error">
+        <mat-error>{{ 'auth.PasswordError.strong' | translate }}</mat-error>
+        <mat-error
+          *ngIf="_password?.errors?.[PasswordValidatorSymbols.minLength]">
+          {{ 'auth.PasswordError.minLength' | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="_password?.errors?.[PasswordValidatorSymbols.upperCase]">
+          {{ 'auth.PasswordError.uppercase' | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="_password?.errors?.[PasswordValidatorSymbols.lowerCase]">
+          {{ 'auth.PasswordError.lowercase' | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="_password?.errors?.[PasswordValidatorSymbols.numbers]">
+          {{ 'auth.PasswordError.number' | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="_password?.errors?.[PasswordValidatorSymbols.special]">
+          {{ 'auth.PasswordError.symbol' | translate }}
+          ({{ PasswordValidatorSymbols.symbol }})
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+  </p>
+  <div class="buttons">
+    <mat-spinner
+      diameter="20"
+      color="primary"
+      *ngIf="isLoading$ | async"></mat-spinner>
+    <button
+      mat-raised-button
+      color="accent"
+      color="primary"
+      type="submit"
+      [disabled]="!login.valid || (isLoading$ | async)">
+      {{ 'auth.Login' | translate }}
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="goToRegistration()"
+      type="submit"
+      [disabled]="isLoading$ | async">
+      {{ 'auth.Registration' | translate }}
+    </button>
+  </div>
+</form>

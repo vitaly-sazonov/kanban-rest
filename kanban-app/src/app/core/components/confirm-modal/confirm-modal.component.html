@@ -1,14 +1,14 @@
 <div class="confirmation-info-block">
-    <p class="confirmation-info">{{ (info$ | async)! | translate }}</p>
+    <p class="confirmation-info">{{ (info$ | async)!  }}</p>
   </div>
   <div class="confirmation-buttons-block">
     <button
       class="button-agree"
       (click)="setResult(true)">
-      {{ buttonAgree | translate }}
+      {{ buttonAgree  }}
     </button>
     <button
       class="buttton-cancel"
       (click)="setResult(false)">
-      {{ buttonCancel | translate }}
+      {{ buttonCancel  }}
     </button>
