@@ -17,6 +17,7 @@ export class BaseUrlInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     if (request.url.split('/').includes('i18n')) {
+      //uncomment this for deploy
       // return next.handle(
       //   request.clone({
       //     url: request.url
