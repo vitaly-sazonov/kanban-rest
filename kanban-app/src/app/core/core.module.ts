@@ -6,10 +6,12 @@ import { SharedModule } from '../shared/shared.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [FooterComponent, HeaderComponent],
   imports: [
+    TranslateModule,
     CommonModule,
     SharedModule,
     MatButtonModule,

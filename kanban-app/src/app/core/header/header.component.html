@@ -10,4 +10,17 @@
     color="warn">
     Logout
   </button>
+
+  <div class="buttons">
+    <a routerLink="/login" routerLinkActive="active"
+      ><button mat-stroked-button color="primary">
+        {{ 'auth.Login' | translate }}
+      </button></a
+    >
+    <a a routerLink="/registration" routerLinkActive="active"
+      ><button mat-stroked-button color="primary">
+        {{ 'auth.Registration' | translate }}
+      </button></a
+    >
+  </div>
 </div>
