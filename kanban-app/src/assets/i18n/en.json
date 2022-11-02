@@ -1,6 +1,6 @@
 {
   "auth": {
-    "EnterPassword":"Enter password",
+    "EnterPassword": "Enter password",
     "Password": "Password",
     "Registration": "Registration",
     "EnterEmail": "Enter email",
@@ -36,5 +36,13 @@
   "Eng": {
     "cat": "meou",
     "dog": "second"
-  }
+  },
+
+  "formModal": {
+    "formTitle": "Create Board",
+    "title": "Title",
+    "description": "Description",
+    "button": "Create"
+  },
+  "CONFIRM_DELETE": "DO YOU WANT TO DELETE THIS BOARD?"
 }

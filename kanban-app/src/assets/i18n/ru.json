@@ -35,5 +35,12 @@
   "Eng": {
     "cat": "МЯУ",
     "dog": "ГАФ"
-  }
+  },
+  "formModal":{
+    "formTitle": "Создать Доску",
+    "title":"Название",
+    "description":"Описание",
+    "button":"Создать"
+      },
+      "CONFIRM_DELETE": "ВЫ ХОТОТЕ УДАЛИТЬ ЭТУ ДОСКУ?"
 }

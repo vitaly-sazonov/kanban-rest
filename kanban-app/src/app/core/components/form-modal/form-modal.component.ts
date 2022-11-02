@@ -14,6 +14,7 @@ import { HttpService } from '../../services/http.service';
 export class FormModalComponent implements OnInit {
   createBoardForm: FormGroup;
   board?: Board;
+ 
   constructor(private store: Store, private http:HttpService) {
     this.createBoardForm = new FormGroup({
       title: new FormControl('', Validators.required),

@@ -1,10 +1,10 @@
 <form [formGroup]="createBoardForm" novalidate (ngSubmit)="submit()">
     <div class="form-group">
-        <h3>Create Board</h3>
-        <label for title>Title</label>
+        <h3>{{'formModal.formTitle' | translate}}</h3>
+        <label for title>{{'formModal.title' | translate}}</label>
         <input class="form-control" name="title" formControlName="title" />
-        <label for description>Descriptiom</label>
+        <label for description>{{'formModal.description' | translate}}</label>
         <input class="form-control" name="description" formControlName="description" />
-        <button type="submit" >Create</button>
+        <button type="submit" >{{'formModal.button' | translate}}</button>
     </div>
 </form>  

@@ -1,6 +1,8 @@
 <h1>Boards</h1>
-<div class="boards-container" *ngIf="boards$ | async as boards; else noBoards">
-  <app-board *ngFor="let item of boards" [board]="item"></app-board>
+<div
+  class="boards-container"
+  *ngIf="(boards$ | async)!.length > 0; else noBoards">
+  <app-board *ngFor="let item of boards$|async" [board]="item"></app-board>
 </div>
 <ng-template #noBoards>
   <h2>No Boards</h2>

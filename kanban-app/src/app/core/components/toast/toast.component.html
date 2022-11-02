@@ -3,6 +3,6 @@
   [class.visible]="isVisible"
   [class.invisible]="!isVisible">
   <p class="toast-notification">
-    {{ error  }} {{ notification$ | async }}
+    {{ error | translate  }} {{ notification$ | async }}
   </p>
 </div>
