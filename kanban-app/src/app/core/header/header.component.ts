@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { filter, pipe, Subject, take, takeUntil, tap } from 'rxjs';
+import { filter, fromEvent, pipe, Subject, take, takeUntil, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { Language } from 'src/app/enums';
 import {
@@ -18,11 +18,13 @@ import { ConfirmService } from '../services/confirm.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  headerFixed = false;
   language = new FormControl(Language.En, { nonNullable: true });
   loginStatus$ = this.store.select(selectFeatureUserLoggedIn);
   userId = '';
   unsubscribe$ = new Subject();
   deleteMessage = '';
+
   constructor(
     private translateService: TranslateService,
     private store: Store,
@@ -32,6 +34,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    fromEvent(window, 'scroll')
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        if (window.scrollY > 0) {
+          this.headerFixed = true;
+        } else {
+          this.headerFixed = false;
+        }
+      });
     this.language.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(x => this.setLang(x));

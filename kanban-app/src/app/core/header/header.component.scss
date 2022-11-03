@@ -6,3 +6,18 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+.fixed {
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  transition: 0.2s linear;
+  background-color: #3f51b5;
+}
+
+.nofixed {
+  position: absolute;
+  z-index: 10;
+  transition: 0.2s linear;
+  background-color: #ff4081;
+}

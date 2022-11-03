@@ -1,4 +1,4 @@
-<mat-toolbar color="accent" class="header">
+<mat-toolbar color="accent" [ngClass]="headerFixed ? 'fixed' : 'nofixed'">
   <mat-button-toggle-group [formControl]="language">
     <mat-button-toggle value="ru" color="primary">RU</mat-button-toggle>
     <mat-button-toggle mat-mini-fab value="en">EN</mat-button-toggle>
