@@ -31,6 +31,9 @@ import { NotificationEffect } from './redux/effects/notification.effect';
 import { notificationReducer } from './redux/reducers/notification.reducer';
 import { confirmationReducer } from './redux/reducers/confirm.reducer';
 import { ConfirmationEffect } from './redux/effects/confirm.effect';
+import { modalReducer } from './redux/reducers/modal.reducer';
+import { boardsReducer } from './redux/reducers/boards.reducers';
+import { BoardsEffect } from './redux/effects/boards.effects';
 import { userReducer } from './redux/reducers/user.reducer';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -59,8 +62,10 @@ export function createTranslateLoader(http: HttpClient) {
     StoreModule.forRoot(
       {
         users: userReducer,
+        modals: modalReducer,
         notifications: notificationReducer,
         confirmations: confirmationReducer,
+        boards: boardsReducer,
       },
       {}
     ),
@@ -68,8 +73,14 @@ export function createTranslateLoader(http: HttpClient) {
       maxAge: 25,
       logOnly: environment.production,
     }),
+
     BrowserAnimationsModule,
-    EffectsModule.forRoot([UserEffect, NotificationEffect, ConfirmationEffect]),
+    EffectsModule.forRoot([
+      UserEffect,
+      NotificationEffect,
+      ConfirmationEffect,
+      BoardsEffect,
+    ]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true },

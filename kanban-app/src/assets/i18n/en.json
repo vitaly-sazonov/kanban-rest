@@ -1,10 +1,10 @@
 {
   "auth": {
-    "Update":"Update user",
-    "Delete":"Delete user",
-    "Edit":"Edit profile",
-    "Logout":"Logout",
-    "EnterPassword":"Enter password",
+    "Update": "Update user",
+    "Delete": "Delete user",
+    "Edit": "Edit profile",
+    "Logout": "Logout",
+    "EnterPassword": "Enter password",
     "Password": "Password",
     "Registration": "Registration",
     "EnterEmail": "Enter email",
@@ -34,6 +34,14 @@
   "AGREE": "Agree",
   "CANCEL": "Cancel",
   "SAMPLE_CONFIRM_INFO": "Are you agree?",
+  "CREATE_BOARD": "Create board",
   "ERROR": "Error: ",
-  "DeleteUserQuestion":"Are you sure DELETE user?"
+  "DeleteUserQuestion": "Are you sure DELETE user?",
+  "formModal": {
+    "formTitle": "Create Board",
+    "title": "Title",
+    "description": "Description",
+    "button": "Create"
+  },
+  "CONFIRM_DELETE": "DO YOU WANT TO DELETE THIS BOARD?"
 }

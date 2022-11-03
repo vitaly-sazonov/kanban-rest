@@ -6,8 +6,8 @@ import { ModalComponent } from '../core/components/modal/modal.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [ModalComponent, ToastComponent],
+  declarations: [],
   imports: [CommonModule, TranslateModule],
-  exports: [ModalComponent, ToastComponent],
+  exports: [],
 })
 export class SharedModule {}

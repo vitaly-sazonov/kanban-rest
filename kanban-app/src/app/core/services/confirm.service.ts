@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { ModalTypes } from 'src/app/enums';
 import {
   addConfirmMessage,
   addConfirmResult,
 } from 'src/app/redux/actions/confirm.actions';
+import { setType, setVisibility } from 'src/app/redux/actions/modal.actions';
 import {
   selectConfirmationMessage,
   selectConfirmationResult,
@@ -20,6 +22,8 @@ export class ConfirmService {
 
   setConfirmInfo(info: string) {
     this.store.dispatch(addConfirmMessage({ message: info }));
+    this.store.dispatch(setVisibility({isVisible:true}));
+    this.store.dispatch(setType({modalType:ModalTypes.ConfirmType}))
   }
 
   setConfirmResult(result: boolean | null) {

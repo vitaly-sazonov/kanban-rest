@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import { ModalTypes } from 'src/app/enums';
 import { State } from '..';
 import {
   addConfirmMessage,
@@ -25,6 +26,7 @@ export const confirmationReducer = createReducer(
     (state, { message }): State => ({
       ...state,
       confirmation: { message, result: null },
+      modal:{isVisible:true, modalType:ModalTypes.ConfirmType},
     })
   ),
   on(
@@ -32,6 +34,7 @@ export const confirmationReducer = createReducer(
     (state, {}): State => ({
       ...state,
       confirmation: { message: '', result: null },
+      modal:{isVisible:false},
     })
   ),
   on(
@@ -39,6 +42,7 @@ export const confirmationReducer = createReducer(
     (state, { result }): State => ({
       ...state,
       confirmation: { message: '', result },
+      modal:{isVisible:false},
     })
   ),
   on(

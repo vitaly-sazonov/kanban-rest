@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, of, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { QUERY_PARAMS_FIRST } from 'src/app/enums';
 import {
+  Board,
   GetUserByIdResponse,
   LoginResponse,
   UserLogin,
@@ -19,8 +20,16 @@ export class HttpService {
     private notification: NotificationService
   ) {}
 
-  getBoards() {
+  getBoards(): Observable<any> {
     return this.http.get(QUERY_PARAMS_FIRST.boards);
+  }
+
+  addBoard(board: Board) {
+    return this.http.post(QUERY_PARAMS_FIRST.boards, board);
+  }
+
+  deleteBoard(id?: string) {
+    return this.http.delete(QUERY_PARAMS_FIRST.boards + `/${id}`);
   }
 
   signIn(user: UserLogin) {

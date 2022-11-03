@@ -5,12 +5,14 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { filter, fromEvent, pipe, Subject, take, takeUntil, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { Language } from 'src/app/enums';
 import {
   selectFeatureUser,
   selectFeatureUserLoggedIn,
 } from 'src/app/redux/selectors/user.selectors';
 import { ConfirmService } from '../services/confirm.service';
+import { Language, ModalTypes } from 'src/app/enums';
+import { setVisibility } from 'src/app/redux/actions/modal.actions';
+import { ModalService } from '../services/modal.service';
 
 @Component({
   selector: 'app-header',
@@ -24,13 +26,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userId = '';
   unsubscribe$ = new Subject();
   deleteMessage = '';
+  createBoard = 'CREATE_BOARD';
 
   constructor(
     private translateService: TranslateService,
     private store: Store,
     private authService: AuthService,
     private router: Router,
-    private confirmService: ConfirmService
+    private confirmService: ConfirmService,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +70,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setLang(lang: string) {
     this.translateService.use(lang);
+  }
+
+  callFormModal() {
+    this.modalService.setType(ModalTypes.FormType);
+    this.store.dispatch(setVisibility({ isVisible: true }));
   }
 
   logOut() {
