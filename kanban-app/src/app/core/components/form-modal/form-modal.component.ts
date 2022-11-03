@@ -24,12 +24,18 @@ export class FormModalComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  get _title(){
+    return this.createBoardForm.get('title')
+  }
+  get _description(){
+    return this.createBoardForm.get('description')
+  }
+
   submit() {
     this.store.dispatch(setVisibility({ isVisible: false }));
     this.board = this.getBoard();
     this.store.dispatch(addBoard({board:this.board}))
     
-
   }
   getBoard() {
     return {
