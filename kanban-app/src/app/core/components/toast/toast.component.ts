@@ -26,7 +26,7 @@ export class ToastComponent implements OnInit {
           setTimeout(() => {
             this.isVisible = false;
             this.store.dispatch(deleteNotification());
-          }, 5000);
+          }, 9000);
         }
       })
     );
