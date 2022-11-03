@@ -1,14 +1,19 @@
 <div class="confirmation-info-block">
-    <p class="confirmation-info">{{ (info$ | async)! | translate  }}</p>
-  </div>
-  <div class="confirmation-buttons-block">
-    <button
-      class="button-agree"
-      (click)="setResult(true)">
-      {{ buttonAgree | translate }}
-    </button>
-    <button
-      class="buttton-cancel"
-      (click)="setResult(false)">
-      {{ buttonCancel | translate  }}
-    </button>
+  <h2 class="confirmation-info">{{ (info$ | async)! | translate }}</h2>
+</div>
+<div class="confirmation-buttons-block">
+  <button
+    mat-raised-button
+    color="primary"
+    class="button-agree"
+    (click)="setResult(true)">
+    {{ buttonAgree | translate }}
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="buttton-cancel"
+    (click)="setResult(false)">
+    {{ buttonCancel | translate }}
+  </button>
+</div>

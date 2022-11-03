@@ -1,8 +1,10 @@
-.boards-container{
-    display: flex;
-    width:fit-content;
-    height: auto;
-    min-height: 300px;
-    overflow-x: auto;
-    gap:20px;
+.boards-container {
+  margin-left: 40%;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: auto;
+  min-height: 300px;
+  overflow-x: auto;
+  gap: 20px;
 }
