@@ -1,4 +1,4 @@
-<div class="board-container">
+<div class="board-container" [routerLink]="['../board', board?.id]">
   <p>ID: {{ board?.id }}</p>
   <p>TITLE: {{ board?.title }}</p>
   <p>DESCRIPTION: {{ board?.description }}</p>

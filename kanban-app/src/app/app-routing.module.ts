@@ -12,6 +12,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/main/main.module').then(m => m.MainModule),
   },
+  {
+    path: 'board/:id',
+    loadChildren: () =>
+      import('./pages/board-page/board-page.module').then(m => m.BoardPageModule),
+  },
 ];
 
 @NgModule({

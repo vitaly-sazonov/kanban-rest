@@ -5,6 +5,6 @@
         <input class="form-control" name="title" formControlName="title" />
         <label for description>{{'formModal.description' | translate}}</label>
         <input class="form-control" name="description" formControlName="description" />
-        <button type="submit" >{{'formModal.button' | translate}}</button>
+        <button type="submit" [disabled]="createBoardForm.invalid">{{'formModal.button' | translate}}</button>
     </div>
 </form>  
