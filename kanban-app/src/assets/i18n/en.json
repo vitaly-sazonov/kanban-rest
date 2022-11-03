@@ -1,5 +1,9 @@
 {
   "auth": {
+    "Update":"Update user",
+    "Delete":"Delete user",
+    "Edit":"Edit profile",
+    "Logout":"Logout",
     "EnterPassword":"Enter password",
     "Password": "Password",
     "Registration": "Registration",
@@ -31,8 +35,5 @@
   "CANCEL": "Cancel",
   "SAMPLE_CONFIRM_INFO": "Are you agree?",
   "ERROR": "Error: ",
-  "Eng": {
-    "cat": "meou",
-    "dog": "second"
-  }
+  "DeleteUserQuestion":"Are you sure DELETE user?"
 }

@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
   {
-    path: '',
+    path: 'welcome',
     loadChildren: () =>
       import('./pages/welcome/welcome.module').then(m => m.WelcomeModule),
   },
@@ -13,7 +14,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(
       routes
-      // { enableTracing: true }
+      //  { enableTracing: true }
     ),
   ],
   exports: [RouterModule],

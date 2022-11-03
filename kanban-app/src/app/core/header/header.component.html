@@ -1,26 +1,32 @@
-<div class="buttons">
+<mat-toolbar color="accent" class="header">
   <mat-button-toggle-group [formControl]="language">
     <mat-button-toggle value="ru" color="primary">RU</mat-button-toggle>
-    <mat-button-toggle value="en">EN</mat-button-toggle>
+    <mat-button-toggle mat-mini-fab value="en">EN</mat-button-toggle>
   </mat-button-toggle-group>
-  <button
-    (click)="logOut()"
-    [disabled]="(loginStatus$ | async) === false"
-    mat-raised-button
-    color="warn">
-    Logout
-  </button>
-
+  <span class="example-spacer"></span>
+  <span class="example-spacer"></span>
   <div class="buttons">
-    <a routerLink="/login" routerLinkActive="active"
-      ><button mat-stroked-button color="primary">
-        {{ 'auth.Login' | translate }}
-      </button></a
-    >
-    <a a routerLink="/registration" routerLinkActive="active"
-      ><button mat-stroked-button color="primary">
-        {{ 'auth.Registration' | translate }}
-      </button></a
-    >
+    <button
+      *ngIf="loginStatus$ | async"
+      mat-raised-button
+      (click)="openConfirmWindow()"
+      color="warn">
+      {{ 'auth.Delete' | translate }}
+    </button>
+    <button
+      *ngIf="loginStatus$ | async"
+      mat-raised-button
+      (click)="editUser()"
+      color="warn">
+      {{ 'auth.Edit' | translate }}
+    </button>
+    <button
+      *ngIf="loginStatus$ | async"
+      (click)="logOut()"
+      [disabled]="(loginStatus$ | async) === false"
+      mat-raised-button
+      color="warn">
+      {{ 'auth.Logout' | translate }}
+    </button>
   </div>
-</div>
+</mat-toolbar>

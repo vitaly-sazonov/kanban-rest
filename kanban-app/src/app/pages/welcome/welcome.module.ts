@@ -12,9 +12,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { UpdateUserComponent } from './update-user/update-user.component';
 
 @NgModule({
-  declarations: [WelcomeComponent, RegistrationComponent, LoginComponent],
+  declarations: [WelcomeComponent, RegistrationComponent, LoginComponent, UpdateUserComponent],
   imports: [
     CommonModule,
     WelcomeRoutingModule,

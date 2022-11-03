@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [FooterComponent, HeaderComponent],
@@ -18,6 +20,8 @@ import { TranslateModule } from '@ngx-translate/core';
     MatButtonToggleModule,
     FormsModule,
     ReactiveFormsModule,
+    MatToolbarModule,
+    MatRadioModule,
   ],
   exports: [FooterComponent, HeaderComponent],
 })

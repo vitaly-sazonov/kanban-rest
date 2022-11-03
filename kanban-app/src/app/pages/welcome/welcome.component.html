@@ -1,5 +1,18 @@
-<router-outlet></router-outlet>
+<div class="buttons">
+  <a routerLink="/login">
+    <button mat-stroked-button color="primary" routerLinkActive="hidden">
+      {{ 'auth.Login' | translate }}
+    </button>
+  </a>
+  <a routerLink="/registration" routerLinkActive="hidden">
+    <button mat-stroked-button color="primary">
+      {{ 'auth.Registration' | translate }}
+    </button>
+  </a>
+</div>
 
+<router-outlet></router-outlet>
+<div class="height"></div>
 <!--This is for testing ConfirmService, NotificationService, modal component and notification toast-->
 <p></p>
 <button (click)="callModal('SAMPLE_CONFIRM_INFO')">Call modal window</button>

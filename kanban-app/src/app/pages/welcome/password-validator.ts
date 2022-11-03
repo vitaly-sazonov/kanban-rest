@@ -9,8 +9,8 @@ export function passwordValidator(
   const numbers = new RegExp('[0-9]');
   const special = new RegExp('[*@!#%&()^~{}]');
   let obj: { [s: string]: boolean } = {};
-  if (!control.value.match(upperCase))
-    obj[PasswordValidatorSymbols.upperCase] = true;
+  // if (!control.value.match(upperCase))
+  //   obj[PasswordValidatorSymbols.upperCase] = true;
   if (!control.value.match(lowerCase))
     obj[PasswordValidatorSymbols.lowerCase] = true;
   if (!control.value.match(numbers))
