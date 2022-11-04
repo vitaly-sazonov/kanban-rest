@@ -7,7 +7,7 @@
     (click)="callFormModal()"
     mat-raised-button
     color="primary"
-    [disabled]="!(loginStatus$ | async)">
+    [disabled]="(loginStatus$ | async) === false">
     {{ createBoard | translate }}
   </button>
   <button

@@ -4,13 +4,15 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, pipe, throwError } from 'rxjs';
 import { APP_URL } from '../constants';
+import { NotificationService } from '../core/services/notification.service';
 
 @Injectable()
 export class BaseUrlInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private notification: NotificationService) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -28,6 +30,17 @@ export class BaseUrlInterceptor implements HttpInterceptor {
 
       return next.handle(request);
     }
-    return next.handle(request.clone({ url: APP_URL + request.url }));
+    return next.handle(request.clone({ url: APP_URL + request.url })).pipe(
+      catchError((error: HttpErrorResponse) => {
+        return throwError(() => {
+          new Error(`${error.message}`);
+          this.notification
+            .setNotification(`Backend returned error with name: ${
+            error.name
+          }, and message: 
+          ${JSON.stringify(error.message)}`);
+        });
+      })
+    );
   }
 }

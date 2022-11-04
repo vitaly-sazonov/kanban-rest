@@ -1,6 +1,6 @@
 <div
   class="modal-container"
-  [class.invisible]="!(isModalVisible$ | async)"
+  [class.invisible]="(isModalVisible$ | async) === false"
   [class.visible]="isModalVisible$ | async">
   <div class="modal-background" (click)="exit()"></div>
   <div class="modal-window">
