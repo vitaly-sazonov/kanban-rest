@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ModalTypes } from 'src/app/enums';
 import { addConfirmResult } from 'src/app/redux/actions/confirm.actions';

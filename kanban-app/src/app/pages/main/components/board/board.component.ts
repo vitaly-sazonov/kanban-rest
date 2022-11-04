@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs';
 import { ModalTypes } from 'src/app/enums';
 import { Board } from 'src/app/interfaces';
 import { deleteBoardById } from 'src/app/redux/actions/boards.actions';
@@ -20,7 +19,6 @@ export class BoardComponent {
 
   deleteBoard(id: string) {
     this.confirmDelete(id);
-    //this.store.dispatch(deleteBoardById({id}))
   }
   confirmDelete(id: string) {
     this.store.dispatch(setType({ modalType: ModalTypes.ConfirmType }));

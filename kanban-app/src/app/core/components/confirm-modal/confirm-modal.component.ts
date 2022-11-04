@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { selectConfirmationMessage } from 'src/app/redux/selectors/confirmation.selectors';

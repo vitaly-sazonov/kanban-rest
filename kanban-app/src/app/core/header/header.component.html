@@ -1,40 +1,42 @@
 <mat-toolbar color="accent" [ngClass]="headerFixed ? 'fixed' : 'nofixed'">
-  <mat-button-toggle-group [formControl]="language">
-    <mat-button-toggle value="ru" color="primary">RU</mat-button-toggle>
-    <mat-button-toggle mat-mini-fab value="en">EN</mat-button-toggle>
-  </mat-button-toggle-group>
-  <button
-    (click)="callFormModal()"
-    mat-raised-button
-    color="primary"
-    [disabled]="(loginStatus$ | async) === false">
-    {{ createBoard | translate }}
-  </button>
   <div class="buttons">
-    <span class="example-spacer"></span>
+    <mat-button-toggle-group [formControl]="language">
+      <mat-button-toggle value="ru" color="primary">RU</mat-button-toggle>
+      <mat-button-toggle mat-mini-fab value="en">EN</mat-button-toggle>
+    </mat-button-toggle-group>
+    <button
+      (click)="callFormModal()"
+      mat-raised-button
+      color="primary"
+      [disabled]="(loginStatus$ | async) === false">
+      {{ createBoard | translate }}
+    </button>
     <div class="buttons">
-      <button
-        *ngIf="loginStatus$ | async"
-        mat-raised-button
-        (click)="deleteUser()"
-        color="warn">
-        {{ 'auth.Delete' | translate }}
-      </button>
-      <button
-        *ngIf="loginStatus$ | async"
-        mat-raised-button
-        (click)="editUser()"
-        color="warn">
-        {{ 'auth.Edit' | translate }}
-      </button>
-      <button
-        *ngIf="loginStatus$ | async"
-        (click)="logOut()"
-        [disabled]="(loginStatus$ | async) === false"
-        mat-raised-button
-        color="warn">
-        {{ 'auth.Logout' | translate }}
-      </button>
+      <span class="example-spacer"></span>
+      <div class="buttons">
+        <button
+          *ngIf="loginStatus$ | async"
+          mat-raised-button
+          (click)="openDialog()"
+          color="warn">
+          {{ 'auth.Delete' | translate }}
+        </button>
+        <button
+          *ngIf="loginStatus$ | async"
+          mat-raised-button
+          (click)="editUser()"
+          color="warn">
+          {{ 'auth.Edit' | translate }}
+        </button>
+        <button
+          *ngIf="loginStatus$ | async"
+          (click)="logOut()"
+          [disabled]="(loginStatus$ | async) === false"
+          mat-raised-button
+          color="warn">
+          {{ 'auth.Logout' | translate }}
+        </button>
+      </div>
     </div>
   </div>
 </mat-toolbar>

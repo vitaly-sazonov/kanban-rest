@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -34,7 +35,6 @@ import { ToastComponent } from './components/toast/toast.component';
     TranslateModule,
     CommonModule,
     TranslateModule,
-    MatButtonModule,
     MatButtonToggleModule,
     FormsModule,
     ReactiveFormsModule,
@@ -45,6 +45,7 @@ import { ToastComponent } from './components/toast/toast.component';
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
+    MatDialogModule,
   ],
   exports: [FooterComponent, HeaderComponent, ModalComponent, ToastComponent],
 })

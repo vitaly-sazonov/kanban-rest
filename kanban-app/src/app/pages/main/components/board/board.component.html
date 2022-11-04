@@ -5,11 +5,7 @@
     </h2>
     <h3>{{ board?.description }}...</h3>
   </div>
-  <button
-    mat-raised-button
-    color="warn"
-    type="submit"
-    (click)="deleteBoard(board?.id!)">
-    DELETE
+  <button mat-raised-button color="warn" (click)="deleteBoard(board?.id!)">
+    {{ 'DELETE' | translate }}
   </button>
 </div>

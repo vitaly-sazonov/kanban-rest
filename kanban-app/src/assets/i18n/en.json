@@ -41,7 +41,10 @@
     "formTitle": "Create Board",
     "title": "Title",
     "description": "Description",
-    "button": "Create"
+    "button": "Create",
+    "required": "fill the field"
   },
-  "CONFIRM_DELETE": "DO YOU WANT TO DELETE THIS BOARD?"
+  "CONFIRM_DELETE": "DO YOU WANT TO DELETE THIS BOARD?",
+  "DELETE":"DELETE",
+  "BOARDS":"BOARDS"
 }

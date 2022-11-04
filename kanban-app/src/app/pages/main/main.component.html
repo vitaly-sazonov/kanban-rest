@@ -1,8 +1,13 @@
-<h1>Boards</h1>
+<h1>{{ 'BOARDS' | translate }}</h1>
+<mat-spinner
+  class="spiner"
+  diameter="30"
+  color="primary"
+  *ngIf="isLoading$ | async"></mat-spinner>
 <div
   class="boards-container"
   *ngIf="(boards$ | async)!.length > 0; else noBoards">
-  <app-board *ngFor="let item of boards$|async" [board]="item"></app-board>
+  <app-board *ngFor="let item of boards$ | async" [board]="item"> </app-board>
 </div>
 <ng-template #noBoards>
   <h2>No Boards</h2>

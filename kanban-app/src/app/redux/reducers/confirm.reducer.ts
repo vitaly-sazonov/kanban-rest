@@ -26,7 +26,7 @@ export const confirmationReducer = createReducer(
     (state, { message }): State => ({
       ...state,
       confirmation: { message, result: null },
-      modal:{isVisible:true, modalType:ModalTypes.ConfirmType},
+      modal: { isVisible: true, modalType: ModalTypes.ConfirmType },
     })
   ),
   on(
@@ -34,7 +34,7 @@ export const confirmationReducer = createReducer(
     (state, {}): State => ({
       ...state,
       confirmation: { message: '', result: null },
-      modal:{isVisible:false},
+      modal: { isVisible: false },
     })
   ),
   on(
@@ -42,7 +42,7 @@ export const confirmationReducer = createReducer(
     (state, { result }): State => ({
       ...state,
       confirmation: { message: '', result },
-      modal:{isVisible:false},
+      modal: { isVisible: false },
     })
   ),
   on(

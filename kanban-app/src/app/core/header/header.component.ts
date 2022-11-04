@@ -19,9 +19,17 @@ import {
   selectFeatureUserLoggedIn,
 } from 'src/app/redux/selectors/user.selectors';
 import { ConfirmService } from '../services/confirm.service';
-import { Language, ModalTypes } from 'src/app/enums';
+import {
+  ConfirmQuestions,
+  Language,
+  ModalTypes,
+  PercentSize,
+  RouterStateValue,
+} from 'src/app/enums';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { ModalService } from '../services/modal.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -42,8 +50,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private store: Store,
     private authService: AuthService,
     private router: Router,
-    private confirmService: ConfirmService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -63,13 +71,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .select(selectFeatureUser)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(x => (x?.id ? (this.userId = x?.id) : (this.userId = '')));
-    this.confirmService
-      .getConfirmResult()
-      .pipe(
-        filter(x => x === true),
-        takeUntil(this.unsubscribe$)
-      )
-      .subscribe(() => this.deleteUser());
   }
 
   ngOnDestroy(): void {
@@ -91,39 +92,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   editUser() {
-    this.router.navigate(['/edit']);
-  }
-
-  setMessage() {
-    this.translateService
-      .get('DeleteUserQuestion')
-      .pipe(
-        tap(x => this.confirmService.setConfirmInfo(x)),
-        take(1)
-      )
-      .subscribe();
+    this.router.navigate([RouterStateValue.edit]);
   }
 
   deleteUserService() {
-    return this.authService
-      .deleteUser(this.userId)
-      .pipe(tap(() => this.authService.logOut()));
+    return this.authService.deleteUser(this.userId).pipe(
+      tap(() => this.authService.logOut()),
+      takeUntil(this.unsubscribe$)
+    );
   }
 
-  deleteUser() {
-    this.setMessage();
-    this.confirmService
-      .getConfirmResult()
-      .pipe(
-        take(1),
-        filter(x => x === true)
-      )
-      .subscribe(x => console.log(x));
-    //     .pipe(
-    //       switchMap(() => this.confirmService.getConfirmResult()),
-    //       filter(x => x === true),
-    //       switchMap(_ => this.deleteUserService())
-    //     )
-    //     .subscribe(x => console.log(x));
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: PercentSize.eighty,
+      height: PercentSize.eighty,
+      data: ConfirmQuestions.DeleteUserQuestion,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteUserService().subscribe();
+      }
+    });
   }
 }
