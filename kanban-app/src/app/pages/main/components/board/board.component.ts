@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs';
 import { ModalTypes } from 'src/app/enums';
 import { Board } from 'src/app/interfaces';
 import { deleteBoardById } from 'src/app/redux/actions/boards.actions';
@@ -13,16 +12,13 @@ import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.s
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent {
   @Input() board?: Board;
   result$ = this.store.select(selectConfirmationResult);
   constructor(private store: Store) {}
 
-  ngOnInit(): void {}
-
   deleteBoard(id: string) {
     this.confirmDelete(id);
-    //this.store.dispatch(deleteBoardById({id}))
   }
   confirmDelete(id: string) {
     this.store.dispatch(setType({ modalType: ModalTypes.ConfirmType }));

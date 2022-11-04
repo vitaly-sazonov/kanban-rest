@@ -45,13 +45,4 @@ export class WelcomeComponent implements OnInit {
         }
       });
   }
-  // it is for testing the modal window,then this method should be deleted
-  callModal(info: string) {
-    this.confirmService.setConfirmInfo('SAMPLE_CONFIRM_INFO');
-    this.store.subscribe((x)=>console.log(x))
-  }
-  // it is for testing the toast,then this method should be deleted
-  emitNotification(notification: string) {
-    this.notificationService.setNotification(notification);
-  }
 }

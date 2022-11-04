@@ -65,7 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         modals: modalReducer,
         notifications: notificationReducer,
         confirmations: confirmationReducer,
-        boards:boardsReducer,
+        boards: boardsReducer,
       },
       {}
     ),
@@ -75,8 +75,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
 
     BrowserAnimationsModule,
-    EffectsModule.forRoot([UserEffect, NotificationEffect, ConfirmationEffect, BoardsEffect]),
-
+    EffectsModule.forRoot([
+      UserEffect,
+      NotificationEffect,
+      ConfirmationEffect,
+      BoardsEffect,
+    ]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true },

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ModalTypes } from 'src/app/enums';
 import { addConfirmResult } from 'src/app/redux/actions/confirm.actions';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
-import { selectModalVisibility } from 'src/app/redux/selectors/modal.selectors';;
+import { selectModalVisibility } from 'src/app/redux/selectors/modal.selectors';
 import { ModalService } from '../../services/modal.service';
 
 @Component({
@@ -11,14 +11,13 @@ import { ModalService } from '../../services/modal.service';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
   isModalVisible$ = this.store.select(selectModalVisibility);
   ModalTypes = ModalTypes;
   modalType$ = this.modalService.getType();
 
   constructor(private modalService: ModalService, private store: Store) {}
 
-  ngOnInit(): void {}
   exit() {
     this.store.dispatch(setVisibility({ isVisible: false }));
     this.store.dispatch(addConfirmResult({ result: false }));

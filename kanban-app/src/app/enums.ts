@@ -46,20 +46,20 @@ export enum ConfirmActions {
   AddConfirmResult = '[Confirmation] Add Confirm Result',
   DeleteConfirmResult = '[Confirmation] Delete Confirm Result',
 }
-export enum ModalActions{
-  SetType='[Modal] Set Type',
-  SetVisibility='[Modal] Set Visibility',
+export enum ModalActions {
+  SetType = '[Modal] Set Type',
+  SetVisibility = '[Modal] Set Visibility',
 }
 
-export enum BoardsActions{
-  AddBoards ='[Boards] Add Boards',
-  AddBoard ='[Boards] Add Board',
-  DeleteBoardById='[Boards] Delete Board By ID',
-  LoadBoards='[Boards] Load Boards',
-  LoadBoardById='[Boards] Load Board By ID'
+export enum BoardsActions {
+  AddBoards = '[Boards] Add Boards',
+  AddBoard = '[Boards] Add Board',
+  DeleteBoardById = '[Boards] Delete Board By ID',
+  LoadBoards = '[Boards] Load Boards',
+  LoadBoardById = '[Boards] Load Board By ID',
 }
 
-export enum ModalTypes{
+export enum ModalTypes {
   ConfirmType,
-  FormType
+  FormType,
 }

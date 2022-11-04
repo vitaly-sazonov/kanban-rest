@@ -3,9 +3,9 @@ import { ModalActions, ModalTypes } from 'src/app/enums';
 
 export const setType = createAction(
   ModalActions.SetType,
-  props<{ modalType: ModalTypes} >()
+  props<{ modalType: ModalTypes }>()
 );
 export const setVisibility = createAction(
-    ModalActions.SetVisibility,
-    props<{ isVisible: boolean }>()
+  ModalActions.SetVisibility,
+  props<{ isVisible: boolean }>()
 );

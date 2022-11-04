@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   language = new FormControl(Language.En, { nonNullable: true });
   loginStatus$ = this.store.select(selectFeatureUserLoggedIn);
   unsubscribe$ = new Subject();
-  createBoard='CREATE_BOARD'
+  createBoard = 'CREATE_BOARD';
 
   constructor(
     private translateService: TranslateService,

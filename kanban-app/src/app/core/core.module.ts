@@ -18,8 +18,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [FooterComponent, HeaderComponent,ConfirmModalComponent,
-    FormModalComponent,ModalComponent,ToastComponent],
+  declarations: [
+    FooterComponent,
+    HeaderComponent,
+    ConfirmModalComponent,
+    FormModalComponent,
+    ModalComponent,
+    ToastComponent,
+  ],
   imports: [
     CommonModule,
     TranslateModule,
@@ -29,10 +35,9 @@ import { MatInputModule } from '@angular/material/input';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatInputModule,
-    MatFormFieldModule, 
+    MatFormFieldModule,
     MatIconModule,
-    
   ],
-  exports: [FooterComponent, HeaderComponent,ModalComponent,ToastComponent],
+  exports: [FooterComponent, HeaderComponent, ModalComponent, ToastComponent],
 })
 export class CoreModule {}

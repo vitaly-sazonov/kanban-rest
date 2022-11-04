@@ -11,7 +11,8 @@ export class ModalService {
   modalType$ = this.store.select(selectModalType);
   constructor(private store: Store) {}
 
-  setType = (type: ModalTypes) => (this.store.dispatch(setType({modalType:type})));
+  setType = (type: ModalTypes) =>
+    this.store.dispatch(setType({ modalType: type }));
 
   getType = () => this.modalType$;
 }

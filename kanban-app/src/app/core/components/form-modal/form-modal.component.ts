@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Board } from 'src/app/interfaces';
-import { addBoard, loadBoards } from 'src/app/redux/actions/boards.actions';
+import { addBoard } from 'src/app/redux/actions/boards.actions';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { HttpService } from '../../services/http.service';
 
@@ -11,31 +11,28 @@ import { HttpService } from '../../services/http.service';
   templateUrl: './form-modal.component.html',
   styleUrls: ['./form-modal.component.scss'],
 })
-export class FormModalComponent implements OnInit {
+export class FormModalComponent {
   createBoardForm: FormGroup;
   board?: Board;
- 
-  constructor(private store: Store, private http:HttpService) {
+
+  constructor(private store: Store, private http: HttpService) {
     this.createBoardForm = new FormGroup({
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
     });
   }
 
-  ngOnInit(): void {}
-
-  get _title(){
-    return this.createBoardForm.get('title')
+  get _title() {
+    return this.createBoardForm.get('title');
   }
-  get _description(){
-    return this.createBoardForm.get('description')
+  get _description() {
+    return this.createBoardForm.get('description');
   }
 
   submit() {
     this.store.dispatch(setVisibility({ isVisible: false }));
     this.board = this.getBoard();
-    this.store.dispatch(addBoard({board:this.board}))
-    
+    this.store.dispatch(addBoard({ board: this.board }));
   }
   getBoard() {
     return {

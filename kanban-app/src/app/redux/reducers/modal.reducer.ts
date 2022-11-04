@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import {  ModalTypes } from 'src/app/enums';
+import { ModalTypes } from 'src/app/enums';
 import { State } from '..';
 import { setType, setVisibility } from '../actions/modal.actions';
 
@@ -21,14 +21,14 @@ export const modalReducer = createReducer(
     setType,
     (state, { modalType }): State => ({
       ...state,
-      modal: { modalType , isVisible: state.modal?.isVisible},
+      modal: { modalType, isVisible: state.modal?.isVisible },
     })
   ),
   on(
     setVisibility,
-    (state, {isVisible}): State => ({
+    (state, { isVisible }): State => ({
       ...state,
-      modal: { isVisible , modalType: state.modal?.modalType},
+      modal: { isVisible, modalType: state.modal?.modalType },
     })
   )
 );

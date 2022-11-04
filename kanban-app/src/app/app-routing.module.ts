@@ -15,7 +15,9 @@ const routes: Routes = [
   {
     path: 'board/:id',
     loadChildren: () =>
-      import('./pages/board-page/board-page.module').then(m => m.BoardPageModule),
+      import('./pages/board-page/board-page.module').then(
+        m => m.BoardPageModule
+      ),
   },
 ];
 
