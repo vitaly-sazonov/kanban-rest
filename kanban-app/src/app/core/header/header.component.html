@@ -16,7 +16,7 @@
       <button
         *ngIf="loginStatus$ | async"
         mat-raised-button
-        (click)="openConfirmWindow()"
+        (click)="deleteUser()"
         color="warn">
         {{ 'auth.Delete' | translate }}
       </button>

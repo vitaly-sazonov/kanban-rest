@@ -13,12 +13,10 @@ import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.s
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent {
   @Input() board?: Board;
   result$ = this.store.select(selectConfirmationResult);
   constructor(private store: Store) {}
-
-  ngOnInit(): void {}
 
   deleteBoard(id: string) {
     this.confirmDelete(id);

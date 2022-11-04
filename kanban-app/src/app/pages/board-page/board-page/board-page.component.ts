@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription, switchMap } from 'rxjs';
 
 @Component({
@@ -16,11 +16,9 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.subscription = this.route.paramMap
       .pipe(switchMap(params => params.getAll('id')))
       .subscribe(data => (this.id = data));
-    
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
-    
   }
 }

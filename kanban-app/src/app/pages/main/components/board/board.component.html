@@ -1,12 +1,15 @@
 <div class="board-container">
   <div class="inner-container" [routerLink]="['../board', board?.id]">
-  <h2 class="title" >
-    {{ board?.title }}
-  </h2>
-  <h3>{{ board?.description }}...</h3>
-</div>
-  <button mat-raised-button color="warn" type="submit" (click)="deleteBoard(board?.id!)">
+    <h2 class="title">
+      {{ board?.title }}
+    </h2>
+    <h3>{{ board?.description }}...</h3>
+  </div>
+  <button
+    mat-raised-button
+    color="warn"
+    type="submit"
+    (click)="deleteBoard(board?.id!)">
     DELETE
   </button>
-
 </div>

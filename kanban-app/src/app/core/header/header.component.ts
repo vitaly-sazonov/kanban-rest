@@ -3,7 +3,16 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { filter, fromEvent, pipe, Subject, take, takeUntil, tap } from 'rxjs';
+import {
+  filter,
+  fromEvent,
+  pipe,
+  Subject,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import {
   selectFeatureUser,
@@ -85,23 +94,36 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/edit']);
   }
 
-  openConfirmWindow() {
+  setMessage() {
     this.translateService
       .get('DeleteUserQuestion')
       .pipe(
-        tap(x => (this.deleteMessage = x)),
+        tap(x => this.confirmService.setConfirmInfo(x)),
         take(1)
       )
-      .subscribe(x => {
-        this.confirmService.setConfirmInfo(this.deleteMessage);
-      });
+      .subscribe();
+  }
+
+  deleteUserService() {
+    return this.authService
+      .deleteUser(this.userId)
+      .pipe(tap(() => this.authService.logOut()));
   }
 
   deleteUser() {
-    this.authService
-      .deleteUser(this.userId)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe();
-    this.authService.logOut();
+    this.setMessage();
+    this.confirmService
+      .getConfirmResult()
+      .pipe(
+        take(1),
+        filter(x => x === true)
+      )
+      .subscribe(x => console.log(x));
+    //     .pipe(
+    //       switchMap(() => this.confirmService.getConfirmResult()),
+    //       filter(x => x === true),
+    //       switchMap(_ => this.deleteUserService())
+    //     )
+    //     .subscribe(x => console.log(x));
   }
 }
