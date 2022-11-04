@@ -2,7 +2,7 @@
   class="toast-container"
   [class.visible]="isVisible"
   [class.invisible]="!isVisible">
-  <p class="toast-notification">
+  <h3 class="toast-notification">
     {{ error | translate }} {{ notification$ | async }}
-  </p>
+  </h3>
 </div>

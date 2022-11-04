@@ -1,6 +1,6 @@
 {
   "auth": {
-    "EnterPassword":"Enter password",
+    "EnterPassword": "Enter password",
     "Password": "Password",
     "Registration": "Registration",
     "EnterEmail": "Enter email",
@@ -30,9 +30,22 @@
   "AGREE": "Agree",
   "CANCEL": "Cancel",
   "SAMPLE_CONFIRM_INFO": "Are you agree?",
+  "CREATE_BOARD": "Create board",
   "ERROR": "Error: ",
+
   "Eng": {
     "cat": "meou",
     "dog": "second"
-  }
+  },
+
+  "formModal": {
+    "formTitle": "Create Board",
+    "title": "Title",
+    "description": "Description",
+    "button": "Create",
+    "required": "fill the field"
+  },
+  "CONFIRM_DELETE": "DO YOU WANT TO DELETE THIS BOARD?",
+  "DELETE":"DELETE",
+  "BOARDS":"BOARDS"
 }

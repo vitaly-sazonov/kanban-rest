@@ -1,30 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-import { ConfirmService } from '../../services/confirm.service';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ModalTypes } from 'src/app/enums';
+import { addConfirmResult } from 'src/app/redux/actions/confirm.actions';
+import { setVisibility } from 'src/app/redux/actions/modal.actions';
+import { selectModalVisibility } from 'src/app/redux/selectors/modal.selectors';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnInit {
-  isModalVisible = false;
-  info$?: Observable<string | null | undefined>;
-  buttonAgree = 'AGREE';
-  buttonCancel = 'CANCEL';
-  constructor(private confirmService: ConfirmService) {}
+export class ModalComponent {
+  isModalVisible$ = this.store.select(selectModalVisibility);
+  ModalTypes = ModalTypes;
+  modalType$ = this.modalService.getType();
 
-  ngOnInit(): void {
-    this.info$ = this.confirmService.getConfirmInfo().pipe(
-      tap(observable => {
-        if (observable) {
-          this.isModalVisible = true;
-        }
-      })
-    );
-  }
+  constructor(private modalService: ModalService, private store: Store) {}
 
-  setResult(result: boolean) {
-    this.confirmService.setConfirmResult(result);
+  exit() {
+    this.store.dispatch(setVisibility({ isVisible: false }));
+    this.store.dispatch(addConfirmResult({ result: false }));
   }
 }

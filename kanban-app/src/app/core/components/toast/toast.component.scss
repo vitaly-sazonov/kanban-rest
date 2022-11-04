@@ -2,11 +2,11 @@
 
 .toast-container {
   position: absolute;
-  left: 50%;
-  transform: translate(0, -50%);
+  right: 5%;
+  top: 5%;
   width: 300px;
   min-height: 100px;
-  height:fit-content;
+  height: fit-content;
   word-wrap: break-word;
   padding: 10px;
   background-color: $toastBackgroundColor;
@@ -15,10 +15,39 @@
   color: $toastTextColor;
 }
 .invisible {
-  transform: translateY(-100vh);
-  transition: 1s;
+  opacity: 0;
+  visibility: hidden;
+  transition: 2s;
 }
 .visible {
-  transform: translateY(0vh);
-  transition: 1s;
+  animation: flashing 7s;
+  opacity: 1;
+  visibility: visible;
+}
+
+@keyframes flashing {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  20% {
+    opacity: 1;
+    visibility: visible;
+  }
+  40% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  60% {
+    opacity: 1;
+    visibility: visible;
+  }
+  80% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
 }

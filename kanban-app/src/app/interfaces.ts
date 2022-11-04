@@ -23,3 +23,31 @@ export interface ErrorResponse {
 export interface LoginResponse {
   token: string;
 }
+
+export interface Board {
+  id?: string;
+  title: string;
+  description: string;
+  columns?: Column[];
+}
+
+export interface Column {
+  id?: string;
+  title: string;
+  order?: number;
+  tasks?: Task[];
+}
+
+export interface Task {
+  id?: number | string;
+  title: string;
+  order?: number;
+  userId?: string;
+  description?: string;
+  files?: File[];
+}
+
+export interface File {
+  filename: string;
+  fileSize: number;
+}

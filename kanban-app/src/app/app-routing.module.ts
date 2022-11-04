@@ -7,6 +7,18 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/welcome/welcome.module').then(m => m.WelcomeModule),
   },
+  {
+    path: 'main',
+    loadChildren: () =>
+      import('./pages/main/main.module').then(m => m.MainModule),
+  },
+  {
+    path: 'board/:id',
+    loadChildren: () =>
+      import('./pages/board-page/board-page.module').then(
+        m => m.BoardPageModule
+      ),
+  },
 ];
 
 @NgModule({

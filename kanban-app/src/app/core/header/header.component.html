@@ -4,6 +4,13 @@
     <mat-button-toggle value="en">EN</mat-button-toggle>
   </mat-button-toggle-group>
   <button
+    (click)="callFormModal()"
+    mat-raised-button
+    color="primary"
+    [disabled]="!(loginStatus$ | async)">
+    {{ createBoard | translate }}
+  </button>
+  <button
     (click)="logOut()"
     [disabled]="(loginStatus$ | async) === false"
     mat-raised-button

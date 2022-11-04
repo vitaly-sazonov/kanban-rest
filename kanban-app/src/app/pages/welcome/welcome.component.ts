@@ -7,8 +7,9 @@ import {
 import { loginUser } from 'src/app/redux/actions/user.actions';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ConfirmService } from 'src/app/core/services/confirm.service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
@@ -21,6 +22,7 @@ export class WelcomeComponent implements OnInit {
   isLoading$ = this.store.select(selectFeatureIsLoading);
 
   constructor(
+    private router: Router,
     private authService: AuthService,
     private store: Store,
     private confirmService: ConfirmService, // it is for testing the modal window,then it should be deleted)
@@ -39,15 +41,8 @@ export class WelcomeComponent implements OnInit {
       .subscribe(x => {
         if (x) {
           this.store.dispatch(loginUser({ user: x }));
+          this.router.navigate(['main']);
         }
       });
-  }
-  // it is for testing the modal window,then this method should be deleted
-  callModal(info: string) {
-    this.confirmService.setConfirmInfo('SAMPLE_CONFIRM_INFO');
-  }
-  // it is for testing the toast,then this method should be deleted
-  emitNotification(notification: string) {
-    this.notificationService.setNotification(notification);
   }
 }

@@ -1,25 +1,14 @@
 <div
   class="modal-container"
-  [class.invisible]="!isModalVisible"
-  [class.visible]="isModalVisible">
-  <div
-    class="modal-background"
-    (click)="setResult(false); isModalVisible = false"></div>
+  [class.invisible]="!(isModalVisible$ | async)"
+  [class.visible]="isModalVisible$ | async">
+  <div class="modal-background" (click)="exit()"></div>
   <div class="modal-window">
-    <div class="confirmation-info-block">
-      <p class="confirmation-info">{{ (info$ | async)! | translate }}</p>
-    </div>
-    <div class="confirmation-buttons-block">
-      <button
-        class="button-agree"
-        (click)="setResult(true); isModalVisible = false">
-        {{ buttonAgree | translate }}
-      </button>
-      <button
-        class="buttton-cancel"
-        (click)="setResult(false); isModalVisible = false">
-        {{ buttonCancel | translate }}
-      </button>
-    </div>
+    <app-confirm-modal
+      *ngIf="
+        (modalType$ | async) === ModalTypes.ConfirmType
+      "></app-confirm-modal>
+    <app-form-modal
+      *ngIf="(modalType$ | async) === ModalTypes.FormType"></app-form-modal>
   </div>
 </div>
