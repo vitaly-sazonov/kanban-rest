@@ -38,13 +38,14 @@ import { userReducer } from './redux/reducers/user.reducer';
 
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     FormsModule,

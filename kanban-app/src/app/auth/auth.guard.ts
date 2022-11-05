@@ -8,6 +8,7 @@ import {
 } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
+import { RouterStateValue } from '../enums';
 import { selectFeatureUserLoggedIn } from '../redux/selectors/user.selectors';
 
 @Injectable({
@@ -23,15 +24,19 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.handle();
+    return this.handle(state.url);
   }
 
-  handle() {
+  handle(url: string) {
     return this.store.select(selectFeatureUserLoggedIn).pipe(
       map(x => {
-        if (x) return x;
-        this.router.navigate(['/login']);
-        return false;
+        if (x) {
+          console.log('true');
+          return x;
+        } else {
+          console.log(false);
+          return this.router.parseUrl(RouterStateValue.login);
+        }
       })
     );
   }

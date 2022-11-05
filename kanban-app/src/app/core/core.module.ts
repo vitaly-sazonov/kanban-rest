@@ -21,6 +21,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { FormModalComponent } from './components/form-modal/form-modal.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ToastComponent } from './components/toast/toast.component';
     MatFormFieldModule,
     MatIconModule,
     MatDialogModule,
+    MatMenuModule,
   ],
   exports: [FooterComponent, HeaderComponent, ModalComponent, ToastComponent],
 })

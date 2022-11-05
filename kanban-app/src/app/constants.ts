@@ -8,6 +8,4 @@ export const user2 = {
   password: 'userpass@123',
 };
 
-export const ServerError = {
-  403: { statusCode: 403, message: 'User was not founded!' },
-};
+export const USER_ID = 'userId';

@@ -1,0 +1,5 @@
+<section class="cards">
+  <app-developer
+    *ngFor="let developer of developers$ | async"
+    [developer]="developer"></app-developer>
+</section>

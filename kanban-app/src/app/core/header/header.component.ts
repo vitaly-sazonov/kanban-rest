@@ -92,7 +92,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   editUser() {
-    this.router.navigate([RouterStateValue.edit]);
+    this.router.navigate([RouterStateValue.welcome, RouterStateValue.edit]);
   }
 
   deleteUserService() {
@@ -104,8 +104,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: PercentSize.eighty,
-      height: PercentSize.eighty,
+      panelClass: 'dialog',
+      enterAnimationDuration: '500ms',
+      width: PercentSize.fifty,
+      height: PercentSize.fifty,
       data: ConfirmQuestions.DeleteUserQuestion,
     });
     dialogRef.afterClosed().subscribe(result => {

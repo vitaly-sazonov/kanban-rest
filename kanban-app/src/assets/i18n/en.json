@@ -1,8 +1,8 @@
 {
-  "Error":{
-    "User was not founded!":"User was not founded!",
+  "Error": {
+    "User was not founded!": "User was not founded!",
     "User login already exists!": "User login already exists!",
-    "Board was not founded!":"Board was not founded!",
+    "Board was not founded!": "Board was not founded!",
     "Unauthorized": "User is unauthorized"
   },
   "auth": {
@@ -51,6 +51,6 @@
     "required": "fill the field"
   },
   "CONFIRM_DELETE": "DO YOU WANT TO DELETE THIS BOARD?",
-  "DELETE":"DELETE",
-  "BOARDS":"BOARDS"
+  "DELETE": "DELETE",
+  "BOARDS": "BOARDS"
 }

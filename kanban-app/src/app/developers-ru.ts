@@ -7,11 +7,11 @@ export interface DEVELOPER {
   features: string[];
   aboutAuthor: string;
 }
-export const DEVELOPERS: DEVELOPER[] = [
+export const DEVELOPERS_RU: DEVELOPER[] = [
   {
     id: 2,
-    firstName: 'Alexander',
-    secondName: 'Malchevsky',
+    firstName: 'Александр',
+    secondName: 'Мальчевский',
     photoURL: 'https://avatars.githubusercontent.com/u/91604689?v=4',
     git: 'https://github.com/malickalex1975',
     features: [],

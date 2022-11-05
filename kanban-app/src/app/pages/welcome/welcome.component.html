@@ -1,14 +1,25 @@
-<div class="buttons" *ngIf="(loginStatus$ | async) === false">
-  <a routerLink="/login">
-    <button mat-stroked-button color="primary" routerLinkActive="hidden">
+<nav class="buttons">
+  <a routerLink="main" *ngIf="loginStatus$ | async">
+    <button mat-stroked-button color="primary">
+      {{ 'BOARDS' | translate }}
+    </button>
+  </a>
+  <a
+    routerLink="login"
+    *ngIf="(loginStatus$ | async) === false"
+    routerLinkActive="hidden">
+    <button mat-stroked-button color="primary">
       {{ 'auth.Login' | translate }}
     </button>
   </a>
-  <a routerLink="/registration" routerLinkActive="hidden">
+  <a
+    routerLink="registration"
+    routerLinkActive="hidden"
+    *ngIf="(loginStatus$ | async) === false">
     <button mat-stroked-button color="primary">
       {{ 'auth.Registration' | translate }}
     </button>
   </a>
-</div>
+</nav>
 
 <router-outlet></router-outlet>

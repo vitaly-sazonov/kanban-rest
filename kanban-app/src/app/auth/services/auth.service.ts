@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { filter, map, switchMap, tap } from 'rxjs';
+import { filter, map, switchMap, take, tap } from 'rxjs';
 import {
   GetUserByIdResponse,
   UserLogin,
@@ -27,7 +27,11 @@ export class AuthService {
     return this.httpService.signIn(user).pipe(
       tap(x => this.localstorageService.setToken(x.token)),
       switchMap(() => this.getUser(user.login)),
-      tap(x => this.dispatchUser(x))
+      filter(Boolean),
+      tap(x => {
+        this.router.navigate([RouterStateValue.main]);
+        this.dispatchUser(x);
+      })
     );
   }
 
@@ -42,25 +46,36 @@ export class AuthService {
   }
 
   getUser(userName: string) {
-    return this.httpService
-      .getAllUsers()
-      .pipe(map(x => x.find(x => x.login === userName)));
+    return this.httpService.getAllUsers().pipe(
+      map(x => x.find(x => x.login === userName)),
+      tap(x => {
+        if (x?.id) this.localstorageService.setUserId(x?.id);
+      })
+    );
+  }
+
+  checkToken() {
+    const userId = this.localstorageService.getUserId();
+    const token = this.localstorageService.getToken();
+    if (userId && token) {
+      this.httpService
+        .getUserById(userId)
+        .pipe(take(1))
+        .subscribe(x => this.dispatchUser(x));
+    }
   }
 
   logOut() {
     this.store.dispatch(logoutUser());
-    this.localstorageService.clearToken();
-    this.router.navigate([RouterStateValue.login]);
+    this.localstorageService.clear();
+    this.router.navigate([RouterStateValue.welcome]);
   }
 
   deleteUser(userId: string) {
     return this.httpService.deleteUser(userId);
   }
 
-  dispatchUser(x: GetUserByIdResponse | undefined) {
-    if (x) {
-      this.store.dispatch(loginUser({ user: x }));
-      this.router.navigate([RouterStateValue.main]);
-    }
+  dispatchUser(x: GetUserByIdResponse) {
+    this.store.dispatch(loginUser({ user: x }));
   }
 }
