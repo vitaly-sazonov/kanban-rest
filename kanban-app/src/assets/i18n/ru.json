@@ -2,7 +2,8 @@
   "Error":{
     "User was not founded!":"Пользователь не найден!",
     "User login already exists!": "Пользователь с таким логином уже существует",
-    "Board was not founded!":"Доска не найдена"
+    "Board was not founded!":"Доска не найдена",
+    "Unauthorized": "Вы не авторизованы или истек токен"
   },
   "auth": {
     "Update": "Редактировать пользователя",

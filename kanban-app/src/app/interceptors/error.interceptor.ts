@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse,
 } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, EMPTY, Observable, of, throwError } from 'rxjs';
 import { TranslateToastrService } from '../core/services/translate-toastr.service';
 import { AuthService } from '../auth/services/auth.service';
 
@@ -28,10 +28,12 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   handleError(error: HttpErrorResponse) {
     if (error.status === 401) {
+      console.log(error.error);
+      this.translateToastr.translateError(error);
       this.authService.logOut();
     } else {
       this.translateToastr.translateError(error);
     }
-    return throwError(() => new Error());
+    return EMPTY;
   }
 }

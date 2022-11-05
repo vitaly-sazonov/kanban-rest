@@ -2,7 +2,8 @@
   "Error":{
     "User was not founded!":"User was not founded!",
     "User login already exists!": "User login already exists!",
-    "Board was not founded!":"Board was not founded!"
+    "Board was not founded!":"Board was not founded!",
+    "Unauthorized": "User is unauthorized"
   },
   "auth": {
     "Update": "Update user",
