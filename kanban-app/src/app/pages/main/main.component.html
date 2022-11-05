@@ -1,12 +1,12 @@
 <h1>{{ 'BOARDS' | translate }}</h1>
-<mat-spinner
-  class="spiner"
-  diameter="30"
-  color="primary"
-  *ngIf="isLoading$ | async"></mat-spinner>
 <div
   class="boards-container"
   *ngIf="(boards$ | async)!.length > 0; else noBoards">
+  <mat-spinner
+    class="spiner"
+    diameter="30"
+    color="primary"
+    *ngIf="isLoading$ | async"></mat-spinner>
   <app-board *ngFor="let item of boards$ | async" [board]="item"> </app-board>
 </div>
 <ng-template #noBoards>

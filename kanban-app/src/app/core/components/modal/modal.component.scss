@@ -1,25 +1,28 @@
 @import '../../../colors.scss';
 
 .modal-background {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
   left: 0;
   top: 0;
   background-color: $modalBackgroundColor;
+  z-index: 20;
 }
 .modal-window {
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
   left: 25%;
   top: 25%;
   width: 50vw;
   height: 50vh;
   background-color: $modalWindowColor;
   border-radius: 10px;
+  z-index: 30;
+  box-shadow: inset 0 0 20px rgba($color: #000000, $alpha: .5);
 }
 .invisible{
   opacity:0;

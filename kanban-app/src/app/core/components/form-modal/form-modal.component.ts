@@ -31,9 +31,10 @@ export class FormModalComponent {
 
   submit() {
     this.board = this.getBoard();
-    [setVisibility({ isVisible: false }), addBoard({ board: this.board })].map(
-      action => this.store.dispatch(action)
-    );
+    [
+      setVisibility({ isVisible: false }),
+      addBoard({ board: this.board }),
+    ].forEach(action => this.store.dispatch(action));
   }
 
   getBoard() {

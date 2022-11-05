@@ -1,6 +1,10 @@
 {
   "auth": {
-    "EnterPassword":"Введите пароль",
+    "Update": "Редактировать пользователя",
+    "Delete": "Удалить пользователя",
+    "Edit": "Редактировать профиль",
+    "Logout": "Выход",
+    "EnterPassword": "Введите пароль",
     "Password": "Пароль",
     "Registration": "Регистрация",
     "EnterEmail": "Введите электронную почту",
@@ -31,21 +35,16 @@
   "CANCEL": "Отмена",
   "SAMPLE_CONFIRM_INFO": "Вы согласны?",
   "ERROR": "Ошибка: ",
+  "DeleteUserQuestion": "Вы действительно хотите удалить текущего пользователя?",
   "CREATE_BOARD": "Создать доску",
-  "Eng": {
-    "cat": "МЯУ",
-    "dog": "ГАФ"
-  },
-  "formModal":{
+  "formModal": {
     "formTitle": "Создать Доску",
-    "title":"Название",
-    "description":"Описание",
-    "button":"Создать",
-    "required":"заполните поле"
-      },
-      "CONFIRM_DELETE": "ВЫ ХОТОТЕ УДАЛИТЬ ЭТУ ДОСКУ?",
-      "DELETE":"УДАЛИТЬ",
-      "BOARDS":"ДОСКИ"
+    "title": "Название",
+    "description": "Описание",
+    "button": "Создать",
+    "required": "заполните поле"
+  },
+  "CONFIRM_DELETE": "ВЫ ХОТОТЕ УДАЛИТЬ ЭТУ ДОСКУ?",
+  "DELETE": "УДАЛИТЬ",
+  "BOARDS": "ДОСКИ"
 }
-
-

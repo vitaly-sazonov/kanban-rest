@@ -47,16 +47,18 @@ export class HttpService {
   }
 
   getUserById(id: string) {
-    return this.http.get<GetUserByIdResponse>(QUERY_PARAMS_FIRST.users + id);
+    return this.http.get<GetUserByIdResponse>(
+      QUERY_PARAMS_FIRST.users + '/' + id
+    );
   }
 
   deleteUser(id: string) {
-    this.http.delete(QUERY_PARAMS_FIRST.users + id);
+    return this.http.delete(QUERY_PARAMS_FIRST.users + '/' + id);
   }
 
   putUser(id: string, user: UserLogin) {
     return this.http.put<GetUserByIdResponse>(
-      QUERY_PARAMS_FIRST.users + id,
+      QUERY_PARAMS_FIRST.users + '/' + id,
       user
     );
   }

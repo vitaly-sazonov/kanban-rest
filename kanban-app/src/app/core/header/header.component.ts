@@ -1,13 +1,35 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { Subject, takeUntil } from 'rxjs';
+import {
+  filter,
+  fromEvent,
+  pipe,
+  Subject,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { Language, ModalTypes } from 'src/app/enums';
+import {
+  selectFeatureUser,
+  selectFeatureUserLoggedIn,
+} from 'src/app/redux/selectors/user.selectors';
+import { ConfirmService } from '../services/confirm.service';
+import {
+  ConfirmQuestions,
+  Language,
+  ModalTypes,
+  PercentSize,
+  RouterStateValue,
+} from 'src/app/enums';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
-import { selectFeatureUserLoggedIn } from 'src/app/redux/selectors/user.selectors';
 import { ModalService } from '../services/modal.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-header',
@@ -15,23 +37,42 @@ import { ModalService } from '../services/modal.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  headerFixed = false;
   language = new FormControl(Language.En, { nonNullable: true });
   loginStatus$ = this.store.select(selectFeatureUserLoggedIn);
+  userId = '';
   unsubscribe$ = new Subject();
+  deleteMessage = '';
   createBoard = 'CREATE_BOARD';
 
   constructor(
     private translateService: TranslateService,
     private store: Store,
     private authService: AuthService,
-    private modalService: ModalService
+    private router: Router,
+    private modalService: ModalService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
+    fromEvent(window, 'scroll')
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        if (window.scrollY > 0) {
+          this.headerFixed = true;
+        } else {
+          this.headerFixed = false;
+        }
+      });
     this.language.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(x => this.setLang(x));
+    this.store
+      .select(selectFeatureUser)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(x => (x?.id ? (this.userId = x?.id) : (this.userId = '')));
   }
+
   ngOnDestroy(): void {
     this.unsubscribe$.next(1);
     this.unsubscribe$.complete();
@@ -48,5 +89,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logOut() {
     this.authService.logOut();
+  }
+
+  editUser() {
+    this.router.navigate([RouterStateValue.edit]);
+  }
+
+  deleteUserService() {
+    return this.authService.deleteUser(this.userId).pipe(
+      tap(() => this.authService.logOut()),
+      takeUntil(this.unsubscribe$)
+    );
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: PercentSize.eighty,
+      height: PercentSize.eighty,
+      data: ConfirmQuestions.DeleteUserQuestion,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteUserService().subscribe();
+      }
+    });
   }
 }

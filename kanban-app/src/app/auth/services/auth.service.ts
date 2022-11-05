@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
-import { map, switchMap, takeUntil, tap } from 'rxjs';
-import { UserLogin, UserRegistration } from 'src/app/interfaces';
+import { filter, map, switchMap, tap } from 'rxjs';
+import {
+  GetUserByIdResponse,
+  UserLogin,
+  UserRegistration,
+} from 'src/app/interfaces';
 import { HttpService } from 'src/app/core/services/http.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { Store } from '@ngrx/store';
@@ -23,15 +27,18 @@ export class AuthService {
     return this.httpService.signIn(user).pipe(
       tap(x => this.localstorageService.setToken(x.token)),
       switchMap(() => this.getUser(user.login)),
-      tap(x => {
-        if (x) this.store.dispatch(loginUser({ user: x }));
-        this.router.navigate([RouterStateValue.main]);
-      })
+      tap(x => this.dispatchUser(x))
     );
   }
 
   registration(user: UserRegistration) {
     return this.httpService.signUp(user);
+  }
+
+  editUser(id: string, user: UserRegistration) {
+    return this.httpService
+      .putUser(id, user)
+      .pipe(tap(x => this.dispatchUser(x)));
   }
 
   getUser(userName: string) {
@@ -44,5 +51,16 @@ export class AuthService {
     this.store.dispatch(logoutUser());
     this.localstorageService.clearToken();
     this.router.navigate([RouterStateValue.login]);
+  }
+
+  deleteUser(userId: string) {
+    return this.httpService.deleteUser(userId);
+  }
+
+  dispatchUser(x: GetUserByIdResponse | undefined) {
+    if (x) {
+      this.store.dispatch(loginUser({ user: x }));
+      this.router.navigate([RouterStateValue.main]);
+    }
   }
 }

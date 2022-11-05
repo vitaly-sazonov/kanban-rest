@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ModalTypes } from 'src/app/enums';
 import {
   addConfirmMessage,
@@ -25,7 +25,7 @@ export class ConfirmService {
       addConfirmMessage({ message: info }),
       setVisibility({ isVisible: true }),
       setType({ modalType: ModalTypes.ConfirmType }),
-    ].map(action => this.store.dispatch(action));
+    ].forEach(action => this.store.dispatch(action));
   }
 
   setConfirmResult(result: boolean | null) {

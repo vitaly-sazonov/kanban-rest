@@ -1,13 +1,13 @@
 <div class="buttons">
-  <a routerLink="/login" routerLinkActive="active"
-    ><button mat-stroked-button color="primary">
+  <a routerLink="/login">
+    <button mat-stroked-button color="primary" routerLinkActive="hidden">
       {{ 'auth.Login' | translate }}
-    </button></a
-  >
-  <a a routerLink="/registration" routerLinkActive="active"
-    ><button mat-stroked-button color="primary">
+    </button>
+  </a>
+  <a routerLink="/registration" routerLinkActive="hidden">
+    <button mat-stroked-button color="primary">
       {{ 'auth.Registration' | translate }}
-    </button></a
-  >
+    </button>
+  </a>
 </div>
 <router-outlet></router-outlet>

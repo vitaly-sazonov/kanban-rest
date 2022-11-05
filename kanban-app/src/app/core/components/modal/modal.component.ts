@@ -22,6 +22,6 @@ export class ModalComponent {
     [
       setVisibility({ isVisible: false }),
       addConfirmResult({ result: false }),
-    ].map(action => this.store.dispatch(action));
+    ].forEach(action => this.store.dispatch(action));
   }
 }

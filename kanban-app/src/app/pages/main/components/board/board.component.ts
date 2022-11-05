@@ -25,7 +25,7 @@ export class BoardComponent {
       setType({ modalType: ModalTypes.ConfirmType }),
       setVisibility({ isVisible: true }),
       addConfirmMessage({ message: 'CONFIRM_DELETE' }),
-    ].map(action => this.store.dispatch(action));
+    ].forEach(action => this.store.dispatch(action));
 
     this.result$.subscribe(data => {
       if (data) {
