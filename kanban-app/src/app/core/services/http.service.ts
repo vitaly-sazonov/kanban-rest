@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, take, tap, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { QUERY_PARAMS_FIRST } from 'src/app/enums';
 import {
   Board,
@@ -9,7 +9,6 @@ import {
   UserLogin,
   UserRegistration,
 } from '../../interfaces';
-import { TranslateToastrService } from './translate-toastr.service';
 
 @Injectable({
   providedIn: 'root',

@@ -8,10 +8,8 @@ import {
 import { loginUser } from 'src/app/redux/actions/user.actions';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ConfirmService } from 'src/app/core/services/confirm.service';
-import { Observable, tap } from 'rxjs';
-import { NotificationService } from 'src/app/core/services/notification.service';
-import { Router, RouterLink } from '@angular/router';
-// import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome',
@@ -46,10 +44,5 @@ export class WelcomeComponent implements OnInit {
           this.router.navigate(['main']);
         }
       });
-  }
-
-  toastAdd() {
-    // this.toastr.success('You are logged in');
-    // this.toastr.error('Server error');
   }
 }
