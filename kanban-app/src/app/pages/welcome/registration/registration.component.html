@@ -84,13 +84,15 @@
       [disabled]="!registration.valid || (isLoading$ | async)">
       {{ 'auth.Registration' | translate }}
     </button>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="goToLogin()"
-      type="submit"
-      [disabled]="isLoading$ | async">
-      {{ 'auth.Login' | translate }}
-    </button>
   </div>
 </form>
+
+<!-- only for login in test -->
+<button
+  mat-raised-button
+  color="primary"
+  (click)="registerUser()"
+  type="submit">
+  {{ 'auth.Registration' | translate }}
+</button>
+<!-- only for login in test -->

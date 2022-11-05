@@ -1,12 +1,13 @@
 import { createAction, props } from '@ngrx/store';
+import { LoadingStateAction, UserAction } from 'src/app/enums';
 import { GetUserByIdResponse } from 'src/app/interfaces';
 
 export const loginUser = createAction(
-  '[User] Login User',
+  UserAction.login,
   props<{ user: GetUserByIdResponse }>()
 );
 
-export const logoutUser = createAction('[User] Logout User');
+export const logoutUser = createAction(UserAction.logout);
 
-export const setLoadingTrue = createAction('[State] LoadingState True');
-export const setLoadingFalse = createAction('[State] LoadingState False');
+export const setLoadingTrue = createAction(LoadingStateAction.setTrue);
+export const setLoadingFalse = createAction(LoadingStateAction.setFalse);

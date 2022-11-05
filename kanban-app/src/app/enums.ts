@@ -22,6 +22,7 @@ export enum RouterStateValue {
   main = 'main',
   registration = 'registration',
   login = 'login',
+  edit = '/edit',
 }
 
 export enum PasswordValidatorSymbols {
@@ -68,4 +69,22 @@ export enum ColumnActions {
   LoadColumns = '[Columns] Load columns',
   AddColumn = '[Columns] Add new column',
   DeleteColumn = '[Columns] Delete column',
+}
+
+export enum UserAction {
+  login = '[User] Login User',
+  logout = '[User] Logout User',
+}
+
+export enum LoadingStateAction {
+  setTrue = '[State] LoadingState True',
+  setFalse = '[State] LoadingState False',
+}
+
+export enum ConfirmQuestions {
+  DeleteUserQuestion = 'DeleteUserQuestion',
+}
+
+export enum PercentSize {
+  eighty = '80%',
 }

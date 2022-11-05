@@ -4,10 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastComponent } from '../core/components/toast/toast.component';
 import { ModalComponent } from '../core/components/modal/modal.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule, TranslateModule],
+  declarations: [ConfirmDialogComponent],
+  imports: [CommonModule, TranslateModule, MatDialogModule, MatButtonModule],
   exports: [],
 })
 export class SharedModule {}
