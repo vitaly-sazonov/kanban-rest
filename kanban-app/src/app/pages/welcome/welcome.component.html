@@ -1,4 +1,4 @@
-<div class="buttons">
+<div class="buttons" *ngIf="(loginStatus$ | async) === false">
   <a routerLink="/login">
     <button mat-stroked-button color="primary" routerLinkActive="hidden">
       {{ 'auth.Login' | translate }}
@@ -10,4 +10,7 @@
     </button>
   </a>
 </div>
+
+<button mat-stroked-button color="primary" (click)="toastAdd()">TOASTR</button>
+
 <router-outlet></router-outlet>

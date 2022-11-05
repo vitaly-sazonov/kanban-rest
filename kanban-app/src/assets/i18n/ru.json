@@ -1,4 +1,9 @@
 {
+  "Error":{
+    "User was not founded!":"Пользователь не найден!",
+    "User login already exists!": "Пользователь с таким логином уже существует",
+    "Board was not founded!":"Доска не найдена"
+  },
   "auth": {
     "Update": "Редактировать пользователя",
     "Delete": "Удалить пользователя",

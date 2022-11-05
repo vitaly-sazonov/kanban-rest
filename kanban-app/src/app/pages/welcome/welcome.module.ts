@@ -15,7 +15,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { UpdateUserComponent } from './update-user/update-user.component';
 
 @NgModule({
-  declarations: [WelcomeComponent, RegistrationComponent, LoginComponent, UpdateUserComponent],
+  declarations: [
+    WelcomeComponent,
+    RegistrationComponent,
+    LoginComponent,
+    UpdateUserComponent,
+  ],
   imports: [
     CommonModule,
     WelcomeRoutingModule,
