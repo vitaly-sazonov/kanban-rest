@@ -63,3 +63,9 @@ export enum ModalTypes {
   ConfirmType,
   FormType,
 }
+
+export enum ColumnActions {
+  LoadColumns = '[Columns] Load columns',
+  AddColumn = '[Columns] Add new column',
+  DeleteColumn = '[Columns] Delete column',
+}

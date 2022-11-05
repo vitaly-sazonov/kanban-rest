@@ -1,3 +1,8 @@
 <h1>Board</h1>
 <h2>ID: {{ id }}</h2>
+<section class="column-wrapper">
+  <button class="add-column" (click)="addColumn()">
+    {{ 'BOARD.addNewColumn' | translate }}
+  </button>
+</section>
 <button [routerLink]="['../../main']">BACK to BOARDS</button>

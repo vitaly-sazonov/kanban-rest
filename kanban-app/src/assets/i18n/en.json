@@ -47,5 +47,8 @@
   },
   "CONFIRM_DELETE": "DO YOU WANT TO DELETE THIS BOARD?",
   "DELETE":"DELETE",
-  "BOARDS":"BOARDS"
+  "BOARDS":"BOARDS",
+  "BOARD" : {
+    "addNewColumn": "Add column"
+  }
 }
