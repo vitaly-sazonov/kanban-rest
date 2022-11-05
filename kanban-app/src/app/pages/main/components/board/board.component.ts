@@ -21,9 +21,12 @@ export class BoardComponent {
     this.confirmDelete(id);
   }
   confirmDelete(id: string) {
-    this.store.dispatch(setType({ modalType: ModalTypes.ConfirmType }));
-    this.store.dispatch(setVisibility({ isVisible: true }));
-    this.store.dispatch(addConfirmMessage({ message: 'CONFIRM_DELETE' }));
+    [
+      setType({ modalType: ModalTypes.ConfirmType }),
+      setVisibility({ isVisible: true }),
+      addConfirmMessage({ message: 'CONFIRM_DELETE' }),
+    ].forEach(action => this.store.dispatch(action));
+
     this.result$.subscribe(data => {
       if (data) {
         this.store.dispatch(deleteBoardById({ id }));

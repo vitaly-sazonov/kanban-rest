@@ -13,7 +13,7 @@ import { HttpService } from '../../services/http.service';
 })
 export class FormModalComponent {
   createBoardForm: FormGroup;
-  board?: Board;
+  board: Board = { title: '', description: '' };
 
   constructor(private store: Store, private http: HttpService) {
     this.createBoardForm = new FormGroup({
@@ -30,10 +30,13 @@ export class FormModalComponent {
   }
 
   submit() {
-    this.store.dispatch(setVisibility({ isVisible: false }));
     this.board = this.getBoard();
-    this.store.dispatch(addBoard({ board: this.board }));
+    [
+      setVisibility({ isVisible: false }),
+      addBoard({ board: this.board }),
+    ].forEach(action => this.store.dispatch(action));
   }
+
   getBoard() {
     return {
       title: this.createBoardForm.controls['title'].value,

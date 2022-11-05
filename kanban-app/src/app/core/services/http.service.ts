@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { QUERY_PARAMS_FIRST } from 'src/app/enums';
 import {
   Board,
@@ -29,7 +29,9 @@ export class HttpService {
   }
 
   signIn(user: UserLogin) {
-    return this.http.post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user);
+    return this.http
+      .post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   signUp(user: UserRegistration) {
@@ -54,6 +56,20 @@ export class HttpService {
     return this.http.put<GetUserByIdResponse>(
       QUERY_PARAMS_FIRST.users + '/' + id,
       user
+    );
+  }
+
+  handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('An error occurred:', error.error);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
+    }
+    return throwError(
+      () => new Error('Something bad happened; please try again later.')
     );
   }
 }
