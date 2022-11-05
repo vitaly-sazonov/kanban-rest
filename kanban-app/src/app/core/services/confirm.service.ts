@@ -21,9 +21,11 @@ export class ConfirmService {
   constructor(private store: Store) {}
 
   setConfirmInfo(info: string) {
-    this.store.dispatch(addConfirmMessage({ message: info }));
-    this.store.dispatch(setVisibility({ isVisible: true }));
-    this.store.dispatch(setType({ modalType: ModalTypes.ConfirmType }));
+    [
+      addConfirmMessage({ message: info }),
+      setVisibility({ isVisible: true }),
+      setType({ modalType: ModalTypes.ConfirmType }),
+    ].forEach(action => this.store.dispatch(action));
   }
 
   setConfirmResult(result: boolean | null) {
