@@ -36,8 +36,8 @@ import { boardsReducer } from './redux/reducers/boards.reducers';
 import { BoardsEffect } from './redux/effects/boards.effects';
 import { userReducer } from './redux/reducers/user.reducer';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -49,7 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useFactory: createTranslateLoader,
         deps: [HttpClient],
       },
     }),

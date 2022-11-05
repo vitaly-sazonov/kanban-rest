@@ -22,6 +22,7 @@ export enum RouterStateValue {
   main = 'main',
   registration = 'registration',
   login = 'login',
+  edit = '/edit',
 }
 
 export enum PasswordValidatorSymbols {
@@ -62,4 +63,21 @@ export enum BoardsActions {
 export enum ModalTypes {
   ConfirmType,
   FormType,
+}
+export enum UserAction {
+  login = '[User] Login User',
+  logout = '[User] Logout User',
+}
+
+export enum LoadingStateAction {
+  setTrue = '[State] LoadingState True',
+  setFalse = '[State] LoadingState False',
+}
+
+export enum ConfirmQuestions {
+  DeleteUserQuestion = 'DeleteUserQuestion',
+}
+
+export enum PercentSize {
+  eighty = '80%',
 }

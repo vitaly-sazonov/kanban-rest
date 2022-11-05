@@ -2,23 +2,26 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { user2 } from 'src/app/constants';
 import { PasswordValidatorSymbols, RouterStateValue } from 'src/app/enums';
 import { UserRegistration } from 'src/app/interfaces';
-import { loginUser } from 'src/app/redux/actions/user.actions';
-import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
+import {
+  selectFeatureIsLoading,
+  selectFeatureUser,
+} from 'src/app/redux/selectors/user.selectors';
 import { passwordValidator } from '../password-validator';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss'],
+  selector: 'app-update-user',
+  templateUrl: './update-user.component.html',
+  styleUrls: ['./update-user.component.scss'],
 })
-export class RegistrationComponent implements OnDestroy {
+export class UpdateUserComponent implements OnInit, OnDestroy {
   PasswordValidatorSymbols = PasswordValidatorSymbols;
   isLoading$ = this.store.select(selectFeatureIsLoading);
+  user$ = this.store.select(selectFeatureUser);
+  userId = '';
   unsubscribe$ = new Subject();
   registration = new FormGroup({
     name: new FormControl<string>('', {
@@ -56,22 +59,27 @@ export class RegistrationComponent implements OnDestroy {
     private authService: AuthService
   ) {}
 
+  ngOnInit(): void {
+    this.user$.subscribe(x => {
+      if (x) {
+        this.userId = x.id;
+        this.registration.setValue({
+          name: x?.name,
+          login: x?.login,
+          password: '',
+        });
+      }
+    });
+  }
+
   goToLogin() {
     this.router.navigate([RouterStateValue.login]);
   }
 
   register(user: UserRegistration) {
     this.authService
-      .registration(user)
-      .pipe(
-        switchMap(x =>
-          this.authService.login({
-            login: user.login,
-            password: user.password,
-          })
-        ),
-        takeUntil(this.unsubscribe$)
-      )
+      .editUser(this.userId, user)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe();
   }
 
@@ -82,9 +90,5 @@ export class RegistrationComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next(0);
     this.unsubscribe$.complete();
-  }
-
-  registerUser() {
-    this.register(user2);
   }
 }

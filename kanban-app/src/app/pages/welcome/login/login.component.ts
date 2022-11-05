@@ -19,7 +19,10 @@ export class LoginComponent implements OnDestroy {
   unsubscribe$ = new Subject();
   isLoading$ = this.store.select(selectFeatureIsLoading);
   login = new FormGroup({
-    userName: new FormControl('', [Validators.required, Validators.email]),
+    userName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(7),
+    ]),
     password: new FormControl('', [
       Validators.minLength(8),
       Validators.required,
@@ -50,7 +53,7 @@ export class LoginComponent implements OnDestroy {
   }
 
   onSubmit() {
-    const userName = this.login.value.password;
+    const userName = this.login.value.userName;
     const password = this.login.value.password;
     if (userName && password)
       this.logIn({ password: password, login: userName });
@@ -64,4 +67,13 @@ export class LoginComponent implements OnDestroy {
     this.unsubscribe$.next(0);
     this.unsubscribe$.complete();
   }
+
+  // only for login in test
+  loginUser() {
+    this.authService
+      .login({ login: 'user002', password: 'userpass@123' })
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe();
+  }
+  // only for login in test
 }

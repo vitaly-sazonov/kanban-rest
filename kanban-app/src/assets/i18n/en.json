@@ -1,5 +1,9 @@
 {
   "auth": {
+    "Update": "Update user",
+    "Delete": "Delete user",
+    "Edit": "Edit profile",
+    "Logout": "Logout",
     "EnterPassword": "Enter password",
     "Password": "Password",
     "Registration": "Registration",
@@ -32,12 +36,7 @@
   "SAMPLE_CONFIRM_INFO": "Are you agree?",
   "CREATE_BOARD": "Create board",
   "ERROR": "Error: ",
-
-  "Eng": {
-    "cat": "meou",
-    "dog": "second"
-  },
-
+  "DeleteUserQuestion": "Are you sure DELETE user?",
   "formModal": {
     "formTitle": "Create Board",
     "title": "Title",

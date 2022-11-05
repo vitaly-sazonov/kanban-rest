@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   width: 100%;
+  justify-content: center;
 }
 
 .logo {
@@ -36,7 +37,3 @@
     transform: scale(.90);
   }
 }
-
-// .footer-year {
-//   @include font14;
-// }

@@ -1,12 +1,12 @@
-<form [formGroup]="login" (ngSubmit)="onSubmit()" class="form">
-  <h2>{{ 'auth.Login' | translate }}</h2>
+<form [formGroup]="registration" (ngSubmit)="onSubmit()" class="form">
+  <h2>{{ 'auth.Update' | translate }}</h2>
   <p>
     <mat-form-field appearance="fill" class="form-field">
       <mat-label>{{ 'auth.Name' | translate }}</mat-label>
       <input
         matInput
         type="text"
-        formControlName="userName"
+        formControlName="name"
         [placeholder]="'auth.EnterEmail' | translate" />
       <mat-error
         *ngIf="
@@ -17,6 +17,25 @@
       <mat-error *ngIf="_user?.hasError(PasswordValidatorSymbols.email)">
         {{ 'auth.EmailError.invalid' | translate }}
       </mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>{{ 'auth.Login' | translate }}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="login"
+        [placeholder]="'auth.EnterLogin' | translate" />
+      <mat-error
+        *ngIf="
+          _login?.hasError(PasswordValidatorSymbols.required) && _login?.touched
+        ">
+        {{ 'auth.LoginError.required' | translate }}
+      </mat-error>
+      <mat-error *ngIf="_login?.errors?.[PasswordValidatorSymbols.minLength]">
+        {{ 'auth.LoginError.minLength' | translate }}</mat-error
+      >
     </mat-form-field>
   </p>
   <p>
@@ -61,16 +80,17 @@
     <button
       mat-raised-button
       color="accent"
-      color="primary"
       type="submit"
-      [disabled]="!login.valid || (isLoading$ | async)">
+      [disabled]="!registration.valid || (isLoading$ | async)">
+      {{ 'auth.Registration' | translate }}
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="goToLogin()"
+      type="submit"
+      [disabled]="isLoading$ | async">
       {{ 'auth.Login' | translate }}
     </button>
   </div>
 </form>
-
-<!-- only for login in test -->
-<button mat-raised-button color="primary" (click)="loginUser()" type="submit">
-  {{ 'auth.Login' | translate }}
-</button>
-<!-- only for login in test -->
