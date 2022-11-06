@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { QUERY_PARAMS_FIRST } from 'src/app/enums';
 import {
   Board,

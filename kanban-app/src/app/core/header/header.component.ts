@@ -1,24 +1,14 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  filter,
-  fromEvent,
-  pipe,
-  Subject,
-  switchMap,
-  take,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { fromEvent, Subject, takeUntil, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import {
   selectFeatureUser,
   selectFeatureUserLoggedIn,
 } from 'src/app/redux/selectors/user.selectors';
-import { ConfirmService } from '../services/confirm.service';
 import {
   ConfirmQuestions,
   Language,
@@ -31,7 +21,6 @@ import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { ModalService } from '../services/modal.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
-import { FormModalComponent } from '../components/form-modal/form-modal.component';
 
 @Component({
   selector: 'app-header',

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
 import { loadBoards } from 'src/app/redux/actions/boards.actions';
 import { selectUserBoards } from 'src/app/redux/selectors/boards.selectors';
