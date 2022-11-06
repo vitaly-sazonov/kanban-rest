@@ -6,8 +6,8 @@
     <h2>{{ board?.description }}...</h2>
   </div>
   <div class="toggle" (click)="toggle()" *ngIf="(columns$ | async)?.length > 0">
-    <h2 *ngIf="isPreview === false">{{ 'more' | translate }}...</h2>
-    <h2 *ngIf="isPreview">{{ 'hide' | translate }}...</h2>
+    <mat-icon *ngIf="isPreview === false">unfold_more</mat-icon>
+    <mat-icon *ngIf="isPreview">unfold_less</mat-icon>
   </div>
   <div
     class="container-preview"

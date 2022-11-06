@@ -1,14 +1,33 @@
-<h1>{{ 'BOARDS' | translate }}</h1>
-<div
-  class="boards-container"
-  *ngIf="(boards$ | async)!.length > 0; else noBoards">
-  <mat-spinner
-    class="spiner"
-    diameter="30"
-    color="primary"
-    *ngIf="isLoading$ | async"></mat-spinner>
-  <app-board *ngFor="let item of boards$ | async" [board]="item"> </app-board>
+<h1 class="title">{{ 'BOARDS' | translate }}</h1>
+
+<div class="search-container">
+  <mat-icon class="icon">search</mat-icon>
+  <input
+    matInput
+    class="search-input"
+    placeholder="search board"
+    [(ngModel)]="searchRequest"
+    [autofocus]="true"
+    (ngModelChange)="search()" />
 </div>
-<ng-template #noBoards>
-  <h2>No Boards</h2>
+<div class="boards-container">
+  <div
+    class="inner-container"
+    *ngIf="
+      ((boards$ | async)! | search: searchRequest).length > 0;
+      else noBoards
+    ">
+    <mat-spinner
+      class="spiner"
+      diameter="30"
+      color="primary"
+      *ngIf="isLoading$ | async"></mat-spinner>
+    <app-board
+      *ngFor="let item of (boards$ | async)! | search: searchRequest"
+      [board]="item">
+    </app-board>
+  </div>
+</div>
+<ng-template class="template" #noBoards>
+  <h2>{{ 'No Boards' | translate }}</h2>
 </ng-template>

@@ -2,7 +2,7 @@
   class="toast-container"
   [class.visible]="isVisible"
   [class.invisible]="!isVisible">
-  <h4 class="close" (click)="exit()">{{ 'CLOSE' | translate }}</h4>
+  <div class="close" (click)="exit()"><mat-icon>close</mat-icon></div>
   <h2 class="toast-notification">
     {{ 'ERROR' | translate }} {{ (notification$ | async)! | translate }}
   </h2>

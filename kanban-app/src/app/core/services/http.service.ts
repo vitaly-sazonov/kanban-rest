@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { QUERY_PARAMS_FIRST } from 'src/app/enums';
 import {
   Board,
@@ -10,16 +10,12 @@ import {
   UserLogin,
   UserRegistration,
 } from '../../interfaces';
-import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(
-    private http: HttpClient,
-    private notification: NotificationService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getBoards(): Observable<any> {
     return this.http.get(QUERY_PARAMS_FIRST.boards);

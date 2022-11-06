@@ -72,10 +72,6 @@ export class UpdateUserComponent implements OnInit, OnDestroy {
     });
   }
 
-  goToLogin() {
-    this.router.navigate([RouterStateValue.login]);
-  }
-
   register(user: UserRegistration) {
     this.authService
       .editUser(this.userId, user)

@@ -1,15 +1,53 @@
+input:focus {
+  outline: 0;
+  border: transparent;
+}
+
 .boards-container {
-  margin-left: auto;
-  margin-right: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
   width: fit-content;
   height: auto;
   min-height: 300px;
   min-width: 300px;
   overflow-x: auto;
+}
+.inner-container {
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
+
 .spiner {
-  margin-left :135px ;
+  margin-left: 135px;
+}
+.search-container {
+  position: sticky;
+  top: 180px;
+  display: flex;
+}
+.search-input {
+  margin-left: 20px;
+  width: 150px;
+  height: 30px;
+  background-color: #eee;
+  border: transparent;
+}
+.title {
+  position: sticky;
+  top: 100px;
+  margin-left: 50px;
+}
+.icon {
+  position: relative;
+  top: 6px;
+  left: 19px;
+}
+.template {
+  position: fixed;
+  left: 100px;
 }
