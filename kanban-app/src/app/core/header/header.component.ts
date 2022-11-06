@@ -30,6 +30,7 @@ import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { ModalService } from '../services/modal.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { FormModalComponent } from '../components/form-modal/form-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -83,6 +84,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   callFormModal() {
+    this.modalService.setScheme(['addBoard']);
     this.modalService.setType(ModalTypes.FormType);
     this.store.dispatch(setVisibility({ isVisible: true }));
   }

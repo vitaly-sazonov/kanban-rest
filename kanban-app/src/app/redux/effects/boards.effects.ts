@@ -59,10 +59,10 @@ export class BoardsEffect {
   addColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addColumn),
-      switchMap(({ boardData, column }) => {
+      switchMap(({ boardId, column }) => {
         return this.http
-          .addColumn(boardData, column)
-          .pipe(map(() => loadColumns({ id: boardData.id! })));
+          .addColumn(boardId, column)
+          .pipe(map(() => loadColumns({ id: boardId })));
       })
     );
   });

@@ -21,7 +21,7 @@ export const loadBoardById = createAction(
 export const loadBoards = createAction(BoardsActions.LoadBoards);
 export const addColumn = createAction(
   ColumnActions.AddColumn,
-  props<{ boardData: Board; column: Column }>()
+  props<{ boardId: string; column: Column }>()
 );
 export const loadColumns = createAction(
   ColumnActions.LoadColumns,

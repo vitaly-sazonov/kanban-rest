@@ -1,22 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import {
-  Observable,
-  Subscription,
-  switchMap,
-  map,
-  take,
-  tap,
-  first,
-} from 'rxjs';
+import { Observable, Subscription, switchMap, map, first } from 'rxjs';
 import { ModalService } from 'src/app/core/services/modal.service';
+import { appForms, ModalTypes } from 'src/app/enums';
 import { Board, Column } from 'src/app/interfaces';
 import {
   addColumn,
   loadColumns,
   removeColumn,
 } from 'src/app/redux/actions/boards.actions';
+import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { selectBoardById } from 'src/app/redux/selectors/boards.selectors';
 
 @Component({
@@ -45,19 +39,10 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  addNewColumn() {
-    this.currentBoard$
-      ?.pipe(
-        map(boardData => {
-          if (boardData) {
-            this.store.dispatch(
-              addColumn({ boardData, column: { title: 'Hello' } })
-            );
-          }
-        }),
-        first()
-      )
-      .subscribe();
+  modalAction() {
+    this.modalService.setScheme(['addColumn', this.id]);
+    this.modalService.setType(ModalTypes.FormType);
+    this.store.dispatch(setVisibility({ isVisible: true }));
   }
 
   removeColumn(id: string) {

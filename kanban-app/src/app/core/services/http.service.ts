@@ -34,9 +34,15 @@ export class HttpService {
   }
 
   signIn(user: UserLogin) {
-    return this.http
-      .post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user)
-      .pipe(catchError(error => this.handleError(error)));
+    return this.http.post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user).pipe(
+      catchError(error => {
+        this.notification.setNotification(`Backend returned error with name: ${
+          error.name
+        }, and message:
+        ${JSON.stringify(error.message)}`);
+        return this.handleError(error);
+      })
+    );
   }
 
   signUp(user: UserRegistration) {
@@ -82,9 +88,9 @@ export class HttpService {
     return this.http.get(`${QUERY_PARAMS_FIRST.boards}/${id}`);
   }
 
-  addColumn(board: Board, column: Column) {
+  addColumn(boardId: string, column: Column) {
     return this.http.post(
-      `${QUERY_PARAMS_FIRST.boards}/${board.id}${QUERY_PARAMS_FIRST.columns}`,
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_FIRST.columns}`,
       column
     );
   }
