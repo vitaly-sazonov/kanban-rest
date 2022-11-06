@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, tap, mergeMap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
-import { ColumnActions } from 'src/app/enums';
 import { Board, Column } from 'src/app/interfaces';
 import {
   addBoard,
@@ -10,7 +9,7 @@ import {
   addColumn,
   addColumns,
   deleteBoardById,
-  loadBoardById,
+  editColumn,
   loadBoards,
   loadColumns,
   removeColumn,
@@ -72,6 +71,16 @@ export class BoardsEffect {
       switchMap(({ boardId, columnId }) => {
         return this.http
           .removeColumn(boardId, columnId)
+          .pipe(map(() => loadColumns({ id: boardId })));
+      })
+    );
+  });
+  editColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editColumn),
+      switchMap(({ boardId, columnId, columnOrder, column }) => {
+        return this.http
+          .editColumn(boardId, columnId, columnOrder, column)
           .pipe(map(() => loadColumns({ id: boardId })));
       })
     );

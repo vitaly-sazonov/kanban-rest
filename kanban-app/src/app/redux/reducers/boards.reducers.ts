@@ -1,13 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { Board } from 'src/app/interfaces';
 import { State } from '..';
-import {
-  addBoard,
-  addBoards,
-  addColumn,
-  addColumns,
-  loadColumns,
-} from '../actions/boards.actions';
+import { addBoards, addColumns } from '../actions/boards.actions';
 
 export interface StateBoards {
   boards?: Board[];
@@ -31,11 +25,13 @@ export const boardsReducer = createReducer(
     };
   }),
   on(addColumns, (state, { id, columns }): State => {
+    columns = Object.values(columns);
+    columns.sort((a, b) => a.order! - b.order!);
     return {
       ...state,
       userBoards: {
         boards: state.userBoards?.boards?.map(el =>
-          el.id === id ? { ...el, columns: columns } : { ...el }
+          el.id === id ? { ...el, columns } : { ...el }
         ),
       },
     };

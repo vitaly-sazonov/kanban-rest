@@ -5,7 +5,11 @@ import { Store } from '@ngrx/store';
 import { switchMap } from 'rxjs';
 import { ModalSchemes } from 'src/app/enums';
 import { Board, Column } from 'src/app/interfaces';
-import { addBoard, addColumn } from 'src/app/redux/actions/boards.actions';
+import {
+  addBoard,
+  addColumn,
+  editColumn,
+} from 'src/app/redux/actions/boards.actions';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { selectModalScheme } from 'src/app/redux/selectors/modal.selectors';
 import { HttpService } from '../../services/http.service';
@@ -22,7 +26,7 @@ export class FormModalComponent implements OnInit {
   formAction!: Function;
   formSelected: ModalSchemes | undefined;
   inputFields = {};
-  boardId = '';
+  modalExtra: any[] = [];
 
   constructor(
     private store: Store,
@@ -35,30 +39,44 @@ export class FormModalComponent implements OnInit {
       this.formSelected = data;
       this.buildForm(this.formSelected!);
     });
-    this.modalService.extra$.subscribe(data => (this.boardId = data[0]));
   }
 
   buildForm(formSelected: ModalSchemes) {
-    switch (formSelected) {
-      case ModalSchemes.addBoard:
-        this.formConstructor = new FormGroup({
-          title: new FormControl('', Validators.required),
-          description: new FormControl('', Validators.required),
-        });
-        this.formAction = (payload: Board) => addBoard({ board: payload });
-        break;
-      case ModalSchemes.addColumn:
-        this.formConstructor = new FormGroup({
-          title: new FormControl('', Validators.required),
-        });
-        this.formAction = (payload: Column) =>
-          addColumn({
-            boardId: this.boardId,
-            column: payload,
+    this.modalService.extra$.subscribe(data => {
+      this.modalExtra = data;
+      switch (formSelected) {
+        case ModalSchemes.addBoard:
+          this.formConstructor = new FormGroup({
+            title: new FormControl('', Validators.required),
+            description: new FormControl('', Validators.required),
           });
-        break;
-    }
-    this.inputFields = this.getInputFields();
+          this.formAction = (payload: Board) => addBoard({ board: payload });
+          break;
+        case ModalSchemes.addColumn:
+          this.formConstructor = new FormGroup({
+            title: new FormControl('', Validators.required),
+          });
+          this.formAction = (payload: Column) =>
+            addColumn({
+              boardId: this.modalExtra[0],
+              column: payload,
+            });
+          break;
+        case ModalSchemes.editColumn:
+          this.formConstructor = new FormGroup({
+            title: new FormControl(this.modalExtra[3], Validators.required),
+          });
+          this.formAction = (payload: Column) =>
+            editColumn({
+              boardId: this.modalExtra[0],
+              columnId: this.modalExtra[1],
+              columnOrder: this.modalExtra[2],
+              column: payload,
+            });
+          break;
+      }
+      this.inputFields = this.getInputFields();
+    });
   }
 
   keepSorting() {

@@ -23,6 +23,15 @@ export const addColumn = createAction(
   ColumnActions.AddColumn,
   props<{ boardId: string; column: Column }>()
 );
+export const editColumn = createAction(
+  ColumnActions.EditColumn,
+  props<{
+    boardId: string;
+    columnId: string;
+    columnOrder: number;
+    column: Column;
+  }>()
+);
 export const loadColumns = createAction(
   ColumnActions.LoadColumns,
   props<{ id: string }>()

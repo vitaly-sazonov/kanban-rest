@@ -44,7 +44,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       });
   }
 
-  modalAction() {
+  createColumn() {
     this.modalService.setExtra([this.id]);
     this.modalService.setScheme(ModalSchemes.addColumn);
     this.modalService.setType(ModalTypes.FormType);
@@ -63,6 +63,13 @@ export class BoardPageComponent implements OnInit, OnDestroy {
         this.store.dispatch(removeColumn({ boardId: this.id, columnId: id }));
       }
     });
+  }
+
+  editColumn(columnId: string, columnOrder: number, currentTitle: string) {
+    this.modalService.setExtra([this.id, columnId, columnOrder, currentTitle]);
+    this.modalService.setScheme(ModalSchemes.editColumn);
+    this.modalService.setType(ModalTypes.FormType);
+    this.store.dispatch(setVisibility({ isVisible: true }));
   }
 
   ngOnDestroy(): void {

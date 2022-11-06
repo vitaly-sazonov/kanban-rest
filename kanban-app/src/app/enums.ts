@@ -70,6 +70,7 @@ export enum ModalTypes {
 export enum ModalSchemes {
   addBoard = 'addBoard',
   addColumn = 'addColumn',
+  editColumn = 'editColumn',
   addTask = 'addTask',
 }
 
@@ -78,6 +79,7 @@ export enum ColumnActions {
   AddColumn = '[Columns] Add new column',
   AddColumns = '[Columns] Add columns',
   RemoveColumn = '[Columns] Delete column',
+  EditColumn = '[Columns] Edit column',
 }
 
 export enum UserAction {

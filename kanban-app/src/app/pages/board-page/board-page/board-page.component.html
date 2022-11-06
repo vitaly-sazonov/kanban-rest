@@ -11,12 +11,17 @@
       class="column"
       *ngFor="let item of (currentBoard$ | async)!.columns">
       {{ item.title }}
+      <button
+        class="column-remove"
+        (click)="editColumn(item.id!, item.order!, item.title)">
+        {{ 'BOARD.editColumn' | translate }}
+      </button>
       <button class="column-remove" (click)="removeColumn(item.id!)">
         {{ 'BOARD.removeColumn' | translate }}
       </button>
     </article>
   </section>
-  <button class="add-column" (click)="modalAction()">
+  <button class="add-column" (click)="createColumn()">
     {{ 'BOARD.addNewColumn' | translate }}
   </button>
 </section>

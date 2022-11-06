@@ -38,23 +38,30 @@
   "ERROR": "Error: ",
   "DeleteUserQuestion": "Are you sure DELETE user?",
   "formModal": {
-    "button": "Create",
     "required": "fill the field"
   },
   "addBoard": {
     "header": "Create Board",
     "title": "Title",
-    "description": "Description"
+    "description": "Description",
+    "button": "Create board"
   },
   "addColumn": {
     "header": "Create Column",
-    "title": "Title"
+    "title": "Title",
+    "button": "Create column"
+  },
+  "editColumn": {
+    "header": "Edit Column",
+    "title": "New title",
+    "button": "Edit column"
   },
   "CONFIRM_DELETE": "DO YOU WANT TO DELETE THIS BOARD?",
   "DELETE": "DELETE",
   "BOARDS": "BOARDS",
   "BOARD": {
     "addNewColumn": "Add column",
+    "editColumn": "Edit column",
     "removeColumn": "Remove column",
     "CONFIRM_DELETE_COLUMN": "Are you sure you want to delete this column?"
   }

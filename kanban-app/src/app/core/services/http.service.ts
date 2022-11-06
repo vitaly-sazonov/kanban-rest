@@ -105,4 +105,15 @@ export class HttpService {
       `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_FIRST.columns}/${columnId}`
     );
   }
+  editColumn(
+    boardId: string,
+    columnId: string,
+    columnOrder: number,
+    column: Column
+  ) {
+    return this.http.put(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_FIRST.columns}/${columnId}`,
+      { ...column, order: columnOrder }
+    );
+  }
 }
