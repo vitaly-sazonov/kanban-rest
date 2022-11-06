@@ -5,6 +5,7 @@ export enum QUERY_PARAMS_FIRST {
   boards = '/boards',
   file = '/file',
   logs = '/logs',
+  columns = '/columns',
 }
 
 export enum Language {
@@ -68,6 +69,7 @@ export enum ModalTypes {
 export enum ColumnActions {
   LoadColumns = '[Columns] Load columns',
   AddColumn = '[Columns] Add new column',
+  AddColumns = '[Columns] Add columns',
   DeleteColumn = '[Columns] Delete column',
 }
 

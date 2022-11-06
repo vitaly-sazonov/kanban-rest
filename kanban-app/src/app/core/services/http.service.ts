@@ -4,6 +4,7 @@ import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
 import { QUERY_PARAMS_FIRST } from 'src/app/enums';
 import {
   Board,
+  Column,
   GetUserByIdResponse,
   LoginResponse,
   UserLogin,
@@ -81,5 +82,22 @@ export class HttpService {
     return throwError(
       () => new Error('Something bad happened; please try again later.')
     );
+  }
+
+  addColumn(board: Board, column: Column) {
+    return this.http.post(
+      `${QUERY_PARAMS_FIRST.boards}/${board.id}${QUERY_PARAMS_FIRST.columns}`,
+      column
+    );
+  }
+
+  getColumns(id: string): Observable<any> {
+    return this.http.get(
+      `${QUERY_PARAMS_FIRST.boards}/${id}${QUERY_PARAMS_FIRST.columns}`
+    );
+  }
+
+  getBoardById(id: string) {
+    return this.http.get(`${QUERY_PARAMS_FIRST.boards}/${id}`);
   }
 }

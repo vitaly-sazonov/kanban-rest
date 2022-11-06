@@ -1,7 +1,17 @@
 <h1>Board</h1>
 <h2>ID: {{ id }}</h2>
 <section class="column-wrapper">
-  <button class="add-column" (click)="addColumn()">
+  <div
+    class="columns"
+    *ngIf="
+      (currentBoard$ | async)!.columns &&
+      (currentBoard$ | async)!.columns!.length > 0
+    ">
+    <div class="column" *ngFor="let item of (currentBoard$ | async)!.columns">
+      {{ item }}
+    </div>
+  </div>
+  <button class="add-column" (click)="addNewColumn()">
     {{ 'BOARD.addNewColumn' | translate }}
   </button>
 </section>

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { BoardsActions } from 'src/app/enums';
-import { Board } from 'src/app/interfaces';
+import { BoardsActions, ColumnActions } from 'src/app/enums';
+import { Board, Column } from 'src/app/interfaces';
 
 export const addBoards = createAction(
   BoardsActions.AddBoards,
@@ -16,6 +16,18 @@ export const deleteBoardById = createAction(
 );
 export const loadBoardById = createAction(
   BoardsActions.LoadBoardById,
-  props<{ id: number }>()
+  props<{ id: string }>()
 );
 export const loadBoards = createAction(BoardsActions.LoadBoards);
+export const addColumn = createAction(
+  ColumnActions.AddColumn,
+  props<{ boardData: Board; column: Column }>()
+);
+export const loadColumns = createAction(
+  ColumnActions.LoadColumns,
+  props<{ id: string }>()
+);
+export const addColumns = createAction(
+  ColumnActions.AddColumns,
+  props<{ id: string; columns: Column[] }>()
+);

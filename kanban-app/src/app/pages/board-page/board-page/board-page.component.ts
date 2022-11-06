@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subscription, switchMap } from 'rxjs';
+import { Observable, Subscription, switchMap, map, take, tap } from 'rxjs';
 import { ModalService } from 'src/app/core/services/modal.service';
-import { ModalTypes } from 'src/app/enums';
-import { addColumn } from 'src/app/redux/actions/columns.actions';
-import { setVisibility } from 'src/app/redux/actions/modal.actions';
+import { Board, Column } from 'src/app/interfaces';
+import { addColumn, loadColumns } from 'src/app/redux/actions/boards.actions';
+import { selectBoardById } from 'src/app/redux/selectors/boards.selectors';
 
 @Component({
   selector: 'app-board-page',
@@ -15,6 +15,8 @@ import { setVisibility } from 'src/app/redux/actions/modal.actions';
 export class BoardPageComponent implements OnInit, OnDestroy {
   id: string = '';
   subscription?: Subscription;
+  currentBoard$?: Observable<Board | undefined>;
+
   constructor(
     private route: ActivatedRoute,
     private modalService: ModalService,
@@ -24,13 +26,27 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.route.paramMap
       .pipe(switchMap(params => params.getAll('id')))
-      .subscribe(data => (this.id = data));
+      .subscribe(data => {
+        this.id = data;
+        this.store.dispatch(loadColumns({ id: this.id }));
+        this.currentBoard$ = this.store.select(selectBoardById(this.id));
+      });
   }
 
-  addColumn() {
-    this.modalService.setType(ModalTypes.FormType);
-    this.store.dispatch(setVisibility({ isVisible: true }));
-    this.store.dispatch(addColumn({ column: { title: 'Hello' } }));
+  addNewColumn() {
+    this.currentBoard$
+      ?.pipe(
+        map(boardData => {
+          if (boardData) {
+            this.store.dispatch(
+              addColumn({ boardData, column: { title: 'Hello' } })
+            );
+          }
+        }),
+        take(1)
+      )
+      .subscribe();
+    // this.store.dispatch(addColumn({ id: this.id, column: { title: 'Hello' } }));
   }
 
   ngOnDestroy(): void {

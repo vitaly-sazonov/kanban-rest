@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, tap } from 'rxjs';
+import { map, switchMap, tap, mergeMap } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
-import { Board } from 'src/app/interfaces';
+import { ColumnActions } from 'src/app/enums';
+import { Board, Column } from 'src/app/interfaces';
 import {
   addBoard,
   addBoards,
+  addColumn,
+  addColumns,
   deleteBoardById,
+  loadBoardById,
   loadBoards,
+  loadColumns,
 } from '../actions/boards.actions';
 
 @Injectable()
@@ -33,6 +38,31 @@ export class BoardsEffect {
       ofType(addBoard),
       switchMap(({ board }) => this.http.addBoard(board)),
       map(() => loadBoards())
+    );
+  });
+  loadBoardById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(loadColumns),
+      switchMap(({ id }) =>
+        this.http.getColumns(id).pipe(
+          map((data: Column[]) => {
+            return addColumns({
+              columns: data,
+              id: id,
+            });
+          })
+        )
+      )
+    );
+  });
+  addColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addColumn),
+      switchMap(({ boardData, column }) => {
+        return this.http
+          .addColumn(boardData, column)
+          .pipe(map(() => loadColumns({ id: boardData.id! })));
+      })
     );
   });
 }
