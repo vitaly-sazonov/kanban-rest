@@ -31,19 +31,12 @@ export const boardsReducer = createReducer(
     };
   }),
   on(addColumns, (state, { id, columns }): State => {
-    let currentBoardState = {
-      ...state.userBoards?.boards!.find(el => el.id === id),
-      columns: columns,
-    };
-    let currentUserBoardsState = state.userBoards?.boards?.filter(
-      el => el.id !== id
-    );
     return {
       ...state,
       userBoards: {
-        boards: currentUserBoardsState
-          ? [...currentUserBoardsState, currentBoardState]
-          : [currentBoardState],
+        boards: state.userBoards?.boards?.map(el =>
+          el.id === id ? { ...el, columns: columns } : { ...el }
+        ),
       },
     };
   })
