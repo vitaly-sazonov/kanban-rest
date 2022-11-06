@@ -13,6 +13,7 @@ import {
   loadBoardById,
   loadBoards,
   loadColumns,
+  removeColumn,
 } from '../actions/boards.actions';
 
 @Injectable()
@@ -61,6 +62,16 @@ export class BoardsEffect {
       switchMap(({ boardData, column }) => {
         return this.http
           .addColumn(boardData, column)
+          .pipe(map(() => loadColumns({ id: boardData.id! })));
+      })
+    );
+  });
+  removeColumn$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(removeColumn),
+      switchMap(({ boardData, columnId }) => {
+        return this.http
+          .removeColumn(boardData, columnId)
           .pipe(map(() => loadColumns({ id: boardData.id! })));
       })
     );

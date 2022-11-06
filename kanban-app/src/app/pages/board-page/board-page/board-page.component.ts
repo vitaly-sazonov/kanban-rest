@@ -1,10 +1,22 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, switchMap, map, take, tap } from 'rxjs';
+import {
+  Observable,
+  Subscription,
+  switchMap,
+  map,
+  take,
+  tap,
+  first,
+} from 'rxjs';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { Board, Column } from 'src/app/interfaces';
-import { addColumn, loadColumns } from 'src/app/redux/actions/boards.actions';
+import {
+  addColumn,
+  loadColumns,
+  removeColumn,
+} from 'src/app/redux/actions/boards.actions';
 import { selectBoardById } from 'src/app/redux/selectors/boards.selectors';
 
 @Component({
@@ -43,10 +55,21 @@ export class BoardPageComponent implements OnInit, OnDestroy {
             );
           }
         }),
-        take(1)
+        first()
       )
       .subscribe();
-    // this.store.dispatch(addColumn({ id: this.id, column: { title: 'Hello' } }));
+  }
+
+  removeColumn(id: string) {
+    return this.currentBoard$
+      ?.pipe(
+        map(boardData => {
+          if (boardData)
+            this.store.dispatch(removeColumn({ boardData, columnId: id }));
+        }),
+        first()
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {

@@ -48,6 +48,7 @@
   "DELETE":"DELETE",
   "BOARDS":"BOARDS",
   "BOARD" : {
-    "addNewColumn": "Add column"
+    "addNewColumn": "Add column",
+    "removeColumn": "Remove column"
   }
 }

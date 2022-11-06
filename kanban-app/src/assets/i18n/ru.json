@@ -48,6 +48,7 @@
   "DELETE": "УДАЛИТЬ",
   "BOARDS": "ДОСКИ",
   "BOARD" : {
-    "addNewColumn": "Добавить колонку"
+    "addNewColumn": "Добавить колонку",
+    "removeColumn": "УДалить колонку"
   }
 }

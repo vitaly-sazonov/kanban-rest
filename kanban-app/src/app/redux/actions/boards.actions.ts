@@ -31,3 +31,7 @@ export const addColumns = createAction(
   ColumnActions.AddColumns,
   props<{ id: string; columns: Column[] }>()
 );
+export const removeColumn = createAction(
+  ColumnActions.RemoveColumn,
+  props<{ boardData: Board; columnId: string }>()
+);

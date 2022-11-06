@@ -84,6 +84,10 @@ export class HttpService {
     );
   }
 
+  getBoardById(id: string) {
+    return this.http.get(`${QUERY_PARAMS_FIRST.boards}/${id}`);
+  }
+
   addColumn(board: Board, column: Column) {
     return this.http.post(
       `${QUERY_PARAMS_FIRST.boards}/${board.id}${QUERY_PARAMS_FIRST.columns}`,
@@ -96,8 +100,9 @@ export class HttpService {
       `${QUERY_PARAMS_FIRST.boards}/${id}${QUERY_PARAMS_FIRST.columns}`
     );
   }
-
-  getBoardById(id: string) {
-    return this.http.get(`${QUERY_PARAMS_FIRST.boards}/${id}`);
+  removeColumn(board: Board, columnId: string) {
+    return this.http.delete(
+      `${QUERY_PARAMS_FIRST.boards}/${board.id}${QUERY_PARAMS_FIRST.columns}/${columnId}`
+    );
   }
 }

@@ -70,7 +70,7 @@ export enum ColumnActions {
   LoadColumns = '[Columns] Load columns',
   AddColumn = '[Columns] Add new column',
   AddColumns = '[Columns] Add columns',
-  DeleteColumn = '[Columns] Delete column',
+  RemoveColumn = '[Columns] Delete column',
 }
 
 export enum UserAction {

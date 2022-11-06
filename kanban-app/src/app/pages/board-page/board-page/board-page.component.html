@@ -1,16 +1,21 @@
 <h1>Board</h1>
 <h2>ID: {{ id }}</h2>
 <section class="column-wrapper">
-  <div
+  <section
     class="columns"
     *ngIf="
       (currentBoard$ | async)!.columns &&
       (currentBoard$ | async)!.columns!.length > 0
     ">
-    <div class="column" *ngFor="let item of (currentBoard$ | async)!.columns">
-      {{ item }}
-    </div>
-  </div>
+    <article
+      class="column"
+      *ngFor="let item of (currentBoard$ | async)!.columns">
+      {{ item.title }}
+      <button class="column-remove" (click)="removeColumn(item.id!)">
+        {{ 'BOARD.removeColumn' | translate }}
+      </button>
+    </article>
+  </section>
   <button class="add-column" (click)="addNewColumn()">
     {{ 'BOARD.addNewColumn' | translate }}
   </button>
