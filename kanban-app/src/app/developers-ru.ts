@@ -1,18 +1,10 @@
-export interface DEVELOPER {
-  id: number;
-  firstName: string;
-  secondName: string;
-  photoURL: string;
-  git: string;
-  features: string[];
-  aboutAuthor: string;
-  alt: string;
-}
-export const DEVELOPERS: DEVELOPER[] = [
+import { DEVELOPER } from './developers';
+
+export const DEVELOPERS_RU: DEVELOPER[] = [
   {
     id: 2,
-    firstName: 'Alexander',
-    secondName: 'Malchevsky',
+    firstName: 'Александр',
+    secondName: 'Мальчевский',
     photoURL: 'https://avatars.githubusercontent.com/u/91604689?v=4',
     git: 'https://github.com/malickalex1975',
     features: [],
@@ -44,13 +36,19 @@ export const DEVELOPERS: DEVELOPER[] = [
   },
   {
     id: 1,
-    firstName: 'Alex',
-    secondName: 'Kochnev',
+    firstName: 'Александр',
+    secondName: 'Кочнев',
     photoURL: 'https://avatars.githubusercontent.com/u/92919510?v=4',
     git: 'https://github.com/alexkochnev1987',
-    features: ['Team Lead', 'Authorization', 'Welcome Page'],
+    features: [
+      'Тим лид',
+      'Авторизация',
+      'Регистрация',
+      'Страница приветствия',
+      'Структура проекта',
+    ],
     alt: '',
     aboutAuthor:
-      'Hello world! My name is Alex Kochnev and this is our course project. Sport taught me how to face challenges, achieve results and work as an effective part of the team. My goal is to become a valuable member of the Development team in the real life project.',
+      'Привет всем!Меня зовут Александр и это финальный курсовой проект по технологии Ангуляр. Несмотря на то,что есть много менеджеров задач я надеюсь что нах вам понравится больше других ведь мы сделали его с душой.',
   },
 ];

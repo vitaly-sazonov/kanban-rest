@@ -22,7 +22,8 @@ export enum RouterStateValue {
   main = 'main',
   registration = 'registration',
   login = 'login',
-  edit = '/edit',
+  edit = 'edit',
+  welcome = 'welcome',
 }
 
 export enum PasswordValidatorSymbols {
@@ -80,4 +81,5 @@ export enum ConfirmQuestions {
 
 export enum PercentSize {
   eighty = '80%',
+  fifty = '50%',
 }

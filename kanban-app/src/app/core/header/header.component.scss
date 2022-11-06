@@ -1,3 +1,5 @@
+@import '../../colors.scss';
+
 .buttons {
   display: flex;
   justify-content: space-around;
@@ -13,6 +15,8 @@
   width: 100%;
   transition: 0.2s linear;
   background-color: #3f51b5;
+  display: flex;
+  justify-content: space-around;
 }
 
 .nofixed {
@@ -20,4 +24,14 @@
   z-index: 10;
   transition: 0.2s linear;
   background-color: #ff4081;
+  display: flex;
+  justify-content: space-around;
+}
+
+.icon {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

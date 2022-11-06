@@ -1,4 +1,11 @@
 {
+  "Developers":"Developers",
+  "Error": {
+    "User was not founded!": "User was not founded!",
+    "User login already exists!": "User login already exists!",
+    "Board was not founded!": "Board was not founded!",
+    "Unauthorized": "User is unauthorized"
+  },
   "auth": {
     "Update": "Update user",
     "Delete": "Delete user",
@@ -45,6 +52,6 @@
     "required": "fill the field"
   },
   "CONFIRM_DELETE": "DO YOU WANT TO DELETE THIS BOARD?",
-  "DELETE":"DELETE",
-  "BOARDS":"BOARDS"
+  "DELETE": "DELETE",
+  "BOARDS": "BOARDS"
 }

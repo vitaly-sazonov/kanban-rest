@@ -82,15 +82,7 @@
       color="accent"
       type="submit"
       [disabled]="!registration.valid || (isLoading$ | async)">
-      {{ 'auth.Registration' | translate }}
-    </button>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="goToLogin()"
-      type="submit"
-      [disabled]="isLoading$ | async">
-      {{ 'auth.Login' | translate }}
+      {{ 'auth.Update' | translate }}
     </button>
   </div>
 </form>

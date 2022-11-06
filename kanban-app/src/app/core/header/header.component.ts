@@ -3,16 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  filter,
-  fromEvent,
-  pipe,
-  Subject,
-  switchMap,
-  take,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { fromEvent, Subject, takeUntil, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import {
   selectFeatureUser,
@@ -85,6 +76,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   callFormModal() {
     this.modalService.setType(ModalTypes.FormType);
     this.store.dispatch(setVisibility({ isVisible: true }));
+    this.router.navigate([RouterStateValue.main]);
   }
 
   logOut() {
@@ -92,7 +84,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   editUser() {
-    this.router.navigate([RouterStateValue.edit]);
+    this.router.navigate([RouterStateValue.welcome, RouterStateValue.edit]);
   }
 
   deleteUserService() {
@@ -104,8 +96,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: PercentSize.eighty,
-      height: PercentSize.eighty,
+      panelClass: 'dialog',
+      enterAnimationDuration: '500ms',
+      width: PercentSize.fifty,
+      height: PercentSize.fifty,
       data: ConfirmQuestions.DeleteUserQuestion,
     });
     dialogRef.afterClosed().subscribe(result => {
