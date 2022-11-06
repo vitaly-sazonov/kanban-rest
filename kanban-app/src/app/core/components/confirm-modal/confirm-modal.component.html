@@ -5,13 +5,14 @@
   <button
     mat-raised-button
     color="primary"
+    cdkFocusInitial
     class="button-agree"
     (click)="setResult(true)">
     {{ buttonAgree | translate }}
   </button>
   <button
     mat-raised-button
-    color="primary"
+    color="warn"
     class="buttton-cancel"
     (click)="setResult(false)">
     {{ buttonCancel | translate }}

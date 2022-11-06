@@ -5,13 +5,10 @@
   width: fit-content;
   height: auto;
   min-height: 300px;
+  min-width: 300px;
   overflow-x: auto;
   gap: 20px;
 }
-.spiner{
-  position: absolute;
-  top:5%;
-  left:30%;
-  z-index: 3;
-  
+.spiner {
+  margin-left :60px ;
 }

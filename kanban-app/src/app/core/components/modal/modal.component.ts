@@ -19,7 +19,9 @@ export class ModalComponent {
   constructor(private modalService: ModalService, private store: Store) {}
 
   exit() {
-    this.store.dispatch(setVisibility({ isVisible: false }));
-    this.store.dispatch(addConfirmResult({ result: false }));
+    [
+      setVisibility({ isVisible: false }),
+      addConfirmResult({ result: false }),
+    ].forEach(action => this.store.dispatch(action));
   }
 }
