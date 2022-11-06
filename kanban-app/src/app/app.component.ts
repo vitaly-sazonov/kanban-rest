@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterStateSnapshot } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './auth/services/auth.service';
 

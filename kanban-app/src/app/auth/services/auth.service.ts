@@ -16,6 +16,7 @@ import { RouterStateValue } from 'src/app/enums';
   providedIn: 'root',
 })
 export class AuthService {
+  redirectUrl = '';
   constructor(
     private httpService: HttpService,
     private localstorageService: LocalstorageService,
@@ -61,7 +62,9 @@ export class AuthService {
       this.httpService
         .getUserById(userId)
         .pipe(take(1))
-        .subscribe(x => this.dispatchUser(x));
+        .subscribe(x => {
+          this.dispatchUser(x);
+        });
     }
   }
 
@@ -77,5 +80,6 @@ export class AuthService {
 
   dispatchUser(x: GetUserByIdResponse) {
     this.store.dispatch(loginUser({ user: x }));
+    this.router.navigate([this.redirectUrl]);
   }
 }

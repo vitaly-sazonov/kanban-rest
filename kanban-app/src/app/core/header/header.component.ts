@@ -98,8 +98,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       panelClass: 'dialog',
       enterAnimationDuration: '500ms',
-      width: PercentSize.fifty,
-      height: PercentSize.fifty,
+      width: PercentSize.eighty,
+      height: PercentSize.eighty,
       data: ConfirmQuestions.DeleteUserQuestion,
     });
     dialogRef.afterClosed().subscribe(result => {

@@ -7,15 +7,20 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { RouterStateValue } from '../enums';
 import { selectFeatureUserLoggedIn } from '../redux/selectors/user.selectors';
+import { AuthService } from './services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private store: Store, private router: Router) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private auth: AuthService
+  ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -28,8 +33,9 @@ export class AuthGuard implements CanActivate {
   }
 
   handle(url: string) {
+    this.auth.redirectUrl = url;
     return this.store
       .select(selectFeatureUserLoggedIn)
-      .pipe(map(x => (x ? x : this.router.parseUrl(RouterStateValue.login))));
+      .pipe(map(x => (x ? x : this.router.parseUrl(RouterStateValue.welcome))));
   }
 }
