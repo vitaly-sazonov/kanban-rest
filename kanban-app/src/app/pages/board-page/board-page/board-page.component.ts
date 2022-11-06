@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, switchMap, map, first } from 'rxjs';
 import { ModalService } from 'src/app/core/services/modal.service';
-import { appForms, ModalTypes } from 'src/app/enums';
+import { ModalSchemes, ModalTypes } from 'src/app/enums';
 import { Board, Column } from 'src/app/interfaces';
 import {
   addColumn,
@@ -40,7 +40,8 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   modalAction() {
-    this.modalService.setScheme(['addColumn', this.id]);
+    this.modalService.setExtra([this.id]);
+    this.modalService.setScheme(ModalSchemes.addColumn);
     this.modalService.setType(ModalTypes.FormType);
     this.store.dispatch(setVisibility({ isVisible: true }));
   }

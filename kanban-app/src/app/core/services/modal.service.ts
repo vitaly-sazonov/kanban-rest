@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
-import { ModalTypes } from 'src/app/enums';
-import { setType } from 'src/app/redux/actions/modal.actions';
+import { ModalSchemes, ModalTypes } from 'src/app/enums';
+import { setScheme, setType } from 'src/app/redux/actions/modal.actions';
 import { selectModalType } from 'src/app/redux/selectors/modal.selectors';
 
 @Injectable({
@@ -10,12 +10,16 @@ import { selectModalType } from 'src/app/redux/selectors/modal.selectors';
 })
 export class ModalService {
   modalType$ = this.store.select(selectModalType);
-  private formScheme = new BehaviorSubject<(string | any)[]>(['']);
-  selectedScheme$ = this.formScheme.asObservable();
+  private extraPayload = new BehaviorSubject<any[]>([]);
+  extra$ = this.extraPayload.asObservable();
   constructor(private store: Store) {}
 
-  setScheme(props: (string | object)[]) {
-    this.formScheme.next(props);
+  setExtra(payload: any[]) {
+    this.extraPayload.next(payload);
+  }
+
+  setScheme(scheme: ModalSchemes) {
+    this.store.dispatch(setScheme({ modalScheme: scheme }));
   }
 
   setType = (type: ModalTypes) =>

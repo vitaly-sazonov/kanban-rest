@@ -50,6 +50,7 @@ export enum ConfirmActions {
 }
 export enum ModalActions {
   SetType = '[Modal] Set Type',
+  SetScheme = '[Modal] Set Scheme',
   SetVisibility = '[Modal] Set Visibility',
 }
 
@@ -64,6 +65,12 @@ export enum BoardsActions {
 export enum ModalTypes {
   ConfirmType,
   FormType,
+}
+
+export enum ModalSchemes {
+  addBoard = 'addBoard',
+  addColumn = 'addColumn',
+  addTask = 'addTask',
 }
 
 export enum ColumnActions {
@@ -89,10 +96,4 @@ export enum ConfirmQuestions {
 
 export enum PercentSize {
   eighty = '80%',
-}
-
-export enum appForms {
-  addBoard = 'addBoard',
-  addColumn = 'addColumn',
-  addTask = 'addTask',
 }

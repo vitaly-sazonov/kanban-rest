@@ -11,3 +11,7 @@ export const selectModalType = createSelector(
   selectModal,
   (state: State) => state.modal?.modalType
 );
+export const selectModalScheme = createSelector(
+  selectModal,
+  (state: State) => state.modal?.modalScheme
+);

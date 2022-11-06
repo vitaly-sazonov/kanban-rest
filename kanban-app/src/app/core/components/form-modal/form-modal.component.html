@@ -2,8 +2,7 @@
   <div class="form-group">
     <h2>{{ 'formModal.formTitle' | translate }}</h2>
 
-    <ng-container
-      *ngFor="let control of getInputFields() | keyvalue: keepSorting">
+    <ng-container *ngFor="let control of inputFields | keyvalue: keepSorting">
       <mat-form-field appearance="fill" class="form-field">
         <mat-label>{{ control.key | translate }}</mat-label>
         <input
@@ -25,3 +24,41 @@
     </button>
   </div>
 </form>
+
+<!-- <form [formGroup]="formConstructor" (ngSubmit)="submit()">
+  <div class="form-group">
+    <h2>{{ 'formModal.formTitle' | translate }}</h2>
+
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>{{ 'formModal.title' | translate }}</mat-label>
+      <input
+        matInput
+        class="form-control"
+        name="title"
+        formControlName="title" />
+      <mat-error *ngIf="_title?.errors && _title?.touched">
+        {{ 'formModal.required' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label for description>{{
+        'formModal.description' | translate
+      }}</mat-label>
+      <input
+        matInput
+        class="form-control"
+        name="description"
+        formControlName="description" />
+      <mat-error *ngIf="_description?.errors && _description?.touched">
+        {{ 'formModal.required' | translate }}
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="formConstructor.invalid">
+      {{ 'formModal.button' | translate }}
+    </button>
+  </div>
+</form> -->

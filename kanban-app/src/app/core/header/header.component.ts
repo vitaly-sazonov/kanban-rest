@@ -22,6 +22,7 @@ import { ConfirmService } from '../services/confirm.service';
 import {
   ConfirmQuestions,
   Language,
+  ModalSchemes,
   ModalTypes,
   PercentSize,
   RouterStateValue,
@@ -84,7 +85,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   callFormModal() {
-    this.modalService.setScheme(['addBoard']);
+    this.modalService.setScheme(ModalSchemes.addBoard);
     this.modalService.setType(ModalTypes.FormType);
     this.store.dispatch(setVisibility({ isVisible: true }));
   }
