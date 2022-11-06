@@ -11,7 +11,7 @@ export const addBoard = createAction(
   props<{ board: Board }>()
 );
 export const addCurrentBoardId = createAction(
-  BoardsActions.AddBoard,
+  BoardsActions.AddCurentBoardId,
   props<{ id: string }>()
 );
 export const deleteBoardById = createAction(

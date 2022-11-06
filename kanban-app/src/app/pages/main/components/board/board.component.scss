@@ -11,10 +11,37 @@
     height: fit-content;
     padding: 10px;
     background-color: $boardBackgroundColor;
-    box-shadow: inset 0 0 30px rgba($color: #000000, $alpha: .4);
+    box-shadow: $boxShadow;
     border-radius: 5px;
 }
 .inner-container{
     cursor: pointer;
     overflow-wrap: break-word;
+    padding-bottom: 10px;
+}
+.container-preview{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:10px
+}
+.column-item{
+    background-color: #eee;
+    width: 240px;
+    height: fit-content;
+    padding-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $boxShadow;
+    border-radius: 5px;
+}
+button{
+    margin-top: 10px;
+}
+
+.toggle{
+    cursor: pointer;
+    color: $moreColor;
 }

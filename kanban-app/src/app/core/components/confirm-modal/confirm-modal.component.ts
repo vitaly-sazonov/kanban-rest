@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, switchMap, tap } from 'rxjs';
-import { Board } from 'src/app/interfaces';
+import { filter, map, switchMap } from 'rxjs';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { selectCurrentBoard } from 'src/app/redux/selectors/boards.selectors';
 import { selectConfirmationMessage } from 'src/app/redux/selectors/confirmation.selectors';
@@ -12,13 +11,15 @@ import { HttpService } from '../../services/http.service';
   selector: 'app-confirm-modal',
   templateUrl: './confirm-modal.component.html',
   styleUrls: ['./confirm-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmModalComponent {
   info$ = this.store.select(selectConfirmationMessage);
-  currentBoardTitle$ = this.store.select(selectCurrentBoard).pipe(
-    tap(id => console.log(`id: ${id}`))
-    //switchMap(id => this.httpService.getBoardById(id)),
-    //map((bord: any) => bord.title)
+  currentBoardId$ = this.store.select(selectCurrentBoard);
+  currentBoardTitle$ = this.currentBoardId$.pipe(
+    filter(id => id !== undefined),
+    switchMap(id => this.httpService.getBoardById(id)),
+    map((bord: any) => bord.title)
   );
   buttonAgree = 'AGREE';
   buttonCancel = 'CANCEL';

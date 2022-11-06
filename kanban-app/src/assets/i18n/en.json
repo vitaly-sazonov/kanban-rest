@@ -31,7 +31,7 @@
   "Welcome to": "Welcome to",
   "HELLO": "hello {{value}}",
   "TITLE": "My application (en)",
-  "AGREE": "Agree",
+  "AGREE": "Ok",
   "CANCEL": "Cancel",
   "SAMPLE_CONFIRM_INFO": "Are you agree?",
   "CREATE_BOARD": "Create board",
@@ -44,18 +44,18 @@
     "button": "Create",
     "required": "fill the field"
   },
-  "CONFIRM_DELETE": "DO YOU WANT TO DELETE THIS BOARD?",
-  "DELETE":"DELETE",
-  "BOARDS":"BOARDS",
-  "CLOSE" :"CLOSE",
-  "ERRORS":{
+  "CONFIRM_DELETE": "DO YOU WANT TO DELETE : ",
+  "DELETE": "DELETE",
+  "BOARDS": "BOARDS",
+  "CLOSE": "CLOSE",
+  "more": "more",
+  "hide": "hide",
+  "ERRORS": {
     "0": "No internet connection",
-    "400":"Your request is bad",
-    "401":"You are not authorized",
-    "403":"Forbidden. Access is denied",
-    "404":"Not found",
-    "409":"Request has conflict with server"
-    
-
+    "400": "Your request is bad",
+    "401": "You are not authorized",
+    "403": "Forbidden. Access is denied",
+    "404": "Not found",
+    "409": "Request has conflict with server"
   }
 }

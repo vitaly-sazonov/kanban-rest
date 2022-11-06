@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { of, switchMap } from 'rxjs';
+import { HttpService } from 'src/app/core/services/http.service';
 import { ModalTypes } from 'src/app/enums';
 import { Board } from 'src/app/interfaces';
 import {
@@ -18,17 +20,22 @@ import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.s
 export class BoardComponent {
   @Input() board?: Board;
   result$ = this.store.select(selectConfirmationResult);
-  constructor(private store: Store) {}
+  columns$ = of(this.board?.id).pipe(
+    switchMap(() => this.httpService.getColumns(this.board?.id))
+  );
 
+  constructor(private store: Store, private httpService: HttpService) {}
+  isPreview = false;
   deleteBoard(id: string) {
     this.confirmDelete(id);
   }
+
   confirmDelete(id: string) {
     [
+      addCurrentBoardId({ id }),
       setType({ modalType: ModalTypes.ConfirmType }),
       setVisibility({ isVisible: true }),
       addConfirmMessage({ message: 'CONFIRM_DELETE' }),
-      addCurrentBoardId({ id }),
     ].forEach(action => this.store.dispatch(action));
 
     this.result$.subscribe(data => {
@@ -36,5 +43,8 @@ export class BoardComponent {
         this.store.dispatch(deleteBoardById({ id }));
       }
     });
+  }
+  toggle() {
+    this.isPreview = !this.isPreview;
   }
 }

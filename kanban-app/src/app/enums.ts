@@ -55,7 +55,7 @@ export enum ModalActions {
 export enum BoardsActions {
   AddBoards = '[Boards] Add Boards',
   AddBoard = '[Boards] Add Board',
-  AddCurentBoardId = '[Boards] Add Board',
+  AddCurentBoardId = '[Boards] Add Current Board Id',
   DeleteBoardById = '[Boards] Delete Board By ID',
   LoadBoards = '[Boards] Load Boards',
   LoadBoardById = '[Boards] Load Board By ID',
