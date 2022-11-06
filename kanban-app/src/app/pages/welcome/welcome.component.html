@@ -7,11 +7,6 @@
       {{ 'Developers' | translate }}
     </button>
   </a>
-  <a routerLink="main" *ngIf="loginStatus$ | async">
-    <button mat-stroked-button color="primary">
-      {{ 'BOARDS' | translate }}
-    </button>
-  </a>
   <a
     routerLink="login"
     *ngIf="(loginStatus$ | async) === false"

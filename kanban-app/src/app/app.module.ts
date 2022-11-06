@@ -39,10 +39,14 @@ import { userReducer } from './redux/reducers/user.reducer';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+export const Material = [MatIconModule, MatButtonModule];
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -50,6 +54,7 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    Material,
     ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

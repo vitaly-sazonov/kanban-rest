@@ -7,6 +7,5 @@ import { DeveloperComponent } from './developer/developer.component';
 @NgModule({
   declarations: [DevelopersComponent, DeveloperComponent],
   imports: [CommonModule, MatCardModule],
-  exports: [],
 })
 export class DevelopersModule {}

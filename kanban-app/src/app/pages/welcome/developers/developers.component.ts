@@ -15,8 +15,6 @@ export class DevelopersComponent implements OnInit, OnDestroy {
   constructor(private translateService: TranslateService) {}
 
   ngOnInit(): void {
-    console.log('INIT');
-
     this.translateService.onLangChange
       .pipe(
         map(x =>

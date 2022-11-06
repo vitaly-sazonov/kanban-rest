@@ -28,16 +28,8 @@ export class AuthGuard implements CanActivate {
   }
 
   handle(url: string) {
-    return this.store.select(selectFeatureUserLoggedIn).pipe(
-      map(x => {
-        if (x) {
-          console.log('true');
-          return x;
-        } else {
-          console.log(false);
-          return this.router.parseUrl(RouterStateValue.login);
-        }
-      })
-    );
+    return this.store
+      .select(selectFeatureUserLoggedIn)
+      .pipe(map(x => (x ? x : this.router.parseUrl(RouterStateValue.login))));
   }
 }

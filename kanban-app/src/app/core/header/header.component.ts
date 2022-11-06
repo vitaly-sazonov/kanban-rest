@@ -76,6 +76,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   callFormModal() {
     this.modalService.setType(ModalTypes.FormType);
     this.store.dispatch(setVisibility({ isVisible: true }));
+    this.router.navigate([RouterStateValue.main]);
   }
 
   logOut() {
