@@ -6,7 +6,5 @@ import { Injectable } from '@angular/core';
 export class ErrorDefinitionService {
   constructor() {}
 
-  define=(status: number): string => `ERRORS.${status.toString()}`
-    
-  }
-
+  define = (status: number): string => `ERRORS.${status.toString()}`;
+}

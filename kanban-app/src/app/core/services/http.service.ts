@@ -24,6 +24,10 @@ export class HttpService {
     return this.http.get(QUERY_PARAMS_FIRST.boards);
   }
 
+  getBoardById(id?: string) {
+    return this.http.get(QUERY_PARAMS_FIRST.boards + `/${id}`);
+  }
+
   addBoard(board: Board) {
     return this.http.post(QUERY_PARAMS_FIRST.boards, board);
   }

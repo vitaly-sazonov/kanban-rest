@@ -1,5 +1,6 @@
 .boards-container {
-  margin-left: 40%;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-direction: column;
   width: fit-content;
@@ -10,5 +11,5 @@
   gap: 20px;
 }
 .spiner {
-  margin-left :60px ;
+  margin-left :135px ;
 }

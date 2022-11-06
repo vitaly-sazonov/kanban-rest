@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { Board } from 'src/app/interfaces';
 import { State } from '..';
-import { addBoards } from '../actions/boards.actions';
+import { addBoards, addCurrentBoardId } from '../actions/boards.actions';
 
 export interface StateBoards {
   boards?: Board[];
@@ -21,7 +21,14 @@ export const boardsReducer = createReducer(
     addBoards,
     (state, { boards }): State => ({
       ...state,
-      userBoards: { boards: [...boards] },
+      userBoards: { boards },
+    })
+  ),
+  on(
+    addCurrentBoardId,
+    (state, { id }): State => ({
+      ...state,
+      userBoards: { boards: state.userBoards?.boards, currentBoardId: id },
     })
   )
 );

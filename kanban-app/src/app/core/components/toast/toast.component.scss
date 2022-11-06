@@ -14,11 +14,17 @@
 }
 .toast-notification {
   color: $toastTextColor;
+  margin-top: 20px;
+}
+.close {
+  color: $toastTextColor;
+  margin-left: 230px;
+  cursor: pointer;
 }
 .invisible {
   opacity: 0;
   visibility: hidden;
-  transition: 2s;
+  transition: 1s;
 }
 .visible {
   animation: flashing 7s;

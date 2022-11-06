@@ -9,10 +9,14 @@ import {
 import { catchError, Observable, pipe, throwError } from 'rxjs';
 import { APP_URL } from '../constants';
 import { NotificationService } from '../core/services/notification.service';
+import { ErrorDefinitionService } from '../core/services/error-definition.service';
 
 @Injectable()
 export class BaseUrlInterceptor implements HttpInterceptor {
-  constructor(private notification: NotificationService) {}
+  constructor(
+    private notification: NotificationService,
+    private errorDefinition: ErrorDefinitionService
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -24,11 +28,9 @@ export class BaseUrlInterceptor implements HttpInterceptor {
           catchError((error: HttpErrorResponse) => {
             return throwError(() => {
               new Error(`${error.message}`);
-              this.notification
-                .setNotification(`Backend returned error with name: ${
-                error.name
-              }, and message: 
-            ${JSON.stringify(error.message)}`);
+              this.notification.setNotification(
+                this.errorDefinition.define(error.status)
+              );
             });
           })
         );

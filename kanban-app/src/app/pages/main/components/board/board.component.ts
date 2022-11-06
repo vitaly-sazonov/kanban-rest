@@ -2,7 +2,10 @@ import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ModalTypes } from 'src/app/enums';
 import { Board } from 'src/app/interfaces';
-import { deleteBoardById } from 'src/app/redux/actions/boards.actions';
+import {
+  addCurrentBoardId,
+  deleteBoardById,
+} from 'src/app/redux/actions/boards.actions';
 import { addConfirmMessage } from 'src/app/redux/actions/confirm.actions';
 import { setType, setVisibility } from 'src/app/redux/actions/modal.actions';
 import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.selectors';
@@ -25,6 +28,7 @@ export class BoardComponent {
       setType({ modalType: ModalTypes.ConfirmType }),
       setVisibility({ isVisible: true }),
       addConfirmMessage({ message: 'CONFIRM_DELETE' }),
+      addCurrentBoardId({ id }),
     ].forEach(action => this.store.dispatch(action));
 
     this.result$.subscribe(data => {
