@@ -13,8 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { UpdateUserComponent } from './update-user/update-user.component';
-import { DeveloperComponent } from './developers/developer/developer.component';
-import { DevelopersComponent } from './developers/developers.component';
+import { DevelopersModule } from './developers/developers.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +25,7 @@ import { DevelopersComponent } from './developers/developers.component';
   imports: [
     CommonModule,
     WelcomeRoutingModule,
+    DevelopersModule,
     TranslateModule,
     FormsModule,
     ReactiveFormsModule,

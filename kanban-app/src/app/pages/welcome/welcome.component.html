@@ -1,4 +1,12 @@
 <nav class="buttons">
+  <a
+    routerLink="developers"
+    *ngIf="(loginStatus$ | async) === false"
+    routerLinkActive="hidden">
+    <button mat-stroked-button color="primary">
+      {{ 'Developers' | translate }}
+    </button>
+  </a>
   <a routerLink="main" *ngIf="loginStatus$ | async">
     <button mat-stroked-button color="primary">
       {{ 'BOARDS' | translate }}

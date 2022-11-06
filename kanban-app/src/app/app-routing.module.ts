@@ -23,7 +23,7 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
-  // { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
 

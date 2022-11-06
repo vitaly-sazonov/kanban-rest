@@ -13,14 +13,15 @@ const routes: Routes = [
     path: '',
     component: WelcomeComponent,
     children: [
-      { path: '', component: DevelopersComponent },
-      {
-        path: 'developers',
-        loadChildren: () =>
-          import('./developers/developers.module').then(
-            m => m.DevelopersModule
-          ),
-      },
+      { path: '', redirectTo: 'developers', pathMatch: 'full' },
+      { path: 'developers', component: DevelopersComponent },
+      // {
+      //   path: 'developers',
+      //   loadChildren: () =>
+      //     import('./developers/developers.module').then(
+      //       m => m.DevelopersModule
+      //     ),
+      // },
       { path: 'login', component: LoginComponent },
       {
         path: 'registration',
@@ -31,6 +32,7 @@ const routes: Routes = [
         component: UpdateUserComponent,
         canActivate: [AuthGuard],
       },
+      { path: '**', component: PageNotFoundComponent },
     ],
   },
   {

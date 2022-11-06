@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { map, tap } from 'rxjs';
-import { DEVELOPER, DEVELOPERS } from 'src/app/developers';
+import { map, of, Subject, takeUntil, tap } from 'rxjs';
+import { DEVELOPERS } from 'src/app/developers';
 import { DEVELOPERS_RU } from 'src/app/developers-ru';
 
 @Component({
@@ -9,9 +9,28 @@ import { DEVELOPERS_RU } from 'src/app/developers-ru';
   templateUrl: './developers.component.html',
   styleUrls: ['./developers.component.scss'],
 })
-export class DevelopersComponent {
-  developers$ = this.translateService.onLangChange.pipe(
-    map(x => (x.lang === 'en' ? DEVELOPERS : DEVELOPERS_RU))
-  );
+export class DevelopersComponent implements OnInit, OnDestroy {
+  unsubscribe$ = new Subject();
+  developers = DEVELOPERS;
   constructor(private translateService: TranslateService) {}
+
+  ngOnInit(): void {
+    console.log('INIT');
+
+    this.translateService.onLangChange
+      .pipe(
+        map(x =>
+          x.lang === 'en'
+            ? (this.developers = DEVELOPERS)
+            : (this.developers = DEVELOPERS_RU)
+        ),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(1);
+    this.unsubscribe$.complete();
+  }
 }

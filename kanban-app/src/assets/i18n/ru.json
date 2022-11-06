@@ -1,4 +1,5 @@
 {
+  "Developers":"Разработчики",
   "Error":{
     "User was not founded!":"Пользователь не найден!",
     "User login already exists!": "Пользователь с таким логином уже существует",

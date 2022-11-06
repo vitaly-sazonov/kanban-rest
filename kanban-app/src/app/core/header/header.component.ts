@@ -3,16 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import {
-  filter,
-  fromEvent,
-  pipe,
-  Subject,
-  switchMap,
-  take,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { fromEvent, Subject, takeUntil, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import {
   selectFeatureUser,
