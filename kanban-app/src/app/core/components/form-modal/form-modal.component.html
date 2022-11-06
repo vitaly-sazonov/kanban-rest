@@ -1,36 +1,26 @@
-<form [formGroup]="createBoardForm" (ngSubmit)="submit()">
+<form [formGroup]="formConstructor" (ngSubmit)="submit()">
   <div class="form-group">
     <h2>{{ 'formModal.formTitle' | translate }}</h2>
 
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>{{ 'formModal.title' | translate }}</mat-label>
-      <input
-        matInput
-        class="form-control"
-        name="title"
-        formControlName="title" />
-      <mat-error *ngIf="_title?.errors && _title?.touched">
-        {{ 'formModal.required' | translate }}
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label for description>{{
-        'formModal.description' | translate
-      }}</mat-label>
-      <input
-        matInput
-        class="form-control"
-        name="description"
-        formControlName="description" />
-      <mat-error *ngIf="_description?.errors && _description?.touched">
-        {{ 'formModal.required' | translate }}
-      </mat-error>
-    </mat-form-field>
+    <ng-container
+      *ngFor="let control of getInputFields() | keyvalue: keepSorting">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>{{ control.key | translate }}</mat-label>
+        <input
+          matInput
+          class="form-control"
+          name="{{ control.key }}"
+          formControlName="{{ control.key }}" />
+        <mat-error *ngIf="checkForErrors(control.key)">
+          {{ 'formModal.required' | translate }}
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
     <button
       mat-raised-button
       color="primary"
       type="submit"
-      [disabled]="createBoardForm.invalid">
+      [disabled]="formConstructor.invalid">
       {{ 'formModal.button' | translate }}
     </button>
   </div>

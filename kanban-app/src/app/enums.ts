@@ -90,3 +90,9 @@ export enum ConfirmQuestions {
 export enum PercentSize {
   eighty = '80%',
 }
+
+export enum appForms {
+  addBoard = 'addBoard',
+  addColumn = 'addColumn',
+  addTask = 'addTask',
+}
