@@ -25,7 +25,7 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
   ],
 })
 export class MainModule {}
