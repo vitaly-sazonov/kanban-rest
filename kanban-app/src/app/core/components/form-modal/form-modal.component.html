@@ -1,10 +1,12 @@
 <form [formGroup]="formConstructor" (ngSubmit)="submit()">
   <div class="form-group">
-    <h2>{{ 'formModal.formTitle' | translate }}</h2>
+    <h2>{{ formSelected! + '.header' | translate }}</h2>
 
     <ng-container *ngFor="let control of inputFields | keyvalue: keepSorting">
       <mat-form-field appearance="fill" class="form-field">
-        <mat-label>{{ control.key | translate }}</mat-label>
+        <mat-label>{{
+          formSelected! + '.' + control.key | translate
+        }}</mat-label>
         <input
           matInput
           class="form-control"

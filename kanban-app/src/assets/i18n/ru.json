@@ -38,17 +38,24 @@
   "DeleteUserQuestion": "Вы действительно хотите удалить текущего пользователя?",
   "CREATE_BOARD": "Создать доску",
   "formModal": {
-    "formTitle": "Создать Доску",
-    "title": "Название",
-    "description": "Описание",
     "button": "Создать",
     "required": "заполните поле"
+  },
+  "addBoard": {
+    "header": "Создать Доску",
+    "title": "Название",
+    "description": "Описание"
+  },
+  "addColumn": {
+    "header": "Создать Колонку",
+    "title": "Название"
   },
   "CONFIRM_DELETE": "ВЫ ХОТОТЕ УДАЛИТЬ ЭТУ ДОСКУ?",
   "DELETE": "УДАЛИТЬ",
   "BOARDS": "ДОСКИ",
   "BOARD" : {
     "addNewColumn": "Добавить колонку",
-    "removeColumn": "УДалить колонку"
+    "removeColumn": "Удалить колонку",
+    "CONFIRM_DELETE_COLUMN": "Вы действительно хотите удалить колонку?"
   }
 }

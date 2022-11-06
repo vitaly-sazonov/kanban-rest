@@ -69,10 +69,10 @@ export class BoardsEffect {
   removeColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(removeColumn),
-      switchMap(({ boardData, columnId }) => {
+      switchMap(({ boardId, columnId }) => {
         return this.http
-          .removeColumn(boardData, columnId)
-          .pipe(map(() => loadColumns({ id: boardData.id! })));
+          .removeColumn(boardId, columnId)
+          .pipe(map(() => loadColumns({ id: boardId })));
       })
     );
   });

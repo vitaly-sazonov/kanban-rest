@@ -10,8 +10,10 @@ import {
   loadColumns,
   removeColumn,
 } from 'src/app/redux/actions/boards.actions';
-import { setVisibility } from 'src/app/redux/actions/modal.actions';
+import { addConfirmMessage } from 'src/app/redux/actions/confirm.actions';
+import { setType, setVisibility } from 'src/app/redux/actions/modal.actions';
 import { selectBoardById } from 'src/app/redux/selectors/boards.selectors';
+import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.selectors';
 
 @Component({
   selector: 'app-board-page',
@@ -19,9 +21,12 @@ import { selectBoardById } from 'src/app/redux/selectors/boards.selectors';
   styleUrls: ['./board-page.component.scss'],
 })
 export class BoardPageComponent implements OnInit, OnDestroy {
+  result$ = this.store.select(selectConfirmationResult);
   id: string = '';
   subscription?: Subscription;
   currentBoard$?: Observable<Board | undefined>;
+  currentColumns$?: Observable<Column | undefined>;
+  boardData?: Board;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,15 +52,17 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   removeColumn(id: string) {
-    return this.currentBoard$
-      ?.pipe(
-        map(boardData => {
-          if (boardData)
-            this.store.dispatch(removeColumn({ boardData, columnId: id }));
-        }),
-        first()
-      )
-      .subscribe();
+    [
+      setType({ modalType: ModalTypes.ConfirmType }),
+      setVisibility({ isVisible: true }),
+      addConfirmMessage({ message: 'BOARD.CONFIRM_DELETE_COLUMN' }),
+    ].forEach(action => this.store.dispatch(action));
+
+    this.result$.subscribe(isConfirmed => {
+      if (isConfirmed) {
+        this.store.dispatch(removeColumn({ boardId: this.id, columnId: id }));
+      }
+    });
   }
 
   ngOnDestroy(): void {

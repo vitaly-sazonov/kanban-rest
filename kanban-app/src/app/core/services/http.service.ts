@@ -100,9 +100,9 @@ export class HttpService {
       `${QUERY_PARAMS_FIRST.boards}/${id}${QUERY_PARAMS_FIRST.columns}`
     );
   }
-  removeColumn(board: Board, columnId: string) {
+  removeColumn(boardId: string, columnId: string) {
     return this.http.delete(
-      `${QUERY_PARAMS_FIRST.boards}/${board.id}${QUERY_PARAMS_FIRST.columns}/${columnId}`
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_FIRST.columns}/${columnId}`
     );
   }
 }
