@@ -15,6 +15,7 @@
     </div>
   </div>
   <mat-card-content
+  *ngIf="(columns$ | async)?.length > 0 && isPreview"
     class="container-preview"
     (click)="toggle()"
     [class.visible]="(columns$ | async)?.length > 0 && isPreview">
