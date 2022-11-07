@@ -13,6 +13,7 @@ import { ConfirmService } from '../services/confirm.service';
 import {
   ConfirmQuestions,
   Language,
+  LocalStorageValues,
   ModalTypes,
   PercentSize,
   RouterStateValue,
@@ -21,6 +22,7 @@ import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { ModalService } from '../services/modal.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { LocalstorageService } from '../services/localstorage.service';
 
 @Component({
   selector: 'app-header',
@@ -29,7 +31,10 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   headerFixed = false;
-  language = new FormControl(Language.En, { nonNullable: true });
+  currentLanguage =
+    this.localstorageService.getItem(LocalStorageValues.Language) ||
+    Language.En;
+  language = new FormControl(this.currentLanguage, { nonNullable: true });
   loginStatus$ = this.store.select(selectFeatureUserLoggedIn);
   userId = '';
   unsubscribe$ = new Subject();
@@ -37,6 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   createBoard = 'CREATE_BOARD';
 
   constructor(
+    private localstorageService: LocalstorageService,
     private translateService: TranslateService,
     private store: Store,
     private authService: AuthService,
@@ -71,6 +77,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setLang(lang: string) {
     this.translateService.use(lang);
+    this.localstorageService.setItem(LocalStorageValues.Language, lang);
   }
 
   callFormModal() {

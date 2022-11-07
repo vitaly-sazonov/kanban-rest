@@ -84,3 +84,9 @@ export enum PercentSize {
   eighty = '80%',
   fifty = '50%',
 }
+
+export enum LocalStorageValues {
+  Token = 'token',
+  UserId = 'userId',
+  Language = 'language',
+}

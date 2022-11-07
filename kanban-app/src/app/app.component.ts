@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalstorageService } from './core/services/localstorage.service';
+import { Language, LocalStorageValues } from './enums';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +9,14 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(translate: TranslateService) {
-    translate.addLangs(['en', 'ru']);
-    translate.setDefaultLang('en');
-    translate.use('en');
+  constructor(
+    translate: TranslateService,
+    localstorageService: LocalstorageService
+  ) {
+    translate.addLangs([Language.En, Language.Ru]);
+    translate.setDefaultLang(Language.En);
+    const language =
+      localstorageService.getItem(LocalStorageValues.Language) ?? Language.En;
+    translate.use(language);
   }
 }
