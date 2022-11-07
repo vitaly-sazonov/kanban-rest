@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { of, switchMap } from 'rxjs';
+import { map, of, switchMap } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
 import { ModalTypes } from 'src/app/enums';
-import { Board } from 'src/app/interfaces';
+import { Board, Column } from 'src/app/interfaces';
 import {
   addCurrentBoardId,
   deleteBoardById,
@@ -23,6 +23,7 @@ export class BoardComponent {
   columns$ = of(this.board?.id).pipe(
     switchMap(() => this.httpService.getColumns(this.board?.id))
   );
+  length$ = this.columns$.pipe(map((items: Column[]) => items.length));
 
   constructor(private store: Store, private httpService: HttpService) {}
   isPreview = false;

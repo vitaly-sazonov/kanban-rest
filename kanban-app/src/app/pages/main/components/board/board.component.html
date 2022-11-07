@@ -8,7 +8,7 @@
     <mat-card-subtitle>{{ board?.description }}...</mat-card-subtitle>
   </mat-card-header>
   <div class="toggle" (click)="toggle()" *ngIf="(columns$ | async)?.length > 0">
-    <span>{{ 'columns' | translate }}</span>
+    <span>{{ 'columns' | translate }}({{ length$ | async }})</span>
     <div class="icons">
       <mat-icon *ngIf="isPreview === false">unfold_more</mat-icon>
       <mat-icon *ngIf="isPreview">unfold_less</mat-icon>
@@ -19,7 +19,7 @@
     class="container-preview"
     [routerLink]="['../board', board?.id]"
     [class.visible]="(columns$ | async)?.length > 0 && isPreview">
-    <div class="column-item" *ngFor="let column of columns$ | async">
+    <div class="column-item" *ngFor="let column of columns$ | async as columns">
       <mat-card-subtitle
         >{{ column.order }}. {{ column.title.slice(0, 10) }}...
       </mat-card-subtitle>

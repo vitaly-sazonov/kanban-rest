@@ -7,8 +7,8 @@ input:focus {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
@@ -20,14 +20,6 @@ input:focus {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-.spiner {
-  position: sticky;
-  opacity: 0;
-  visibility: hidden;
-  top:270px;
-  margin-left: 95px;
 }
 .search-container {
   position: sticky;
@@ -56,7 +48,4 @@ input:focus {
   position: fixed;
   left: 100px;
 }
-.visible-spinner{
-  opacity: 1;
-  visibility: visible;
-}
+
