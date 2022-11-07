@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { map, of, Subject, takeUntil, tap } from 'rxjs';
 import { DEVELOPERS } from 'src/app/developers';
 import { DEVELOPERS_RU } from 'src/app/developers-ru';
+import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
 
 @Component({
   selector: 'app-developers',
