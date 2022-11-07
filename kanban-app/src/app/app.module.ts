@@ -41,13 +41,12 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { LayoutModule } from '@angular/cdk/layout';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-export const Material = [MatIconModule, MatButtonModule, LayoutModule];
+export const Material = [MatIconModule, MatButtonModule];
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
