@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { filter, map, of, switchMap, take, tap } from 'rxjs';
+import { filter, map, switchMap, tap } from 'rxjs';
 import {
   GetUserByIdResponse,
   UserLogin,
@@ -16,7 +16,6 @@ import { RouterStateValue } from 'src/app/enums';
   providedIn: 'root',
 })
 export class AuthService {
-  // redirectUrl = '';
   constructor(
     private httpService: HttpService,
     private localstorageService: LocalstorageService,

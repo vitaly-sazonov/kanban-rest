@@ -38,16 +38,12 @@ export class AuthGuard implements CanActivate {
       map(x => (x ? x : this.router.parseUrl(RouterStateValue.welcome))),
       switchMap(x =>
         userId
-          ? this.checkToken(
+          ? this.auth.checkToken(
               userId,
               this.router.parseUrl(RouterStateValue.welcome)
             )
           : of(this.router.parseUrl(RouterStateValue.welcome))
       )
     );
-  }
-
-  checkToken(userId: string, url: UrlTree) {
-    return this.auth.checkToken(userId, url);
   }
 }
