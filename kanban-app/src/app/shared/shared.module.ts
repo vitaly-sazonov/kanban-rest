@@ -7,10 +7,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
-  declarations: [ConfirmDialogComponent],
+  declarations: [ConfirmDialogComponent, SearchPipe],
   imports: [CommonModule, TranslateModule, MatDialogModule, MatButtonModule],
-  exports: [],
+  exports: [SearchPipe],
 })
 export class SharedModule {}

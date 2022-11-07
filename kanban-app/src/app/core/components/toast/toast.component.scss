@@ -1,6 +1,6 @@
 @import '../../../colors.scss';
 
-.toast-container {
+.container {
   position: fixed;
   right: 5%;
   top: 8%;
@@ -10,15 +10,22 @@
   word-wrap: break-word;
   padding: 10px;
   background-color: $toastBackgroundColor;
-  z-index: 30;
+  box-shadow: $toastBoxShadow;
+
 }
 .toast-notification {
   color: $toastTextColor;
+  margin-top: 10px;
+}
+.close {
+  color: $toastTextColor;
+  margin-left: 270px;
+  cursor: pointer;
 }
 .invisible {
   opacity: 0;
   visibility: hidden;
-  transition: 2s;
+  transition: 1s;
 }
 .visible {
   animation: flashing 7s;

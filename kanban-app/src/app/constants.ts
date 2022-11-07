@@ -9,3 +9,5 @@ export const user2 = {
 };
 
 export const USER_ID = 'userId';
+
+export const TIME_SHOW_NOTIFICATION = 10000;
