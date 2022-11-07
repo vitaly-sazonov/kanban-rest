@@ -12,7 +12,7 @@
       class="spiner"
       diameter="30"
       color="primary"
-      *ngIf="isLoading$ | async"></mat-spinner>
+      [class.visible-spinner]="isLoading$ | async"></mat-spinner>
 <div class="boards-container">
   <div
     class="inner-container"

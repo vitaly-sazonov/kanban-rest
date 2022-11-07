@@ -24,6 +24,8 @@ input:focus {
 
 .spiner {
   position: sticky;
+  opacity: 0;
+  visibility: hidden;
   top:270px;
   margin-left: 95px;
 }
@@ -53,4 +55,8 @@ input:focus {
 .template {
   position: fixed;
   left: 100px;
+}
+.visible-spinner{
+  opacity: 1;
+  visibility: visible;
 }
