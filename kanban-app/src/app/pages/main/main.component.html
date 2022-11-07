@@ -8,6 +8,11 @@
     [(ngModel)]="searchRequest"
     [autofocus]="true" />
 </div>
+<mat-spinner
+      class="spiner"
+      diameter="30"
+      color="primary"
+      *ngIf="isLoading$ | async"></mat-spinner>
 <div class="boards-container">
   <div
     class="inner-container"
@@ -15,11 +20,6 @@
       ((boards$ | async)! | search: searchRequest).length > 0;
       else noBoards
     ">
-    <mat-spinner
-      class="spiner"
-      diameter="30"
-      color="primary"
-      *ngIf="isLoading$ | async"></mat-spinner>
     <app-board
       *ngFor="let item of (boards$ | async)! | search: searchRequest"
       [board]="item">

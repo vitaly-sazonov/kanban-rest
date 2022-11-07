@@ -8,16 +8,19 @@
     <mat-card-subtitle>{{ board?.description }}...</mat-card-subtitle>
   </mat-card-header>
   <div class="toggle" (click)="toggle()" *ngIf="(columns$ | async)?.length > 0">
-    <mat-icon *ngIf="isPreview === false">unfold_more</mat-icon>
-    <mat-icon *ngIf="isPreview">unfold_less</mat-icon>
+    <span>{{ 'columns' | translate }}</span>
+    <div class="icons">
+      <mat-icon *ngIf="isPreview === false">unfold_more</mat-icon>
+      <mat-icon *ngIf="isPreview">unfold_less</mat-icon>
+    </div>
   </div>
   <mat-card-content
     class="container-preview"
-    *ngIf="(columns$ | async)?.length > 0 && isPreview">
+    (click)="toggle()"
+    [class.visible]="(columns$ | async)?.length > 0 && isPreview">
     <div class="column-item" *ngFor="let column of columns$ | async">
       <mat-card-subtitle
-        >{{ column.order }}.
-        {{ column.title }}
+        >{{ column.order }}. {{ column.title.slice(0, 10) }}...
       </mat-card-subtitle>
     </div>
   </mat-card-content>

@@ -22,6 +22,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
 import { FormModalComponent } from './components/form-modal/form-modal.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatIconModule,
     MatDialogModule,
     MatMenuModule,
+    MatCardModule
   ],
   exports: [FooterComponent, HeaderComponent, ModalComponent, ToastComponent],
 })

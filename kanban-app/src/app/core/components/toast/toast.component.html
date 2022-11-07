@@ -1,9 +1,9 @@
-<div
+<mat-card
   class="toast-container"
   [class.visible]="isVisible"
   [class.invisible]="!isVisible">
   <div class="close" (click)="exit()"><mat-icon>close</mat-icon></div>
-  <h2 class="toast-notification">
+  <mat-card-title class="toast-notification">
     {{ 'ERROR' | translate }} {{ (notification$ | async)! | translate }}
-  </h2>
-</div>
+  </mat-card-title>
+</mat-card>
