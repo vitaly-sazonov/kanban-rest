@@ -1,24 +1,27 @@
-<div class="board-container">
-  <div class="inner-container" [routerLink]="['../board', board?.id]">
-    <h1 class="title">
+<mat-card class="board-container">
+  <mat-card-header
+    class="inner-container"
+    [routerLink]="['../board', board?.id]">
+    <mat-card-title class="title">
       {{ board?.title }}
-    </h1>
-    <h2>{{ board?.description }}...</h2>
-  </div>
+    </mat-card-title>
+    <mat-card-subtitle>{{ board?.description }}...</mat-card-subtitle>
+  </mat-card-header>
   <div class="toggle" (click)="toggle()" *ngIf="(columns$ | async)?.length > 0">
     <mat-icon *ngIf="isPreview === false">unfold_more</mat-icon>
     <mat-icon *ngIf="isPreview">unfold_less</mat-icon>
   </div>
-  <div
+  <mat-card-content
     class="container-preview"
     *ngIf="(columns$ | async)?.length > 0 && isPreview">
     <div class="column-item" *ngFor="let column of columns$ | async">
-      <h3>
+      <mat-card-subtitle
+        >{{ column.order }}.
         {{ column.title }}
-      </h3>
+      </mat-card-subtitle>
     </div>
-  </div>
+  </mat-card-content>
   <button mat-raised-button color="warn" (click)="deleteBoard(board?.id!)">
     {{ 'DELETE' | translate }}
   </button>
-</div>
+</mat-card>

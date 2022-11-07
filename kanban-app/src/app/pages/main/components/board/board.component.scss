@@ -16,6 +16,10 @@
 }
 .inner-container{
     cursor: pointer;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     overflow-wrap: break-word;
     padding-bottom: 10px;
 }
@@ -27,14 +31,13 @@
     gap:10px
 }
 .column-item{
-    background-color: #f0f0f0;
     width: 260px;
     height: fit-content;
+    border: 1px solid $whiteBorderColor;
     padding-left: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    box-shadow: $boxShadow;
     border-radius: 5px;
 }
 button{

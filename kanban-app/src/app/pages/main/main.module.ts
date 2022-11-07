@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [MainComponent, BoardComponent],
@@ -26,6 +27,7 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatIconModule,
     FormsModule,
+    MatCardModule,
   ],
 })
 export class MainModule {}

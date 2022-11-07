@@ -4,6 +4,8 @@ input:focus {
 }
 
 .boards-container {
+  position: relative;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,6 +38,7 @@ input:focus {
   height: 30px;
   background-color: #eee;
   border: transparent;
+  z-index: 0;
 }
 .title {
   position: sticky;

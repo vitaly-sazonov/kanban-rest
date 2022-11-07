@@ -10,11 +10,12 @@
   word-wrap: break-word;
   padding: 10px;
   background-color: $toastBackgroundColor;
+  box-shadow: $toastBoxShadow;
   z-index: 30;
 }
 .toast-notification {
   color: $toastTextColor;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .close {
   color: $toastTextColor;
@@ -58,4 +59,3 @@
     visibility: visible;
   }
 }
-

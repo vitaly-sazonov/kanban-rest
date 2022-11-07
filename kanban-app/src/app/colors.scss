@@ -4,8 +4,14 @@ $modalWindowColor: #fff;
 $modalBackgroundColor: rgba(0, 0, 0, 0.3);
 $boardBackgroundColor: #eee;
 $moreColor:#3f51b6;
+$whiteBorderColor: #fff;
 $boxShadow: inset 0 0 30px
   rgba(
     $color: #000000,
     $alpha: 0.2,
+  );
+$toastBoxShadow:  2px 2px 2px
+  rgba(
+    $color: #000000,
+    $alpha: 0.5,
   );

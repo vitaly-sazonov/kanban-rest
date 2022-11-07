@@ -57,7 +57,8 @@
   "CLOSE": "CLOSE",
   "more": "more",
   "hide": "hide",
-  "No boards":"No board",
+  "No Boards":"No Boards",
+  "search board":"search board",
   "ERRORS": {
     "0": "No internet connection",
     "400": "Your request is bad",

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
-import { setVisibility } from 'src/app/redux/actions/modal.actions';
+import { TIME_SHOW_NOTIFICATION } from 'src/app/constants';
 import { deleteNotification } from 'src/app/redux/actions/notification.actions';
 import { NotificationService } from '../../services/notification.service';
 
@@ -26,7 +26,7 @@ export class ToastComponent implements OnInit {
           setTimeout(() => {
             this.isVisible = false;
             this.store.dispatch(deleteNotification());
-          }, 9000);
+          }, TIME_SHOW_NOTIFICATION);
         }
       })
     );
