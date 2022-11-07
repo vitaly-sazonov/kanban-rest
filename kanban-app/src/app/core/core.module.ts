@@ -49,7 +49,7 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatDialogModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
   ],
   exports: [FooterComponent, HeaderComponent, ModalComponent, ToastComponent],
 })

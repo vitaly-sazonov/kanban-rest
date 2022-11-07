@@ -1,6 +1,6 @@
 @import '../../../colors.scss';
 
-.toast-container {
+.container {
   position: fixed;
   right: 5%;
   top: 8%;
@@ -11,7 +11,7 @@
   padding: 10px;
   background-color: $toastBackgroundColor;
   box-shadow: $toastBoxShadow;
-  z-index: 30;
+
 }
 .toast-notification {
   color: $toastTextColor;
