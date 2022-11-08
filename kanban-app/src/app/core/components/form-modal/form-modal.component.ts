@@ -43,41 +43,43 @@ export class FormModalComponent implements OnInit, OnDestroy {
   }
 
   buildForm(formSelected: ModalSchemes) {
-    this.modalService.extra$.subscribe(data => {
-      this.modalExtra = data;
-      switch (formSelected) {
-        case ModalSchemes.addBoard:
-          this.formConstructor = new FormGroup({
-            title: new FormControl('', Validators.required),
-            description: new FormControl('', Validators.required),
-          });
-          this.formAction = (payload: Board) => addBoard({ board: payload });
-          break;
-        case ModalSchemes.addColumn:
-          this.formConstructor = new FormGroup({
-            title: new FormControl('', Validators.required),
-          });
-          this.formAction = (payload: Column) =>
-            addColumn({
-              boardId: this.modalExtra[0],
-              column: payload,
+    this.modalService.extra$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(data => {
+        this.modalExtra = data;
+        switch (formSelected) {
+          case ModalSchemes.addBoard:
+            this.formConstructor = new FormGroup({
+              title: new FormControl('', Validators.required),
+              description: new FormControl('', Validators.required),
             });
-          break;
-        case ModalSchemes.editColumn:
-          this.formConstructor = new FormGroup({
-            title: new FormControl(this.modalExtra[3], Validators.required),
-          });
-          this.formAction = (payload: Column) =>
-            editColumn({
-              boardId: this.modalExtra[0],
-              columnId: this.modalExtra[1],
-              columnOrder: this.modalExtra[2],
-              column: payload,
+            this.formAction = (payload: Board) => addBoard({ board: payload });
+            break;
+          case ModalSchemes.addColumn:
+            this.formConstructor = new FormGroup({
+              title: new FormControl('', Validators.required),
             });
-          break;
-      }
-      this.inputFields = this.getInputFields();
-    });
+            this.formAction = (payload: Column) =>
+              addColumn({
+                boardId: this.modalExtra[0],
+                column: payload,
+              });
+            break;
+          case ModalSchemes.editColumn:
+            this.formConstructor = new FormGroup({
+              title: new FormControl(this.modalExtra[3], Validators.required),
+            });
+            this.formAction = (payload: Column) =>
+              editColumn({
+                boardId: this.modalExtra[0],
+                columnId: this.modalExtra[1],
+                columnOrder: this.modalExtra[2],
+                column: payload,
+              });
+            break;
+        }
+        this.inputFields = this.getInputFields();
+      });
   }
 
   keepSorting() {
