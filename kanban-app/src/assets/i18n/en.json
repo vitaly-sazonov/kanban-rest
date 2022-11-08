@@ -51,7 +51,7 @@
     "button": "Create",
     "required": "fill the field"
   },
-  "CONFIRM_DELETE": "DO YOU WANT TO DELETE : ",
+  "CONFIRM_DELETE": "DO YOU WANT TO DELETE BOARD ",
   "DELETE": "DELETE",
   "BOARDS": "BOARDS",
   "CLOSE": "CLOSE",

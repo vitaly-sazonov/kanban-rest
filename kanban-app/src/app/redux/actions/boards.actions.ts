@@ -4,7 +4,7 @@ import { Board } from 'src/app/interfaces';
 
 export const addBoards = createAction(
   BoardsActions.AddBoards,
-  props<{ boards: Board[] }>()
+  props<{ board: Board }>()
 );
 export const addBoard = createAction(
   BoardsActions.AddBoard,
@@ -17,6 +17,9 @@ export const addCurrentBoardId = createAction(
 export const deleteBoardById = createAction(
   BoardsActions.DeleteBoardById,
   props<{ id: string }>()
+);
+export const deleteAllBoards = createAction(
+  BoardsActions.DeleteAllBoards
 );
 export const loadBoardById = createAction(
   BoardsActions.LoadBoardById,

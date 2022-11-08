@@ -47,6 +47,10 @@
   transition: 500ms;
 }
 .column-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 110px;
   overflow-wrap: break-word;
   height: 200px;

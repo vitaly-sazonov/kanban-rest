@@ -23,6 +23,9 @@
       <mat-card-subtitle
         >{{ column.order }}. {{ column.title.slice(0, 10) }}...
       </mat-card-subtitle>
+      <mat-card-subtitle
+        > {{ column?.description?.slice(0, 10) }}...
+      </mat-card-subtitle>
     </div>
   </mat-card-content>
   <button mat-raised-button color="warn" (click)="deleteBoard(board?.id!)">

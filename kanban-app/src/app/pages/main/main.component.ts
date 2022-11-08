@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadBoards } from 'src/app/redux/actions/boards.actions';
+import {
+  deleteAllBoards,
+  loadBoards,
+} from 'src/app/redux/actions/boards.actions';
 import { selectUserBoards } from 'src/app/redux/selectors/boards.selectors';
 
 @Component({
@@ -14,6 +17,8 @@ export class MainComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(loadBoards());
+    [deleteAllBoards(), loadBoards()].forEach(action =>
+      this.store.dispatch(action)
+    );
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, tap } from 'rxjs';
+import { from, map, mergeMap, switchMap, tap } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
 import { Board } from 'src/app/interfaces';
 import {
@@ -17,8 +17,10 @@ export class BoardsEffect {
     return this.actions$.pipe(
       ofType(loadBoards),
       switchMap(() => this.http.getBoards()),
+      mergeMap((boards: Board[]) => from(boards)),
+      mergeMap((board: Board) => this.http.getBoardById(board.id)),
       tap(data => console.log(data)),
-      map((data: Board[]) => addBoards({ boards: data }))
+      map((data:Board )=> addBoards({ board: data }))
     );
   });
   deleteBoardById$ = createEffect(() => {
