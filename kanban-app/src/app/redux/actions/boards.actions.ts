@@ -18,9 +18,7 @@ export const deleteBoardById = createAction(
   BoardsActions.DeleteBoardById,
   props<{ id: string }>()
 );
-export const deleteAllBoards = createAction(
-  BoardsActions.DeleteAllBoards
-);
+export const deleteAllBoards = createAction(BoardsActions.DeleteAllBoards);
 export const loadBoardById = createAction(
   BoardsActions.LoadBoardById,
   props<{ id: number }>()

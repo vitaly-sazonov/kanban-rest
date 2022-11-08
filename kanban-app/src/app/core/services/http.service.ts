@@ -25,7 +25,7 @@ export class HttpService {
     return this.http.get(QUERY_PARAMS_FIRST.boards + `/${id}/columns`);
   }
 
-  getBoardById(id?: string):Observable<any> {
+  getBoardById(id?: string): Observable<any> {
     return this.http.get(QUERY_PARAMS_FIRST.boards + `/${id}`);
   }
 

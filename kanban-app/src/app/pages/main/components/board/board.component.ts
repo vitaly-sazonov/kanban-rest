@@ -18,7 +18,6 @@ import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.s
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent {
-
   @Input() board?: Board;
   result$ = this.store.select(selectConfirmationResult);
   columns$ = of(this.board?.id).pipe(

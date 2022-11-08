@@ -17,10 +17,10 @@ export class BoardsEffect {
     return this.actions$.pipe(
       ofType(loadBoards),
       switchMap(() => this.http.getBoards()),
-      mergeMap((boards: Board[]) => from(boards)),
+      switchMap((boards: Board[]) => from(boards)),
       mergeMap((board: Board) => this.http.getBoardById(board.id)),
       tap(data => console.log(data)),
-      map((data:Board )=> addBoards({ board: data }))
+      map((data: Board) => addBoards({ board: data }))
     );
   });
   deleteBoardById$ = createEffect(() => {

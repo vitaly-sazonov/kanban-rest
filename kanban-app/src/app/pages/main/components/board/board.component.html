@@ -23,9 +23,11 @@
       <mat-card-subtitle
         >{{ column.order }}. {{ column.title.slice(0, 10) }}...
       </mat-card-subtitle>
-      <mat-card-subtitle
-        > {{ column?.description?.slice(0, 10) }}...
-      </mat-card-subtitle>
+      <div class="tasks-container">
+        <mat-card-subtitle *ngFor="let task of column.tasks">
+          {{ task.title.slice(0, 10) }}...
+        </mat-card-subtitle>
+      </div>
     </div>
   </mat-card-content>
   <button mat-raised-button color="warn" (click)="deleteBoard(board?.id!)">
