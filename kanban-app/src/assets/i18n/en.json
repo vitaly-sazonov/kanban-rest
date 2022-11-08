@@ -45,11 +45,23 @@
   "ERROR": "Error: ",
   "DeleteUserQuestion": "Are you sure DELETE user?",
   "formModal": {
-    "formTitle": "Create Board",
+    "required": "fill the field"
+  },
+  "addBoard": {
+    "header": "Create Board",
     "title": "Title",
     "description": "Description",
-    "button": "Create",
-    "required": "fill the field"
+    "button": "Create board"
+  },
+  "addColumn": {
+    "header": "Create Column",
+    "title": "Title",
+    "button": "Create column"
+  },
+  "editColumn": {
+    "header": "Edit Column",
+    "title": "New title",
+    "button": "Edit column"
   },
   "CONFIRM_DELETE": "DO YOU WANT TO DELETE : ",
   "DELETE": "DELETE",
@@ -60,6 +72,12 @@
   "No Boards": "No Boards",
   "search board": "search board",
   "columns": "columns",
+  "BOARD": {
+    "addNewColumn": "Add column",
+    "editColumn": "Edit column",
+    "removeColumn": "Remove column",
+    "CONFIRM_DELETE_COLUMN": "Are you sure you want to delete this column?"
+  },
   "ERRORS": {
     "0": "No internet connection",
     "400": "Your request is bad",

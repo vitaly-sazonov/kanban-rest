@@ -21,7 +21,7 @@ export class BoardComponent {
   @Input() board?: Board;
   result$ = this.store.select(selectConfirmationResult);
   columns$ = of(this.board?.id).pipe(
-    switchMap(() => this.httpService.getColumns(this.board?.id))
+    switchMap(() => this.httpService.getColumns(this.board?.id!))
   );
   length$ = this.columns$.pipe(map((items: Column[]) => items.length));
 

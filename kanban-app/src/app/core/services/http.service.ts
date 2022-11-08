@@ -10,23 +10,19 @@ import {
   UserLogin,
   UserRegistration,
 } from '../../interfaces';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private notification: NotificationService
+  ) {}
 
   getBoards(): Observable<any> {
     return this.http.get(QUERY_PARAMS_FIRST.boards);
-  }
-
-  getColumns(id?: string): Observable<any> {
-    return this.http.get(QUERY_PARAMS_FIRST.boards + `/${id}/columns`);
-  }
-
-  getBoardById(id?: string) {
-    return this.http.get(QUERY_PARAMS_FIRST.boards + `/${id}`);
   }
 
   addBoard(board: Board) {
@@ -38,9 +34,15 @@ export class HttpService {
   }
 
   signIn(user: UserLogin) {
-    return this.http
-      .post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user)
-      .pipe(catchError(error => this.handleError(error)));
+    return this.http.post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user).pipe(
+      catchError(error => {
+        this.notification.setNotification(`Backend returned error with name: ${
+          error.name
+        }, and message:
+        ${JSON.stringify(error.message)}`);
+        return this.handleError(error);
+      })
+    );
   }
 
   signUp(user: UserRegistration) {
@@ -79,6 +81,39 @@ export class HttpService {
     }
     return throwError(
       () => new Error('Something bad happened; please try again later.')
+    );
+  }
+
+  getBoardById(id: string) {
+    return this.http.get(`${QUERY_PARAMS_FIRST.boards}/${id}`);
+  }
+
+  addColumn(boardId: string, column: Column) {
+    return this.http.post(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_FIRST.columns}`,
+      column
+    );
+  }
+
+  getColumns(id: string): Observable<any> {
+    return this.http.get(
+      `${QUERY_PARAMS_FIRST.boards}/${id}${QUERY_PARAMS_FIRST.columns}`
+    );
+  }
+  removeColumn(boardId: string, columnId: string) {
+    return this.http.delete(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_FIRST.columns}/${columnId}`
+    );
+  }
+  editColumn(
+    boardId: string,
+    columnId: string,
+    columnOrder: number,
+    column: Column
+  ) {
+    return this.http.put(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_FIRST.columns}/${columnId}`,
+      { ...column, order: columnOrder }
     );
   }
 }

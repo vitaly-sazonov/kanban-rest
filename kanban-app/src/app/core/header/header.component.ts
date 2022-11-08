@@ -1,6 +1,6 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { fromEvent, Subject, takeUntil, tap } from 'rxjs';
@@ -9,10 +9,10 @@ import {
   selectFeatureUser,
   selectFeatureUserLoggedIn,
 } from 'src/app/redux/selectors/user.selectors';
-import { ConfirmService } from '../services/confirm.service';
 import {
   ConfirmQuestions,
   Language,
+  ModalSchemes,
   ModalTypes,
   PercentSize,
   RouterStateValue,
@@ -74,6 +74,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   callFormModal() {
+    this.modalService.setScheme(ModalSchemes.addBoard);
     this.modalService.setType(ModalTypes.FormType);
     this.store.dispatch(setVisibility({ isVisible: true }));
     this.router.navigate([RouterStateValue.main]);
