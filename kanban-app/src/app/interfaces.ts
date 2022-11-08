@@ -26,8 +26,8 @@ export interface LoginResponse {
 
 export interface Board {
   id?: string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   columns?: Column[];
 }
 

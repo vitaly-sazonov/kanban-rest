@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, of, switchMap } from 'rxjs';
+import { map, of, Subscription, switchMap } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
 import { ModalTypes } from 'src/app/enums';
 import { Board, Column } from 'src/app/interfaces';
@@ -17,15 +17,17 @@ import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.s
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent {
+export class BoardComponent implements OnDestroy {
+  subscription?: Subscription;
   @Input() board?: Board;
   result$ = this.store.select(selectConfirmationResult);
   columns$ = of(this.board?.id).pipe(
-    switchMap(() => this.httpService.getColumns(this.board?.id))
+    switchMap(() => this.httpService.getColumns(this.board?.id!))
   );
   length$ = this.columns$.pipe(map((items: Column[]) => items.length));
 
   constructor(private store: Store, private httpService: HttpService) {}
+
   isPreview = false;
   deleteBoard(id: string) {
     this.confirmDelete(id);
@@ -39,7 +41,7 @@ export class BoardComponent {
       addConfirmMessage({ message: 'CONFIRM_DELETE' }),
     ].forEach(action => this.store.dispatch(action));
 
-    this.result$.subscribe(data => {
+    this.subscription = this.result$.subscribe(data => {
       if (data) {
         this.store.dispatch(deleteBoardById({ id }));
       }
@@ -47,5 +49,9 @@ export class BoardComponent {
   }
   toggle() {
     this.isPreview = !this.isPreview;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

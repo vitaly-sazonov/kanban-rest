@@ -5,6 +5,7 @@ export enum QUERY_PARAMS_FIRST {
   boards = '/boards',
   file = '/file',
   logs = '/logs',
+  columns = '/columns',
 }
 
 export enum Language {
@@ -50,6 +51,7 @@ export enum ConfirmActions {
 }
 export enum ModalActions {
   SetType = '[Modal] Set Type',
+  SetScheme = '[Modal] Set Scheme',
   SetVisibility = '[Modal] Set Visibility',
 }
 
@@ -67,6 +69,22 @@ export enum ModalTypes {
   ConfirmType,
   FormType,
 }
+
+export enum ModalSchemes {
+  addBoard = 'addBoard',
+  addColumn = 'addColumn',
+  editColumn = 'editColumn',
+  addTask = 'addTask',
+}
+
+export enum ColumnActions {
+  LoadColumns = '[Columns] Load columns',
+  AddColumn = '[Columns] Add new column',
+  AddColumns = '[Columns] Add columns',
+  RemoveColumn = '[Columns] Delete column',
+  EditColumn = '[Columns] Edit column',
+}
+
 export enum UserAction {
   login = '[User] Login User',
   logout = '[User] Logout User',

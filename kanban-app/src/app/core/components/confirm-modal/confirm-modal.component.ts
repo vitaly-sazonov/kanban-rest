@@ -19,7 +19,7 @@ export class ConfirmModalComponent {
   currentBoardId$ = this.store.select(selectCurrentBoard);
   currentBoardTitle$ = this.currentBoardId$.pipe(
     filter(id => id !== undefined),
-    switchMap(id => this.httpService.getBoardById(id)),
+    switchMap(id => this.httpService.getBoardById(id!)),
     map((bord: any) => bord.title)
   );
   buttonAgree = 'AGREE';

@@ -1,9 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MatCardTitle } from '@angular/material/card';
 import { Store } from '@ngrx/store';
-import { filter, from, map, of, switchMap, tap } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
-import { Board, Column } from 'src/app/interfaces';
+import { Board } from 'src/app/interfaces';
 
 @Pipe({
   name: 'search',
@@ -20,9 +18,9 @@ export class SearchPipe implements PipeTransform {
     }
     output = array.filter(item => {
       return (
-        item.title.toLowerCase().includes(input) ||
-        item.description.toLowerCase().includes(input) ||
-        item.columns?.some(
+        item?.title?.toLowerCase().includes(input) ||
+        item?.description?.toLowerCase().includes(input) ||
+        item?.columns?.some(
           column =>
             column?.title?.toLowerCase().includes(input) ||
             column?.tasks?.some(

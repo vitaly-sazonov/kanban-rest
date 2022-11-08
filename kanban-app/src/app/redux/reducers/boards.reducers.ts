@@ -5,6 +5,7 @@ import {
   addBoards,
   addCurrentBoardId,
   deleteAllBoards,
+  addColumns,
 } from '../actions/boards.actions';
 
 export interface StateBoards {
@@ -28,6 +29,18 @@ export const boardsReducer = createReducer(
       userBoards: { boards: [...state.userBoards?.boards!, board] },
     })
   ),
+  on(addColumns, (state, { id, columns }): State => {
+    columns = Object.values(columns);
+    columns.sort((a, b) => a.order! - b.order!);
+    return {
+      ...state,
+      userBoards: {
+        boards: state.userBoards?.boards?.map(el =>
+          el.id === id ? { ...el, columns } : { ...el }
+        ),
+      },
+    };
+  }),
   on(
     addCurrentBoardId,
     (state, { id }): State => ({

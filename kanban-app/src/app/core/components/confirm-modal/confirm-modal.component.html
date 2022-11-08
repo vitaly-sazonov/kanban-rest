@@ -1,8 +1,10 @@
 <div class="confirmation-info-block">
-  <h2 class="confirmation-info" *ngIf="(currentBoardId$ | async) !== ''">
-    {{ (info$ | async)! | translate }}{{ currentBoardTitle$ | async }} ?
+  <h2
+    class="confirmation-info"
+    *ngIf="(currentBoardId$ | async)! !== undefined">
+    {{ (info$ | async)! | translate }}{{ currentBoardTitle$ | async }}?
   </h2>
-  <h2 class="confirmation-info" *ngIf="(currentBoardId$ | async) === ''">
+  <h2 class="confirmation-info" *ngIf="(currentBoardId$ | async) === undefined">
     {{ (info$ | async)! | translate }}
   </h2>
 </div>
