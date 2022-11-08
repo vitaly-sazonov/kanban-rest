@@ -1,7 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import { Board } from 'src/app/interfaces';
 import { State } from '..';
-import { addBoards, addColumns } from '../actions/boards.actions';
+import {
+  addBoards,
+  addColumns,
+  addCurrentBoardId,
+} from '../actions/boards.actions';
 
 export interface StateBoards {
   boards?: Board[];
@@ -17,13 +21,13 @@ export const initialState: State = {
 
 export const boardsReducer = createReducer(
   initialState,
-  on(addBoards, (state, { boards }): State => {
-    console.log(boards);
-    return {
+  on(
+    addBoards,
+    (state, { boards }): State => ({
       ...state,
-      userBoards: { boards: [...boards] },
-    };
-  }),
+      userBoards: { boards },
+    })
+  ),
   on(addColumns, (state, { id, columns }): State => {
     columns = Object.values(columns);
     columns.sort((a, b) => a.order! - b.order!);
@@ -35,5 +39,12 @@ export const boardsReducer = createReducer(
         ),
       },
     };
-  })
+  }),
+  on(
+    addCurrentBoardId,
+    (state, { id }): State => ({
+      ...state,
+      userBoards: { boards: state.userBoards?.boards, currentBoardId: id },
+    })
+  )
 );

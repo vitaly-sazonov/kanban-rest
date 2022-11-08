@@ -10,6 +10,10 @@ export const addBoard = createAction(
   BoardsActions.AddBoard,
   props<{ board: Board }>()
 );
+export const addCurrentBoardId = createAction(
+  BoardsActions.AddCurentBoardId,
+  props<{ id: string }>()
+);
 export const deleteBoardById = createAction(
   BoardsActions.DeleteBoardById,
   props<{ id: string }>()

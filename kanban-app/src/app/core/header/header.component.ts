@@ -77,6 +77,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.modalService.setScheme(ModalSchemes.addBoard);
     this.modalService.setType(ModalTypes.FormType);
     this.store.dispatch(setVisibility({ isVisible: true }));
+    this.router.navigate([RouterStateValue.main]);
   }
 
   logOut() {
@@ -84,7 +85,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   editUser() {
-    this.router.navigate([RouterStateValue.edit]);
+    this.router.navigate([RouterStateValue.welcome, RouterStateValue.edit]);
   }
 
   deleteUserService() {
@@ -96,6 +97,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      panelClass: 'dialog',
+      enterAnimationDuration: '500ms',
       width: PercentSize.eighty,
       height: PercentSize.eighty,
       data: ConfirmQuestions.DeleteUserQuestion,

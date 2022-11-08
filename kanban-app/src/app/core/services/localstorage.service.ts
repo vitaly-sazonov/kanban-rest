@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TOKEN } from '../../constants';
+import { TOKEN, USER_ID } from '../../constants';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +20,13 @@ export class LocalstorageService {
 
   clearToken() {
     this.setToken('');
+  }
+
+  setUserId(id: string) {
+    localStorage.setItem(USER_ID, id);
+  }
+
+  getUserId() {
+    return localStorage.getItem(USER_ID);
   }
 }

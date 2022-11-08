@@ -1,4 +1,11 @@
 {
+  "Developers": "Developers",
+  "Error": {
+    "User was not founded!": "User was not founded!",
+    "User login already exists!": "User login already exists!",
+    "Board was not founded!": "Board was not founded!",
+    "Unauthorized": "User is unauthorized"
+  },
   "auth": {
     "Update": "Update user",
     "Delete": "Delete user",
@@ -31,7 +38,7 @@
   "Welcome to": "Welcome to",
   "HELLO": "hello {{value}}",
   "TITLE": "My application (en)",
-  "AGREE": "Agree",
+  "AGREE": "Ok",
   "CANCEL": "Cancel",
   "SAMPLE_CONFIRM_INFO": "Are you agree?",
   "CREATE_BOARD": "Create board",
@@ -56,13 +63,27 @@
     "title": "New title",
     "button": "Edit column"
   },
-  "CONFIRM_DELETE": "DO YOU WANT TO DELETE THIS BOARD?",
+  "CONFIRM_DELETE": "DO YOU WANT TO DELETE : ",
   "DELETE": "DELETE",
   "BOARDS": "BOARDS",
+  "CLOSE": "CLOSE",
+  "more": "more",
+  "hide": "hide",
+  "No Boards": "No Boards",
+  "search board": "search board",
+  "columns": "columns",
   "BOARD": {
     "addNewColumn": "Add column",
     "editColumn": "Edit column",
     "removeColumn": "Remove column",
     "CONFIRM_DELETE_COLUMN": "Are you sure you want to delete this column?"
+  },
+  "ERRORS": {
+    "0": "No internet connection",
+    "400": "Your request is bad",
+    "401": "You are not authorized",
+    "403": "Forbidden. Access is denied",
+    "404": "Not found",
+    "409": "Request has conflict with server"
   }
 }

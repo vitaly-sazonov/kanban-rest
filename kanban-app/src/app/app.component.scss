@@ -1,13 +1,5 @@
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.height {
-  height: 1200px;
-}
-
 .app {
   padding-top: 65px;
+  box-sizing: border-box;
+  min-height: calc(100vh - 50px);
 }

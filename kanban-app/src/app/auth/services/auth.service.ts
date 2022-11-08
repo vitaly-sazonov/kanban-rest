@@ -9,7 +9,7 @@ import { HttpService } from 'src/app/core/services/http.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { Store } from '@ngrx/store';
 import { loginUser, logoutUser } from 'src/app/redux/actions/user.actions';
-import { Router } from '@angular/router';
+import { Router, UrlTree } from '@angular/router';
 import { RouterStateValue } from 'src/app/enums';
 
 @Injectable({
@@ -27,7 +27,11 @@ export class AuthService {
     return this.httpService.signIn(user).pipe(
       tap(x => this.localstorageService.setToken(x.token)),
       switchMap(() => this.getUser(user.login)),
-      tap(x => this.dispatchUser(x))
+      filter(Boolean),
+      tap(x => {
+        this.router.navigate([RouterStateValue.main]);
+        this.dispatchUser(x);
+      })
     );
   }
 
@@ -42,25 +46,43 @@ export class AuthService {
   }
 
   getUser(userName: string) {
-    return this.httpService
-      .getAllUsers()
-      .pipe(map(x => x.find(x => x.login === userName)));
+    return this.httpService.getAllUsers().pipe(
+      map(x => x.find(x => x.login === userName)),
+      tap(x => {
+        if (x?.id) this.localstorageService.setUserId(x?.id);
+      })
+    );
+  }
+
+  checkToken(userId: string, url: UrlTree) {
+    return this.httpService.getUserById(userId).pipe(
+      map(x => {
+        if (x.id) {
+          this.dispatchUser(x);
+          return true;
+        }
+        return url;
+      })
+    );
+  }
+
+  getUserId() {
+    const userId = this.localstorageService.getUserId();
+    const token = this.localstorageService.getToken();
+    return userId && token ? userId : false;
   }
 
   logOut() {
     this.store.dispatch(logoutUser());
-    this.localstorageService.clearToken();
-    this.router.navigate([RouterStateValue.login]);
+    this.localstorageService.clear();
+    this.router.navigate([RouterStateValue.welcome]);
   }
 
   deleteUser(userId: string) {
     return this.httpService.deleteUser(userId);
   }
 
-  dispatchUser(x: GetUserByIdResponse | undefined) {
-    if (x) {
-      this.store.dispatch(loginUser({ user: x }));
-      this.router.navigate([RouterStateValue.main]);
-    }
+  dispatchUser(x: GetUserByIdResponse) {
+    this.store.dispatch(loginUser({ user: x }));
   }
 }

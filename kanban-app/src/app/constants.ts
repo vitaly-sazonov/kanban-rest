@@ -7,3 +7,7 @@ export const user2 = {
   login: 'user002',
   password: 'userpass@123',
 };
+
+export const USER_ID = 'userId';
+
+export const TIME_SHOW_NOTIFICATION = 10000;

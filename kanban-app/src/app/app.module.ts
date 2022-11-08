@@ -8,7 +8,7 @@ import {
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { UserEffect } from './redux/effects/user.effect';
@@ -36,16 +36,26 @@ import { boardsReducer } from './redux/reducers/boards.reducers';
 import { BoardsEffect } from './redux/effects/boards.effects';
 import { userReducer } from './redux/reducers/user.reducer';
 
+import { ToastrModule } from 'ngx-toastr';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
+export const Material = [MatIconModule, MatButtonModule];
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    Material,
+    ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -85,6 +95,7 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

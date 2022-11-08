@@ -23,7 +23,8 @@ export enum RouterStateValue {
   main = 'main',
   registration = 'registration',
   login = 'login',
-  edit = '/edit',
+  edit = 'edit',
+  welcome = 'welcome',
 }
 
 export enum PasswordValidatorSymbols {
@@ -57,6 +58,7 @@ export enum ModalActions {
 export enum BoardsActions {
   AddBoards = '[Boards] Add Boards',
   AddBoard = '[Boards] Add Board',
+  AddCurentBoardId = '[Boards] Add Current Board Id',
   DeleteBoardById = '[Boards] Delete Board By ID',
   LoadBoards = '[Boards] Load Boards',
   LoadBoardById = '[Boards] Load Board By ID',
@@ -98,4 +100,5 @@ export enum ConfirmQuestions {
 
 export enum PercentSize {
   eighty = '80%',
+  fifty = '50%',
 }

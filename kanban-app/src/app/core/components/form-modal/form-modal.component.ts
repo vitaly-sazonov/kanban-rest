@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { switchMap } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 import { ModalSchemes } from 'src/app/enums';
 import { Board, Column } from 'src/app/interfaces';
 import {
@@ -20,13 +20,14 @@ import { ModalService } from '../../services/modal.service';
   templateUrl: './form-modal.component.html',
   styleUrls: ['./form-modal.component.scss'],
 })
-export class FormModalComponent implements OnInit {
+export class FormModalComponent implements OnInit, OnDestroy {
   formScheme$ = this.store.select(selectModalScheme);
   formConstructor!: FormGroup;
   formAction!: Function;
   formSelected: ModalSchemes | undefined;
   inputFields = {};
   modalExtra: any[] = [];
+  unsubscribe$ = new Subject();
 
   constructor(
     private store: Store,
@@ -35,7 +36,7 @@ export class FormModalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.formScheme$.subscribe(data => {
+    this.formScheme$.pipe(takeUntil(this.unsubscribe$)).subscribe(data => {
       this.formSelected = data;
       this.buildForm(this.formSelected!);
     });
@@ -103,5 +104,10 @@ export class FormModalComponent implements OnInit {
   checkForErrors(key: string) {
     const input = this.formConstructor.get(key);
     return input?.errors && input.touched ? true : false;
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next(1);
+    this.unsubscribe$.complete();
   }
 }
