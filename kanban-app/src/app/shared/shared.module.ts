@@ -9,10 +9,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchPipe } from './pipes/search.pipe';
 import { OrderPipe } from './pipes/oder.pipe';
+import { MarkPipe } from './pipes/mark.pipe';
 
 @NgModule({
-  declarations: [ConfirmDialogComponent, SearchPipe, OrderPipe],
+  declarations: [ConfirmDialogComponent, SearchPipe, OrderPipe, MarkPipe],
   imports: [CommonModule, TranslateModule, MatDialogModule, MatButtonModule],
-  exports: [SearchPipe, OrderPipe],
+  exports: [SearchPipe, OrderPipe, MarkPipe],
 })
 export class SharedModule {}
