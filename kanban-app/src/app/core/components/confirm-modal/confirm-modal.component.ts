@@ -32,9 +32,8 @@ export class ConfirmModalComponent {
 
   setResult(result: boolean) {
     this.confirmService.setConfirmResult(result);
-    [
-      addCurrentBoardId({ id: '' }),
-      setVisibility({ isVisible: false }),
-    ].forEach(action => this.store.dispatch(action));
+    [setVisibility({ isVisible: false })].forEach(action =>
+      this.store.dispatch(action)
+    );
   }
 }

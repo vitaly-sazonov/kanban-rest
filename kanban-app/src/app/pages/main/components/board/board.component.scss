@@ -31,11 +31,13 @@
   position: absolute;
   top: 0px;
   left: 0px;
-  width: fit-content;
+  max-width: 360px;
+  overflow-x: auto;
+  overflow-y: hidden;
   height: 208px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 10px;
   border-radius: 5px;

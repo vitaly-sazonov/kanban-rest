@@ -1,11 +1,11 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, of, Subscription, switchMap } from 'rxjs';
-import { HttpService } from 'src/app/core/services/http.service';
+import { Subscription } from 'rxjs';
 import { ModalTypes } from 'src/app/enums';
 import { Board, Column } from 'src/app/interfaces';
 import {
   addCurrentBoardId,
+  deleteAllBoards,
   deleteBoardById,
 } from 'src/app/redux/actions/boards.actions';
 import { addConfirmMessage } from 'src/app/redux/actions/confirm.actions';
@@ -17,16 +17,19 @@ import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.s
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent implements OnDestroy {
+export class BoardComponent implements OnDestroy, OnInit {
   subscription?: Subscription;
   @Input() board?: Board;
   result$ = this.store.select(selectConfirmationResult);
-  columns$ = of(this.board?.id).pipe(
-    switchMap(() => this.httpService.getColumns(this.board?.id!))
-  );
-  length$ = this.columns$.pipe(map((items: Column[]) => items.length));
+  columns?: Column[];
+  length: number | undefined;
 
-  constructor(private store: Store, private httpService: HttpService) {}
+  constructor(private store: Store) {}
+
+  ngOnInit(): void {
+    this.columns = this.board?.columns;
+    this.length = this.columns!.length;
+  }
 
   isPreview = false;
   deleteBoard(id: string) {
@@ -43,7 +46,9 @@ export class BoardComponent implements OnDestroy {
 
     this.subscription = this.result$.subscribe(data => {
       if (data) {
-        this.store.dispatch(deleteBoardById({ id }));
+        [deleteAllBoards(), deleteBoardById({ id })].forEach(action =>
+          this.store.dispatch(action)
+        );
       }
     });
   }
