@@ -31,11 +31,13 @@
   position: absolute;
   top: 0px;
   left: 0px;
-  width: fit-content;
+  max-width: 360px;
+  overflow-x: auto;
+  overflow-y: hidden;
   height: 208px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 10px;
   border-radius: 5px;
@@ -47,6 +49,10 @@
   transition: 500ms;
 }
 .column-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 110px;
   overflow-wrap: break-word;
   height: 200px;
@@ -81,4 +87,12 @@ button {
 }
 .icons {
   transform: rotate(90deg);
+}
+.tasks-container{
+  display: flex;
+  flex-direction: column;
+  width:105px;
+  height:150px;
+  background-color: #f5f5f5;
+  overflow-y: auto;
 }

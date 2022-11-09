@@ -23,4 +23,9 @@
 </div>
 <ng-template class="template" #noBoards>
   <h2>{{ 'No Boards' | translate }}</h2>
+  <h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>
+  <mat-spinner
+    diameter="30"
+    color="primary"
+    *ngIf="isLoading$ | async"></mat-spinner>
 </ng-template>

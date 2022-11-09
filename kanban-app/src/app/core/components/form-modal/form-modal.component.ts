@@ -8,6 +8,7 @@ import { Board, Column } from 'src/app/interfaces';
 import {
   addBoard,
   addColumn,
+  deleteAllBoards,
   editColumn,
 } from 'src/app/redux/actions/boards.actions';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
@@ -87,6 +88,9 @@ export class FormModalComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    if (this.formSelected === ModalSchemes.addBoard) {
+      this.store.dispatch(deleteAllBoards());
+    }
     const payload = this.getInputFields();
     [setVisibility({ isVisible: false }), this.formAction(payload)].forEach(
       action => this.store.dispatch(action)

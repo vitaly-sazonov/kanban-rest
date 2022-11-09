@@ -63,7 +63,7 @@
     "title": "Новое название",
     "button": "Подтвердить"
   },
-  "CONFIRM_DELETE": "ВЫ ХОТИТЕ УДАЛИТЬ : ",
+  "CONFIRM_DELETE": "Вы хотите удалить эту доску?",
   "DELETE": "УДАЛИТЬ",
   "BOARDS": "ДОСКИ",
   "CLOSE": "ЗАКРЫТЬ",
@@ -72,6 +72,7 @@
   "No Boards": "Нет Досок",
   "search board": "поиск доски",
   "columns": "колонки",
+  "LOADING":"Загрузка...",
   "BOARD" : {
     "addNewColumn": "Добавить колонку",
     "editColumn": "Редактировать",

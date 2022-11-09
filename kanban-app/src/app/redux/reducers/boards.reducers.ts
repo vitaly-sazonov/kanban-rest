@@ -3,8 +3,9 @@ import { Board } from 'src/app/interfaces';
 import { State } from '..';
 import {
   addBoards,
-  addColumns,
   addCurrentBoardId,
+  deleteAllBoards,
+  addColumns,
 } from '../actions/boards.actions';
 
 export interface StateBoards {
@@ -23,9 +24,9 @@ export const boardsReducer = createReducer(
   initialState,
   on(
     addBoards,
-    (state, { boards }): State => ({
+    (state, { board }): State => ({
       ...state,
-      userBoards: { boards },
+      userBoards: { boards: [...state.userBoards?.boards!, board] },
     })
   ),
   on(addColumns, (state, { id, columns }): State => {
@@ -45,6 +46,16 @@ export const boardsReducer = createReducer(
     (state, { id }): State => ({
       ...state,
       userBoards: { boards: state.userBoards?.boards, currentBoardId: id },
+    })
+  ),
+  on(
+    deleteAllBoards,
+    (state): State => ({
+      ...state,
+      userBoards: {
+        boards: [],
+        currentBoardId: state.userBoards?.currentBoardId,
+      },
     })
   )
 );

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter, map, switchMap } from 'rxjs';
+import { addCurrentBoardId } from 'src/app/redux/actions/boards.actions';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { selectCurrentBoard } from 'src/app/redux/selectors/boards.selectors';
 import { selectConfirmationMessage } from 'src/app/redux/selectors/confirmation.selectors';
@@ -31,6 +32,8 @@ export class ConfirmModalComponent {
 
   setResult(result: boolean) {
     this.confirmService.setConfirmResult(result);
-    this.store.dispatch(setVisibility({ isVisible: false }));
+    [setVisibility({ isVisible: false })].forEach(action =>
+      this.store.dispatch(action)
+    );
   }
 }

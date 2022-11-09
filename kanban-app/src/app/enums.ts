@@ -60,6 +60,7 @@ export enum BoardsActions {
   AddBoard = '[Boards] Add Board',
   AddCurentBoardId = '[Boards] Add Current Board Id',
   DeleteBoardById = '[Boards] Delete Board By ID',
+  DeleteAllBoards = '[Boards] Delete All Boards',
   LoadBoards = '[Boards] Load Boards',
   LoadBoardById = '[Boards] Load Board By ID',
 }
