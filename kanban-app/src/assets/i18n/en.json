@@ -76,7 +76,8 @@
     "addNewColumn": "Add column",
     "editColumn": "Edit column",
     "removeColumn": "Remove column",
-    "CONFIRM_DELETE_COLUMN": "Are you sure you want to delete this column?"
+    "CONFIRM_DELETE_COLUMN": "Are you sure you want to delete this column?",
+    "addTask": "Add new task"
   },
   "ERRORS": {
     "0": "No internet connection",

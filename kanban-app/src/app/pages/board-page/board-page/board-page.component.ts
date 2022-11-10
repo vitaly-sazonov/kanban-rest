@@ -75,4 +75,8 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
+
+  toggleColumnOptions($event: Event) {
+    $event.stopPropagation();
+  }
 }

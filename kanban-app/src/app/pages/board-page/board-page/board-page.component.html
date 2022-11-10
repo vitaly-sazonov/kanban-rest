@@ -10,15 +10,69 @@
     <article
       class="column"
       *ngFor="let item of (currentBoard$ | async)!.columns">
-      {{ item.title }}
-      <button
-        class="column-remove"
-        (click)="editColumn(item.id!, item.order!, item.title)">
-        {{ 'BOARD.editColumn' | translate }}
-      </button>
-      <button class="column-remove" (click)="removeColumn(item.id!)">
-        {{ 'BOARD.removeColumn' | translate }}
-      </button>
+      <mat-accordion class="column-accordion" togglePosition="before">
+        <mat-expansion-panel class="column-inner" expanded>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="column-title">
+              {{ item.title }}
+            </mat-panel-title>
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+              (click)="toggleColumnOptions($event)">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button
+                mat-menu-item
+                (click)="editColumn(item.id!, item.order!, item.title)">
+                <mat-icon>edit</mat-icon>
+                <span>{{ 'BOARD.editColumn' | translate }}</span>
+              </button>
+              <button mat-menu-item (click)="removeColumn(item.id!)">
+                <mat-icon>delete</mat-icon>
+                <span>{{ 'BOARD.removeColumn' | translate }}</span>
+              </button>
+            </mat-menu>
+          </mat-expansion-panel-header>
+          <section class="task-list">
+            <mat-card>
+              <span class="task-title noselect"
+                >Hello World Hello World Hello World Hello World Hello World
+                Hello World Hello World Hello World Hello World Hello World
+              </span>
+            </mat-card>
+            <mat-card>
+              <span class="task-title noselect"
+                >Hello World Hello World Hello World Hello World Hello World
+              </span>
+            </mat-card>
+          </section>
+          <mat-action-row>
+            <button mat-stroked-button color="primary">
+              <mat-icon class="icon-button">playlist_add</mat-icon
+              >{{ 'BOARD.addTask' | translate }}
+            </button>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <!-- <mat-card-content>
+        <section class="column-top">
+          <button class="column-collapse">
+            <mat-icon>expand_more</mat-icon>
+          </button>
+          <h2>{{ item.title }}</h2>
+          <button
+            class="column-remove"
+            (click)="editColumn(item.id!, item.order!, item.title)">
+            {{ 'BOARD.editColumn' | translate }}
+          </button>
+          <button class="column-remove" (click)="removeColumn(item.id!)">
+            {{ 'BOARD.removeColumn' | translate }}
+          </button>
+        </section>
+      </mat-card-content> -->
     </article>
   </section>
   <button class="add-column" (click)="createColumn()">

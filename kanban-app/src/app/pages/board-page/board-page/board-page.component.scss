@@ -1,0 +1,59 @@
+.columns {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+}
+
+.column {
+  width: 320px;
+  flex-shrink: 0;
+}
+
+.column-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.mat-action-row {
+  justify-content: flex-start;
+  padding: 10px;
+  .mat-button-base {
+    margin: 0;
+  }
+}
+
+.icon-button {
+  margin-right: 10px;
+}
+
+.task-title {
+  font-size: 14px;
+}
+
+.mat-toolbar {
+  height: auto;
+  padding: 8px 16px;
+  white-space: wrap;
+}
+
+.mat-card {
+  white-space: unset;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+::ng-deep .column-inner .mat-expansion-panel-body {
+  padding: 0 10px 10px;
+}
+
+.column-inner {
+  background-color: #EBECF0;
+}
+
+.noselect {
+  user-select: none;
+}
