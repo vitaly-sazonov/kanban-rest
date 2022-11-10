@@ -34,15 +34,9 @@ export class HttpService {
   }
 
   signIn(user: UserLogin) {
-    return this.http.post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user).pipe(
-      catchError(error => {
-        this.notification.setNotification(`Backend returned error with name: ${
-          error.name
-        }, and message:
-        ${JSON.stringify(error.message)}`);
-        return this.handleError(error);
-      })
-    );
+    return this.http
+      .post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user)
+      .pipe(catchError(error => this.handleError(error)));
   }
 
   signUp(user: UserRegistration) {
@@ -84,7 +78,7 @@ export class HttpService {
     );
   }
 
-  getBoardById(id: string) {
+  getBoardById(id: string): Observable<any> {
     return this.http.get(`${QUERY_PARAMS_FIRST.boards}/${id}`);
   }
 

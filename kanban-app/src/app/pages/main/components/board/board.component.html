@@ -7,22 +7,30 @@
     </mat-card-title>
     <mat-card-subtitle>{{ board?.description }}...</mat-card-subtitle>
   </mat-card-header>
-  <div class="toggle" (click)="toggle()" *ngIf="(columns$ | async)?.length > 0">
-    <span>{{ 'columns' | translate }}({{ length$ | async }})</span>
+  <div class="toggle" (click)="toggle()" *ngIf="length! > 0">
+    <span>{{ 'columns' | translate }}({{ length }})</span>
     <div class="icons">
       <mat-icon *ngIf="isPreview === false">unfold_more</mat-icon>
       <mat-icon *ngIf="isPreview">unfold_less</mat-icon>
     </div>
   </div>
   <mat-card-content
-    *ngIf="(columns$ | async)?.length > 0 && isPreview"
+    *ngIf="length! > 0 && isPreview"
     class="container-preview"
     [routerLink]="['../board', board?.id]"
-    [class.visible]="(columns$ | async)?.length > 0 && isPreview">
-    <div class="column-item" *ngFor="let column of columns$ | async as columns">
+    [class.visible]="length! > 0 && isPreview">
+    <div class="column-item" *ngFor="let column of columns | order">
       <mat-card-subtitle
         >{{ column.order }}. {{ column.title.slice(0, 10) }}...
       </mat-card-subtitle>
+      <div class="tasks-container">
+        <mat-card-subtitle *ngIf="column.tasks?.length! > 0"
+          >tasks:</mat-card-subtitle
+        >
+        <mat-card-subtitle *ngFor="let task of column.tasks">
+          {{ task.order }}. {{ task.title.slice(0, 10) }}...
+        </mat-card-subtitle>
+      </div>
     </div>
   </mat-card-content>
   <button mat-raised-button color="warn" (click)="deleteBoard(board?.id!)">
