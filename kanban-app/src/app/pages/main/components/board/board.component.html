@@ -4,48 +4,42 @@
   class="board-container">
   <mat-card-header
     class="inner-container"
-    [routerLink]="['../board', board?.id]">
+    [routerLink]="['../board', board?.id, 'undefined']">
     <mat-card-title
       class="title"
-      [innerHTML]="board?.title! | mark: searchRequest">
+      [innerHTML]="(board?.title! | mark: searchRequest) + '(' + length + ')'">
     </mat-card-title>
     <mat-card-subtitle
       [innerHTML]="
         (board?.description! | mark: searchRequest) + '...'
       "></mat-card-subtitle>
   </mat-card-header>
-  <div class="toggle" *ngIf="length! > 0">
-    <span>{{ 'columns' | translate }}({{ length }})</span>
-    <div mou class="icons">
-      <mat-icon *ngIf="isPreview === false">unfold_more</mat-icon>
-      <mat-icon *ngIf="isPreview">unfold_less</mat-icon>
-    </div>
-  </div>
   <mat-card-content
     *ngIf="length! > 0 && isPreview"
     class="container-preview"
-    [routerLink]="['../board', board?.id]"
     [class.visible]="length! > 0 && isPreview">
-    <div class="column-item" *ngFor="let column of columns | order">
-      <mat-card-subtitle
-        [innerHTML]="
-          column.order +
-          (column?.title! | mark: searchRequest)+
-          '...'
-        ">
-      </mat-card-subtitle>
-      <div class="tasks-container">
-        <mat-card-subtitle *ngIf="column.tasks?.length! > 0"
-          >tasks:</mat-card-subtitle
-        >
+    <div class="inner-container-preview" [class.full]="columns!.length > 3">
+      <div
+        class="column-item"
+        *ngFor="let column of columns | order"
+        [routerLink]="['../board', board?.id, column?.id]">
         <mat-card-subtitle
-          *ngFor="let task of column.tasks"
+          class="column-title"
           [innerHTML]="
-            task.order +
-            (task?.title! | mark: searchRequest) +
-            '...'
+            column.order + '. ' + (column?.title! | mark: searchRequest) + '...'
           ">
         </mat-card-subtitle>
+        <div class="tasks-container">
+          <mat-card-subtitle *ngIf="column.tasks?.length! > 0"
+            >tasks:</mat-card-subtitle
+          >
+          <mat-card-subtitle
+            *ngFor="let task of column.tasks"
+            [innerHTML]="
+              task.order + '. ' + (task?.title! | mark: searchRequest) + '...'
+            ">
+          </mat-card-subtitle>
+        </div>
       </div>
     </div>
   </mat-card-content>

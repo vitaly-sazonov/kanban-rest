@@ -26,6 +26,10 @@
   justify-content: center;
   overflow-wrap: break-word;
   padding-bottom: 10px;
+
+  &:hover .title{
+    color: $moreColor;
+  }
 }
 .container-preview {
   position: absolute;
@@ -54,8 +58,9 @@
   justify-content: center;
   align-items: center;
   width: 110px;
-  overflow-wrap: break-word;
-  height: 200px;
+  gap:10px;
+  word-break:break-all;
+  height: 190px;
   border: 1px solid $whiteBorderColor;
   background-color: $boardBackgroundColor;
   padding-left: 5px;
@@ -63,9 +68,18 @@
   justify-content: flex-start;
   align-items: flex-start;
   border-radius: 5px;
-  &:hover{transform: scale(1.05);
+  opacity: 0.8;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+    border-color: $moreColor;
+  };
+  &:hover .column-title {
+    color: $moreColor;
+    
   }
 }
+
 button {
   position: absolute;
   top: 160px;
@@ -89,11 +103,23 @@ button {
 .icons {
   transform: rotate(90deg);
 }
-.tasks-container{
+.tasks-container {
   display: flex;
   flex-direction: column;
-  width:105px;
-  height:150px;
+  width: 105px;
+  height: 150px;
   background-color: #f5f5f5;
   overflow-y: auto;
+}
+.inner-container-preview {
+  display: flex;
+  transition: 1s;
+}
+.column-title{
+  word-wrap: break-word;
+  margin-top: 10px;
+}
+mark{
+  background-color: $moreColor;
+  color: #f5f5f5;
 }

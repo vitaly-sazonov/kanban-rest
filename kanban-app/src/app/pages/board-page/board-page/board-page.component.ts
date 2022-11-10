@@ -23,6 +23,7 @@ import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.s
 export class BoardPageComponent implements OnInit, OnDestroy {
   result$ = this.store.select(selectConfirmationResult);
   id: string = '';
+  columnId: string | undefined = '';
   subscription?: Subscription;
   currentBoard$?: Observable<Board | undefined>;
   currentColumns$?: Observable<Column | undefined>;
@@ -42,8 +43,12 @@ export class BoardPageComponent implements OnInit, OnDestroy {
         this.store.dispatch(loadColumns({ id: this.id }));
         this.currentBoard$ = this.store.select(selectBoardById(this.id));
       });
+    this.route.paramMap
+      .pipe(switchMap(params => params.getAll('columnId')))
+      .subscribe(data => {
+        this.columnId = data;
+      });
   }
-
   createColumn() {
     this.modalService.setExtra([this.id]);
     this.modalService.setScheme(ModalSchemes.addColumn);

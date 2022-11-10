@@ -10,7 +10,7 @@ export const DEVELOPERS_RU: DEVELOPER[] = [
     features: [],
     alt: '',
     aboutAuthor:
-      "Hello! My name is Alexander Malchevsky. I like programming so much and I live by the principle: not a day without coding.This is our course project. I hope you'll like it!",
+      "Привет! Немного о себе, у меня три страсти: путешествия, автомобили и программирование. Третья страсть самая сильная. Я обожаю кодить, и не важно какой это проект, финальный таск по Ангуляр или какой-то рядовой, не важно какой это язык, Java Script или Python, я просто люблю это и отдаю этому всего себя.",
   },
   {
     id: 3,
