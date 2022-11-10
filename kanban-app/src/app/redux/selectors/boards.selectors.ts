@@ -11,7 +11,3 @@ export const selectCurrentBoard = createSelector(
   selectBoards,
   (state: State) => state.userBoards?.currentBoardId
 );
-export const selectBoardById = (id: string) =>
-  createSelector(selectBoards, (state: State) => {
-    return state.userBoards?.boards?.find(el => el.id === id);
-  });

@@ -2,17 +2,19 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, switchMap, map, first } from 'rxjs';
+import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ModalSchemes, ModalTypes } from 'src/app/enums';
 import { Board, Column } from 'src/app/interfaces';
 import {
   addColumn,
+  addTask,
   loadColumns,
   removeColumn,
 } from 'src/app/redux/actions/boards.actions';
 import { addConfirmMessage } from 'src/app/redux/actions/confirm.actions';
 import { setType, setVisibility } from 'src/app/redux/actions/modal.actions';
-import { selectBoardById } from 'src/app/redux/selectors/boards.selectors';
+import { selectUserBoards } from 'src/app/redux/selectors/boards.selectors';
 import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.selectors';
 
 @Component({
@@ -25,22 +27,26 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   id: string = '';
   subscription?: Subscription;
   currentBoard$?: Observable<Board | undefined>;
-  currentColumns$?: Observable<Column | undefined>;
+  boardColumns$?: Observable<Column[] | undefined>;
   boardData?: Board;
 
   constructor(
     private route: ActivatedRoute,
     private modalService: ModalService,
-    private store: Store
+    private store: Store,
+    private localStorage: LocalstorageService
   ) {}
 
   ngOnInit(): void {
     this.subscription = this.route.paramMap
-      .pipe(switchMap(params => params.getAll('id')))
-      .subscribe(data => {
-        this.id = data;
-        this.store.dispatch(loadColumns({ id: this.id }));
-        this.currentBoard$ = this.store.select(selectBoardById(this.id));
+      .pipe(
+        switchMap(params => params.getAll('id')),
+        map(data => (this.id = data))
+      )
+      .subscribe(() => {
+        this.currentBoard$ = this.store
+          .select(selectUserBoards)
+          .pipe(map(data => data?.find(el => el.id === this.id)));
       });
   }
 
@@ -78,5 +84,16 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   toggleColumnOptions($event: Event) {
     $event.stopPropagation();
+  }
+
+  createTask(columnId: string) {
+    this.modalService.setExtra([
+      this.id,
+      columnId,
+      this.localStorage.getUserId(),
+    ]);
+    this.modalService.setScheme(ModalSchemes.addTask);
+    this.modalService.setType(ModalTypes.FormType);
+    this.store.dispatch(setVisibility({ isVisible: true }));
   }
 }

@@ -35,21 +35,23 @@
               </button>
             </mat-menu>
           </mat-expansion-panel-header>
-          <section class="task-list">
-            <mat-card>
-              <span class="task-title noselect"
-                >Hello World Hello World Hello World Hello World Hello World
-                Hello World Hello World Hello World Hello World Hello World
-              </span>
-            </mat-card>
-            <mat-card>
-              <span class="task-title noselect"
-                >Hello World Hello World Hello World Hello World Hello World
-              </span>
+          <section
+            class="task-list"
+            *ngIf="item.tasks && item.tasks.length > 0">
+            <mat-card *ngFor="let taskItem of item.tasks">
+              <div class="task-title noselect">
+                {{ taskItem.title }}
+              </div>
+              <p class="task-description">
+                {{ taskItem.description }}
+              </p>
             </mat-card>
           </section>
           <mat-action-row>
-            <button mat-stroked-button color="primary">
+            <button
+              mat-stroked-button
+              color="primary"
+              (click)="createTask(item.id!)">
               <mat-icon class="icon-button">playlist_add</mat-icon
               >{{ 'BOARD.addTask' | translate }}
             </button>

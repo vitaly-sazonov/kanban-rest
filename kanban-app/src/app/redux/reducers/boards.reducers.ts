@@ -6,6 +6,8 @@ import {
   addCurrentBoardId,
   deleteAllBoards,
   addColumns,
+  loadTasks,
+  addTasks,
 } from '../actions/boards.actions';
 
 export interface StateBoards {
@@ -32,10 +34,11 @@ export const boardsReducer = createReducer(
   on(addColumns, (state, { id, columns }): State => {
     columns = Object.values(columns);
     columns.sort((a, b) => a.order! - b.order!);
+    console.log(columns);
     return {
       ...state,
       userBoards: {
-        boards: state.userBoards?.boards?.map(el =>
+        boards: state.userBoards?.boards!.map(el =>
           el.id === id ? { ...el, columns } : { ...el }
         ),
       },
@@ -57,5 +60,20 @@ export const boardsReducer = createReducer(
         currentBoardId: state.userBoards?.currentBoardId,
       },
     })
-  )
+  ),
+  on(addTasks, (state, { boardId, columnId, tasks }) => ({
+    ...state,
+    userBoards: {
+      boards: state.userBoards?.boards?.map(el =>
+        el.id === boardId
+          ? {
+              ...el,
+              columns: el.columns?.map(elCol =>
+                elCol.id === columnId ? { ...elCol, tasks } : { ...elCol }
+              ),
+            }
+          : { ...el }
+      ),
+    },
+  }))
 );

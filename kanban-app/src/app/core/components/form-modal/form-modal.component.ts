@@ -4,10 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { ModalSchemes } from 'src/app/enums';
-import { Board, Column } from 'src/app/interfaces';
+import { Board, Column, Task } from 'src/app/interfaces';
 import {
   addBoard,
   addColumn,
+  addTask,
   deleteAllBoards,
   editColumn,
 } from 'src/app/redux/actions/boards.actions';
@@ -78,6 +79,20 @@ export class FormModalComponent implements OnInit, OnDestroy {
                 column: payload,
               });
             break;
+          case ModalSchemes.addTask:
+            this.formConstructor = new FormGroup({
+              title: new FormControl('', Validators.required),
+              description: new FormControl('', Validators.required),
+            });
+            this.formAction = (payload: Task) =>
+              addTask({
+                boardId: this.modalExtra[0],
+                columnId: this.modalExtra[1],
+                task: {
+                  ...payload,
+                  userId: `${this.modalExtra[2]}`,
+                },
+              });
         }
         this.inputFields = this.getInputFields();
       });

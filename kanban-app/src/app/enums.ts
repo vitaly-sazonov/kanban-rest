@@ -5,7 +5,6 @@ export enum QUERY_PARAMS_FIRST {
   boards = '/boards',
   file = '/file',
   logs = '/logs',
-  columns = '/columns',
 }
 
 export enum Language {
@@ -15,8 +14,13 @@ export enum Language {
 
 export enum QUERY_PARAMS_SECOND {
   columns = '/columns',
+  tasks = '/tasks',
   error = '/error',
   info = '/info',
+}
+
+export enum QUERY_PARAMS_THIRD {
+  tasks = '/tasks',
 }
 
 export enum RouterStateValue {
@@ -83,6 +87,12 @@ export enum ColumnActions {
   AddColumns = '[Columns] Add columns',
   RemoveColumn = '[Columns] Delete column',
   EditColumn = '[Columns] Edit column',
+}
+
+export enum TaskActions {
+  LoadTasks = '[Tasks] Load Tasks',
+  AddTask = '[Tasks] Add task',
+  AddTasks = '[Tasks] Add tasks',
 }
 
 export enum UserAction {

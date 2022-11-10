@@ -1,12 +1,17 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { QUERY_PARAMS_FIRST } from 'src/app/enums';
+import {
+  QUERY_PARAMS_FIRST,
+  QUERY_PARAMS_SECOND,
+  QUERY_PARAMS_THIRD,
+} from 'src/app/enums';
 import {
   Board,
   Column,
   GetUserByIdResponse,
   LoginResponse,
+  Task,
   UserLogin,
   UserRegistration,
 } from '../../interfaces';
@@ -84,19 +89,19 @@ export class HttpService {
 
   addColumn(boardId: string, column: Column) {
     return this.http.post(
-      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_FIRST.columns}`,
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}`,
       column
     );
   }
 
   getColumns(id: string): Observable<any> {
     return this.http.get(
-      `${QUERY_PARAMS_FIRST.boards}/${id}${QUERY_PARAMS_FIRST.columns}`
+      `${QUERY_PARAMS_FIRST.boards}/${id}${QUERY_PARAMS_SECOND.columns}`
     );
   }
   removeColumn(boardId: string, columnId: string) {
     return this.http.delete(
-      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_FIRST.columns}/${columnId}`
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}`
     );
   }
   editColumn(
@@ -106,8 +111,19 @@ export class HttpService {
     column: Column
   ) {
     return this.http.put(
-      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_FIRST.columns}/${columnId}`,
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}`,
       { ...column, order: columnOrder }
+    );
+  }
+  getTasks(boardId: string, columnId: string): Observable<any> {
+    return this.http.get(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}`
+    );
+  }
+  addTask(boardId: string, columnId: string, task: Task) {
+    return this.http.post(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}`,
+      task
     );
   }
 }
