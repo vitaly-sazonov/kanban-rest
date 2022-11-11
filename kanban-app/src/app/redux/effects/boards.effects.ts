@@ -43,9 +43,22 @@ export class BoardsEffect {
       ofType(loadBoards),
       debounceTime(300),
       switchMap(() => this.http.getBoards()),
-      switchMap((boards: Board[]) => from(boards)),
-      mergeMap((board: Board) => this.http.getBoardById(board.id!)),
-      map((data: Board) => addBoards({ board: data }))
+      map((boards: Board[]) =>
+        boards.map(board => this.http.getBoardById(board.id!))
+      ),
+      switchMap(data => forkJoin(data)),
+      map((data: Board[]) =>
+        data.map(board => ({
+          ...board,
+          columns: board.columns
+            ?.sort((a, b) => a.order! - b.order!)
+            .map(column => ({
+              ...column,
+              tasks: column.tasks?.sort((a, b) => a.order! - b.order!),
+            })),
+        }))
+      ),
+      map((boards: Board[]) => addBoards({ board: boards }))
     );
   });
   deleteBoardById$ = createEffect(() => {

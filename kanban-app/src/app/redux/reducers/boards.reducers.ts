@@ -28,7 +28,7 @@ export const boardsReducer = createReducer(
     addBoards,
     (state, { board }): State => ({
       ...state,
-      userBoards: { boards: [...state.userBoards?.boards!, board] },
+      userBoards: { boards: [...state.userBoards?.boards!, ...board] },
     })
   ),
   on(addColumns, (state, { id, columns }): State => {

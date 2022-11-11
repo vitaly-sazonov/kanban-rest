@@ -4,7 +4,7 @@ import { Board, Column, Task } from 'src/app/interfaces';
 
 export const addBoards = createAction(
   BoardsActions.AddBoards,
-  props<{ board: Board }>()
+  props<{ board: Board[] }>()
 );
 export const addBoard = createAction(
   BoardsActions.AddBoard,
