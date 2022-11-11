@@ -26,10 +26,6 @@
   margin-right: 10px;
 }
 
-.task-title {
-  font-size: 14px;
-}
-
 .mat-toolbar {
   height: auto;
   padding: 8px 16px;
@@ -56,4 +52,32 @@
 
 .noselect {
   user-select: none;
+}
+
+.task-item {
+  position: relative;
+  .task-title {
+    font-size: 16px;
+  }
+  .task-edit {
+    opacity: 0;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    transition: 0.3s;
+  }
+  .material-icons {
+    font-size: 16px;
+    vertical-align: baseline;
+  }
+  .mat-icon-button {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.task-item:hover {
+  .task-edit {
+    opacity: 1;
+  }
 }

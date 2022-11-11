@@ -38,13 +38,16 @@
           <section
             class="task-list"
             *ngIf="item.tasks && item.tasks.length > 0">
-            <mat-card *ngFor="let taskItem of item.tasks">
-              <div class="task-title noselect">
+            <mat-card *ngFor="let taskItem of item.tasks" class="task-item">
+              <button mat-icon-button class="task-edit">
+                <mat-icon class="task-edit-icon">edit</mat-icon>
+              </button>
+              <mat-card-title class="task-title noselect">
                 {{ taskItem.title }}
-              </div>
-              <p class="task-description">
+              </mat-card-title>
+              <mat-card-subtitle class="task-description noselect">
                 {{ taskItem.description }}
-              </p>
+              </mat-card-subtitle>
             </mat-card>
           </section>
           <mat-action-row>
@@ -58,23 +61,6 @@
           </mat-action-row>
         </mat-expansion-panel>
       </mat-accordion>
-
-      <!-- <mat-card-content>
-        <section class="column-top">
-          <button class="column-collapse">
-            <mat-icon>expand_more</mat-icon>
-          </button>
-          <h2>{{ item.title }}</h2>
-          <button
-            class="column-remove"
-            (click)="editColumn(item.id!, item.order!, item.title)">
-            {{ 'BOARD.editColumn' | translate }}
-          </button>
-          <button class="column-remove" (click)="removeColumn(item.id!)">
-            {{ 'BOARD.removeColumn' | translate }}
-          </button>
-        </section>
-      </mat-card-content> -->
     </article>
   </section>
   <button class="add-column" (click)="createColumn()">

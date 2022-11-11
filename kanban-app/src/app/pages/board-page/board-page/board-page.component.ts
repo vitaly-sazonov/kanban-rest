@@ -14,7 +14,10 @@ import {
 } from 'src/app/redux/actions/boards.actions';
 import { addConfirmMessage } from 'src/app/redux/actions/confirm.actions';
 import { setType, setVisibility } from 'src/app/redux/actions/modal.actions';
-import { selectUserBoards } from 'src/app/redux/selectors/boards.selectors';
+import {
+  selectBoardById,
+  selectUserBoards,
+} from 'src/app/redux/selectors/boards.selectors';
 import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.selectors';
 
 @Component({
@@ -44,9 +47,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
         map(data => (this.id = data))
       )
       .subscribe(() => {
-        this.currentBoard$ = this.store
-          .select(selectUserBoards)
-          .pipe(map(data => data?.find(el => el.id === this.id)));
+        this.currentBoard$ = this.store.select(selectBoardById(this.id));
       });
   }
 

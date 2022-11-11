@@ -41,6 +41,10 @@ export const loadColumns = createAction(
   ColumnActions.LoadColumns,
   props<{ id: string }>()
 );
+export const loadDetailedColumns = createAction(
+  ColumnActions.loadDetailedColumns,
+  props<{ boardId: string; columns: Column[] }>()
+);
 export const addColumns = createAction(
   ColumnActions.AddColumns,
   props<{ id: string; columns: Column[] }>()

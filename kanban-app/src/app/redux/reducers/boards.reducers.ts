@@ -38,7 +38,7 @@ export const boardsReducer = createReducer(
     return {
       ...state,
       userBoards: {
-        boards: state.userBoards?.boards!.map(el =>
+        boards: state.userBoards?.boards?.map(el =>
           el.id === id ? { ...el, columns } : { ...el }
         ),
       },

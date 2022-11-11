@@ -94,9 +94,14 @@ export class HttpService {
     );
   }
 
-  getColumns(id: string): Observable<any> {
-    return this.http.get(
+  getColumns(id: string): Observable<Column[]> {
+    return this.http.get<Column[]>(
       `${QUERY_PARAMS_FIRST.boards}/${id}${QUERY_PARAMS_SECOND.columns}`
+    );
+  }
+  getColumnDetails(boardId: string, columnId: string): Observable<Column> {
+    return this.http.get<Column>(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}`
     );
   }
   removeColumn(boardId: string, columnId: string) {
@@ -115,8 +120,8 @@ export class HttpService {
       { ...column, order: columnOrder }
     );
   }
-  getTasks(boardId: string, columnId: string): Observable<any> {
-    return this.http.get(
+  getTasks(boardId: string, columnId: string): Observable<Task[]> {
+    return this.http.get<Task[]>(
       `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}`
     );
   }

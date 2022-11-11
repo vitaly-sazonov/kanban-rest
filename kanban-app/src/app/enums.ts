@@ -83,6 +83,7 @@ export enum ModalSchemes {
 
 export enum ColumnActions {
   LoadColumns = '[Columns] Load columns',
+  loadDetailedColumns = '[Columns] Load detailed columns',
   AddColumn = '[Columns] Add new column',
   AddColumns = '[Columns] Add columns',
   RemoveColumn = '[Columns] Delete column',
