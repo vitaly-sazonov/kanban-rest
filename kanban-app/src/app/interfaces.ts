@@ -39,7 +39,7 @@ export interface Column {
 }
 
 export interface Task {
-  id?: number | string;
+  id?: string;
   title: string;
   order?: number;
   userId?: string;

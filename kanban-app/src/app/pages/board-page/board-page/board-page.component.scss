@@ -59,7 +59,7 @@
   .task-title {
     font-size: 16px;
   }
-  .task-edit {
+  .task-actions {
     opacity: 0;
     position: absolute;
     top: 5px;
@@ -74,10 +74,17 @@
     width: 24px;
     height: 24px;
   }
+  .task-action-button {
+    opacity: 0.5;
+    transition: 0.3s;
+    &:hover{
+      opacity: 1;
+    }
+  }
 }
 
 .task-item:hover {
-  .task-edit {
+  .task-actions {
     opacity: 1;
   }
 }

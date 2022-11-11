@@ -131,4 +131,21 @@ export class HttpService {
       task
     );
   }
+  editTask(
+    boardId: string,
+    columnId: string,
+    taskId: string,
+    taskOrder: number,
+    task: Task
+  ) {
+    return this.http.put(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}/${taskId}`,
+      { ...task, order: taskOrder, columnId: columnId, boardId: boardId }
+    );
+  }
+  removeTask(boardId: string, columnId: string, taskId: string) {
+    return this.http.delete(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}/${taskId}`
+    );
+  }
 }

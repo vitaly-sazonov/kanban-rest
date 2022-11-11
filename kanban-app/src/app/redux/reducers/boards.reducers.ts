@@ -32,9 +32,7 @@ export const boardsReducer = createReducer(
     })
   ),
   on(addColumns, (state, { id, columns }): State => {
-    columns = Object.values(columns);
-    columns.sort((a, b) => a.order! - b.order!);
-    console.log(columns);
+    columns = Object.values(columns).sort((a, b) => a.order! - b.order!);
     return {
       ...state,
       userBoards: {
@@ -61,19 +59,22 @@ export const boardsReducer = createReducer(
       },
     })
   ),
-  on(addTasks, (state, { boardId, columnId, tasks }) => ({
-    ...state,
-    userBoards: {
-      boards: state.userBoards?.boards?.map(el =>
-        el.id === boardId
-          ? {
-              ...el,
-              columns: el.columns?.map(elCol =>
-                elCol.id === columnId ? { ...elCol, tasks } : { ...elCol }
-              ),
-            }
-          : { ...el }
-      ),
-    },
-  }))
+  on(addTasks, (state, { boardId, columnId, tasks }) => {
+    tasks = Object.values(tasks).sort((a, b) => a.order! - b.order!);
+    return {
+      ...state,
+      userBoards: {
+        boards: state.userBoards?.boards?.map(el =>
+          el.id === boardId
+            ? {
+                ...el,
+                columns: el.columns?.map(elCol =>
+                  elCol.id === columnId ? { ...elCol, tasks } : { ...elCol }
+                ),
+              }
+            : { ...el }
+        ),
+      },
+    };
+  })
 );

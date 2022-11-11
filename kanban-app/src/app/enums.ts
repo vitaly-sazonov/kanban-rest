@@ -79,6 +79,7 @@ export enum ModalSchemes {
   addColumn = 'addColumn',
   editColumn = 'editColumn',
   addTask = 'addTask',
+  editTask = 'editTask',
 }
 
 export enum ColumnActions {
@@ -94,6 +95,8 @@ export enum TaskActions {
   LoadTasks = '[Tasks] Load Tasks',
   AddTask = '[Tasks] Add task',
   AddTasks = '[Tasks] Add tasks',
+  EditTask = '[Tasks] Edit task',
+  RemoveTask = '[Tasks] Remove task',
 }
 
 export enum UserAction {

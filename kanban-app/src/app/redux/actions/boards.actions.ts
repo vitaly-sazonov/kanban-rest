@@ -65,3 +65,17 @@ export const addTasks = createAction(
   TaskActions.AddTasks,
   props<{ boardId: string; columnId: string; tasks: Task[] }>()
 );
+export const editTask = createAction(
+  TaskActions.EditTask,
+  props<{
+    boardId: string;
+    columnId: string;
+    taskId: string;
+    taskOrder: number;
+    task: Task;
+  }>()
+);
+export const removeTask = createAction(
+  TaskActions.RemoveTask,
+  props<{ boardId: string; columnId: string; taskId: string }>()
+);

@@ -11,6 +11,7 @@ import {
   addTask,
   deleteAllBoards,
   editColumn,
+  editTask,
 } from 'src/app/redux/actions/boards.actions';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { selectModalScheme } from 'src/app/redux/selectors/modal.selectors';
@@ -86,13 +87,37 @@ export class FormModalComponent implements OnInit, OnDestroy {
             });
             this.formAction = (payload: Task) =>
               addTask({
-                boardId: this.modalExtra[0],
-                columnId: this.modalExtra[1],
+                columnId: this.modalExtra[0],
+                boardId: this.modalExtra[1],
                 task: {
                   ...payload,
                   userId: `${this.modalExtra[2]}`,
                 },
               });
+            break;
+          case ModalSchemes.editTask:
+            this.formConstructor = new FormGroup({
+              title: new FormControl(
+                this.modalExtra[5].title,
+                Validators.required
+              ),
+              description: new FormControl(
+                this.modalExtra[5].description,
+                Validators.required
+              ),
+            });
+            this.formAction = (payload: Task) =>
+              editTask({
+                taskId: this.modalExtra[0],
+                columnId: this.modalExtra[1],
+                boardId: this.modalExtra[2],
+                taskOrder: this.modalExtra[4],
+                task: {
+                  ...payload,
+                  userId: `${this.modalExtra[3]}`,
+                },
+              });
+            break;
         }
         this.inputFields = this.getInputFields();
       });

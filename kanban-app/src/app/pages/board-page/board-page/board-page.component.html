@@ -39,9 +39,25 @@
             class="task-list"
             *ngIf="item.tasks && item.tasks.length > 0">
             <mat-card *ngFor="let taskItem of item.tasks" class="task-item">
-              <button mat-icon-button class="task-edit">
-                <mat-icon class="task-edit-icon">edit</mat-icon>
-              </button>
+              <section class="task-actions">
+                <button
+                  mat-icon-button
+                  class="task-action-button"
+                  (click)="
+                    editTask(taskItem.id!, item.id!, taskItem.order!, {
+                      title: taskItem.title,
+                      description: taskItem.description!
+                    })
+                  ">
+                  <mat-icon class="task-action-icon">edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  class="task-action-button"
+                  (click)="removeTask(taskItem.id!, item.id!)">
+                  <mat-icon class="task-action-icon">delete</mat-icon>
+                </button>
+              </section>
               <mat-card-title class="task-title noselect">
                 {{ taskItem.title }}
               </mat-card-title>
@@ -54,7 +70,7 @@
             <button
               mat-stroked-button
               color="primary"
-              (click)="createTask(item.id!)">
+              (click)="addTask(item.id!)">
               <mat-icon class="icon-button">playlist_add</mat-icon
               >{{ 'BOARD.addTask' | translate }}
             </button>

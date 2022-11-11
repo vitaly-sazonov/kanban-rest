@@ -11,6 +11,7 @@ import {
   addTask,
   loadColumns,
   removeColumn,
+  removeTask,
 } from 'src/app/redux/actions/boards.actions';
 import { addConfirmMessage } from 'src/app/redux/actions/confirm.actions';
 import { setType, setVisibility } from 'src/app/redux/actions/modal.actions';
@@ -87,14 +88,49 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     $event.stopPropagation();
   }
 
-  createTask(columnId: string) {
+  addTask(columnId: string) {
     this.modalService.setExtra([
-      this.id,
       columnId,
+      this.id,
       this.localStorage.getUserId(),
     ]);
     this.modalService.setScheme(ModalSchemes.addTask);
     this.modalService.setType(ModalTypes.FormType);
     this.store.dispatch(setVisibility({ isVisible: true }));
+  }
+
+  editTask(
+    taskId: string,
+    columnId: string,
+    taskOrder: number,
+    currentState: { title: string; description: string }
+  ) {
+    this.modalService.setExtra([
+      taskId,
+      columnId,
+      this.id,
+      this.localStorage.getUserId(),
+      taskOrder,
+      currentState,
+    ]);
+    this.modalService.setScheme(ModalSchemes.editTask);
+    this.modalService.setType(ModalTypes.FormType);
+    this.store.dispatch(setVisibility({ isVisible: true }));
+  }
+
+  removeTask(taskId: string, columnId: string) {
+    [
+      setType({ modalType: ModalTypes.ConfirmType }),
+      setVisibility({ isVisible: true }),
+      addConfirmMessage({ message: 'BOARD.CONFIRM_DELETE_TASK' }),
+    ].forEach(action => this.store.dispatch(action));
+
+    this.result$.subscribe(isConfirmed => {
+      if (isConfirmed) {
+        this.store.dispatch(
+          removeTask({ boardId: this.id, columnId: columnId, taskId: taskId })
+        );
+      }
+    });
   }
 }

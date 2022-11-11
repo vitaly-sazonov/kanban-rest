@@ -24,11 +24,13 @@ import {
   deleteAllBoards,
   deleteBoardById,
   editColumn,
+  editTask,
   loadBoards,
   loadColumns,
   loadDetailedColumns,
   loadTasks,
   removeColumn,
+  removeTask,
 } from '../actions/boards.actions';
 
 @Injectable()
@@ -125,6 +127,26 @@ export class BoardsEffect {
           .addTask(boardId, columnId, task)
           .pipe(map(() => loadTasks({ boardId: boardId, columnId: columnId })));
       })
+    );
+  });
+  editTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editTask),
+      switchMap(({ boardId, columnId, taskId, taskOrder, task }) =>
+        this.http
+          .editTask(boardId, columnId, taskId, taskOrder, task)
+          .pipe(map(() => loadTasks({ boardId: boardId, columnId: columnId })))
+      )
+    );
+  });
+  removeTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(removeTask),
+      switchMap(({ boardId, columnId, taskId }) =>
+        this.http
+          .removeTask(boardId, columnId, taskId)
+          .pipe(map(() => loadTasks({ boardId: boardId, columnId: columnId })))
+      )
     );
   });
 }

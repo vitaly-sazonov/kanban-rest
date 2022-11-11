@@ -69,6 +69,12 @@
     "description": "Description",
     "button": "Create task"
   },
+  "editTask": {
+    "header": "Edit task",
+    "title": "New title",
+    "description": "Description",
+    "button": "Edit task"
+  },
   "CONFIRM_DELETE": "Do you want to delete this board? ",
   "DELETE": "DELETE",
   "BOARDS": "BOARDS",
@@ -83,8 +89,9 @@
     "addNewColumn": "Add column",
     "editColumn": "Edit column",
     "removeColumn": "Remove column",
+    "addTask": "Add new task",
     "CONFIRM_DELETE_COLUMN": "Are you sure you want to delete this column?",
-    "addTask": "Add new task"
+    "CONFIRM_DELETE_TASK": "Are you sure you want to delete this task?"
   },
   "ERRORS": {
     "0": "No internet connection",
