@@ -79,3 +79,14 @@ export const removeTask = createAction(
   TaskActions.RemoveTask,
   props<{ boardId: string; columnId: string; taskId: string }>()
 );
+export const moveTaskToAnotherColumn = createAction(
+  TaskActions.MoveTask,
+  props<{
+    boardId: string;
+    oldColumnId: string;
+    newColumnId: string;
+    taskId: string;
+    taskOrder: number;
+    taskContent: Task;
+  }>()
+);

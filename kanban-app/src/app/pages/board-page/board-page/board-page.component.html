@@ -6,10 +6,11 @@
     *ngIf="
       (currentBoard$ | async)!.columns &&
       (currentBoard$ | async)!.columns!.length > 0
-    ">
+    "
+    cdkDropListGroup>
     <article
       class="column"
-      *ngFor="let item of (currentBoard$ | async)!.columns">
+      *ngFor="let item of (currentBoard$ | async)!.columns as columns">
       <mat-accordion class="column-accordion" togglePosition="before">
         <mat-expansion-panel class="column-inner" expanded>
           <mat-expansion-panel-header>
@@ -37,8 +38,15 @@
           </mat-expansion-panel-header>
           <section
             class="task-list"
-            *ngIf="item.tasks && item.tasks.length > 0">
-            <mat-card *ngFor="let taskItem of item.tasks" class="task-item">
+            *ngIf="item.tasks && item.tasks.length > 0"
+            cdkDropList
+            [cdkDropListData]="item.tasks"
+            (mousedown)="recordPreviousTaskData(item.id!)"
+            (cdkDropListDropped)="dropTask($event, item.id!)">
+            <mat-card
+              *ngFor="let taskItem of item.tasks"
+              class="task-item"
+              cdkDrag>
               <section class="task-actions">
                 <button
                   mat-icon-button

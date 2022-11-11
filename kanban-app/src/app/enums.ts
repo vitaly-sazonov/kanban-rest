@@ -97,6 +97,7 @@ export enum TaskActions {
   AddTasks = '[Tasks] Add tasks',
   EditTask = '[Tasks] Edit task',
   RemoveTask = '[Tasks] Remove task',
+  MoveTask = '[Tasks] Move task',
 }
 
 export enum UserAction {

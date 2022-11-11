@@ -125,8 +125,8 @@ export class HttpService {
       `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}`
     );
   }
-  addTask(boardId: string, columnId: string, task: Task) {
-    return this.http.post(
+  addTask(boardId: string, columnId: string, task: Task): Observable<Task> {
+    return this.http.post<Task>(
       `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}`,
       task
     );
@@ -135,12 +135,12 @@ export class HttpService {
     boardId: string,
     columnId: string,
     taskId: string,
-    taskOrder: number,
     task: Task
-  ) {
-    return this.http.put(
+  ): Observable<Task> {
+    console.log();
+    return this.http.put<Task>(
       `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}/${taskId}`,
-      { ...task, order: taskOrder, columnId: columnId, boardId: boardId }
+      { ...task }
     );
   }
   removeTask(boardId: string, columnId: string, taskId: string) {

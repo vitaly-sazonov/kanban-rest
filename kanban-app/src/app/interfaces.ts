@@ -43,6 +43,8 @@ export interface Task {
   title: string;
   order?: number;
   userId?: string;
+  columnId?: string;
+  boardId?: string;
   description?: string;
   files?: File[];
 }

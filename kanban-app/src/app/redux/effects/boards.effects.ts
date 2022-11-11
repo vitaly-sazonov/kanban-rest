@@ -7,6 +7,7 @@ import {
   from,
   map,
   mergeMap,
+  of,
   reduce,
   switchMap,
   tap,
@@ -29,6 +30,7 @@ import {
   loadColumns,
   loadDetailedColumns,
   loadTasks,
+  moveTaskToAnotherColumn,
   removeColumn,
   removeTask,
 } from '../actions/boards.actions';
@@ -132,11 +134,17 @@ export class BoardsEffect {
   editTask$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(editTask),
-      switchMap(({ boardId, columnId, taskId, taskOrder, task }) =>
-        this.http
-          .editTask(boardId, columnId, taskId, taskOrder, task)
-          .pipe(map(() => loadTasks({ boardId: boardId, columnId: columnId })))
-      )
+      switchMap(({ boardId, columnId, taskId, taskOrder, task }) => {
+        console.log('task: ', task);
+        return this.http
+          .editTask(boardId, columnId, taskId, {
+            ...task,
+            order: taskOrder,
+            boardId: boardId,
+            columnId: columnId,
+          })
+          .pipe(map(() => loadTasks({ boardId: boardId, columnId: columnId })));
+      })
     );
   });
   removeTask$ = createEffect(() => {
@@ -146,6 +154,36 @@ export class BoardsEffect {
         this.http
           .removeTask(boardId, columnId, taskId)
           .pipe(map(() => loadTasks({ boardId: boardId, columnId: columnId })))
+      )
+    );
+  });
+  moveTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(moveTaskToAnotherColumn),
+      switchMap(
+        ({
+          boardId,
+          oldColumnId,
+          newColumnId,
+          taskId,
+          taskOrder,
+          taskContent,
+        }) => {
+          return this.http
+            .editTask(boardId, oldColumnId, taskId, {
+              title: taskContent.title,
+              order: taskOrder,
+              description: taskContent.description,
+              userId: taskContent.userId,
+              boardId: boardId,
+              columnId: newColumnId,
+            })
+            .pipe(
+              map((data: Task) => {
+                return loadColumns({ id: data.boardId! });
+              })
+            );
+        }
       )
     );
   });

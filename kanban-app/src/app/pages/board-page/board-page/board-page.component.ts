@@ -1,3 +1,4 @@
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -5,11 +6,12 @@ import { Observable, Subscription, switchMap, map, first } from 'rxjs';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ModalSchemes, ModalTypes } from 'src/app/enums';
-import { Board, Column } from 'src/app/interfaces';
+import { Board, Column, Task } from 'src/app/interfaces';
 import {
   addColumn,
   addTask,
   loadColumns,
+  moveTaskToAnotherColumn,
   removeColumn,
   removeTask,
 } from 'src/app/redux/actions/boards.actions';
@@ -33,6 +35,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   currentBoard$?: Observable<Board | undefined>;
   boardColumns$?: Observable<Column[] | undefined>;
   boardData?: Board;
+  prevTaskData: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -119,6 +122,8 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   removeTask(taskId: string, columnId: string) {
+    console.log('TASK ID: ', taskId);
+    console.log('COLUMN ID: ', columnId);
     [
       setType({ modalType: ModalTypes.ConfirmType }),
       setVisibility({ isVisible: true }),
@@ -132,5 +137,36 @@ export class BoardPageComponent implements OnInit, OnDestroy {
         );
       }
     });
+  }
+
+  recordPreviousTaskData(taskId: string) {
+    this.prevTaskData = taskId;
+  }
+
+  dropTask(event: CdkDragDrop<Task[]>, targetColumnId: string) {
+    let prevArray = event.previousContainer.data;
+    let currArray = event.container.data;
+    let prevIndex = event.previousIndex;
+    let currIndex = event.currentIndex;
+    let transferingElement = prevArray[prevIndex];
+    let updatedPrevArray = [...prevArray].filter(
+      (el, index) => index !== prevIndex
+    );
+    let updatedCurrArray = [...currArray]
+      .filter((el, index) => index < currIndex)
+      .concat(
+        transferingElement,
+        [...currArray].filter((el, index) => index >= currIndex)
+      );
+    this.store.dispatch(
+      moveTaskToAnotherColumn({
+        boardId: this.id,
+        oldColumnId: this.prevTaskData,
+        newColumnId: targetColumnId,
+        taskId: transferingElement.id!,
+        taskOrder: currIndex + 1,
+        taskContent: transferingElement,
+      })
+    );
   }
 }
