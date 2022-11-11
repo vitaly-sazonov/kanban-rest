@@ -11,9 +11,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { SortByPipe } from './pipes/sort-by-order.pipe';
 
 @NgModule({
-  declarations: [BoardPageComponent],
+  declarations: [BoardPageComponent, SortByPipe],
   imports: [
     CommonModule,
     BoardPageRoutingModule,

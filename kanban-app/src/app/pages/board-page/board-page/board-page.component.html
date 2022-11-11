@@ -10,7 +10,7 @@
     cdkDropListGroup>
     <article
       class="column"
-      *ngFor="let item of (currentBoard$ | async)!.columns as columns">
+      *ngFor="let item of (currentBoard$ | async)!.columns">
       <mat-accordion class="column-accordion" togglePosition="before">
         <mat-expansion-panel class="column-inner" expanded>
           <mat-expansion-panel-header>

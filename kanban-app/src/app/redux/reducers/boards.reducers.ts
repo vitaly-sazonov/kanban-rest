@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { Board } from 'src/app/interfaces';
+import { Board, Column } from 'src/app/interfaces';
 import { State } from '..';
 import {
   addBoards,
@@ -32,12 +32,16 @@ export const boardsReducer = createReducer(
     })
   ),
   on(addColumns, (state, { id, columns }): State => {
-    columns = Object.values(columns).sort((a, b) => a.order! - b.order!);
     return {
       ...state,
       userBoards: {
         boards: state.userBoards?.boards?.map(el =>
-          el.id === id ? { ...el, columns } : { ...el }
+          el.id === id
+            ? {
+                ...el,
+                columns,
+              }
+            : { ...el }
         ),
       },
     };
@@ -60,7 +64,6 @@ export const boardsReducer = createReducer(
     })
   ),
   on(addTasks, (state, { boardId, columnId, tasks }) => {
-    tasks = Object.values(tasks).sort((a, b) => a.order! - b.order!);
     return {
       ...state,
       userBoards: {

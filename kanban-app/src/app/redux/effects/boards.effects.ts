@@ -63,18 +63,24 @@ export class BoardsEffect {
     );
   });
   loadColumns$ = createEffect(() => {
-    let boardId = '';
     return this.actions$.pipe(
       ofType(loadColumns),
-      switchMap(({ id }) => {
-        boardId = id;
-        return this.http.getColumns(id);
-      }),
-      map(columns => {
-        return columns.map(el => this.http.getColumnDetails(boardId, el.id!));
-      }),
-      switchMap(data => forkJoin(data)),
-      map(data => addColumns({ id: boardId, columns: data }))
+      switchMap(({ id }) =>
+        this.http.getColumns(id).pipe(
+          map(columns =>
+            columns.map(el => this.http.getColumnDetails(id, el.id!))
+          ),
+          switchMap(data => forkJoin(data)),
+          map(data => {
+            data.sort((a, b) => a.order! - b.order!);
+            data.forEach(el => el.tasks?.sort((a, b) => a.order! - b.order!));
+            return addColumns({
+              id: id,
+              columns: data,
+            });
+          })
+        )
+      )
     );
   });
   addColumn$ = createEffect(() => {
@@ -111,13 +117,16 @@ export class BoardsEffect {
     return this.actions$.pipe(
       ofType(loadTasks),
       switchMap(({ boardId, columnId }) => {
-        return this.http
-          .getTasks(boardId, columnId)
-          .pipe(
-            map((data: Task[]) =>
-              addTasks({ boardId: boardId, columnId: columnId, tasks: data })
-            )
-          );
+        return this.http.getTasks(boardId, columnId).pipe(
+          map((data: Task[]) => {
+            data.sort((a, b) => a.order! - b.order!);
+            return addTasks({
+              boardId: boardId,
+              columnId: columnId,
+              tasks: data,
+            });
+          })
+        );
       })
     );
   });

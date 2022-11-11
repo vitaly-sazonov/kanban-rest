@@ -2,7 +2,15 @@ import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, switchMap, map, first } from 'rxjs';
+import {
+  Observable,
+  Subscription,
+  switchMap,
+  map,
+  first,
+  from,
+  of,
+} from 'rxjs';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ModalSchemes, ModalTypes } from 'src/app/enums';
