@@ -56,7 +56,11 @@
               [cdkDropListData]="{ tasks: item.tasks, id: item.id! }"
               (cdkDropListDropped)="dropTask($event)"
               cdkDropList>
-              <div *ngIf="!item.tasks.length" class="task-item-blank" cdkDrag>
+              <div
+                *ngIf="!item.tasks.length"
+                class="task-item-blank"
+                cdkDragDisabled
+                cdkDrag>
                 <span>{{ 'BOARD.noTasks' | translate }}</span>
               </div>
               <mat-card
@@ -64,15 +68,6 @@
                 class="task-item"
                 (cdkDragStarted)="setElementHeight($event)"
                 cdkDrag>
-                <!-- <mat-card class="task-item" *cdkDragPlaceholder>
-                  <div class="drag-placeholder"></div>
-                  <mat-card-title class="task-title noselect">
-                    {{ taskItem.title }}
-                  </mat-card-title>
-                  <mat-card-subtitle class="task-description noselect">
-                    {{ taskItem.description }}
-                  </mat-card-subtitle>
-                </mat-card> -->
                 <mat-card class="task-item" *cdkDragPlaceholder>
                   <div class="drag-placeholder"></div>
                   <mat-card-title class="task-title noselect">
