@@ -157,7 +157,6 @@ export class BoardsEffect {
     return this.actions$.pipe(
       ofType(editTask),
       switchMap(({ boardId, columnId, taskId, taskOrder, task }) => {
-        console.log('task: ', task);
         return this.http
           .editTask(boardId, columnId, taskId, {
             ...task,

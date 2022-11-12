@@ -131,8 +131,6 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   removeTask(taskId: string, columnId: string) {
-    console.log('TASK ID: ', taskId);
-    console.log('COLUMN ID: ', columnId);
     [
       setType({ modalType: ModalTypes.ConfirmType }),
       setVisibility({ isVisible: true }),
