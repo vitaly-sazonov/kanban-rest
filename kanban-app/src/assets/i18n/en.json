@@ -90,6 +90,7 @@
     "editColumn": "Edit column",
     "removeColumn": "Remove column",
     "addTask": "Add new task",
+    "noTasks": "You have no tasks here",
     "CONFIRM_DELETE_COLUMN": "Are you sure you want to delete this column?",
     "CONFIRM_DELETE_TASK": "Are you sure you want to delete this task?"
   },

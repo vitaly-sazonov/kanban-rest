@@ -44,6 +44,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   boardColumns$?: Observable<Column[] | undefined>;
   boardData?: Board;
   prevTaskData: string = '';
+  isDragging = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -149,23 +150,15 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   recordPreviousTaskData(taskId: string) {
     this.prevTaskData = taskId;
+    this.isDragging = true;
   }
 
   dropTask(event: CdkDragDrop<Task[]>, targetColumnId: string) {
+    this.isDragging = false;
     let prevArray = event.previousContainer.data;
-    let currArray = event.container.data;
     let prevIndex = event.previousIndex;
     let currIndex = event.currentIndex;
     let transferingElement = prevArray[prevIndex];
-    let updatedPrevArray = [...prevArray].filter(
-      (el, index) => index !== prevIndex
-    );
-    let updatedCurrArray = [...currArray]
-      .filter((el, index) => index < currIndex)
-      .concat(
-        transferingElement,
-        [...currArray].filter((el, index) => index >= currIndex)
-      );
     this.store.dispatch(
       moveTaskToAnotherColumn({
         boardId: this.id,

@@ -38,15 +38,20 @@
           </mat-expansion-panel-header>
           <section
             class="task-list"
-            *ngIf="item.tasks && item.tasks.length > 0"
-            cdkDropList
+            *ngIf="item.tasks"
             [cdkDropListData]="item.tasks"
             (mousedown)="recordPreviousTaskData(item.id!)"
-            (cdkDropListDropped)="dropTask($event, item.id!)">
+            (cdkDropListDropped)="dropTask($event, item.id!)"
+            cdkDropList>
+            <div *ngIf="!item.tasks.length" class="task-item-blank" cdkDrag>
+              <div class="drag-placeholder" *cdkDragPlaceholder></div>
+              <span>{{ 'BOARD.noTasks' | translate }}</span>
+            </div>
             <mat-card
               *ngFor="let taskItem of item.tasks"
               class="task-item"
               cdkDrag>
+              <div class="drag-placeholder" *cdkDragPlaceholder></div>
               <section class="task-actions">
                 <button
                   mat-icon-button
