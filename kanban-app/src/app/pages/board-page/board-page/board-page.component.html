@@ -1,14 +1,13 @@
 <h1>Board</h1>
 <h2>ID: {{ id }}</h2>
-<section class="column-wrapper">
+<section class="column-wrapper" cdkDropListGroup>
   <section
     class="columns"
     *ngIf="
       (currentBoard$ | async) &&
       (currentBoard$ | async)!.columns &&
       (currentBoard$ | async)!.columns!.length > 0
-    "
-    cdkDropListGroup>
+    ">
     <article
       class="column"
       *ngFor="let item of (currentBoard$ | async)!.columns">
@@ -44,11 +43,7 @@
             (mousedown)="recordPreviousTaskData(item.id!)"
             (cdkDropListDropped)="dropTask($event, item.id!)"
             cdkDropList>
-            <div
-              *ngIf="!item.tasks.length"
-              class="task-item-blank"
-              cdkDrag
-              #blankTask>
+            <div *ngIf="!item.tasks.length" class="task-item-blank" cdkDrag>
               <div class="drag-placeholder" *cdkDragPlaceholder></div>
               <span>{{ 'BOARD.noTasks' | translate }}</span>
             </div>

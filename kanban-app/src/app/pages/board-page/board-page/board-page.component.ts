@@ -166,9 +166,10 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   dropTask(event: CdkDragDrop<Task[]>, targetColumnId: string) {
     this.isDragging = false;
+    console.log(event);
     let prevArray = event.previousContainer.data;
     let prevIndex = event.previousIndex;
-    let currIndex = event.currentIndex;
+    let currIndex = event.container.data.length ? event.currentIndex : 0;
     let transferingElement = prevArray[prevIndex];
     this.store.dispatch(
       moveTaskToAnotherColumn({
