@@ -1,28 +1,46 @@
-<mat-card class="board-container">
+<mat-card
+  (mouseenter)="toggle()"
+  (mouseleave)="toggle()"
+  class="board-container">
   <mat-card-header
     class="inner-container"
-    [routerLink]="['../board', board?.id]">
-    <mat-card-title class="title">
-      {{ board?.title }}
+    [routerLink]="['../board', board?.id, 'undefined']">
+    <mat-card-title
+      class="title"
+      [innerHTML]="(board?.title! | mark: searchRequest) + '(' + length + ')'">
     </mat-card-title>
-    <mat-card-subtitle>{{ board?.description }}...</mat-card-subtitle>
+    <mat-card-subtitle
+      [innerHTML]="
+        (board?.description! | mark: searchRequest) + '...'
+      "></mat-card-subtitle>
   </mat-card-header>
-  <div class="toggle" (click)="toggle()" *ngIf="(columns$ | async)?.length > 0">
-    <span>{{ 'columns' | translate }}({{ length$ | async }})</span>
-    <div class="icons">
-      <mat-icon *ngIf="isPreview === false">unfold_more</mat-icon>
-      <mat-icon *ngIf="isPreview">unfold_less</mat-icon>
-    </div>
-  </div>
   <mat-card-content
-    *ngIf="(columns$ | async)?.length > 0 && isPreview"
+    *ngIf="length! > 0 && isPreview"
     class="container-preview"
-    [routerLink]="['../board', board?.id]"
-    [class.visible]="(columns$ | async)?.length > 0 && isPreview">
-    <div class="column-item" *ngFor="let column of columns$ | async as columns">
-      <mat-card-subtitle
-        >{{ column.order }}. {{ column.title.slice(0, 10) }}...
-      </mat-card-subtitle>
+    [class.visible]="length! > 0 && isPreview">
+    <div class="inner-container-preview" [class.full]="columns!.length > 3">
+      <div
+        class="column-item"
+        *ngFor="let column of columns | order"
+        [routerLink]="['../board', board?.id, column?.id]">
+        <mat-card-subtitle
+          class="column-title"
+          [innerHTML]="
+            column.order + '. ' + (column?.title! | mark: searchRequest) + '...'
+          ">
+        </mat-card-subtitle>
+        <div class="tasks-container">
+          <mat-card-subtitle *ngIf="column.tasks?.length! > 0"
+            >tasks:</mat-card-subtitle
+          >
+          <mat-card-subtitle
+            *ngFor="let task of column.tasks"
+            [innerHTML]="
+              task.order + '. ' + (task?.title! | mark: searchRequest) + '...'
+            ">
+          </mat-card-subtitle>
+        </div>
+      </div>
     </div>
   </mat-card-content>
   <button mat-raised-button color="warn" (click)="deleteBoard(board?.id!)">

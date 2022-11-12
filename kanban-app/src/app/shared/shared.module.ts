@@ -8,10 +8,12 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchPipe } from './pipes/search.pipe';
+import { OrderPipe } from './pipes/oder.pipe';
+import { MarkPipe } from './pipes/mark.pipe';
 
 @NgModule({
-  declarations: [ConfirmDialogComponent, SearchPipe],
+  declarations: [ConfirmDialogComponent, SearchPipe, OrderPipe, MarkPipe],
   imports: [CommonModule, TranslateModule, MatDialogModule, MatButtonModule],
-  exports: [SearchPipe],
+  exports: [SearchPipe, OrderPipe, MarkPipe],
 })
 export class SharedModule {}

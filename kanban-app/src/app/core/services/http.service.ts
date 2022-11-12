@@ -1,32 +1,33 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { QUERY_PARAMS_FIRST } from 'src/app/enums';
+import {
+  QUERY_PARAMS_FIRST,
+  QUERY_PARAMS_SECOND,
+  QUERY_PARAMS_THIRD,
+} from 'src/app/enums';
 import {
   Board,
   Column,
   GetUserByIdResponse,
   LoginResponse,
+  Task,
   UserLogin,
   UserRegistration,
 } from '../../interfaces';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private notification: NotificationService
+  ) {}
 
   getBoards(): Observable<any> {
     return this.http.get(QUERY_PARAMS_FIRST.boards);
-  }
-
-  getColumns(id?: string): Observable<any> {
-    return this.http.get(QUERY_PARAMS_FIRST.boards + `/${id}/columns`);
-  }
-
-  getBoardById(id?: string) {
-    return this.http.get(QUERY_PARAMS_FIRST.boards + `/${id}`);
   }
 
   addBoard(board: Board) {
@@ -79,6 +80,72 @@ export class HttpService {
     }
     return throwError(
       () => new Error('Something bad happened; please try again later.')
+    );
+  }
+
+  getBoardById(id: string): Observable<any> {
+    return this.http.get(`${QUERY_PARAMS_FIRST.boards}/${id}`);
+  }
+
+  addColumn(boardId: string, column: Column) {
+    return this.http.post(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}`,
+      column
+    );
+  }
+
+  getColumns(id: string): Observable<Column[]> {
+    return this.http.get<Column[]>(
+      `${QUERY_PARAMS_FIRST.boards}/${id}${QUERY_PARAMS_SECOND.columns}`
+    );
+  }
+  getColumnDetails(boardId: string, columnId: string): Observable<Column> {
+    return this.http.get<Column>(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}`
+    );
+  }
+  removeColumn(boardId: string, columnId: string) {
+    return this.http.delete(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}`
+    );
+  }
+  editColumn(
+    boardId: string,
+    columnId: string,
+    columnOrder: number,
+    column: Column
+  ) {
+    return this.http.put(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}`,
+      { ...column, order: columnOrder }
+    );
+  }
+  getTasks(boardId: string, columnId: string): Observable<Task[]> {
+    return this.http.get<Task[]>(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}`
+    );
+  }
+  addTask(boardId: string, columnId: string, task: Task): Observable<Task> {
+    return this.http.post<Task>(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}`,
+      task
+    );
+  }
+  editTask(
+    boardId: string,
+    columnId: string,
+    taskId: string,
+    task: Task
+  ): Observable<Task> {
+    console.log();
+    return this.http.put<Task>(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}/${taskId}`,
+      { ...task }
+    );
+  }
+  removeTask(boardId: string, columnId: string, taskId: string) {
+    return this.http.delete(
+      `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}/${columnId}${QUERY_PARAMS_THIRD.tasks}/${taskId}`
     );
   }
 }

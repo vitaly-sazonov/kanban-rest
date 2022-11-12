@@ -14,8 +14,13 @@ export enum Language {
 
 export enum QUERY_PARAMS_SECOND {
   columns = '/columns',
+  tasks = '/tasks',
   error = '/error',
   info = '/info',
+}
+
+export enum QUERY_PARAMS_THIRD {
+  tasks = '/tasks',
 }
 
 export enum RouterStateValue {
@@ -50,6 +55,7 @@ export enum ConfirmActions {
 }
 export enum ModalActions {
   SetType = '[Modal] Set Type',
+  SetScheme = '[Modal] Set Scheme',
   SetVisibility = '[Modal] Set Visibility',
 }
 
@@ -58,6 +64,7 @@ export enum BoardsActions {
   AddBoard = '[Boards] Add Board',
   AddCurentBoardId = '[Boards] Add Current Board Id',
   DeleteBoardById = '[Boards] Delete Board By ID',
+  DeleteAllBoards = '[Boards] Delete All Boards',
   LoadBoards = '[Boards] Load Boards',
   LoadBoardById = '[Boards] Load Board By ID',
 }
@@ -66,6 +73,33 @@ export enum ModalTypes {
   ConfirmType,
   FormType,
 }
+
+export enum ModalSchemes {
+  addBoard = 'addBoard',
+  addColumn = 'addColumn',
+  editColumn = 'editColumn',
+  addTask = 'addTask',
+  editTask = 'editTask',
+}
+
+export enum ColumnActions {
+  LoadColumns = '[Columns] Load columns',
+  loadDetailedColumns = '[Columns] Load detailed columns',
+  AddColumn = '[Columns] Add new column',
+  AddColumns = '[Columns] Add columns',
+  RemoveColumn = '[Columns] Delete column',
+  EditColumn = '[Columns] Edit column',
+}
+
+export enum TaskActions {
+  LoadTasks = '[Tasks] Load Tasks',
+  AddTask = '[Tasks] Add task',
+  AddTasks = '[Tasks] Add tasks',
+  EditTask = '[Tasks] Edit task',
+  RemoveTask = '[Tasks] Remove task',
+  MoveTask = '[Tasks] Move task',
+}
+
 export enum UserAction {
   login = '[User] Login User',
   logout = '[User] Logout User',

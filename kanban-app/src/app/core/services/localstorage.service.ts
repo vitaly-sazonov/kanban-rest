@@ -20,10 +20,6 @@ export class LocalstorageService {
     return localStorage.getItem(LocalStorageValues.Token);
   }
 
-  // clearToken() {
-  //   this.setToken('');
-  // }
-
   setUserId(id: string) {
     this.setItem(LocalStorageValues.UserId, id);
   }

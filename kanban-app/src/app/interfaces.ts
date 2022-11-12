@@ -26,8 +26,8 @@ export interface LoginResponse {
 
 export interface Board {
   id?: string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   columns?: Column[];
 }
 
@@ -39,10 +39,12 @@ export interface Column {
 }
 
 export interface Task {
-  id?: number | string;
+  id?: string;
   title: string;
   order?: number;
   userId?: string;
+  columnId?: string;
+  boardId?: string;
   description?: string;
   files?: File[];
 }
