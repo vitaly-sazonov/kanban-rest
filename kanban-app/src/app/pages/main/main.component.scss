@@ -1,3 +1,5 @@
+@import '../../colors.scss';
+
 input:focus {
   outline: 0;
   border: transparent;
@@ -15,6 +17,7 @@ input:focus {
   height: auto;
   min-height: 300px;
   min-width: 300px;
+  margin-bottom: 50px;
 }
 .inner-container {
   display: flex;
@@ -33,6 +36,7 @@ input:focus {
   background-color: #eee;
   border: transparent;
   z-index: 0;
+  color: $moreColor;
 }
 .title {
   position: sticky;

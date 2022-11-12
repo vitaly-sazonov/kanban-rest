@@ -17,7 +17,8 @@
     ">
     <app-board
       *ngFor="let item of (boards$ | async)! | search: searchRequest"
-      [board]="item">
+      [board]="item"
+      [searchRequest]="searchRequest">
     </app-board>
   </div>
 </div>
