@@ -1,5 +1,8 @@
+<header class="header">
 <h1 class="title">{{ 'BOARDS' | translate }}</h1>
-<div class="search-container">
+</header>
+<aside class="search-container">
+<section >
   <mat-icon class="icon">search</mat-icon>
   <input
     matInput
@@ -7,8 +10,9 @@
     placeholder="{{ 'search board' | translate }}"
     [(ngModel)]="searchRequest"
     [autofocus]="true" />
-</div>
-<div class="boards-container">
+</section>
+</aside>
+<main class="boards-container">
   <div
     class="inner-container"
     *ngIf="
@@ -21,7 +25,7 @@
       [searchRequest]="searchRequest">
     </app-board>
   </div>
-</div>
+</main>
 <ng-template class="template" #noBoards>
   <h2>{{ 'No Boards' | translate }}</h2>
   <h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>

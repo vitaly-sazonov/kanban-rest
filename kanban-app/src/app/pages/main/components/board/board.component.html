@@ -1,5 +1,6 @@
 <mat-card
   (mouseenter)="toggle()"
+  (mouseenter)="changeStatus()"
   (mouseleave)="toggle()"
   class="board-container">
   <mat-card-header
@@ -14,6 +15,14 @@
         (board?.description! | mark: searchRequest) + '...'
       "></mat-card-subtitle>
   </mat-card-header>
+  <h2
+    *ngIf="compare.checkIsUpdated(board!) && !compare.checkIsNew(board?.id!)"
+    class="update-icon">
+    {{ 'Check.Updated' | translate }}
+  </h2>
+  <h2 *ngIf="compare.checkIsNew(board?.id!)" class="new-icon">
+    {{ 'Check.New' | translate }}
+  </h2>
   <mat-card-content
     *ngIf="length! > 0 && isPreview"
     class="container-preview"

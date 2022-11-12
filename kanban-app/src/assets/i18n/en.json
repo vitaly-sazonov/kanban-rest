@@ -86,5 +86,9 @@
     "403": "Forbidden. Access is denied",
     "404": "Not found",
     "409": "Request has conflict with server"
+  },
+  "Check":{
+    "New":"New",
+    "Updated":"Updated"
   }
 }

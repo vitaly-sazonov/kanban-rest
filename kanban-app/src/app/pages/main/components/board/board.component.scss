@@ -16,7 +16,7 @@
 }
 .inner-container {
   position: absolute;
-  top: 20px;
+  top: 30px;
   width: 300px;
   cursor: pointer;
   width: inherit;
@@ -27,7 +27,7 @@
   overflow-wrap: break-word;
   padding-bottom: 10px;
 
-  &:hover .title{
+  &:hover .title {
     color: $moreColor;
   }
 }
@@ -58,8 +58,8 @@
   justify-content: center;
   align-items: center;
   width: 110px;
-  gap:10px;
-  word-break:break-all;
+  gap: 10px;
+  word-break: break-all;
   height: 190px;
   border: 1px solid $whiteBorderColor;
   background-color: $boardBackgroundColor;
@@ -73,10 +73,9 @@
   &:hover {
     opacity: 1;
     border-color: $moreColor;
-  };
+  }
   &:hover .column-title {
     color: $moreColor;
-    
   }
 }
 
@@ -115,11 +114,53 @@ button {
   display: flex;
   transition: 1s;
 }
-.column-title{
+.column-title {
   word-wrap: break-word;
   margin-top: 10px;
 }
-mark{
+mark {
   background-color: $moreColor;
   color: #f5f5f5;
+}
+.update-icon,
+.new-icon {
+  animation: flashing 7s;
+  position: inherit;
+  top: -90px;
+  left: 100px;
+  color: rgba($color: #f00, $alpha: 0.5);
+}
+.new-icon {
+  left: 130px;
+}
+
+@keyframes flashing {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  20% {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.1);
+  }
+  40% {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1);
+  }
+  60% {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.1);
+  }
+  80% {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
 }
