@@ -4,6 +4,7 @@
   <section
     class="columns"
     *ngIf="
+      (currentBoard$ | async) &&
       (currentBoard$ | async)!.columns &&
       (currentBoard$ | async)!.columns!.length > 0
     "
@@ -43,7 +44,11 @@
             (mousedown)="recordPreviousTaskData(item.id!)"
             (cdkDropListDropped)="dropTask($event, item.id!)"
             cdkDropList>
-            <div *ngIf="!item.tasks.length" class="task-item-blank" cdkDrag>
+            <div
+              *ngIf="!item.tasks.length"
+              class="task-item-blank"
+              cdkDrag
+              #blankTask>
               <div class="drag-placeholder" *cdkDragPlaceholder></div>
               <span>{{ 'BOARD.noTasks' | translate }}</span>
             </div>

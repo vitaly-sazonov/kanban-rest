@@ -1,4 +1,4 @@
-import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -7,18 +7,17 @@ import {
   Subscription,
   switchMap,
   map,
-  first,
   from,
   of,
+  takeUntil,
+  Subject,
 } from 'rxjs';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ModalSchemes, ModalTypes } from 'src/app/enums';
 import { Board, Column, Task } from 'src/app/interfaces';
 import {
-  addColumn,
-  addTask,
-  loadColumns,
+  loadBoards,
   moveTaskToAnotherColumn,
   removeColumn,
   removeTask,
@@ -45,6 +44,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   boardData?: Board;
   prevTaskData: string = '';
   isDragging = false;
+  unsubscribe$ = new Subject<any>();
 
   constructor(
     private route: ActivatedRoute,
@@ -57,10 +57,22 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.subscription = this.route.paramMap
       .pipe(
         switchMap(params => params.getAll('id')),
-        map(data => (this.id = data))
+        map(data => (this.id = data)),
+        takeUntil(this.unsubscribe$)
       )
       .subscribe(() => {
-        this.currentBoard$ = this.store.select(selectBoardById(this.id));
+        this.store
+          .select(selectBoardById(this.id))
+          .pipe(
+            map(data => {
+              if (!data) {
+                return this.store.dispatch(loadBoards());
+              }
+            }),
+            switchMap(() => this.store.select(selectBoardById(this.id))),
+            takeUntil(this.unsubscribe$)
+          )
+          .subscribe(data => (this.currentBoard$ = of(data)));
       });
   }
 
@@ -93,7 +105,8 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.unsubscribe$.next(1);
+    this.unsubscribe$.complete();
   }
 
   toggleColumnOptions($event: Event) {
