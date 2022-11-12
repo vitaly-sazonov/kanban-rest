@@ -1,11 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
-import { Board } from 'src/app/interfaces';
+import { Board, Column } from 'src/app/interfaces';
 import { State } from '..';
 import {
   addBoards,
   addCurrentBoardId,
   deleteAllBoards,
   addColumns,
+  loadTasks,
+  addTasks,
 } from '../actions/boards.actions';
 
 export interface StateBoards {
@@ -26,17 +28,20 @@ export const boardsReducer = createReducer(
     addBoards,
     (state, { board }): State => ({
       ...state,
-      userBoards: { boards: [...state.userBoards?.boards!, board] },
+      userBoards: { boards: [...state.userBoards?.boards!, ...board] },
     })
   ),
   on(addColumns, (state, { id, columns }): State => {
-    columns = Object.values(columns);
-    columns.sort((a, b) => a.order! - b.order!);
     return {
       ...state,
       userBoards: {
         boards: state.userBoards?.boards?.map(el =>
-          el.id === id ? { ...el, columns } : { ...el }
+          el.id === id
+            ? {
+                ...el,
+                columns,
+              }
+            : { ...el }
         ),
       },
     };
@@ -57,5 +62,22 @@ export const boardsReducer = createReducer(
         currentBoardId: state.userBoards?.currentBoardId,
       },
     })
-  )
+  ),
+  on(addTasks, (state, { boardId, columnId, tasks }) => {
+    return {
+      ...state,
+      userBoards: {
+        boards: state.userBoards?.boards?.map(el =>
+          el.id === boardId
+            ? {
+                ...el,
+                columns: el.columns?.map(elCol =>
+                  elCol.id === columnId ? { ...elCol, tasks } : { ...elCol }
+                ),
+              }
+            : { ...el }
+        ),
+      },
+    };
+  })
 );

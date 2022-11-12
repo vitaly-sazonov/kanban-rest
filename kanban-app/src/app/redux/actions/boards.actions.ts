@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
-import { BoardsActions, ColumnActions } from 'src/app/enums';
-import { Board, Column } from 'src/app/interfaces';
+import { BoardsActions, ColumnActions, TaskActions } from 'src/app/enums';
+import { Board, Column, Task } from 'src/app/interfaces';
 
 export const addBoards = createAction(
   BoardsActions.AddBoards,
-  props<{ board: Board }>()
+  props<{ board: Board[] }>()
 );
 export const addBoard = createAction(
   BoardsActions.AddBoard,
@@ -41,6 +41,10 @@ export const loadColumns = createAction(
   ColumnActions.LoadColumns,
   props<{ id: string }>()
 );
+export const loadDetailedColumns = createAction(
+  ColumnActions.loadDetailedColumns,
+  props<{ boardId: string; columns: Column[] }>()
+);
 export const addColumns = createAction(
   ColumnActions.AddColumns,
   props<{ id: string; columns: Column[] }>()
@@ -48,4 +52,41 @@ export const addColumns = createAction(
 export const removeColumn = createAction(
   ColumnActions.RemoveColumn,
   props<{ boardId: string; columnId: string }>()
+);
+export const loadTasks = createAction(
+  TaskActions.LoadTasks,
+  props<{ boardId: string; columnId: string }>()
+);
+export const addTask = createAction(
+  TaskActions.AddTask,
+  props<{ boardId: string; columnId: string; task: Task }>()
+);
+export const addTasks = createAction(
+  TaskActions.AddTasks,
+  props<{ boardId: string; columnId: string; tasks: Task[] }>()
+);
+export const editTask = createAction(
+  TaskActions.EditTask,
+  props<{
+    boardId: string;
+    columnId: string;
+    taskId: string;
+    taskOrder: number;
+    task: Task;
+  }>()
+);
+export const removeTask = createAction(
+  TaskActions.RemoveTask,
+  props<{ boardId: string; columnId: string; taskId: string }>()
+);
+export const moveTaskToAnotherColumn = createAction(
+  TaskActions.MoveTask,
+  props<{
+    boardId: string;
+    oldColumnId: string;
+    newColumnId: string;
+    taskId: string;
+    taskOrder: number;
+    taskContent: Task;
+  }>()
 );
