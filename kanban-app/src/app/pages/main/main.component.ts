@@ -16,6 +16,7 @@ export class MainComponent implements OnInit {
   boards$? = this.store.select(selectUserBoards);
   isLoading$ = this.store.select(selectFeatureIsLoading);
   searchRequest = '';
+  isAllShort = false;
 
   constructor(private store: Store) {}
 

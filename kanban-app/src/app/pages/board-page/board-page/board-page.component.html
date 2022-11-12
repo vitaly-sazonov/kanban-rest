@@ -1,6 +1,7 @@
 <h1>Board</h1>
 <h2>ID: {{ id }}</h2>
 <h2>ColumnID: {{ columnId }}</h2>
+<h2>TaskID: {{ taskId }}</h2>
 <section class="column-wrapper">
   <section
     class="columns"
@@ -97,4 +98,4 @@
     {{ 'BOARD.addNewColumn' | translate }}
   </button>
 </section>
-<button [routerLink]="['../../../main']">BACK to BOARDS</button>
+<button [routerLink]="['../../../../main']">BACK to BOARDS</button>

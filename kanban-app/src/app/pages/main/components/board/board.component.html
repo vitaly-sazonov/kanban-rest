@@ -1,58 +1,84 @@
 <mat-card
-  (mouseenter)="toggle()"
+  (mouseenter)="isPreview = true"
   (mouseenter)="changeStatus()"
-  (mouseleave)="toggle()"
-  class="board-container">
+  (mouseleave)="isPreview = false"
+  class="board-container"
+  [class.short]="isShort">
   <mat-card-header
     class="inner-container"
-    [routerLink]="['../board', board?.id, 'undefined']">
+    [routerLink]="['../board', board?.id, 'undefined', 'undefined']">
     <mat-card-title
       class="title"
       [innerHTML]="(board?.title! | mark: searchRequest) + '(' + length + ')'">
     </mat-card-title>
     <mat-card-subtitle
+      *ngIf="isShort === false"
       [innerHTML]="
         (board?.description! | mark: searchRequest) + '...'
       "></mat-card-subtitle>
   </mat-card-header>
   <h2
     *ngIf="compare.checkIsUpdated(board!) && !compare.checkIsNew(board?.id!)"
-    class="update-icon">
+    class="update-icon"
+    [class.short-check]="isShort">
     {{ 'Check.Updated' | translate }}
   </h2>
-  <h2 *ngIf="compare.checkIsNew(board?.id!)" class="new-icon">
+  <h2
+    *ngIf="compare.checkIsNew(board?.id!)"
+    class="new-icon"
+    [class.short-check]="isShort">
     {{ 'Check.New' | translate }}
   </h2>
   <mat-card-content
     *ngIf="length! > 0 && isPreview"
     class="container-preview"
-    [class.visible]="length! > 0 && isPreview">
-    <div class="inner-container-preview" [class.full]="columns!.length > 3">
+    [class.visible]="length! > 0 && isPreview"
+    [class.short-container]="isShort">
+    <div class="inner-container-preview">
       <div
         class="column-item"
-        *ngFor="let column of columns | order"
-        [routerLink]="['../board', board?.id, column?.id]">
+        [class.short-item]="isShort"
+        *ngFor="let column of columns | order">
         <mat-card-subtitle
           class="column-title"
+          [routerLink]="['../board', board?.id, column?.id, 'undefined']"
           [innerHTML]="
             column.order + '. ' + (column?.title! | mark: searchRequest) + '...'
           ">
         </mat-card-subtitle>
-        <div class="tasks-container">
+        <div class="tasks-container" *ngIf="isShort === false">
           <mat-card-subtitle *ngIf="column.tasks?.length! > 0"
             >tasks:</mat-card-subtitle
           >
           <mat-card-subtitle
+            class="task"
             *ngFor="let task of column.tasks"
             [innerHTML]="
               task.order + '. ' + (task?.title! | mark: searchRequest) + '...'
-            ">
+            "
+            [routerLink]="['../board', board?.id, column?.id, task?.id]">
           </mat-card-subtitle>
         </div>
       </div>
     </div>
   </mat-card-content>
-  <button mat-raised-button color="warn" (click)="deleteBoard(board?.id!)">
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="deleteBoard(board?.id!)"
+    [class.hide]="isShort">
     {{ 'DELETE' | translate }}
   </button>
+  <mat-icon class="icon-close" (click)="deleteBoard(board?.id!)" *ngIf="isShort"
+    >close</mat-icon
+  >
+  <mat-icon
+    class="expand-icon"
+    *ngIf="isShort === false"
+    (click)="isShort = true"
+    >expand_less</mat-icon
+  >
+  <mat-icon class="expand-icon" *ngIf="isShort" (click)="isShort = false"
+    >expand_more</mat-icon
+  >
 </mat-card>

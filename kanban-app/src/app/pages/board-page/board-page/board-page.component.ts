@@ -40,6 +40,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   result$ = this.store.select(selectConfirmationResult);
   id: string = '';
   columnId: string | undefined = '';
+  taskId: string | undefined = '';
   subscription?: Subscription;
   currentBoard$?: Observable<Board | undefined>;
   boardColumns$?: Observable<Column[] | undefined>;
@@ -55,19 +56,12 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.route.paramMap
-      .pipe(
-        switchMap(params => params.getAll('id')),
-        map(data => (this.id = data))
-      )
-      .subscribe(() => {
-        this.currentBoard$ = this.store.select(selectBoardById(this.id));
-      });
-    this.route.paramMap
-      .pipe(switchMap(params => params.getAll('columnId')))
-      .subscribe(data => {
-        this.columnId = data;
-      });
+    this.subscription = this.route.params.subscribe(params => {
+      this.id = params['id'];
+      this.columnId = params['columnId'];
+      this.taskId = params['taskId'];
+      this.currentBoard$ = this.store.select(selectBoardById(this.id));
+    });
   }
   createColumn() {
     this.modalService.setExtra([this.id]);

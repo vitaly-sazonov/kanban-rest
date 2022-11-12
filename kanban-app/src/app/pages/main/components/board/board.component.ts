@@ -1,4 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CompareService } from 'src/app/core/services/compare.service';
@@ -20,14 +27,16 @@ import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.s
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent implements OnDestroy, OnInit {
+export class BoardComponent implements OnDestroy, OnInit, OnChanges {
   subscription?: Subscription;
   @Input() board?: Board;
   @Input() searchRequest: string = '';
+  @Input() isAllShort: boolean = false;
   result$ = this.store.select(selectConfirmationResult);
   columns?: Column[];
   length: number | undefined;
   compare = this.compareService;
+  isShort = false;
 
   constructor(
     private store: Store,
@@ -35,6 +44,9 @@ export class BoardComponent implements OnDestroy, OnInit {
     private hash: HashService,
     private storage: LocalstorageService
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    this.isShort = this.isAllShort ? true : false;
+  }
 
   ngOnInit(): void {
     this.columns = this.board?.columns;
@@ -63,9 +75,7 @@ export class BoardComponent implements OnDestroy, OnInit {
       }
     });
   }
-  toggle() {
-    this.isPreview = !this.isPreview;
-  }
+
   changeStatus() {
     this.storage.setItem(
       this.board?.id!,
