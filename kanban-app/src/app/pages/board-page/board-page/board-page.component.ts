@@ -1,4 +1,4 @@
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragStart } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -41,8 +41,8 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   isLoading$: Observable<boolean> | undefined;
   boardData?: Board;
   prevTaskData: string = '';
-  isDragging = false;
   unsubscribe$ = new Subject<any>();
+  elementHeight = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -158,26 +158,24 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  recordPreviousTaskData(taskId: string) {
-    this.prevTaskData = taskId;
-    this.isDragging = true;
-  }
-
-  dropTask(event: CdkDragDrop<Task[]>, targetColumnId: string) {
-    this.isDragging = false;
+  dropTask(event: CdkDragDrop<{ tasks: Task[]; id: string }> | any) {
     let prevArray = event.previousContainer.data;
     let prevIndex = event.previousIndex;
-    let currIndex = event.container.data.length ? event.currentIndex : 0;
-    let transferingElement = prevArray[prevIndex];
+    let currIndex = event.container.data.tasks.length ? event.currentIndex : 0;
+    let transferingElement = prevArray.tasks[prevIndex];
     this.store.dispatch(
       moveTaskToAnotherColumn({
         boardId: this.id,
-        oldColumnId: this.prevTaskData,
-        newColumnId: targetColumnId,
+        oldColumnId: prevArray.id,
+        newColumnId: event.container.data.id,
         taskId: transferingElement.id!,
         taskOrder: currIndex + 1,
         taskContent: transferingElement,
       })
     );
+  }
+
+  setElementHeight(event: CdkDragStart<HTMLElement>) {
+    this.elementHeight = event.source.element.nativeElement.clientHeight;
   }
 }
