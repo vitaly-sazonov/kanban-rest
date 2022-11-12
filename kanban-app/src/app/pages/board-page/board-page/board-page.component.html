@@ -1,5 +1,10 @@
 <h1>Board</h1>
 <h2>ID: {{ id }}</h2>
+<h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>
+<mat-spinner
+  diameter="30"
+  color="primary"
+  *ngIf="isLoading$ | async"></mat-spinner>
 <section class="column-wrapper" cdkDropListGroup>
   <section
     class="columns"

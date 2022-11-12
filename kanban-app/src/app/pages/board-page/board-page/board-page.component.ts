@@ -7,7 +7,6 @@ import {
   Subscription,
   switchMap,
   map,
-  from,
   of,
   takeUntil,
   Subject,
@@ -24,11 +23,9 @@ import {
 } from 'src/app/redux/actions/boards.actions';
 import { addConfirmMessage } from 'src/app/redux/actions/confirm.actions';
 import { setType, setVisibility } from 'src/app/redux/actions/modal.actions';
-import {
-  selectBoardById,
-  selectUserBoards,
-} from 'src/app/redux/selectors/boards.selectors';
+import { selectBoardById } from 'src/app/redux/selectors/boards.selectors';
 import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.selectors';
+import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
 
 @Component({
   selector: 'app-board-page',
@@ -41,6 +38,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   subscription?: Subscription;
   currentBoard$?: Observable<Board | undefined>;
   boardColumns$?: Observable<Column[] | undefined>;
+  isLoading$: Observable<boolean> | undefined;
   boardData?: Board;
   prevTaskData: string = '';
   isDragging = false;
@@ -74,6 +72,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
           )
           .subscribe(data => (this.currentBoard$ = of(data)));
       });
+    this.isLoading$ = this.store.select(selectFeatureIsLoading);
   }
 
   createColumn() {
@@ -166,7 +165,6 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   dropTask(event: CdkDragDrop<Task[]>, targetColumnId: string) {
     this.isDragging = false;
-    console.log(event);
     let prevArray = event.previousContainer.data;
     let prevIndex = event.previousIndex;
     let currIndex = event.container.data.length ? event.currentIndex : 0;
