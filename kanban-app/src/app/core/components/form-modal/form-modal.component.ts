@@ -4,12 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { ModalSchemes } from 'src/app/enums';
-import { Board, Column } from 'src/app/interfaces';
+import { Board, Column, Task } from 'src/app/interfaces';
 import {
   addBoard,
   addColumn,
+  addTask,
   deleteAllBoards,
   editColumn,
+  editTask,
 } from 'src/app/redux/actions/boards.actions';
 import { setVisibility } from 'src/app/redux/actions/modal.actions';
 import { selectModalScheme } from 'src/app/redux/selectors/modal.selectors';
@@ -76,6 +78,44 @@ export class FormModalComponent implements OnInit, OnDestroy {
                 columnId: this.modalExtra[1],
                 columnOrder: this.modalExtra[2],
                 column: payload,
+              });
+            break;
+          case ModalSchemes.addTask:
+            this.formConstructor = new FormGroup({
+              title: new FormControl('', Validators.required),
+              description: new FormControl('', Validators.required),
+            });
+            this.formAction = (payload: Task) =>
+              addTask({
+                columnId: this.modalExtra[0],
+                boardId: this.modalExtra[1],
+                task: {
+                  ...payload,
+                  userId: `${this.modalExtra[2]}`,
+                },
+              });
+            break;
+          case ModalSchemes.editTask:
+            this.formConstructor = new FormGroup({
+              title: new FormControl(
+                this.modalExtra[5].title,
+                Validators.required
+              ),
+              description: new FormControl(
+                this.modalExtra[5].description,
+                Validators.required
+              ),
+            });
+            this.formAction = (payload: Task) =>
+              editTask({
+                taskId: this.modalExtra[0],
+                columnId: this.modalExtra[1],
+                boardId: this.modalExtra[2],
+                taskOrder: this.modalExtra[4],
+                task: {
+                  ...payload,
+                  userId: `${this.modalExtra[3]}`,
+                },
               });
             break;
         }
