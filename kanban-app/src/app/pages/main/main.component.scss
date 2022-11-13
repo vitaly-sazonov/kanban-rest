@@ -38,7 +38,7 @@ input:focus {
   z-index: 0;
   color: $moreColor;
 }
-.title {
+.header {
   position: sticky;
   top: 100px;
   margin-left: 50px;
@@ -52,4 +52,8 @@ input:focus {
   position: fixed;
   left: 100px;
 }
-
+.expand-icon{
+  position: absolute;
+  top:-98px;
+  cursor: pointer;
+}

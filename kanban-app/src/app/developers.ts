@@ -18,7 +18,7 @@ export const DEVELOPERS: DEVELOPER[] = [
     features: [],
     alt: '',
     aboutAuthor:
-      "Hello! A little about myself, I have three passions: traveling, cars and programming. The third passion is the strongest. I love coding, and no matter what project it is, the final task for Angular or some ordinary one, no matter what language it is, Java Script or Python, I just love it and give it my all.",
+      'Hello! A little about myself, I have three passions: traveling, cars and programming. The third passion is the strongest. I love coding, and no matter what project it is, the final task for Angular or some ordinary one, no matter what language it is, Java Script or Python, I just love it and give it my all.',
   },
   {
     id: 3,

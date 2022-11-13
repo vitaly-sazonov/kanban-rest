@@ -1,6 +1,16 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { CompareService } from 'src/app/core/services/compare.service';
+import { HashService } from 'src/app/core/services/hash.service';
+import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { ModalTypes } from 'src/app/enums';
 import { Board, Column } from 'src/app/interfaces';
 import {
@@ -17,15 +27,26 @@ import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.s
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent implements OnDestroy, OnInit {
+export class BoardComponent implements OnDestroy, OnInit, OnChanges {
   subscription?: Subscription;
   @Input() board?: Board;
   @Input() searchRequest: string = '';
+  @Input() isAllShort: boolean = false;
   result$ = this.store.select(selectConfirmationResult);
   columns?: Column[];
   length: number | undefined;
+  compare = this.compareService;
+  isShort = false;
 
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private compareService: CompareService,
+    private hash: HashService,
+    private storage: LocalstorageService
+  ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    this.isShort = this.isAllShort;
+  }
 
   ngOnInit(): void {
     this.columns = this.board?.columns;
@@ -35,6 +56,7 @@ export class BoardComponent implements OnDestroy, OnInit {
   isPreview = false;
   deleteBoard(id: string) {
     this.confirmDelete(id);
+    this.storage.removeItem(this.board?.id!);
   }
 
   confirmDelete(id: string) {
@@ -53,8 +75,13 @@ export class BoardComponent implements OnDestroy, OnInit {
       }
     });
   }
-  toggle() {
-    this.isPreview = !this.isPreview;
+
+  changeStatus() {
+    this.storage.setItem(
+      this.board?.id!,
+      this.hash.getHash(JSON.stringify(this.board)).toString()
+    );
+    this.isPreview = true;
   }
 
   ngOnDestroy(): void {
