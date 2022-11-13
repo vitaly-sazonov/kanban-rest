@@ -5,6 +5,7 @@
   diameter="30"
   color="primary"
   *ngIf="isLoading$ | async"></mat-spinner>
+<h2>ColumnID: {{ columnId }}</h2>
 <section class="column-wrapper">
   <ng-container *ngIf="currentBoard$ | async; let boardColumns">
     <section
@@ -124,4 +125,4 @@
     {{ 'BOARD.addNewColumn' | translate }}
   </button>
 </section>
-<button [routerLink]="['../../main']">BACK to BOARDS</button>
+<button [routerLink]="['../../../main']">BACK to BOARDS</button>

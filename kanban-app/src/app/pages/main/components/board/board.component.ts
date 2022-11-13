@@ -20,6 +20,7 @@ import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.s
 export class BoardComponent implements OnDestroy, OnInit {
   subscription?: Subscription;
   @Input() board?: Board;
+  @Input() searchRequest: string = '';
   result$ = this.store.select(selectConfirmationResult);
   columns?: Column[];
   length: number | undefined;

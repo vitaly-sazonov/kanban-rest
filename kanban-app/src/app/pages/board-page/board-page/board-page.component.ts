@@ -36,6 +36,7 @@ import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
 export class BoardPageComponent implements OnInit, OnDestroy {
   result$ = this.store.select(selectConfirmationResult);
   id: string = '';
+  columnId: string | undefined = '';
   subscription?: Subscription;
   currentBoard$?: Observable<Board | undefined>;
   boardColumns$?: Observable<Column[] | undefined>;
@@ -74,8 +75,12 @@ export class BoardPageComponent implements OnInit, OnDestroy {
           .subscribe(data => (this.currentBoard$ = of(data)));
       });
     this.isLoading$ = this.store.select(selectFeatureIsLoading);
+    this.route.paramMap
+      .pipe(switchMap(params => params.getAll('columnId')))
+      .subscribe(data => {
+        this.columnId = data;
+      });
   }
-
   createColumn() {
     this.modalService.setExtra([this.id]);
     this.modalService.setScheme(ModalSchemes.addColumn);
