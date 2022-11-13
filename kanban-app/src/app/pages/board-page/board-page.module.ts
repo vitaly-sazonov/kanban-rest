@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SortByPipe } from './pipes/sort-by-order.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [BoardPageComponent, SortByPipe],
@@ -25,6 +26,7 @@ import { SortByPipe } from './pipes/sort-by-order.pipe';
     MatButtonModule,
     MatMenuModule,
     MatToolbarModule,
+    MatProgressSpinnerModule,
     DragDropModule,
   ],
 })

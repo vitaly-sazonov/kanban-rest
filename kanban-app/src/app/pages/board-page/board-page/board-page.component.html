@@ -1,99 +1,127 @@
 <h1>Board</h1>
 <h2>ID: {{ id }}</h2>
+<h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>
+<mat-spinner
+  diameter="30"
+  color="primary"
+  *ngIf="isLoading$ | async"></mat-spinner>
 <h2>ColumnID: {{ columnId }}</h2>
 <h2>TaskID: {{ taskId }}</h2>
 <section class="column-wrapper">
-  <section
-    class="columns"
-    *ngIf="
-      (currentBoard$ | async)!.columns &&
-      (currentBoard$ | async)!.columns!.length > 0
-    "
-    cdkDropListGroup>
-    <article
-      class="column"
-      *ngFor="let item of (currentBoard$ | async)!.columns">
-      <mat-accordion class="column-accordion" togglePosition="before">
-        <mat-expansion-panel class="column-inner" expanded>
-          <mat-expansion-panel-header>
-            <mat-panel-title class="column-title">
-              {{ item.title }}
-            </mat-panel-title>
-            <button
-              mat-icon-button
-              [matMenuTriggerFor]="menu"
-              (click)="toggleColumnOptions($event)">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
+  <ng-container *ngIf="currentBoard$ | async; let boardColumns">
+    <section
+      class="columns"
+      *ngIf="boardColumns.columns && boardColumns.columns.length"
+      cdkDropListGroup
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      [cdkDropListData]="{ columns: boardColumns.columns }"
+      (cdkDropListDropped)="dropColumn($event)">
+      <article
+        class="column"
+        *ngFor="let item of boardColumns.columns"
+        (cdkDragStarted)="setElementHeight($event)"
+        cdkDrag>
+        <div class="column" *cdkDragPlaceholder>
+          <div
+            class="drag-placeholder for-column"
+            [ngStyle]="{
+              'height.px': elementHeight
+            }"></div>
+        </div>
+        <mat-accordion class="column-accordion" togglePosition="before">
+          <mat-expansion-panel class="column-inner" expanded>
+            <mat-expansion-panel-header>
+              <mat-panel-title class="column-title">
+                {{ item.title }}
+              </mat-panel-title>
               <button
-                mat-menu-item
-                (click)="editColumn(item.id!, item.order!, item.title)">
-                <mat-icon>edit</mat-icon>
-                <span>{{ 'BOARD.editColumn' | translate }}</span>
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                (click)="toggleColumnOptions($event)">
+                <mat-icon>more_vert</mat-icon>
               </button>
-              <button mat-menu-item (click)="removeColumn(item.id!)">
-                <mat-icon>delete</mat-icon>
-                <span>{{ 'BOARD.removeColumn' | translate }}</span>
+              <mat-menu #menu="matMenu">
+                <button
+                  mat-menu-item
+                  (click)="editColumn(item.id!, item.order!, item.title)">
+                  <mat-icon>edit</mat-icon>
+                  <span>{{ 'BOARD.editColumn' | translate }}</span>
+                </button>
+                <button mat-menu-item (click)="removeColumn(item.id!)">
+                  <mat-icon>delete</mat-icon>
+                  <span>{{ 'BOARD.removeColumn' | translate }}</span>
+                </button>
+              </mat-menu>
+            </mat-expansion-panel-header>
+            <section
+              class="task-list"
+              *ngIf="item.tasks"
+              [cdkDropListData]="{ tasks: item.tasks, id: item.id! }"
+              (cdkDropListDropped)="dropTask($event)"
+              cdkDropList>
+              <div
+                *ngIf="!item.tasks.length"
+                class="task-item-blank"
+                cdkDragDisabled
+                cdkDrag>
+                <span>{{ 'BOARD.noTasks' | translate }}</span>
+              </div>
+              <mat-card
+                *ngFor="let taskItem of item.tasks"
+                class="task-item"
+                (cdkDragStarted)="setElementHeight($event)"
+                cdkDrag>
+                <mat-card class="task-item" *cdkDragPlaceholder>
+                  <div class="drag-placeholder"></div>
+                  <mat-card-title class="task-title noselect">
+                    {{ taskItem.title }}
+                  </mat-card-title>
+                  <mat-card-subtitle class="task-description noselect">
+                    {{ taskItem.description }}
+                  </mat-card-subtitle>
+                </mat-card>
+                <section class="task-actions">
+                  <button
+                    mat-icon-button
+                    class="task-action-button"
+                    (click)="
+                      editTask(taskItem.id!, item.id!, taskItem.order!, {
+                        title: taskItem.title,
+                        description: taskItem.description!
+                      })
+                    ">
+                    <mat-icon class="task-action-icon">edit</mat-icon>
+                  </button>
+                  <button
+                    mat-icon-button
+                    class="task-action-button"
+                    (click)="removeTask(taskItem.id!, item.id!)">
+                    <mat-icon class="task-action-icon">delete</mat-icon>
+                  </button>
+                </section>
+                <mat-card-title class="task-title noselect">
+                  {{ taskItem.title }}
+                </mat-card-title>
+                <mat-card-subtitle class="task-description noselect">
+                  {{ taskItem.description }}
+                </mat-card-subtitle>
+              </mat-card>
+            </section>
+            <mat-action-row>
+              <button
+                mat-stroked-button
+                color="primary"
+                (click)="addTask(item.id!)">
+                <mat-icon class="icon-button">playlist_add</mat-icon
+                >{{ 'BOARD.addTask' | translate }}
               </button>
-            </mat-menu>
-          </mat-expansion-panel-header>
-          <section
-            class="task-list"
-            *ngIf="item.tasks"
-            [cdkDropListData]="item.tasks"
-            (mousedown)="recordPreviousTaskData(item.id!)"
-            (cdkDropListDropped)="dropTask($event, item.id!)"
-            cdkDropList>
-            <div *ngIf="!item.tasks.length" class="task-item-blank" cdkDrag>
-              <div class="drag-placeholder" *cdkDragPlaceholder></div>
-              <span>{{ 'BOARD.noTasks' | translate }}</span>
-            </div>
-            <mat-card
-              *ngFor="let taskItem of item.tasks"
-              class="task-item"
-              cdkDrag>
-              <div class="drag-placeholder" *cdkDragPlaceholder></div>
-              <section class="task-actions">
-                <button
-                  mat-icon-button
-                  class="task-action-button"
-                  (click)="
-                    editTask(taskItem.id!, item.id!, taskItem.order!, {
-                      title: taskItem.title,
-                      description: taskItem.description!
-                    })
-                  ">
-                  <mat-icon class="task-action-icon">edit</mat-icon>
-                </button>
-                <button
-                  mat-icon-button
-                  class="task-action-button"
-                  (click)="removeTask(taskItem.id!, item.id!)">
-                  <mat-icon class="task-action-icon">delete</mat-icon>
-                </button>
-              </section>
-              <mat-card-title class="task-title noselect">
-                {{ taskItem.title }}
-              </mat-card-title>
-              <mat-card-subtitle class="task-description noselect">
-                {{ taskItem.description }}
-              </mat-card-subtitle>
-            </mat-card>
-          </section>
-          <mat-action-row>
-            <button
-              mat-stroked-button
-              color="primary"
-              (click)="addTask(item.id!)">
-              <mat-icon class="icon-button">playlist_add</mat-icon
-              >{{ 'BOARD.addTask' | translate }}
-            </button>
-          </mat-action-row>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </article>
-  </section>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </article>
+    </section>
+  </ng-container>
   <button class="add-column" (click)="createColumn()">
     {{ 'BOARD.addNewColumn' | translate }}
   </button>

@@ -1,4 +1,4 @@
-import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragStart } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -7,29 +7,26 @@ import {
   Subscription,
   switchMap,
   map,
-  first,
-  from,
   of,
+  takeUntil,
+  Subject,
 } from 'rxjs';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { ModalSchemes, ModalTypes } from 'src/app/enums';
 import { Board, Column, Task } from 'src/app/interfaces';
 import {
-  addColumn,
-  addTask,
-  loadColumns,
+  editColumn,
+  loadBoards,
   moveTaskToAnotherColumn,
   removeColumn,
   removeTask,
 } from 'src/app/redux/actions/boards.actions';
 import { addConfirmMessage } from 'src/app/redux/actions/confirm.actions';
 import { setType, setVisibility } from 'src/app/redux/actions/modal.actions';
-import {
-  selectBoardById,
-  selectUserBoards,
-} from 'src/app/redux/selectors/boards.selectors';
+import { selectBoardById } from 'src/app/redux/selectors/boards.selectors';
 import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.selectors';
+import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
 
 @Component({
   selector: 'app-board-page',
@@ -44,9 +41,11 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   subscription?: Subscription;
   currentBoard$?: Observable<Board | undefined>;
   boardColumns$?: Observable<Column[] | undefined>;
+  isLoading$: Observable<boolean> | undefined;
   boardData?: Board;
   prevTaskData: string = '';
-  isDragging = false;
+  unsubscribe$ = new Subject<any>();
+  elementHeight = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -56,6 +55,32 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.subscription = this.route.paramMap
+      .pipe(
+        switchMap(params => params.getAll('id')),
+        map(data => (this.id = data)),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(() => {
+        this.store
+          .select(selectBoardById(this.id))
+          .pipe(
+            map(data => {
+              if (!data) {
+                return this.store.dispatch(loadBoards());
+              }
+            }),
+            switchMap(() => this.store.select(selectBoardById(this.id))),
+            takeUntil(this.unsubscribe$)
+          )
+          .subscribe(data => (this.currentBoard$ = of(data)));
+      });
+    this.isLoading$ = this.store.select(selectFeatureIsLoading);
+    this.route.paramMap
+      .pipe(switchMap(params => params.getAll('columnId')))
+      .subscribe(data => {
+        this.columnId = data;
+      });
     this.subscription = this.route.params.subscribe(params => {
       this.id = params['id'];
       this.columnId = params['columnId'];
@@ -92,7 +117,8 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.unsubscribe$.next(1);
+    this.unsubscribe$.complete();
   }
 
   toggleColumnOptions($event: Event) {
@@ -145,26 +171,41 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  recordPreviousTaskData(taskId: string) {
-    this.prevTaskData = taskId;
-    this.isDragging = true;
-  }
-
-  dropTask(event: CdkDragDrop<Task[]>, targetColumnId: string) {
-    this.isDragging = false;
+  dropTask(event: CdkDragDrop<{ tasks: Task[]; id: string }> | any) {
     let prevArray = event.previousContainer.data;
     let prevIndex = event.previousIndex;
-    let currIndex = event.currentIndex;
-    let transferingElement = prevArray[prevIndex];
+    let currIndex = event.container.data.tasks.length ? event.currentIndex : 0;
+    let transferingElement = prevArray.tasks[prevIndex];
     this.store.dispatch(
       moveTaskToAnotherColumn({
         boardId: this.id,
-        oldColumnId: this.prevTaskData,
-        newColumnId: targetColumnId,
+        oldColumnId: prevArray.id,
+        newColumnId: event.container.data.id,
         taskId: transferingElement.id!,
         taskOrder: currIndex + 1,
         taskContent: transferingElement,
       })
     );
+  }
+
+  dropColumn(event: CdkDragDrop<{ columns: Column[] }>) {
+    let prevArray = event.previousContainer.data;
+    let prevIndex = event.previousIndex;
+    let currIndex = event.container.data.columns.length
+      ? event.currentIndex
+      : 0;
+    let transferingElement = prevArray.columns[prevIndex];
+    this.store.dispatch(
+      editColumn({
+        boardId: this.id,
+        columnId: transferingElement.id!,
+        columnOrder: currIndex + 1,
+        column: { title: transferingElement.title },
+      })
+    );
+  }
+
+  setElementHeight(event: CdkDragStart<HTMLElement>) {
+    this.elementHeight = event.source.element.nativeElement.clientHeight;
   }
 }
