@@ -131,6 +131,7 @@ button {
 .update-icon,
 .new-icon {
   animation: flashing 7s;
+  transition: 500ms;
   position: inherit;
   top: -90px;
   left: 80px;
