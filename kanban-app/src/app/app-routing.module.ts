@@ -16,7 +16,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'board/:id/:columnId',
+    path: 'board/:id/:columnId/:taskId',
     loadChildren: () =>
       import('./pages/board-page/board-page.module').then(
         m => m.BoardPageModule

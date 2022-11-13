@@ -1,14 +1,30 @@
-<h1 class="title">{{ 'BOARDS' | translate }}</h1>
-<div class="search-container">
-  <mat-icon class="icon">search</mat-icon>
-  <input
-    matInput
-    class="search-input"
-    placeholder="{{ 'search board' | translate }}"
-    [(ngModel)]="searchRequest"
-    [autofocus]="true" />
-</div>
-<div class="boards-container">
+<header class="header">
+  <h1 class="title">{{ 'BOARDS' | translate }}</h1>
+</header>
+<aside class="search-container">
+  <section>
+    <mat-icon class="icon">search</mat-icon>
+    <input
+      matInput
+      class="search-input"
+      placeholder="{{ 'search board' | translate }}"
+      [(ngModel)]="searchRequest"
+      [autofocus]="true" />
+    <mat-icon
+      class="expand-icon"
+      *ngIf="isAllShort === false"
+      (click)="isAllShort = true"
+      >unfold_less</mat-icon
+    >
+    <mat-icon
+      class="expand-icon"
+      *ngIf="isAllShort"
+      (click)="isAllShort = false"
+      >unfold_more</mat-icon
+    >
+  </section>
+</aside>
+<main class="boards-container">
   <div
     class="inner-container"
     *ngIf="
@@ -18,10 +34,11 @@
     <app-board
       *ngFor="let item of (boards$ | async)! | search: searchRequest"
       [board]="item"
-      [searchRequest]="searchRequest">
+      [searchRequest]="searchRequest"
+      [isAllShort]="isAllShort">
     </app-board>
   </div>
-</div>
+</main>
 <ng-template class="template" #noBoards>
   <h2>{{ 'No Boards' | translate }}</h2>
   <h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>

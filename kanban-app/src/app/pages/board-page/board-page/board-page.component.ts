@@ -37,6 +37,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   result$ = this.store.select(selectConfirmationResult);
   id: string = '';
   columnId: string | undefined = '';
+  taskId: string | undefined = '';
   subscription?: Subscription;
   currentBoard$?: Observable<Board | undefined>;
   boardColumns$?: Observable<Column[] | undefined>;
@@ -80,6 +81,12 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         this.columnId = data;
       });
+    this.subscription = this.route.params.subscribe(params => {
+      this.id = params['id'];
+      this.columnId = params['columnId'];
+      this.taskId = params['taskId'];
+      this.currentBoard$ = this.store.select(selectBoardById(this.id));
+    });
   }
   createColumn() {
     this.modalService.setExtra([this.id]);
