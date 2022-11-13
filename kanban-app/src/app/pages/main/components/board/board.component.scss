@@ -82,6 +82,7 @@
 
 button {
   position: absolute;
+  visibility: visible;
   top: 160px;
   transition: 500ms;
 }
@@ -203,6 +204,7 @@ button {
 }
 .hide{
   opacity: 0;
+  visibility: hidden;
   top:50px;
   transition: 500ms;
 }
