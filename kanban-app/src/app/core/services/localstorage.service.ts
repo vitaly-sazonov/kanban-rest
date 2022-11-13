@@ -1,32 +1,38 @@
 import { Injectable } from '@angular/core';
-import { TOKEN, USER_ID } from '../../constants';
+import { LocalStorageValues } from 'src/app/enums';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalstorageService {
   constructor() {}
+
   clear() {
-    localStorage.clear();
+    this.setToken('');
+    this.setUserId('');
   }
 
   setToken(token: string) {
-    localStorage.setItem(TOKEN, token);
+    this.setItem(LocalStorageValues.Token, token);
   }
 
   getToken() {
-    return localStorage.getItem(TOKEN);
-  }
-
-  clearToken() {
-    this.setToken('');
+    return localStorage.getItem(LocalStorageValues.Token);
   }
 
   setUserId(id: string) {
-    localStorage.setItem(USER_ID, id);
+    this.setItem(LocalStorageValues.UserId, id);
   }
 
   getUserId() {
-    return localStorage.getItem(USER_ID);
+    return localStorage.getItem(LocalStorageValues.UserId);
+  }
+
+  setItem(key: LocalStorageValues, value: string) {
+    localStorage.setItem(key, value);
+  }
+
+  getItem(key: LocalStorageValues) {
+    return localStorage.getItem(key);
   }
 }
