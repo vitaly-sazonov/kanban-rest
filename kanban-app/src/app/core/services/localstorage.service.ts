@@ -35,7 +35,7 @@ export class LocalstorageService {
   getItem(key: LocalStorageValues) {
     return localStorage.getItem(key);
   }
-  getItem(key: string): string | null {
+  getBoardItem(key: string): string | null {
     const value: string | null = localStorage.getItem(key);
     return value ? JSON.parse(value) : null;
   }
@@ -44,7 +44,7 @@ export class LocalstorageService {
     localStorage.removeItem(key);
   }
 
-  setItem(key: string, value: string): void {
+  setBoardItem(key: string, value: string): void {
     localStorage.setItem(key, value);
   }
 }

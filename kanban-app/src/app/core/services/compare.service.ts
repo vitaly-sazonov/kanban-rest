@@ -18,12 +18,12 @@ export class CompareService {
 
   checkIsUpdated(board: Board): boolean {
     return (
-      this.storage.getItem(board.id!) !=
+      this.storage.getBoardItem(board.id!) !=
       this.hash.getHash(JSON.stringify(board)).toString()
     );
   }
 
   checkIsNew(boardId: string): boolean {
-    return !Boolean(this.storage.getItem(boardId));
+    return !Boolean(this.storage.getBoardItem(boardId));
   }
 }

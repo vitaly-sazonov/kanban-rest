@@ -77,7 +77,7 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
   }
 
   changeStatus() {
-    this.storage.setItem(
+    this.storage.setBoardItem(
       this.board?.id!,
       this.hash.getHash(JSON.stringify(this.board)).toString()
     );
