@@ -45,7 +45,7 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
     private storage: LocalstorageService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
-    this.isShort = this.isAllShort ? true : false;
+    this.isShort = this.isAllShort;
   }
 
   ngOnInit(): void {
@@ -81,6 +81,7 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
       this.board?.id!,
       this.hash.getHash(JSON.stringify(this.board)).toString()
     );
+    this.isPreview = true;
   }
 
   ngOnDestroy(): void {
