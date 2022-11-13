@@ -16,6 +16,7 @@ import { ModalService } from 'src/app/core/services/modal.service';
 import { ModalSchemes, ModalTypes } from 'src/app/enums';
 import { Board, Column, Task } from 'src/app/interfaces';
 import {
+  editColumn,
   loadBoards,
   moveTaskToAnotherColumn,
   removeColumn,
@@ -171,6 +172,23 @@ export class BoardPageComponent implements OnInit, OnDestroy {
         taskId: transferingElement.id!,
         taskOrder: currIndex + 1,
         taskContent: transferingElement,
+      })
+    );
+  }
+
+  dropColumn(event: CdkDragDrop<{ columns: Column[] }>) {
+    let prevArray = event.previousContainer.data;
+    let prevIndex = event.previousIndex;
+    let currIndex = event.container.data.columns.length
+      ? event.currentIndex
+      : 0;
+    let transferingElement = prevArray.columns[prevIndex];
+    this.store.dispatch(
+      editColumn({
+        boardId: this.id,
+        columnId: transferingElement.id!,
+        columnOrder: currIndex + 1,
+        column: { title: transferingElement.title },
       })
     );
   }

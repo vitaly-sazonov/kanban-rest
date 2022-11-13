@@ -12,7 +12,9 @@
       *ngIf="boardColumns.columns && boardColumns.columns.length"
       cdkDropListGroup
       cdkDropList
-      cdkDropListOrientation="horizontal">
+      cdkDropListOrientation="horizontal"
+      [cdkDropListData]="{ columns: boardColumns.columns }"
+      (cdkDropListDropped)="dropColumn($event)">
       <article
         class="column"
         *ngFor="let item of boardColumns.columns"
