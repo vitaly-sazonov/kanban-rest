@@ -1,5 +1,8 @@
 @import '../../colors.scss';
 
+:host {
+  user-select: none;
+}
 input:focus {
   outline: 0;
   border: transparent;
@@ -49,32 +52,41 @@ input:focus {
   top: 6px;
   left: 19px;
 }
+.delete-search {
+  cursor: pointer;
+  position: relative;
+  top: 8px;
+  left: 10px;
+  &:hover {
+    color: $moreColor;
+  }
+}
 .template {
   position: fixed;
   left: 100px;
 }
-.expand-icon{
+.expand-icon {
   position: absolute;
-  top:-98px;
+  top: -98px;
   left: 10px;
   color: $moreColor;
   cursor: pointer;
 }
-.sort-button{
+.sort-button {
   position: absolute;
-  top:-102px;
-  left:160px;
+  top: -102px;
+  left: 160px;
   color: $moreColor;
   cursor: pointer;
 }
-.sort-direction{
+.sort-direction {
   position: absolute;
-  top:-105px;
-  left:195px;
+  top: -105px;
+  left: 195px;
   color: $moreColor;
   transition: 1s;
 }
-.rotate{
+.rotate {
   transform: rotate(180deg);
-  top:-100px;
+  top: -100px;
 }

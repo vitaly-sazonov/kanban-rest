@@ -29,4 +29,7 @@ export class MainComponent implements OnInit {
       this.store.dispatch(action)
     );
   }
+  deleteSearch() {
+    this.searchRequest = '';
+  }
 }
