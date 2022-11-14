@@ -1,5 +1,5 @@
 import { CdkDragDrop, CdkDragStart } from '@angular/cdk/drag-drop';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
@@ -46,6 +46,10 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   prevTaskData: string = '';
   unsubscribe$ = new Subject<any>();
   elementHeight = 0;
+  columnTitleEdit: string | null = null;
+  columnIndex = 0;
+
+  @Input() newTitle = this.columnTitleEdit;
 
   constructor(
     private route: ActivatedRoute,
@@ -95,7 +99,8 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(setVisibility({ isVisible: true }));
   }
 
-  removeColumn(id: string) {
+  removeColumn(event: MouseEvent, id: string) {
+    event.stopPropagation();
     [
       setType({ modalType: ModalTypes.ConfirmType }),
       setVisibility({ isVisible: true }),
@@ -109,11 +114,22 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  editColumn(columnId: string, columnOrder: number, currentTitle: string) {
-    this.modalService.setExtra([this.id, columnId, columnOrder, currentTitle]);
-    this.modalService.setScheme(ModalSchemes.editColumn);
-    this.modalService.setType(ModalTypes.FormType);
-    this.store.dispatch(setVisibility({ isVisible: true }));
+  editColumn(
+    event: Event,
+    columnId: string,
+    columnOrder: number,
+    newTitle: string
+  ) {
+    event.stopImmediatePropagation();
+    this.store.dispatch(
+      editColumn({
+        boardId: this.id,
+        columnId: columnId,
+        columnOrder: columnOrder,
+        column: { title: newTitle },
+      })
+    );
+    this.columnTitleEdit = null;
   }
 
   ngOnDestroy(): void {
@@ -214,5 +230,21 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   setElementHeight(event: CdkDragStart<HTMLElement>) {
     this.elementHeight = event.source.element.nativeElement.clientHeight;
+  }
+
+  editColumnTitle(event: MouseEvent, currentTitle: string, index: number) {
+    event.stopPropagation();
+    this.columnTitleEdit = currentTitle;
+    this.columnIndex = index;
+    this.newTitle = this.columnTitleEdit;
+  }
+
+  returnTitleState(event: MouseEvent) {
+    event.stopPropagation();
+    this.columnTitleEdit = null;
+  }
+
+  accordionPreventCollapse(event: MouseEvent) {
+    event.stopPropagation();
   }
 }

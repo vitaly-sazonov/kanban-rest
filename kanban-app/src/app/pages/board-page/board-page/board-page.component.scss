@@ -73,7 +73,7 @@
   .task-action-button {
     opacity: 0.5;
     transition: 0.3s;
-    &:hover{
+    &:hover {
       opacity: 1;
     }
   }
@@ -84,7 +84,7 @@
 }
 
 .column-inner {
-  background-color: #EBECF0;
+  background-color: #ebecf0;
 }
 
 .noselect {
@@ -124,8 +124,7 @@
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-              0 8px 10px 1px rgba(0, 0, 0, 0.14),
-              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-animating {
@@ -165,20 +164,53 @@
   position: relative;
 }
 
-::ng-deep .test .mat-form-field-outline {
-  color: rgba(0, 0, 0, 0);
+::ng-deep .column-inner {
+  .mat-form-field {
+    position: absolute;
+    left: 40px;
+    width: 272px;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-flex {
+    padding: 0 8px;
+  }
+  .mat-form-field-appearance-outline {
+    .mat-form-field-outline-start,
+    .mat-form-field-outline-end {
+      background-color: white;
+    }
+    .mat-form-field-suffix {
+      top: 6px;
+      .mat-icon-button {
+        width: 2em;
+      }
+    }
+  }
 }
 
-.test {
-  font-size: 16px;
-  font-weight: bold;
+::ng-deep .edit-title-input {
+  .mat-form-field-infix {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px 0 14px;
+  }
+  .mat-form-field-wrapper {
+    padding: 0;
+  }
 }
 
-.test-title {
-  color: rgba(0, 0, 0, 0);
+.column-header {
+  padding-right: 5px;
+}
+
+.delete-icon {
+  opacity: 0;
   transition: 0.3s;
 }
 
-.mat-focused .test-title {
-  color: rgba(0, 0, 0, 1);
+.column-accordion:hover .delete-icon {
+  opacity: 0.5;
+}
+
+.delete-icon:hover  {
+  opacity: 1;
 }
