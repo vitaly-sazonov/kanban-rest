@@ -171,21 +171,26 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  dropTask(event: CdkDragDrop<{ tasks: Task[]; id: string }> | any) {
+  dropTask(event: CdkDragDrop<{ tasks: Task[]; id: string }>) {
     let prevArray = event.previousContainer.data;
     let prevIndex = event.previousIndex;
     let currIndex = event.container.data.tasks.length ? event.currentIndex : 0;
     let transferingElement = prevArray.tasks[prevIndex];
-    this.store.dispatch(
-      moveTaskToAnotherColumn({
-        boardId: this.id,
-        oldColumnId: prevArray.id,
-        newColumnId: event.container.data.id,
-        taskId: transferingElement.id!,
-        taskOrder: currIndex + 1,
-        taskContent: transferingElement,
-      })
+    console.log(
+      currIndex !== prevIndex && prevArray.id !== event.container.data.id
     );
+    if (currIndex !== prevIndex || prevArray.id !== event.container.data.id) {
+      this.store.dispatch(
+        moveTaskToAnotherColumn({
+          boardId: this.id,
+          oldColumnId: prevArray.id,
+          newColumnId: event.container.data.id,
+          taskId: transferingElement.id!,
+          taskOrder: currIndex + 1,
+          taskContent: transferingElement,
+        })
+      );
+    }
   }
 
   dropColumn(event: CdkDragDrop<{ columns: Column[] }>) {
@@ -195,14 +200,16 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       ? event.currentIndex
       : 0;
     let transferingElement = prevArray.columns[prevIndex];
-    this.store.dispatch(
-      editColumn({
-        boardId: this.id,
-        columnId: transferingElement.id!,
-        columnOrder: currIndex + 1,
-        column: { title: transferingElement.title },
-      })
-    );
+    if (currIndex !== prevIndex) {
+      this.store.dispatch(
+        editColumn({
+          boardId: this.id,
+          columnId: transferingElement.id!,
+          columnOrder: currIndex + 1,
+          column: { title: transferingElement.title },
+        })
+      );
+    }
   }
 
   setElementHeight(event: CdkDragStart<HTMLElement>) {

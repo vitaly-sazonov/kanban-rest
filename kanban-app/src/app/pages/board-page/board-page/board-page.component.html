@@ -8,6 +8,10 @@
 <h2>ColumnID: {{ columnId }}</h2>
 <h2>TaskID: {{ taskId }}</h2>
 <section class="column-wrapper">
+  <mat-form-field class="test" appearance="outline">
+    <mat-label class="test-title">Title</mat-label>
+    <input matInput placeholder="Placeholder" />
+  </mat-form-field>
   <ng-container *ngIf="currentBoard$ | async; let boardColumns">
     <section
       class="columns"
