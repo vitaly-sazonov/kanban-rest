@@ -17,6 +17,7 @@ export class MainComponent implements OnInit {
   isLoading$ = this.store.select(selectFeatureIsLoading);
   searchRequest = '';
   isAllShort = false;
+  isReverseBoards = false;
 
   constructor(private store: Store) {}
 

@@ -10,6 +10,11 @@
       placeholder="{{ 'search board' | translate }}"
       [(ngModel)]="searchRequest"
       [autofocus]="true" />
+    <h2 class="sort-button" (click)="isReverseBoards = !isReverseBoards">
+      A-Z
+    </h2>
+    <h2 class="sort-direction" [class.rotate]="isReverseBoards"><b>↑</b></h2>
+
     <mat-icon
       class="expand-icon"
       *ngIf="isAllShort === false"
@@ -32,7 +37,11 @@
       else noBoards
     ">
     <app-board
-      *ngFor="let item of (boards$ | async)! | search: searchRequest"
+      *ngFor="
+        let item of (boards$ | async)!
+          | search: searchRequest
+          | sortByAlphabet: isReverseBoards
+      "
       [board]="item"
       [searchRequest]="searchRequest"
       [isAllShort]="isAllShort">
