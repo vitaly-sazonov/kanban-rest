@@ -9,7 +9,13 @@
       class="search-input"
       placeholder="{{ 'search board' | translate }}"
       [(ngModel)]="searchRequest"
-      [autofocus]="true" />
+      autofocus />
+    <mat-icon class="delete-search" (click)="deleteSearch()">close</mat-icon>
+    <h2 class="sort-button" (click)="isReverseBoards = !isReverseBoards">
+      A-Z
+    </h2>
+    <h2 class="sort-direction" [class.rotate]="isReverseBoards"><b>↑</b></h2>
+
     <mat-icon
       class="expand-icon"
       *ngIf="isAllShort === false"
@@ -32,7 +38,11 @@
       else noBoards
     ">
     <app-board
-      *ngFor="let item of (boards$ | async)! | search: searchRequest"
+      *ngFor="
+        let item of (boards$ | async)!
+          | search: searchRequest
+          | sortByAlphabet: isReverseBoards
+      "
       [board]="item"
       [searchRequest]="searchRequest"
       [isAllShort]="isAllShort">
@@ -40,7 +50,7 @@
   </div>
 </main>
 <ng-template class="template" #noBoards>
-  <h2>{{ 'No Boards' | translate }}</h2>
+  <h2 *ngIf="(isLoading$ | async) === false">{{ 'No Boards' | translate }}</h2>
   <h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>
   <mat-spinner
     diameter="30"

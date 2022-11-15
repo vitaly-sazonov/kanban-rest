@@ -56,7 +56,6 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
   isPreview = false;
   deleteBoard(id: string) {
     this.confirmDelete(id);
-    this.storage.removeItem(this.board?.id!);
   }
 
   confirmDelete(id: string) {
@@ -72,6 +71,7 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
         [deleteAllBoards(), deleteBoardById({ id })].forEach(action =>
           this.store.dispatch(action)
         );
+        this.storage.removeItem(this.board?.id!);
       }
     });
   }

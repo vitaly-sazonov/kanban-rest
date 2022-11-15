@@ -51,7 +51,8 @@
   padding: 5px;
   opacity: 0;
   visibility: hidden;
-  transition: 500ms;
+  transition:  500ms ;
+  
 }
 .column-item {
   display: flex;
@@ -131,6 +132,7 @@ button {
 .update-icon,
 .new-icon {
   animation: flashing 7s;
+  transition: 500ms;
   position: inherit;
   top: -90px;
   left: 80px;

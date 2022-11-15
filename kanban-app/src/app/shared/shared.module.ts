@@ -10,10 +10,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { SearchPipe } from './pipes/search.pipe';
 import { OrderPipe } from './pipes/oder.pipe';
 import { MarkPipe } from './pipes/mark.pipe';
+import { SortByAlphabetPipe } from './pipes/sort-by-alphabet.pipe';
 
 @NgModule({
-  declarations: [ConfirmDialogComponent, SearchPipe, OrderPipe, MarkPipe],
+  declarations: [
+    ConfirmDialogComponent,
+    SearchPipe,
+    OrderPipe,
+    MarkPipe,
+    SortByAlphabetPipe,
+  ],
   imports: [CommonModule, TranslateModule, MatDialogModule, MatButtonModule],
-  exports: [SearchPipe, OrderPipe, MarkPipe],
+  exports: [SearchPipe, OrderPipe, MarkPipe, SortByAlphabetPipe],
 })
 export class SharedModule {}

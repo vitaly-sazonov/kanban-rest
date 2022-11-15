@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { map, of, Subject, takeUntil, tap } from 'rxjs';
 import { DEVELOPERS } from 'src/app/developers';
+import { DEVELOPERS_BY } from 'src/app/developers-by';
 import { DEVELOPERS_RU } from 'src/app/developers-ru';
 import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
 
@@ -22,7 +23,9 @@ export class DevelopersComponent implements OnInit, OnDestroy {
         map(x =>
           x.lang === 'en'
             ? (this.developers = DEVELOPERS)
-            : (this.developers = DEVELOPERS_RU)
+            : x.lang === 'ru'
+            ? (this.developers = DEVELOPERS_RU)
+            : (this.developers = DEVELOPERS_BY)
         ),
         takeUntil(this.unsubscribe$)
       )
