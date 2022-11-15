@@ -28,13 +28,6 @@ export class LocalstorageService {
     return localStorage.getItem(LocalStorageValues.UserId);
   }
 
-  setItem(key: LocalStorageValues, value: string) {
-    localStorage.setItem(key, value);
-  }
-
-  getItem(key: LocalStorageValues) {
-    return localStorage.getItem(key);
-  }
   getItem(key: string): string | null {
     const value: string | null = localStorage.getItem(key);
     return value ? JSON.parse(value) : null;
