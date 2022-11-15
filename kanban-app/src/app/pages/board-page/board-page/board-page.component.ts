@@ -1,5 +1,13 @@
 import { CdkDragDrop, CdkDragStart } from '@angular/cdk/drag-drop';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
@@ -27,13 +35,14 @@ import { setType, setVisibility } from 'src/app/redux/actions/modal.actions';
 import { selectBoardById } from 'src/app/redux/selectors/boards.selectors';
 import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.selectors';
 import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
+import { COLUMN_BOTTOM_HEIGHT, COLUMN_TITLE_HEIGHT } from 'src/app/constants';
 
 @Component({
   selector: 'app-board-page',
   templateUrl: './board-page.component.html',
   styleUrls: ['./board-page.component.scss'],
 })
-export class BoardPageComponent implements OnInit, OnDestroy {
+export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
   result$ = this.store.select(selectConfirmationResult);
   id: string = '';
   columnId: string | undefined = '';
@@ -42,14 +51,18 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   currentBoard$?: Observable<Board | undefined>;
   boardColumns$?: Observable<Column[] | undefined>;
   isLoading$: Observable<boolean> | undefined;
+  isDragging = false;
   boardData?: Board;
   prevTaskData: string = '';
   unsubscribe$ = new Subject<any>();
   elementHeight = 0;
   columnTitleEdit: string | null = null;
   columnIndex = 0;
+  columnMaxHeight = 0;
 
   @Input() newTitle = this.columnTitleEdit;
+
+  @ViewChild('columnsElement') columnsElement!: ElementRef<HTMLElement>;
 
   constructor(
     private route: ActivatedRoute,
@@ -92,6 +105,14 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       this.currentBoard$ = this.store.select(selectBoardById(this.id));
     });
   }
+
+  ngAfterViewInit(): void {
+    this.columnMaxHeight =
+      this.columnsElement.nativeElement.offsetHeight -
+      COLUMN_TITLE_HEIGHT -
+      COLUMN_BOTTOM_HEIGHT;
+  }
+
   createColumn() {
     this.modalService.setExtra([this.id]);
     this.modalService.setScheme(ModalSchemes.addColumn);
@@ -188,6 +209,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   dropTask(event: CdkDragDrop<{ tasks: Task[]; id: string }>) {
+    this.isDragging = false;
     let prevArray = event.previousContainer.data;
     let prevIndex = event.previousIndex;
     let currIndex = event.container.data.tasks.length ? event.currentIndex : 0;
@@ -230,6 +252,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   setElementHeight(event: CdkDragStart<HTMLElement>) {
     this.elementHeight = event.source.element.nativeElement.clientHeight;
+    this.isDragging = true;
   }
 
   editColumnTitle(event: MouseEvent, currentTitle: string, index: number) {

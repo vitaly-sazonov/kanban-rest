@@ -1,153 +1,156 @@
-<h1>Board</h1>
-<h2>ID: {{ id }}</h2>
-<h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>
-<mat-spinner
-  diameter="30"
-  color="primary"
-  *ngIf="isLoading$ | async"></mat-spinner>
-<h2>ColumnID: {{ columnId }}</h2>
-<h2>TaskID: {{ taskId }}</h2>
-<section class="column-wrapper">
-  <ng-container *ngIf="currentBoard$ | async; let boardColumns">
-    <section
-      class="columns"
-      *ngIf="boardColumns.columns && boardColumns.columns.length"
-      cdkDropListGroup
-      cdkDropList
-      cdkDropListOrientation="horizontal"
-      [cdkDropListData]="{ columns: boardColumns.columns }"
-      (cdkDropListDropped)="dropColumn($event)">
-      <article
-        class="column"
-        *ngFor="let item of boardColumns.columns; index as i"
-        (cdkDragStarted)="setElementHeight($event)"
-        [cdkDragDisabled]="columnTitleEdit"
-        cdkDrag>
-        <div class="column" *cdkDragPlaceholder>
-          <div
-            class="drag-placeholder for-column"
-            [ngStyle]="{
-              'height.px': elementHeight
-            }"></div>
-        </div>
-        <mat-accordion class="column-accordion" togglePosition="before">
-          <mat-expansion-panel class="column-inner" expanded>
-            <mat-expansion-panel-header class="column-header">
-              <mat-panel-title class="column-title">
-                <mat-form-field
-                  appearance="outline"
-                  class="edit-title-input"
-                  *ngIf="columnTitleEdit && columnIndex === i; else showTitle"
-                  (keydown.Space)="$event.stopImmediatePropagation()"
-                  (keydown.Enter)="
-                    editColumn($event, item.id!, item.order!, newTitle!)
-                  "
-                  (click)="accordionPreventCollapse($event)">
-                  <input
-                    matInput
-                    value="{{ item.title }}"
-                    [(ngModel)]="newTitle" />
-                  <button
-                    mat-icon-button
-                    matSuffix
-                    (click)="
+<section class="board-container">
+  <section class="spinner-wrapper" *ngIf="isLoading$ | async">
+    <mat-spinner class="spinner" diameter="30" color="primary"></mat-spinner>
+  </section>
+  <h1>Board</h1>
+  <h2>ID: {{ id }}</h2>
+  <h2>ColumnID: {{ columnId }}</h2>
+  <h2>TaskID: {{ taskId }}</h2>
+  <section class="columns-container" #columnsElement>
+    <ng-container *ngIf="currentBoard$ | async; let boardColumns">
+      <section
+        class="columns"
+        *ngIf="boardColumns.columns && boardColumns.columns.length"
+        cdkDropListGroup
+        cdkDropList
+        cdkDropListOrientation="horizontal"
+        [cdkDropListData]="{ columns: boardColumns.columns }"
+        (cdkDropListDropped)="dropColumn($event)">
+        <article
+          class="column"
+          *ngFor="let item of boardColumns.columns; index as i"
+          (cdkDragStarted)="setElementHeight($event)"
+          [cdkDragDisabled]="columnTitleEdit"
+          cdkDrag>
+          <div class="column" *cdkDragPlaceholder>
+            <div
+              class="drag-placeholder for-column"
+              [ngStyle]="{
+                'height.px': elementHeight
+              }"></div>
+          </div>
+          <mat-accordion class="column-accordion" togglePosition="before">
+            <mat-expansion-panel class="column-inner" expanded>
+              <mat-expansion-panel-header class="column-header">
+                <mat-panel-title class="column-title">
+                  <mat-form-field
+                    appearance="outline"
+                    class="edit-title-input"
+                    *ngIf="columnTitleEdit && columnIndex === i; else showTitle"
+                    (keydown.Space)="$event.stopImmediatePropagation()"
+                    (keydown.Enter)="
                       editColumn($event, item.id!, item.order!, newTitle!)
-                    ">
-                    <mat-icon>check</mat-icon>
-                  </button>
-                  <button
-                    mat-icon-button
-                    matSuffix
-                    (click)="returnTitleState($event)">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </mat-form-field>
-                <ng-template #showTitle>
-                  <span
-                    class="title"
-                    (click)="editColumnTitle($event, item.title, i)"
-                    >{{ item.title }}</span
-                  >
-                </ng-template>
-              </mat-panel-title>
-              <button
-                mat-icon-button
-                class="delete-column-button"
-                *ngIf="!columnTitleEdit"
-                (click)="removeColumn($event, item.id!)">
-                <mat-icon class="delete-icon">delete</mat-icon>
-              </button>
-            </mat-expansion-panel-header>
-            <section
-              class="task-list"
-              *ngIf="item.tasks"
-              [cdkDropListData]="{ tasks: item.tasks, id: item.id! }"
-              (cdkDropListDropped)="dropTask($event)"
-              cdkDropList>
-              <div
-                *ngIf="!item.tasks.length"
-                class="task-item-blank"
-                cdkDragDisabled
-                cdkDrag>
-                <span>{{ 'BOARD.noTasks' | translate }}</span>
-              </div>
-              <mat-card
-                *ngFor="let taskItem of item.tasks"
-                class="task-item"
-                (cdkDragStarted)="setElementHeight($event)"
-                cdkDrag>
-                <mat-card class="task-item" *cdkDragPlaceholder>
-                  <div class="drag-placeholder"></div>
-                  <mat-card-title class="task-title noselect">
-                    {{ taskItem.title }}
-                  </mat-card-title>
-                  <mat-card-subtitle class="task-description noselect">
-                    {{ taskItem.description }}
-                  </mat-card-subtitle>
-                </mat-card>
-                <section class="task-actions">
-                  <button
-                    mat-icon-button
-                    class="task-action-button"
+                    "
+                    (click)="accordionPreventCollapse($event)">
+                    <input
+                      matInput
+                      value="{{ item.title }}"
+                      [(ngModel)]="newTitle" />
+                    <button
+                      mat-icon-button
+                      matSuffix
+                      (click)="
+                        editColumn($event, item.id!, item.order!, newTitle!)
+                      ">
+                      <mat-icon>check</mat-icon>
+                    </button>
+                    <button
+                      mat-icon-button
+                      matSuffix
+                      (click)="returnTitleState($event)">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field>
+                  <ng-template #showTitle>
+                    <span
+                      class="title"
+                      (click)="editColumnTitle($event, item.title, i)"
+                      >{{ item.title }}</span
+                    >
+                  </ng-template>
+                </mat-panel-title>
+                <button
+                  mat-icon-button
+                  class="delete-column-button"
+                  *ngIf="!columnTitleEdit"
+                  (click)="removeColumn($event, item.id!)">
+                  <mat-icon class="delete-icon">delete</mat-icon>
+                </button>
+              </mat-expansion-panel-header>
+              <section class="task-list-wrapper">
+                <section
+                  class="task-list"
+                  *ngIf="item.tasks"
+                  [ngStyle]="{
+                    'max-height.px': columnMaxHeight
+                  }"
+                  [cdkDropListData]="{ tasks: item.tasks, id: item.id! }"
+                  (cdkDropListDropped)="dropTask($event)"
+                  cdkDropList>
+                  <div
+                    *ngIf="
+                      !item.tasks.length ||
+                      (item.tasks.length === 1 && isDragging)
+                    "
+                    class="task-item-blank"
+                    cdkDragDisabled
+                    cdkDrag>
+                    <span>{{ 'BOARD.noTasks' | translate }}</span>
+                  </div>
+                  <mat-card
+                    *ngFor="let taskItem of item.tasks"
+                    class="task-item"
                     (click)="
                       editTask(taskItem.id!, item.id!, taskItem.order!, {
                         title: taskItem.title,
                         description: taskItem.description!
                       })
-                    ">
-                    <mat-icon class="task-action-icon">edit</mat-icon>
-                  </button>
-                  <button
-                    mat-icon-button
-                    class="task-action-button"
-                    (click)="removeTask(taskItem.id!, item.id!)">
-                    <mat-icon class="task-action-icon">delete</mat-icon>
-                  </button>
+                    "
+                    (cdkDragStarted)="setElementHeight($event)"
+                    cdkDrag>
+                    <mat-card class="task-item" *cdkDragPlaceholder>
+                      <div class="drag-placeholder"></div>
+                      <mat-card-title class="task-title noselect">
+                        {{ taskItem.title }}
+                      </mat-card-title>
+                      <mat-card-subtitle class="task-description noselect">
+                        {{ taskItem.description }}
+                      </mat-card-subtitle>
+                    </mat-card>
+                    <section class="task-actions">
+                      <button
+                        mat-icon-button
+                        class="task-action-button"
+                        (click)="removeTask(taskItem.id!, item.id!)">
+                        <mat-icon class="task-action-icon">delete</mat-icon>
+                      </button>
+                    </section>
+                    <mat-card-title class="task-title noselect">
+                      {{ taskItem.title }}
+                    </mat-card-title>
+                    <mat-card-subtitle class="task-description noselect">
+                      {{ taskItem.description }}
+                    </mat-card-subtitle>
+                  </mat-card>
                 </section>
-                <mat-card-title class="task-title noselect">
-                  {{ taskItem.title }}
-                </mat-card-title>
-                <mat-card-subtitle class="task-description noselect">
-                  {{ taskItem.description }}
-                </mat-card-subtitle>
-              </mat-card>
-            </section>
-            <mat-action-row>
-              <button
-                mat-stroked-button
-                color="primary"
-                (click)="addTask(item.id!)">
-                <mat-icon class="icon-button">playlist_add</mat-icon
-                >{{ 'BOARD.addTask' | translate }}
-              </button>
-            </mat-action-row>
-          </mat-expansion-panel>
-        </mat-accordion>
-      </article>
-    </section>
-  </ng-container>
+              </section>
+              <mat-action-row>
+                <button
+                  mat-stroked-button
+                  color="primary"
+                  (click)="addTask(item.id!)">
+                  <mat-icon class="icon-button">playlist_add</mat-icon
+                  >{{ 'BOARD.addTask' | translate }}
+                </button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </article>
+      </section>
+    </ng-container>
+  </section>
   <button class="add-column" (click)="createColumn()">
     {{ 'BOARD.addNewColumn' | translate }}
   </button>
+  <button [routerLink]="['../../../../main']">BACK to BOARDS</button>
 </section>
-<button [routerLink]="['../../../../main']">BACK to BOARDS</button>

@@ -1,13 +1,37 @@
+.board-container {
+  height: calc(100vh - 124px);
+  display: flex;
+  flex-grow: 0;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.columns-container {
+  height: 100%;
+  overflow: overlay;
+  margin-bottom: 10px;
+}
+
 .columns {
   display: flex;
-  flex-wrap: nowrap;
   gap: 10px;
+  height: 100%;
 }
 
 .column {
   width: 320px;
-  height: fit-content;
+  height: 0px;
   flex-shrink: 0;
+}
+
+.column-accordion {
+  height: 100%;
+  width: 100%;
+}
+
+.task-list-wrapper {
+  flex: 1;
+  overflow: overlay;
 }
 
 .column-title {
@@ -38,7 +62,6 @@
 }
 
 .task-list {
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -84,6 +107,7 @@
 }
 
 .column-inner {
+  min-height: 0;
   background-color: #ebecf0;
 }
 
@@ -211,6 +235,30 @@
   opacity: 0.5;
 }
 
-.delete-icon:hover  {
+.delete-icon:hover {
   opacity: 1;
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+::-webkit-scrollbar-track {
+  background: rgba($color: #000000, $alpha: 0);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 0.815rem;
+  background-color: rgb(204, 204, 204);
+}
+
+.spinner-wrapper {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 10;
 }
