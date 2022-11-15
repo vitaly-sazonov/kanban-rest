@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { LAST_SEARCH } from 'src/app/constants';
+import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import {
   deleteAllBoards,
   loadBoards,
@@ -15,11 +17,11 @@ import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
 export class MainComponent implements OnInit {
   boards$? = this.store.select(selectUserBoards);
   isLoading$ = this.store.select(selectFeatureIsLoading);
-  searchRequest = '';
+  searchRequest = this.storage.getItem(LAST_SEARCH) || '';
   isAllShort = false;
   isReverseBoards = false;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private storage: LocalstorageService) {}
 
   ngOnInit(): void {
     this.reset();
@@ -31,5 +33,8 @@ export class MainComponent implements OnInit {
   }
   deleteSearch() {
     this.searchRequest = '';
+  }
+  rememberSearch() {
+    this.storage.setItem(LAST_SEARCH, this.searchRequest);
   }
 }

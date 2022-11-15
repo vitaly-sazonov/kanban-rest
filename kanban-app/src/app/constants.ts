@@ -4,6 +4,8 @@ export const TOKEN = 'token';
 
 export const BOARDS = 'Boards';
 
+export const LAST_SEARCH = 'lastSearch';
+
 export const user2 = {
   name: 'Alex',
   login: 'user002',
