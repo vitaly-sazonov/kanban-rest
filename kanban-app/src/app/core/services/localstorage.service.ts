@@ -28,23 +28,17 @@ export class LocalstorageService {
     return localStorage.getItem(LocalStorageValues.UserId);
   }
 
-  setItem(key: LocalStorageValues, value: string) {
+
+  setItem(key: string, value: string) {
     localStorage.setItem(key, value);
   }
 
-  getItem(key: LocalStorageValues) {
+  getItem(key: string) {
     return localStorage.getItem(key);
-  }
-  getBoardItem(key: string): string | null {
-    const value: string | null = localStorage.getItem(key);
-    return value ? JSON.parse(value) : null;
   }
 
   removeItem(key: string): void {
     localStorage.removeItem(key);
   }
 
-  setBoardItem(key: string, value: string): void {
-    localStorage.setItem(key, value);
-  }
 }

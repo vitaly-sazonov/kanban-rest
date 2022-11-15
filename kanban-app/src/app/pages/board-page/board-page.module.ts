@@ -13,6 +13,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SortByPipe } from './pipes/sort-by-order.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [BoardPageComponent, SortByPipe],
@@ -27,7 +30,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatMenuModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatInputModule,
     DragDropModule,
+    FormsModule,
   ],
 })
 export class BoardPageModule {}

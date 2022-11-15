@@ -11,3 +11,6 @@ export const user2 = {
 };
 
 export const TIME_SHOW_NOTIFICATION = 10000;
+
+export const COLUMN_TITLE_HEIGHT = 64;
+export const COLUMN_BOTTOM_HEIGHT = 85;
