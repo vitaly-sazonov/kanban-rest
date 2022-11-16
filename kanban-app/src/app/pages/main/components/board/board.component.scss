@@ -15,16 +15,21 @@
   border-radius: 5px;
   transition: 500ms;
 }
+.board-container:hover .icon-delete {
+  opacity: 0.5;
+  visibility: visible;
+  cursor: pointer;
+}
 .inner-container {
   position: absolute;
   top: 30px;
   width: 300px;
+  min-height: 200px;
   cursor: pointer;
-  width: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   overflow-wrap: break-word;
   padding-bottom: 10px;
 
@@ -32,6 +37,7 @@
     color: $moreColor;
   }
 }
+
 .container-preview {
   position: absolute;
   top: 0px;
@@ -51,8 +57,7 @@
   padding: 5px;
   opacity: 0;
   visibility: hidden;
-  transition:  500ms ;
-  
+  transition: 500ms;
 }
 .column-item {
   display: flex;
@@ -81,23 +86,6 @@
   }
 }
 
-button {
-  position: absolute;
-  visibility: visible;
-  top: 160px;
-  transition: 500ms;
-}
-
-.toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 100px;
-  width: 50px;
-  height: 50px;
-  color: $moreColor;
-}
 .visible {
   opacity: 1;
   visibility: visible;
@@ -176,40 +164,58 @@ button {
   height: 80px;
   transition: 500ms;
 }
-.icon-close {
+.icon-delete {
   position: absolute;
-  top: 0px;
-  left: 295px;
-  cursor: pointer;
+  top: 10px;
+  left: 280px;
+  opacity: 0;
+  visibility: hidden;
   &:hover {
-    background-color: red;
-    color:white;
-    border-radius: 50%;
+    opacity: 1;
   }
 }
-.short-container{
+.short-container {
   height: 85px;
   transition: 500ms;
 }
-.short-item{
+.short-item {
   height: 75px;
-  transition:500ms;
+  transition: 500ms;
 }
-.expand-icon{
+.expand-icon {
   position: absolute;
-  left:0px;
-  top:0px;
+  left: 5px;
+  top: 5px;
   cursor: pointer;
-  &:hover{
+  &:hover {
     color: $moreColor;
   }
 }
-.hide{
+.hide {
   opacity: 0;
   visibility: hidden;
-  top:50px;
+  top: 50px;
   transition: 500ms;
 }
-.short-check{
-  top:-30px;
+.short-check {
+  top: -30px;
+}
+.empty-box {
+  position: absolute;
+  top: 100px;
+  transition: 500ms;
+}
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+::-webkit-scrollbar-track {
+  background: rgba($color: #000000, $alpha: 0);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 0.815rem;
+  background-color: rgb(204, 204, 204);
+}
+.empty {
+  background-color: #ccc;
 }

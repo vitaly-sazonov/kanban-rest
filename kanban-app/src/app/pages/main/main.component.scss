@@ -47,7 +47,7 @@ input:focus {
 .header {
   position: sticky;
   top: 100px;
-  margin-left: 50px;
+  margin-left: 80px;
 }
 .icon {
   position: relative;
@@ -72,21 +72,21 @@ input:focus {
 .expand-icon {
   position: absolute;
   top: -98px;
-  left: 10px;
+  left: 40px;
   color: $moreColor;
   cursor: pointer;
 }
 .sort-button {
   position: absolute;
-  top: -102px;
-  left: 160px;
+  top: -100px;
+  left: 190px;
   color: $moreColor;
   cursor: pointer;
 }
 .sort-direction {
   position: absolute;
-  top: -105px;
-  left: 195px;
+  top: -103px;
+  left: 225px;
   color: $moreColor;
   transition: 1s;
 }

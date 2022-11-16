@@ -85,7 +85,7 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
   }
 
   checkMatching() {
-    return this.searchRequest.trim().length>2
+    return this.searchRequest.trim().length > 2
       ? this.board?.columns?.some(
           column =>
             column.title

@@ -34,9 +34,8 @@ export class MainComponent implements OnInit {
   deleteSearch() {
     this.searchRequest = '';
     this.rememberSearch();
-
   }
   rememberSearch() {
     this.storage.setItem(LAST_SEARCH, this.searchRequest);
   }
-}  
+}
