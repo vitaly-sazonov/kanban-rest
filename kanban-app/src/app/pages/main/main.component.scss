@@ -34,13 +34,15 @@ input:focus {
 }
 .search-input {
   margin-left: 20px;
-  padding-left: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
   width: 150px;
   height: 30px;
   background-color: #eee;
   border: transparent;
   z-index: 0;
   color: $moreColor;
+  border-radius: 5px;
 }
 .header {
   position: sticky;
@@ -50,15 +52,17 @@ input:focus {
 .icon {
   position: relative;
   top: 6px;
-  left: 19px;
+  left: 44px;
+  opacity: 0.5;
 }
 .delete-search {
   cursor: pointer;
   position: relative;
   top: 8px;
-  left: 10px;
+  left: -25px;
+  opacity: 0.5;
   &:hover {
-    color: $moreColor;
+    opacity: 1;;
   }
 }
 .template {
