@@ -42,6 +42,7 @@
     "CANCEL": "Адмена",
     "SAMPLE_CONFIRM_INFO": "Ці вы згодны?",
     "ERROR": "Памылка: ",
+    "tasks":"заданні:",
     "DeleteUserQuestion": "Вы сапраўды хочаце выдаліць бягучага карыстальніка?",
     "CREATE_BOARD": "Стварыць дошку",
     "formModal": {

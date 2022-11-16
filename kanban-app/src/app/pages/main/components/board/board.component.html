@@ -29,9 +29,9 @@
     {{ 'Check.New' | translate }}
   </h2>
   <mat-card-content
-    *ngIf="length! > 0 && isPreview"
+    *ngIf="(length! > 0 && isPreview) || checkMatching()"
     class="container-preview"
-    [class.visible]="length! > 0 && isPreview"
+    [class.visible]="(length! > 0 && isPreview)  || checkMatching()"
     [class.short-container]="isShort">
     <div class="inner-container-preview">
       <div
@@ -47,7 +47,7 @@
         </mat-card-subtitle>
         <div class="tasks-container" *ngIf="isShort === false">
           <mat-card-subtitle *ngIf="column.tasks?.length! > 0"
-            >tasks:</mat-card-subtitle
+            >{{'tasks'| translate }}</mat-card-subtitle
           >
           <mat-card-subtitle
             class="task"

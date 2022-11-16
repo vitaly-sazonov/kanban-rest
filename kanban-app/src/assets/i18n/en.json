@@ -43,6 +43,7 @@
   "SAMPLE_CONFIRM_INFO": "Are you agree?",
   "CREATE_BOARD": "Create board",
   "ERROR": "Error: ",
+  "tasks":"tasks:",
   "DeleteUserQuestion": "Are you sure DELETE user?",
   "formModal": {
     "required": "fill the field"

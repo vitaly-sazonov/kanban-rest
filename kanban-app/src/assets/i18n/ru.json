@@ -42,6 +42,7 @@
   "CANCEL": "Отмена",
   "SAMPLE_CONFIRM_INFO": "Вы согласны?",
   "ERROR": "Ошибка: ",
+  "tasks":"задания:",
   "DeleteUserQuestion": "Вы действительно хотите удалить текущего пользователя?",
   "CREATE_BOARD": "Создать доску",
   "formModal": {
