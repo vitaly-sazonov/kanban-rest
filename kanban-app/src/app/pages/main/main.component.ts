@@ -38,4 +38,7 @@ export class MainComponent implements OnInit {
   rememberSearch() {
     this.storage.setItem(LAST_SEARCH, this.searchRequest);
   }
+  rememberSearch() {
+    this.storage.setItem(LAST_SEARCH, this.searchRequest);
+  }
 }
