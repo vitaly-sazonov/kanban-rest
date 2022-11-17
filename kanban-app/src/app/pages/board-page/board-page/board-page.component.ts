@@ -63,6 +63,7 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() newTitle = this.columnTitleEdit;
 
   @ViewChild('columnsElement') columnsElement!: ElementRef<HTMLElement>;
+  // @ViewChild('columnElement') columnElement!: ElementRef<HTMLElement>;
 
   constructor(
     private route: ActivatedRoute,
@@ -214,9 +215,6 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
     let prevIndex = event.previousIndex;
     let currIndex = event.container.data.tasks.length ? event.currentIndex : 0;
     let transferingElement = prevArray.tasks[prevIndex];
-    console.log(
-      currIndex !== prevIndex && prevArray.id !== event.container.data.id
-    );
     if (currIndex !== prevIndex || prevArray.id !== event.container.data.id) {
       this.store.dispatch(
         moveTaskToAnotherColumn({
@@ -250,11 +248,6 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  setElementHeight(event: CdkDragStart<HTMLElement>) {
-    this.elementHeight = event.source.element.nativeElement.clientHeight;
-    this.isDragging = true;
-  }
-
   editColumnTitle(event: MouseEvent, currentTitle: string, index: number) {
     event.stopPropagation();
     this.columnTitleEdit = currentTitle;
@@ -269,5 +262,9 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   accordionPreventCollapse(event: MouseEvent) {
     event.stopPropagation();
+  }
+
+  checkHeight(element: HTMLElement) {
+    this.elementHeight = element.offsetHeight;
   }
 }

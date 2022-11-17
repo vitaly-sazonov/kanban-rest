@@ -19,17 +19,21 @@
         <article
           class="column"
           *ngFor="let item of boardColumns.columns; index as i"
-          (cdkDragStarted)="setElementHeight($event)"
           [cdkDragDisabled]="columnTitleEdit"
           cdkDrag>
-          <div class="column" *cdkDragPlaceholder>
-            <div
-              class="drag-placeholder for-column"
-              [ngStyle]="{
-                'height.px': elementHeight
-              }"></div>
+          <div
+            class="column"
+            [ngStyle]="{
+              'height.px': elementHeight
+            }"
+            *cdkDragPlaceholder>
+            <div class="drag-placeholder for-column"></div>
           </div>
-          <mat-accordion class="column-accordion" togglePosition="before">
+          <mat-accordion
+            class="column-accordion"
+            togglePosition="before"
+            (mousedown)="checkHeight(columnElement)"
+            #columnElement>
             <mat-expansion-panel class="column-inner" expanded>
               <mat-expansion-panel-header class="column-header">
                 <mat-panel-title class="column-title">
@@ -106,7 +110,7 @@
                         description: taskItem.description!
                       })
                     "
-                    (cdkDragStarted)="setElementHeight($event)"
+                    (cdkDragStarted)="isDragging = true"
                     cdkDrag>
                     <mat-card class="task-item" *cdkDragPlaceholder>
                       <div class="drag-placeholder"></div>
