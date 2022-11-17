@@ -43,6 +43,8 @@
   "SAMPLE_CONFIRM_INFO": "Are you agree?",
   "CREATE_BOARD": "Create board",
   "ERROR": "Error: ",
+  "tasks": "tasks:",
+  "Empty board": "Empty Board",
   "DeleteUserQuestion": "Are you sure DELETE user?",
   "formModal": {
     "required": "fill the field"
@@ -84,7 +86,7 @@
   "No Boards": "No Boards",
   "search board": "search board",
   "columns": "columns",
-  "LOADING":"Loading...",
+  "LOADING": "Loading...",
   "BOARD": {
     "addNewColumn": "Add column",
     "editColumn": "Edit column",
@@ -102,8 +104,8 @@
     "404": "Not found",
     "409": "Request has conflict with server"
   },
-  "Check":{
-    "New":"New",
-    "Updated":"Updated"
+  "Check": {
+    "New": "New",
+    "Updated": "Updated"
   }
 }
