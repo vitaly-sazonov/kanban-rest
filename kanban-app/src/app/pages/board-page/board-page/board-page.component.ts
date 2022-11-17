@@ -18,6 +18,8 @@ import {
   of,
   takeUntil,
   Subject,
+  filter,
+  first,
 } from 'rxjs';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { ModalService } from 'src/app/core/services/modal.service';
@@ -128,11 +130,14 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
       addConfirmMessage({ message: 'BOARD.CONFIRM_DELETE_COLUMN' }),
     ].forEach(action => this.store.dispatch(action));
 
-    this.result$.subscribe(isConfirmed => {
-      if (isConfirmed) {
-        this.store.dispatch(removeColumn({ boardId: this.id, columnId: id }));
-      }
-    });
+    this.result$
+      .pipe(
+        filter(isConfirmed => isConfirmed === true),
+        first()
+      )
+      .subscribe(() =>
+        this.store.dispatch(removeColumn({ boardId: this.id, columnId: id }))
+      );
   }
 
   editColumn(
@@ -200,13 +205,20 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
       addConfirmMessage({ message: 'BOARD.CONFIRM_DELETE_TASK' }),
     ].forEach(action => this.store.dispatch(action));
 
-    this.result$.subscribe(isConfirmed => {
-      if (isConfirmed) {
+    this.result$
+      .pipe(
+        filter(isConfirmed => isConfirmed === true),
+        first()
+      )
+      .subscribe(() =>
         this.store.dispatch(
-          removeTask({ boardId: this.id, columnId: columnId, taskId: taskId })
-        );
-      }
-    });
+          removeTask({
+            boardId: this.id,
+            columnId: columnId,
+            taskId: taskId,
+          })
+        )
+      );
   }
 
   dropTask(event: CdkDragDrop<{ tasks: Task[]; id: string }>) {

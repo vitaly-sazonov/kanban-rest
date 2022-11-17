@@ -31,8 +31,9 @@ export const boardsReducer = createReducer(
       userBoards: { boards: [...state.userBoards?.boards!, ...board] },
     })
   ),
-  on(addColumns, (state, { id, columns }): State => {
-    return {
+  on(
+    addColumns,
+    (state, { id, columns }): State => ({
       ...state,
       userBoards: {
         boards: state.userBoards?.boards?.map(el =>
@@ -44,8 +45,8 @@ export const boardsReducer = createReducer(
             : { ...el }
         ),
       },
-    };
-  }),
+    })
+  ),
   on(
     addCurrentBoardId,
     (state, { id }): State => ({
@@ -63,21 +64,19 @@ export const boardsReducer = createReducer(
       },
     })
   ),
-  on(addTasks, (state, { boardId, columnId, tasks }) => {
-    return {
-      ...state,
-      userBoards: {
-        boards: state.userBoards?.boards?.map(el =>
-          el.id === boardId
-            ? {
-                ...el,
-                columns: el.columns?.map(elCol =>
-                  elCol.id === columnId ? { ...elCol, tasks } : { ...elCol }
-                ),
-              }
-            : { ...el }
-        ),
-      },
-    };
-  })
+  on(addTasks, (state, { boardId, columnId, tasks }) => ({
+    ...state,
+    userBoards: {
+      boards: state.userBoards?.boards?.map(el =>
+        el.id === boardId
+          ? {
+              ...el,
+              columns: el.columns?.map(elCol =>
+                elCol.id === columnId ? { ...elCol, tasks } : { ...elCol }
+              ),
+            }
+          : { ...el }
+      ),
+    },
+  }))
 );
