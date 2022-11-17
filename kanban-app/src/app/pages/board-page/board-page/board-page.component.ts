@@ -63,7 +63,6 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() newTitle = this.columnTitleEdit;
 
   @ViewChild('columnsElement') columnsElement!: ElementRef<HTMLElement>;
-  // @ViewChild('columnElement') columnElement!: ElementRef<HTMLElement>;
 
   constructor(
     private route: ActivatedRoute,
@@ -193,7 +192,8 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.store.dispatch(setVisibility({ isVisible: true }));
   }
 
-  removeTask(taskId: string, columnId: string) {
+  removeTask(event: MouseEvent, taskId: string, columnId: string) {
+    event.stopPropagation();
     [
       setType({ modalType: ModalTypes.ConfirmType }),
       setVisibility({ isVisible: true }),

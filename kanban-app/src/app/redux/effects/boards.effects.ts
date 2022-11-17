@@ -83,7 +83,9 @@ export class BoardsEffect {
           map(columns =>
             columns.map(el => this.http.getColumnDetails(id, el.id!))
           ),
-          switchMap(data => forkJoin(data)),
+          switchMap(data => {
+            return !data.length ? of([]) : forkJoin(data);
+          }),
           map(data => {
             data.sort((a, b) => a.order! - b.order!);
             data.forEach(el => el.tasks?.sort((a, b) => a.order! - b.order!));

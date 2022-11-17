@@ -125,7 +125,7 @@
                       <button
                         mat-icon-button
                         class="task-action-button"
-                        (click)="removeTask(taskItem.id!, item.id!)">
+                        (click)="removeTask($event, taskItem.id!, item.id!)">
                         <mat-icon class="task-action-icon">delete</mat-icon>
                       </button>
                     </section>
