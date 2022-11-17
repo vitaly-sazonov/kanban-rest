@@ -9,6 +9,7 @@
       class="search-input"
       placeholder="{{ 'search board' | translate }}"
       [(ngModel)]="searchRequest"
+      (ngModelChange)="rememberSearch()"
       autofocus />
     <mat-icon class="delete-search" (click)="deleteSearch()">close</mat-icon>
     <h2 class="sort-button" (click)="isReverseBoards = !isReverseBoards">

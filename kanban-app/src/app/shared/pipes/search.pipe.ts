@@ -11,9 +11,9 @@ export class SearchPipe implements PipeTransform {
 
   transform(array: Board[], inputString: string): Board[] | [] {
     let output: Board[] = [];
-    let input = inputString.toLocaleLowerCase();
+    let input = inputString.toLocaleLowerCase().trim();
 
-    if (inputString.trim() === '') {
+    if (inputString === '') {
       return array;
     }
     output = array.filter(item => {

@@ -34,31 +34,35 @@ input:focus {
 }
 .search-input {
   margin-left: 20px;
-  padding-left: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
   width: 150px;
   height: 30px;
   background-color: #eee;
   border: transparent;
   z-index: 0;
   color: $moreColor;
+  border-radius: 5px;
 }
 .header {
   position: sticky;
   top: 100px;
-  margin-left: 50px;
+  margin-left: 80px;
 }
 .icon {
   position: relative;
   top: 6px;
-  left: 19px;
+  left: 44px;
+  opacity: 0.5;
 }
 .delete-search {
   cursor: pointer;
   position: relative;
   top: 8px;
-  left: 10px;
+  left: -25px;
+  opacity: 0.5;
   &:hover {
-    color: $moreColor;
+    opacity: 1;;
   }
 }
 .template {
@@ -68,25 +72,25 @@ input:focus {
 .expand-icon {
   position: absolute;
   top: -98px;
-  left: 10px;
+  left: 40px;
   color: $moreColor;
   cursor: pointer;
 }
 .sort-button {
   position: absolute;
-  top: -102px;
-  left: 160px;
+  top: -100px;
+  left: 190px;
   color: $moreColor;
   cursor: pointer;
 }
 .sort-direction {
   position: absolute;
-  top: -105px;
-  left: 195px;
+  top: -103px;
+  left: 225px;
   color: $moreColor;
   transition: 1s;
 }
 .rotate {
   transform: rotate(180deg);
-  top: -100px;
+  top: -98px;
 }

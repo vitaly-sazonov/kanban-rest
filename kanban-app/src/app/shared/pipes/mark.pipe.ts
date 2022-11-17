@@ -4,9 +4,9 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'mark',
 })
 export class MarkPipe implements PipeTransform {
-  transform(input: string, search: string) {
+  transform(input: string, userSearch: string) {
     let output = input;
-
+    let search = userSearch.trim();
     if (search.trim() === '') {
       return output;
     } else {
