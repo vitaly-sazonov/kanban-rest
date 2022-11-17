@@ -28,7 +28,6 @@ export class LocalstorageService {
     return localStorage.getItem(LocalStorageValues.UserId);
   }
 
-
   setItem(key: string, value: string) {
     localStorage.setItem(key, value);
   }
@@ -40,5 +39,4 @@ export class LocalstorageService {
   removeItem(key: string): void {
     localStorage.removeItem(key);
   }
-
 }

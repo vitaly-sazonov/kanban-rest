@@ -84,6 +84,22 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
     this.isPreview = true;
   }
 
+  checkMatching() {
+    return this.searchRequest.trim().length > 2
+      ? this.board?.columns?.some(
+          column =>
+            column.title
+              .toLowerCase()
+              .includes(this.searchRequest.trim().toLowerCase()) ||
+            column.tasks?.some(task =>
+              task.title
+                .toLowerCase()
+                .includes(this.searchRequest.trim().toLowerCase())
+            )
+        )
+      : false;
+  }
+
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }

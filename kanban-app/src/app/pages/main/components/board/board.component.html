@@ -2,6 +2,7 @@
   (mouseenter)="changeStatus()"
   (mouseleave)="isPreview = false"
   class="board-container"
+  [class.empty]="board?.columns?.length === 0"
   [class.short]="isShort">
   <mat-card-header
     class="inner-container"
@@ -11,11 +12,18 @@
       [innerHTML]="(board?.title! | mark: searchRequest) + '(' + length + ')'">
     </mat-card-title>
     <mat-card-subtitle
+      class="description"
       *ngIf="isShort === false"
       [innerHTML]="
         (board?.description! | mark: searchRequest) + '...'
       "></mat-card-subtitle>
+    <section
+      class="empty-box"
+      *ngIf="isShort === false && board?.columns?.length === 0">
+      <mat-card-subtitle>{{ 'Empty board' | translate }}</mat-card-subtitle>
+    </section>
   </mat-card-header>
+
   <h2
     *ngIf="compare.checkIsUpdated(board!) && !compare.checkIsNew(board?.id!)"
     class="update-icon"
@@ -29,9 +37,9 @@
     {{ 'Check.New' | translate }}
   </h2>
   <mat-card-content
-    *ngIf="length! > 0 && isPreview"
+    *ngIf="(length! > 0 && isPreview) || checkMatching()"
     class="container-preview"
-    [class.visible]="length! > 0 && isPreview"
+    [class.visible]="(length! > 0 && isPreview) || checkMatching()"
     [class.short-container]="isShort">
     <div class="inner-container-preview">
       <div
@@ -46,9 +54,9 @@
           ">
         </mat-card-subtitle>
         <div class="tasks-container" *ngIf="isShort === false">
-          <mat-card-subtitle *ngIf="column.tasks?.length! > 0"
-            >tasks:</mat-card-subtitle
-          >
+          <mat-card-subtitle *ngIf="column.tasks?.length! > 0">{{
+            'tasks' | translate
+          }}</mat-card-subtitle>
           <mat-card-subtitle
             class="task"
             *ngFor="let task of column.tasks"
@@ -61,16 +69,9 @@
       </div>
     </div>
   </mat-card-content>
-  <button
-    mat-raised-button
-    color="warn"
-    (click)="deleteBoard(board?.id!)"
-    [class.hide]="isShort">
-    {{ 'DELETE' | translate }}
+  <button mat-icon-button class="icon-delete">
+    <mat-icon (click)="deleteBoard(board?.id!)">delete</mat-icon>
   </button>
-  <mat-icon class="icon-close" (click)="deleteBoard(board?.id!)" *ngIf="isShort"
-    >close</mat-icon
-  >
   <mat-icon
     class="expand-icon"
     *ngIf="isShort === false"
