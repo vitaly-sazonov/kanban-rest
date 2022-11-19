@@ -1,4 +1,4 @@
-<mat-toolbar color="accent" [ngClass]="headerFixed ? 'fixed' : 'nofixed'">
+<section class="header-container" #headerElement>
   <button
     mat-mini-fab
     color="primary"
@@ -19,6 +19,7 @@
       >RU</mat-button-toggle
     >
     <mat-button-toggle mat-mini-fab value="by">BY</mat-button-toggle>
+    <mat-button-toggle mat-mini-fab value="ua">UA</mat-button-toggle>
     <mat-button-toggle mat-mini-fab value="en">EN</mat-button-toggle>
   </mat-button-toggle-group>
   <button
@@ -36,4 +37,4 @@
     class="icon">
     <mat-icon>logout</mat-icon>
   </button>
-</mat-toolbar>
+</section>

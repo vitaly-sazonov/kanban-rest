@@ -18,6 +18,8 @@ import {
   of,
   takeUntil,
   Subject,
+  filter,
+  first,
 } from 'rxjs';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { ModalService } from 'src/app/core/services/modal.service';
@@ -128,11 +130,14 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
       addConfirmMessage({ message: 'BOARD.CONFIRM_DELETE_COLUMN' }),
     ].forEach(action => this.store.dispatch(action));
 
-    this.result$.subscribe(isConfirmed => {
-      if (isConfirmed) {
-        this.store.dispatch(removeColumn({ boardId: this.id, columnId: id }));
-      }
-    });
+    this.result$
+      .pipe(
+        filter(isConfirmed => isConfirmed === true),
+        first()
+      )
+      .subscribe(() =>
+        this.store.dispatch(removeColumn({ boardId: this.id, columnId: id }))
+      );
   }
 
   editColumn(
@@ -192,20 +197,28 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.store.dispatch(setVisibility({ isVisible: true }));
   }
 
-  removeTask(taskId: string, columnId: string) {
+  removeTask(event: MouseEvent, taskId: string, columnId: string) {
+    event.stopPropagation();
     [
       setType({ modalType: ModalTypes.ConfirmType }),
       setVisibility({ isVisible: true }),
       addConfirmMessage({ message: 'BOARD.CONFIRM_DELETE_TASK' }),
     ].forEach(action => this.store.dispatch(action));
 
-    this.result$.subscribe(isConfirmed => {
-      if (isConfirmed) {
+    this.result$
+      .pipe(
+        filter(isConfirmed => isConfirmed === true),
+        first()
+      )
+      .subscribe(() =>
         this.store.dispatch(
-          removeTask({ boardId: this.id, columnId: columnId, taskId: taskId })
-        );
-      }
-    });
+          removeTask({
+            boardId: this.id,
+            columnId: columnId,
+            taskId: taskId,
+          })
+        )
+      );
   }
 
   dropTask(event: CdkDragDrop<{ tasks: Task[]; id: string }>) {
@@ -214,9 +227,6 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
     let prevIndex = event.previousIndex;
     let currIndex = event.container.data.tasks.length ? event.currentIndex : 0;
     let transferingElement = prevArray.tasks[prevIndex];
-    console.log(
-      currIndex !== prevIndex && prevArray.id !== event.container.data.id
-    );
     if (currIndex !== prevIndex || prevArray.id !== event.container.data.id) {
       this.store.dispatch(
         moveTaskToAnotherColumn({
@@ -250,11 +260,6 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  setElementHeight(event: CdkDragStart<HTMLElement>) {
-    this.elementHeight = event.source.element.nativeElement.clientHeight;
-    this.isDragging = true;
-  }
-
   editColumnTitle(event: MouseEvent, currentTitle: string, index: number) {
     event.stopPropagation();
     this.columnTitleEdit = currentTitle;
@@ -269,5 +274,9 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   accordionPreventCollapse(event: MouseEvent) {
     event.stopPropagation();
+  }
+
+  checkHeight(element: HTMLElement) {
+    this.elementHeight = element.offsetHeight;
   }
 }

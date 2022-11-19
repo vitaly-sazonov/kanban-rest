@@ -1,20 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  concatMap,
-  debounceTime,
-  forkJoin,
-  from,
-  map,
-  mergeMap,
-  of,
-  reduce,
-  switchMap,
-  tap,
-  toArray,
-} from 'rxjs';
+import { debounceTime, forkJoin, map, of, switchMap } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
-import { Board, Column, Task } from 'src/app/interfaces';
+import { Board, Task } from 'src/app/interfaces';
 import {
   addBoard,
   addBoards,
@@ -22,13 +10,11 @@ import {
   addColumns,
   addTask,
   addTasks,
-  deleteAllBoards,
   deleteBoardById,
   editColumn,
   editTask,
   loadBoards,
   loadColumns,
-  loadDetailedColumns,
   loadTasks,
   moveTaskToAnotherColumn,
   removeColumn,
@@ -83,7 +69,7 @@ export class BoardsEffect {
           map(columns =>
             columns.map(el => this.http.getColumnDetails(id, el.id!))
           ),
-          switchMap(data => forkJoin(data)),
+          switchMap(data => (!data.length ? of([]) : forkJoin(data))),
           map(data => {
             data.sort((a, b) => a.order! - b.order!);
             data.forEach(el => el.tasks?.sort((a, b) => a.order! - b.order!));
@@ -99,38 +85,38 @@ export class BoardsEffect {
   addColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addColumn),
-      switchMap(({ boardId, column }) => {
-        return this.http
+      switchMap(({ boardId, column }) =>
+        this.http
           .addColumn(boardId, column)
-          .pipe(map(() => loadColumns({ id: boardId })));
-      })
+          .pipe(map(() => loadColumns({ id: boardId })))
+      )
     );
   });
   removeColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(removeColumn),
-      switchMap(({ boardId, columnId }) => {
-        return this.http
+      switchMap(({ boardId, columnId }) =>
+        this.http
           .removeColumn(boardId, columnId)
-          .pipe(map(() => loadColumns({ id: boardId })));
-      })
+          .pipe(map(() => loadColumns({ id: boardId })))
+      )
     );
   });
   editColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(editColumn),
-      switchMap(({ boardId, columnId, columnOrder, column }) => {
-        return this.http
+      switchMap(({ boardId, columnId, columnOrder, column }) =>
+        this.http
           .editColumn(boardId, columnId, columnOrder, column)
-          .pipe(map(() => loadColumns({ id: boardId })));
-      })
+          .pipe(map(() => loadColumns({ id: boardId })))
+      )
     );
   });
   loadTasks$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadTasks),
-      switchMap(({ boardId, columnId }) => {
-        return this.http.getTasks(boardId, columnId).pipe(
+      switchMap(({ boardId, columnId }) =>
+        this.http.getTasks(boardId, columnId).pipe(
           map((data: Task[]) => {
             data.sort((a, b) => a.order! - b.order!);
             return addTasks({
@@ -139,8 +125,8 @@ export class BoardsEffect {
               tasks: data,
             });
           })
-        );
-      })
+        )
+      )
     );
   });
   addTask$ = createEffect(() => {
@@ -189,8 +175,8 @@ export class BoardsEffect {
           taskId,
           taskOrder,
           taskContent,
-        }) => {
-          return this.http
+        }) =>
+          this.http
             .editTask(boardId, oldColumnId, taskId, {
               title: taskContent.title,
               order: taskOrder,
@@ -199,12 +185,7 @@ export class BoardsEffect {
               boardId: boardId,
               columnId: newColumnId,
             })
-            .pipe(
-              map((data: Task) => {
-                return loadColumns({ id: data.boardId! });
-              })
-            );
-        }
+            .pipe(map((data: Task) => loadColumns({ id: data.boardId! })))
       )
     );
   });

@@ -16,3 +16,6 @@ export const TIME_SHOW_NOTIFICATION = 10000;
 
 export const COLUMN_TITLE_HEIGHT = 64;
 export const COLUMN_BOTTOM_HEIGHT = 85;
+export const MAX_HUE_RANGE = 360;
+export const START_GRADIENT = 190;
+export const END_GRADIENT = 280;

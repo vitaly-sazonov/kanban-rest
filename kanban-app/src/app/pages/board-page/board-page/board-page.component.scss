@@ -184,10 +184,6 @@
   box-sizing: border-box;
 }
 
-.for-column {
-  position: relative;
-}
-
 ::ng-deep .column-inner {
   .mat-form-field {
     position: absolute;
@@ -220,6 +216,11 @@
   .mat-form-field-wrapper {
     padding: 0;
   }
+}
+
+.for-column {
+  position: relative;
+  width: 320px;
 }
 
 .column-header {

@@ -1,4 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -23,13 +32,14 @@ import { ModalService } from '../services/modal.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { LocalstorageService } from '../services/localstorage.service';
+import { END_GRADIENT, MAX_HUE_RANGE, START_GRADIENT } from 'src/app/constants';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   headerFixed = false;
   currentLanguage =
     this.localstorageService.getItem(LocalStorageValues.Language) ||
@@ -40,6 +50,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
   deleteMessage = '';
   createBoard = 'CREATE_BOARD';
+
+  @ViewChild('headerElement') header!: ElementRef<HTMLElement>;
 
   constructor(
     private localstorageService: LocalstorageService,
@@ -52,15 +64,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    fromEvent(window, 'scroll')
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(() => {
-        if (window.scrollY > 0) {
-          this.headerFixed = true;
-        } else {
-          this.headerFixed = false;
-        }
-      });
     this.language.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(x => this.setLang(x));
@@ -68,6 +71,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .select(selectFeatureUser)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(x => (x?.id ? (this.userId = x?.id) : (this.userId = '')));
+  }
+
+  ngAfterViewInit(): void {
+    fromEvent(window, 'scroll')
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(() => {
+        this.header.nativeElement.style.background = `linear-gradient(90deg, hsla(${
+          (START_GRADIENT + window.scrollY / 25) % MAX_HUE_RANGE
+        }, 90%, 50%, 1) 0%, hsla(${
+          (END_GRADIENT + window.scrollY / 25) % MAX_HUE_RANGE
+        }, 90%, 50%, 1) 100%)`;
+      });
   }
 
   ngOnDestroy(): void {
