@@ -10,6 +10,8 @@ export enum QUERY_PARAMS_FIRST {
 export enum Language {
   En = 'en',
   Ru = 'ru',
+  By = 'by',
+  Ua = 'ua',
 }
 
 export enum QUERY_PARAMS_SECOND {

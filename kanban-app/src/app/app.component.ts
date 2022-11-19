@@ -13,7 +13,7 @@ export class AppComponent {
     translate: TranslateService,
     localstorageService: LocalstorageService
   ) {
-    translate.addLangs([Language.En, Language.Ru]);
+    translate.addLangs([Language.En, Language.Ru, Language.By, Language.Ua]);
     translate.setDefaultLang(Language.En);
     const language =
       localstorageService.getItem(LocalStorageValues.Language) ?? Language.En;
