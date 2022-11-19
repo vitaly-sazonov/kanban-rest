@@ -25,6 +25,11 @@
   align-items: center;
 }
 
+.header-top-right {
+  display: flex;
+  gap: 10px;
+}
+
 .logo-wrapper {
   background-image: url('../../../assets/img/logo.svg');
   background-size: 100%;
@@ -32,16 +37,16 @@
   background-repeat: no-repeat;
   height: 1.6rem;
   width: 8rem;
+  cursor: pointer;
 }
 
 ::ng-deep .cdk-overlay-pane {
-  .mat-menu-panel {
+  .lang-menu.mat-menu-panel {
     position: relative;
-    left: -7px;
-    top: -37px;
+    left: -6px;
     min-width: 30px;
     padding: 10px 5px 5px;
-    border-radius: 10px;
+    border-radius: 4px;
     .mat-menu-content:not(:empty) {
       padding: 0;
     }
@@ -65,9 +70,13 @@
   align-items: center;
 }
 
-.lang-button {
-  width: 30px;
-  height: 30px;
+.lang-button,
+.user-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
   min-width: fit-content;
   padding: 0;
   border-radius: 50%;
@@ -97,7 +106,8 @@
   margin-bottom: 10px;
 }
 
-.lang-menu-icon {
+.lang-menu-icon,
+.user-icon {
   border: 3px rgba($color: #fff, $alpha: 0.75) solid;
 }
 
@@ -119,6 +129,11 @@
 
 .hidden {
   display: none;
+}
+
+.user-icon {
+  color: #fff;
+  border-radius: 50%;
 }
 
 .buttons {

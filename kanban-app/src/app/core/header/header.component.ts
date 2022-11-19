@@ -51,6 +51,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   language = new FormControl(this.currentLanguage, { nonNullable: true });
   languages = Object.values(Language);
   loginStatus$ = this.store.select(selectFeatureUserLoggedIn);
+  mainRoute = '';
   userId = '';
   unsubscribe$ = new Subject();
   deleteMessage = '';
@@ -69,18 +70,19 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.loginStatus$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(data => (this.mainRoute = data ? 'boards' : 'welcome'));
     this.language.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(x => {
         this.currentLanguage = x;
-        console.log(x);
         return this.setLang(x);
       });
     this.store
       .select(selectFeatureUser)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(x => (x?.id ? (this.userId = x?.id) : (this.userId = '')));
-    console.log(this.languages);
   }
 
   ngAfterViewInit(): void {
@@ -100,6 +102,10 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next(1);
     this.unsubscribe$.complete();
+  }
+
+  navigate(route: string) {
+    this.router.navigate([route]);
   }
 
   setLang(lang: string) {
