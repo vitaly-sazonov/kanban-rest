@@ -44,6 +44,11 @@
   "ERROR": "Памылка: ",
   "tasks": "заданні:",
   "Empty board": "Пустая Дошка",
+  "Search results":"Вынікі пошуку",
+  "Total boards":"Усе дошкі",
+  "Total columns":"Усе калонкі",
+  "Total tasks":"Усе заданні",
+  "empty":"нічога няма",
   "DeleteUserQuestion": "Вы сапраўды хочаце выдаліць бягучага карыстальніка?",
   "CREATE_BOARD": "Стварыць дошку",
   "formModal": {

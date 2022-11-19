@@ -44,6 +44,11 @@
   "ERROR": "Ошибка: ",
   "tasks": "задания:",
   "Empty board": "Пустая Доска",
+  "Search results":"Результаты поиска",
+  "Total boards":"Все доски",
+  "Total columns":"Все колонки",
+  "Total tasks":"Все задания",
+  "empty":"пусто",
   "DeleteUserQuestion": "Вы действительно хотите удалить текущего пользователя?",
   "CREATE_BOARD": "Создать доску",
   "formModal": {
