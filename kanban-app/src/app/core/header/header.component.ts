@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.loginStatus$
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(data => (this.mainRoute = data ? 'boards' : 'welcome'));
+      .subscribe(data => (this.mainRoute = data ? 'main' : 'welcome'));
     this.language.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(x => {

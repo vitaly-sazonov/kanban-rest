@@ -1,14 +1,18 @@
 <header class="header-wrapper" #headerElement>
   <section class="header-container">
-    <section class="logo-wrapper" (click)="navigate(mainRoute)"></section>
-    <button
-      mat-raised-button
-      (click)="callFormModal()"
-      mat-raised-button
-      *ngIf="loginStatus$ | async">
-      <mat-icon>add</mat-icon>
-      <span>{{ createBoard | translate }}</span>
-    </button>
+    <section class="logo-wrapper">
+      <div class="logo" (click)="navigate(mainRoute)"></div>
+    </section>
+    <section class="create-board-container">
+      <button
+        mat-raised-button
+        (click)="callFormModal()"
+        mat-raised-button
+        *ngIf="loginStatus$ | async">
+        <mat-icon>add</mat-icon>
+        <span class="board-create-text">{{ createBoard | translate }}</span>
+      </button>
+    </section>
     <section class="header-top-right">
       <section class="lang-container">
         <button mat-button [matMenuTriggerFor]="menu" class="lang-button">
