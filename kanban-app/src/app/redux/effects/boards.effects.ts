@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { debounceTime, forkJoin, map, of, switchMap } from 'rxjs';
+import { debounceTime, forkJoin, map, of, switchMap, tap } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
 import { Board, Task } from 'src/app/interfaces';
 import {
@@ -23,7 +24,11 @@ import {
 
 @Injectable()
 export class BoardsEffect {
-  constructor(private actions$: Actions, private http: HttpService) {}
+  constructor(
+    private actions$: Actions,
+    private http: HttpService,
+    private router: Router
+  ) {}
   loadAllBoards$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadBoards),
@@ -58,6 +63,7 @@ export class BoardsEffect {
     return this.actions$.pipe(
       ofType(addBoard),
       switchMap(({ board }) => this.http.addBoard(board)),
+      tap((board: Board) =>this.router.navigate(['../board', board.id,"undefined","undefined"])),
       map(() => loadBoards())
     );
   });
