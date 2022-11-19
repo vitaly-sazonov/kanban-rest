@@ -37,9 +37,8 @@ import { BoardsEffect } from './redux/effects/boards.effects';
 import { userReducer } from './redux/reducers/user.reducer';
 
 import { ToastrModule } from 'ngx-toastr';
-import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 export function createTranslateLoader(http: HttpClient) {

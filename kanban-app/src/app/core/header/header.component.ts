@@ -32,7 +32,12 @@ import { ModalService } from '../services/modal.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { LocalstorageService } from '../services/localstorage.service';
-import { END_GRADIENT, MAX_HUE_RANGE, START_GRADIENT } from 'src/app/constants';
+import {
+  END_GRADIENT,
+  GRADIENT_CHANGE_RATIO,
+  MAX_HUE_RANGE,
+  START_GRADIENT,
+} from 'src/app/constants';
 
 @Component({
   selector: 'app-header',
@@ -40,12 +45,13 @@ import { END_GRADIENT, MAX_HUE_RANGE, START_GRADIENT } from 'src/app/constants';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
-  headerFixed = false;
   currentLanguage =
     this.localstorageService.getItem(LocalStorageValues.Language) ||
     Language.En;
   language = new FormControl(this.currentLanguage, { nonNullable: true });
+  languages = Object.values(Language);
   loginStatus$ = this.store.select(selectFeatureUserLoggedIn);
+  mainRoute = '';
   userId = '';
   unsubscribe$ = new Subject();
   deleteMessage = '';
@@ -64,9 +70,15 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.loginStatus$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(data => (this.mainRoute = data ? 'main' : 'welcome'));
     this.language.valueChanges
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(x => this.setLang(x));
+      .subscribe(x => {
+        this.currentLanguage = x;
+        return this.setLang(x);
+      });
     this.store
       .select(selectFeatureUser)
       .pipe(takeUntil(this.unsubscribe$))
@@ -78,9 +90,11 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(() => {
         this.header.nativeElement.style.background = `linear-gradient(90deg, hsla(${
-          (START_GRADIENT + window.scrollY / 25) % MAX_HUE_RANGE
+          Math.abs(START_GRADIENT - window.scrollY / GRADIENT_CHANGE_RATIO) %
+          MAX_HUE_RANGE
         }, 90%, 50%, 1) 0%, hsla(${
-          (END_GRADIENT + window.scrollY / 25) % MAX_HUE_RANGE
+          Math.abs(END_GRADIENT - window.scrollY / GRADIENT_CHANGE_RATIO) %
+          MAX_HUE_RANGE
         }, 90%, 50%, 1) 100%)`;
       });
   }
@@ -88,6 +102,10 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next(1);
     this.unsubscribe$.complete();
+  }
+
+  navigate(route: string) {
+    this.router.navigate([route]);
   }
 
   setLang(lang: string) {
