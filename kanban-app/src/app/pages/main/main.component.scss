@@ -57,9 +57,9 @@ input:focus {
 }
 .delete-search {
   cursor: pointer;
-  position: relative;
-  top: 8px;
-  left: -25px;
+  position: absolute;
+  top: 7px;
+  left: 219px;
   opacity: 0.5;
   &:hover {
     opacity: 1;;
@@ -93,4 +93,8 @@ input:focus {
 .rotate {
   transform: rotate(180deg);
   top: -98px;
+}
+
+.statistics, .result-title{
+  color:$moreColor;
 }
