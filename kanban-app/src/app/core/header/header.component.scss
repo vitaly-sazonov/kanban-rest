@@ -1,18 +1,124 @@
 @import '../../colors.scss';
 
-.header-container {
-  transition: 0.2s linear;
-  background: linear-gradient(
-    90deg,
-    hsla(190, 90, 50, 1) 0%,
-    hsla(280, 90, 50, 1) 100%
-  );
-  z-index: 10;
+.header-wrapper {
   position: fixed;
   width: 100%;
-  background-color: #3f51b5;
+  height: 3rem;
+  background: linear-gradient(
+    90deg,
+    hsla(300, 90%, 50%, 1) 0%,
+    hsla(200, 90%, 50%, 1) 100%
+  );
+  transition: 0.2s linear;
+  z-index: 10;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-container {
+  max-width: 76.875rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-wrapper {
+  background-image: url('../../../assets/img/logo.svg');
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 1.6rem;
+  width: 8rem;
+}
+
+::ng-deep .cdk-overlay-pane {
+  .mat-menu-panel {
+    position: relative;
+    left: -7px;
+    top: -37px;
+    min-width: 30px;
+    padding: 10px 5px 5px;
+    border-radius: 10px;
+    .mat-menu-content:not(:empty) {
+      padding: 0;
+    }
+    .mat-button-toggle-appearance-standard {
+      background: none;
+      .mat-button-toggle-label-content {
+        padding: 0 5px;
+      }
+    }
+    .mat-button-toggle {
+      border-radius: 50%;
+    }
+    .mat-button-toggle + .mat-button-toggle {
+      border-top: none;
+    }
+  }
+}
+
+.lang-container {
+  display: flex;
+  align-items: center;
+}
+
+.lang-button {
+  width: 30px;
+  height: 30px;
+  min-width: fit-content;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.lang-group {
+  border: none;
+  width: 100%;
+  gap: 5px;
+}
+
+.lang-item {
+  padding-top: 5px;
+}
+
+.lang-icon {
+  width: 24px;
+  height: 24px;
+  background-size: 42px;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+}
+
+.lang-placeholder {
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.lang-menu-icon {
+  border: 3px rgba($color: #fff, $alpha: 0.75) solid;
+}
+
+.en {
+  background-image: url('../../../assets/img/en.svg');
+}
+
+.ru {
+  background-image: url('../../../assets/img/ru.svg');
+}
+
+.by {
+  background-image: url('../../../assets/img/by.svg');
+}
+
+.ua {
+  background-image: url('../../../assets/img/ua.svg');
+}
+
+.hidden {
+  display: none;
 }
 
 .buttons {

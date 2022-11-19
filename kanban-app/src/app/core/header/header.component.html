@@ -1,40 +1,62 @@
-<section class="header-container" #headerElement>
-  <button
-    mat-mini-fab
-    color="primary"
-    [matMenuTriggerFor]="belowMenu"
-    *ngIf="loginStatus$ | async">
-    <mat-icon>settings_account_box</mat-icon>
-  </button>
-  <mat-menu #belowMenu="matMenu" yPosition="below">
-    <button mat-menu-item (click)="openDialog()">
-      {{ 'auth.Delete' | translate }}
+<header class="header-wrapper" #headerElement>
+  <section class="header-container">
+    <section class="logo-wrapper"></section>
+    <button
+      (click)="callFormModal()"
+      mat-raised-button
+      color="accent"
+      [disabled]="(loginStatus$ | async) === false">
+      {{ createBoard | translate }}
     </button>
-    <button mat-menu-item (click)="editUser()">
-      {{ 'auth.Edit' | translate }}
+    <button
+      mat-mini-fab
+      color="primary"
+      [matMenuTriggerFor]="belowMenu"
+      *ngIf="loginStatus$ | async">
+      <mat-icon>settings_account_box</mat-icon>
     </button>
-  </mat-menu>
-  <mat-button-toggle-group [formControl]="language">
-    <mat-button-toggle mat-mini-fab value="ru" color="primary"
-      >RU</mat-button-toggle
-    >
-    <mat-button-toggle mat-mini-fab value="by">BY</mat-button-toggle>
-    <mat-button-toggle mat-mini-fab value="ua">UA</mat-button-toggle>
-    <mat-button-toggle mat-mini-fab value="en">EN</mat-button-toggle>
-  </mat-button-toggle-group>
-  <button
-    (click)="callFormModal()"
-    mat-raised-button
-    color="primary"
-    [disabled]="(loginStatus$ | async) === false">
-    {{ createBoard | translate }}
-  </button>
-  <button
-    (click)="logOut()"
-    [disabled]="(loginStatus$ | async) === false"
-    mat-mini-fab
-    color="primary"
-    class="icon">
-    <mat-icon>logout</mat-icon>
-  </button>
-</section>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+      <button mat-menu-item (click)="openDialog()">
+        {{ 'auth.Delete' | translate }}
+      </button>
+      <button mat-menu-item (click)="editUser()">
+        {{ 'auth.Edit' | translate }}
+      </button>
+    </mat-menu>
+    <section class="lang-container">
+      <button mat-button [matMenuTriggerFor]="menu" class="lang-button">
+        <div class="lang-icon lang-menu-icon {{ currentLanguage }}"></div>
+      </button>
+      <mat-menu class="lang-menu" #menu="matMenu">
+        <ng-container *ngFor="let lang of languages">
+          <div
+            *ngIf="lang === currentLanguage"
+            class="lang-icon lang-placeholder {{ lang }}"
+            disabled></div>
+        </ng-container>
+        <mat-button-toggle-group
+          class="lang-group"
+          vertical="true"
+          [formControl]="language">
+          <mat-button-toggle
+            *ngFor="let lang of languages"
+            mat-mini-fab
+            value="{{ lang }}"
+            class="lang-item"
+            [class.hidden]="lang === currentLanguage">
+            <div class="lang-icon {{ lang }}"></div>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mat-menu>
+    </section>
+
+    <button
+      (click)="logOut()"
+      [disabled]="(loginStatus$ | async) === false"
+      mat-mini-fab
+      color="primary"
+      class="icon">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </section>
+</header>
