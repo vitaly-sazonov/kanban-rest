@@ -176,6 +176,3 @@ export class FormModalComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 }
-function editBoard(arg0: { board: Board }) {
-  throw new Error('Function not implemented.');
-}
