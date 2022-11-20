@@ -1,9 +1,13 @@
+@import '../../colors.scss';
+
 .footer {
   display: flex;
   align-items: center;
   width: 100%;
   justify-content: center;
   height: 50px;
+  background-color: $color-2;
+  z-index: 10;
 }
 
 .logo {
