@@ -15,11 +15,7 @@
   border-radius: 5px;
   transition: 500ms;
 }
-.board-container:hover .board-menu-container {
-  opacity: 0.5;
-  visibility: visible;
-  cursor: pointer;
-}
+
 .inner-container {
   position: absolute;
   top: 30px;
@@ -122,8 +118,8 @@
   animation: flashing 7s;
   transition: 500ms;
   position: inherit;
-  top: -70px;
-  left: 70px;
+  top: -90px;
+  left: 65px;
   color: rgba($color: #f00, $alpha: 0.5);
 }
 .new-icon {
@@ -166,10 +162,11 @@
 }
 .board-menu-container {
   position: absolute;
-  top: 0px;
-  left: 270px;
-  opacity: 0;
-  visibility: hidden;
+  top: 5px; 
+  left: 255px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
   &:hover {
     opacity: 1;
   }
