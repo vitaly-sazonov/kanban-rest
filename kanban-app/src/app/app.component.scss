@@ -4,6 +4,12 @@
   position: relative;
   padding-top: 56px;
   box-sizing: border-box;
-  min-height: calc(100vh - 50px);
+  min-height: 100vh;
+  margin-bottom: -50px;
+  padding-bottom: 50px;
   background-color: $color-2;
+}
+
+.footer {
+  position: relative;
 }
