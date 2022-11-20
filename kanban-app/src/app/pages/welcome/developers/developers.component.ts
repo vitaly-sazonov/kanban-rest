@@ -15,7 +15,7 @@ import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
 })
 export class DevelopersComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
-  developers = DEVELOPERS;
+  developers = this.getCurrentDevelopers();
   constructor(private translateService: TranslateService) {}
 
   ngOnInit(): void {
@@ -46,6 +46,21 @@ export class DevelopersComponent implements OnInit, OnDestroy {
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
+  }
+
+  getCurrentDevelopers(){
+    switch ( this.translateService.currentLang) {
+      case 'en': 
+        return DEVELOPERS;
+      case 'ru': 
+        return DEVELOPERS_RU;  
+      case 'by': 
+       return DEVELOPERS_BY;
+      case 'ua': 
+        return DEVELOPERS_UA;
+      default:
+        return DEVELOPERS;
+    }
   }
 
   ngOnDestroy(): void {
