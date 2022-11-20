@@ -38,6 +38,12 @@
       ((boards$ | async)! | search: searchRequest).length > 0;
       else noBoards
     ">
+    <section class="statistics" *ngIf="isSearching === false">
+      <h2>{{ 'Total boards' |translate}}: {{ boardsQuantity$ | async }}</h2>
+      <h2>{{ 'Total columns' | translate}}: {{ columnsQuantity$ | async }}</h2>
+      <h2>{{ 'Total tasks' | translate}}: {{ tasksQuantity$ | async }}</h2>
+    </section>
+    <h2 *ngIf="isSearching" class="result-title">{{"Search results"| translate}}: </h2>
     <app-board
       *ngFor="
         let item of (boards$ | async)!

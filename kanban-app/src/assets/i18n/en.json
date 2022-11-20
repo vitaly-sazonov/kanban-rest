@@ -45,6 +45,11 @@
   "ERROR": "Error: ",
   "tasks": "tasks:",
   "Empty board": "Empty Board",
+  "Search results":"Search results",
+  "Total boards":"Total boards",
+  "Total columns":"Total columns",
+  "Total tasks":"Total tasks",
+  "empty":"there is nothing",
   "DeleteUserQuestion": "Are you sure DELETE user?",
   "formModal": {
     "required": "fill the field"
