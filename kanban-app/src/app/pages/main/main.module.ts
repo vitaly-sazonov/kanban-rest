@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [MainComponent, BoardComponent],
@@ -28,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     FormsModule,
     MatCardModule,
+    MatMenuModule,
   ],
 })
 export class MainModule {}

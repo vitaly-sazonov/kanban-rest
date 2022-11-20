@@ -41,6 +41,11 @@
   "AGREE": "Так",
   "CANCEL": "Скасувати",
   "SAMPLE_CONFIRM_INFO": "Ви згодні?",
+  "Search results":"Результати пошуку",
+  "Total boards":"Усі дошки",
+  "Total columns":"Усі колонки",
+  "Total tasks":"Усі завдання",
+  "empty":"нічога няма",
   "ERROR": "Помилка: ",
   "tasks": "завдання:",
   "Empty board": "Порожня дошка",
@@ -54,6 +59,12 @@
     "title": "Назва",
     "description": "Опис",
     "button": "Створити дошку"
+  },
+  "editBoard": {
+    "header": "Редагувати дошку",
+    "title": "Нова назва",
+    "description": "Опис",
+    "button": "Редагувати"
   },
   "addColumn": {
     "header": "Створити колонку",
@@ -94,7 +105,10 @@
     "addTask": "Додати завдання",
     "noTasks": "У вас тут немає завдань",
     "CONFIRM_DELETE_COLUMN": "Ви дійсно хочете видалити колонку?",
-    "CONFIRM_DELETE_TASK": "Ви дійсно хочете видалити завдання?"
+    "CONFIRM_DELETE_TASK": "Ви дійсно хочете видалити завдання?",
+    "Delete":"Видалити дошку",
+    "Edit":"Редагувати дошку",
+    "ChangePicture":"Змінити зображення"
   },
   "ERRORS": {
     "0": "Немає інтернет з'єднання",

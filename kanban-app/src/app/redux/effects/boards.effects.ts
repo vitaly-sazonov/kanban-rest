@@ -12,6 +12,7 @@ import {
   addTask,
   addTasks,
   deleteBoardById,
+  editBoardById,
   editColumn,
   editTask,
   loadBoards,
@@ -59,11 +60,22 @@ export class BoardsEffect {
       map(() => loadBoards())
     );
   });
+  editBoardById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(editBoardById),
+      switchMap(({ id, title, description }) =>
+        this.http.editBoard(id, title, description)
+      ),
+      map(() => loadBoards())
+    );
+  });
   addBoard$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addBoard),
       switchMap(({ board }) => this.http.addBoard(board)),
-      tap((board: Board) =>this.router.navigate(['../board', board.id,"undefined","undefined"])),
+      tap((board: Board) =>
+        this.router.navigate(['../board', board.id, 'undefined', 'undefined'])
+      ),
       map(() => loadBoards())
     );
   });
