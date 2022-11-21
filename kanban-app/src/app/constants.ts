@@ -20,3 +20,12 @@ export const MAX_HUE_RANGE = 360;
 export const START_GRADIENT = 300;
 export const END_GRADIENT = 200;
 export const GRADIENT_CHANGE_RATIO = 25;
+
+export const MAX_CIRCLE_TRANSFORM = 20;
+export const TRANSFORM_SPEED = 2;
+export const ROTATE_SPEED = 10;
+export const MS_IN_S = 1000;
+
+export const SCRIPTS = [
+  'https://cdn.jsdelivr.net/npm/kute.js@2.2.4/dist/kute.min.js',
+];

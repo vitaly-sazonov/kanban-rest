@@ -5,3 +5,29 @@
   flex-wrap: wrap;
   gap: 20px;
 }
+
+.circle {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.dev-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300;
+  height: 300;
+}
+
+.blob-position {
+  position: absolute;
+}
+
+.developer-card {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background-color: #fff;
+}

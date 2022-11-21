@@ -3,3 +3,21 @@
     *ngFor="let developer of developers"
     [developer]="developer"></app-developer>
 </section>
+<section class="circle">
+  <section class="rotate-1 dev-circle" #blob1>
+    <app-blob [blobElement]="blob1" class="blob-position"></app-blob>
+    <article class="developer-card"></article>
+  </section>
+  <section class="rotate-2 dev-circle" #blob2>
+    <app-blob [blobElement]="blob2" class="blob-position"></app-blob>
+    <article class="developer-card"></article>
+  </section>
+  <section class="rotate-3 dev-circle" #blob3>
+    <app-blob [blobElement]="blob3" class="blob-position"></app-blob>
+    <article class="developer-card"></article>
+  </section>
+  <section class="rotate-4 dev-circle" #blob4>
+    <app-blob [blobElement]="blob4" class="blob-position"></app-blob>
+    <article class="developer-card"></article>
+  </section>
+</section>

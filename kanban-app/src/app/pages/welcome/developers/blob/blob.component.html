@@ -1,0 +1,22 @@
+<svg
+  class="{{ element }} blob-group"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 300 300"
+  width="300px"
+  height="300px">
+  <path
+    class="{{ element }}-blob-1"
+    fill-rule="evenodd"
+    fill="rgb(13,166,242)"
+    opacity="0.5"
+    transform-origin="center center"
+    [attr.d]="currSvgCircle" />
+  <path
+    class="{{ element }}-blob-2"
+    fill-rule="evenodd"
+    fill="rgb(242,13,242)"
+    opacity="0.5"
+    transform-origin="center center"
+    [attr.d]="nextSvgCircle" />
+</svg>
