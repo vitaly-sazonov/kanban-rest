@@ -7,6 +7,8 @@ import { DEVELOPER } from 'src/app/developers';
   styleUrls: ['./developer.component.scss'],
 })
 export class DeveloperComponent {
+  showText = false;
+
   @Input() developer!: DEVELOPER;
   @Input() index!: number;
 }

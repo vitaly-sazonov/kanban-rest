@@ -103,7 +103,7 @@
   },
   "WELCOME": {
     "greetingTitle": "Welcome to ProJect",
-    "greetingText": "The world's most useful kanban tool"
+    "greetingText": "The world's most useful kanban tool (according to a survey among the developers of this application). Everything will be under your control with ProJect!"
   },
   "ERRORS": {
     "0": "No internet connection",

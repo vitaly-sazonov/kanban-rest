@@ -25,10 +25,11 @@
   </section>
 </section>
 <section class="cards-wrapper">
-  <section class="cards">
+  <section class="cards-container">
     <app-developer
       *ngFor="let developer of developers; index as i"
       [developer]="developer"
-      [index]="i"></app-developer>
+      [index]="i"
+      class="card"></app-developer>
   </section>
 </section>

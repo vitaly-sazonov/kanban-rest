@@ -1,26 +1,27 @@
 @import '../../../../styles.scss';
 @import '../../../colors.scss';
 
-.cards-wrapper,
-.greeting-wrapper {
+.greeting-wrapper,
+.cards-wrapper {
   position: relative;
-  width: 100vw;
+  width: 100%;
   z-index: 1;
 }
 
-.cards {
-  max-width: 76.875rem;
-  padding: 10px;
-  margin: 0 auto;
+.cards-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
+}
+
+.card {
+  max-width: 300px;
 }
 
 .greeting-container {
   max-width: 76.875rem;
-  margin: 50px auto;
+  margin: 50px auto 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,6 +39,8 @@
 }
 
 .greeting-text {
+  width: 67%;
+  margin: 0 auto;
   font-family: $main-font;
   font-size: 1rem;
   font-weight: 400;
