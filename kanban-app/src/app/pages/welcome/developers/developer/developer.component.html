@@ -1,5 +1,13 @@
-<mat-card class="card">
-  <!-- <mat-card-header>
+<section class="rotate-{{ index + 1 }} dev-circle" #blob>
+  <app-blob [blobElement]="blob" class="blob-position"></app-blob>
+  <img
+    mat-card-image
+    [src]="developer.photoURL"
+    [alt]="developer.alt"
+    class="developer-card" />
+</section>
+<!-- <mat-card class="card">
+  <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title
       >{{ developer.firstName }} {{ developer.secondName }}</mat-card-title
@@ -12,5 +20,5 @@
     <ul *ngFor="let feature of developer.features">
       <li>{{ feature }}</li>
     </ul>
-  </mat-card-content> -->
-</mat-card>
+  </mat-card-content>
+</mat-card> -->

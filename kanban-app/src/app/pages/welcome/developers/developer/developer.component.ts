@@ -8,4 +8,5 @@ import { DEVELOPER } from 'src/app/developers';
 })
 export class DeveloperComponent {
   @Input() developer!: DEVELOPER;
+  @Input() index!: number;
 }

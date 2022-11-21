@@ -1,33 +1,56 @@
+@import '../../../../styles.scss';
+@import '../../../colors.scss';
+
+.cards-wrapper,
+.greeting-wrapper {
+  position: relative;
+  width: 100vw;
+  z-index: 1;
+}
+
 .cards {
+  max-width: 76.875rem;
   padding: 10px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
 }
 
-.circle {
-  position: relative;
+.greeting-container {
+  max-width: 76.875rem;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 30px;
+}
+
+.greeting-title {
+  font-family: $main-font;
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4rem;
+  color: $color-1;
+  margin-bottom: 0;
+}
+
+.greeting-text {
+  font-family: $main-font;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  color: $color-1;
+}
+
+.welcome-actions {
   display: flex;
   justify-content: center;
+  gap: 10px;
 }
 
-.dev-circle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300;
-  height: 300;
-}
-
-.blob-position {
-  position: absolute;
-}
-
-.developer-card {
-  position: relative;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background-color: #fff;
+.button-icon {
+  margin-right: 10px;
 }
