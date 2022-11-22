@@ -6,12 +6,14 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CompareService } from 'src/app/core/services/compare.service';
 import { HashService } from 'src/app/core/services/hash.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
-import { ModalTypes } from 'src/app/enums';
+import { ModalService } from 'src/app/core/services/modal.service';
+import { ModalSchemes, ModalTypes, RouterStateValue } from 'src/app/enums';
 import { Board, Column } from 'src/app/interfaces';
 import {
   addCurrentBoardId,
@@ -42,7 +44,9 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
     private store: Store,
     private compareService: CompareService,
     private hash: HashService,
-    private storage: LocalstorageService
+    private storage: LocalstorageService,
+    private modalService: ModalService,
+    private router: Router
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
     this.isShort = this.isAllShort;
@@ -100,10 +104,17 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
       : false;
   }
 
-  getTaskQuantity(){
-    let q=0;
-    this.columns?.forEach(colomn=>q+=colomn.tasks!.length)
-    return q
+  getTaskQuantity() {
+    let q = 0;
+    this.columns?.forEach(colomn => (q += colomn.tasks!.length));
+    return q;
+  }
+
+  editBoard(id: string, title: string, description: string) {
+    this.modalService.setExtra([id, title, description]);
+    this.modalService.setScheme(ModalSchemes.editBoard);
+    this.modalService.setType(ModalTypes.FormType);
+    this.store.dispatch(setVisibility({ isVisible: true }));
   }
 
   ngOnDestroy(): void {
