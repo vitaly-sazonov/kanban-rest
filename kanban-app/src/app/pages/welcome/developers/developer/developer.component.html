@@ -1,7 +1,4 @@
-<section
-  class="developer-card"
-  (mouseover)="showText = true"
-  (mouseout)="showText = false">
+<section class="developer-card">
   <section class="rotate-{{ index + 1 }} dev-circle" #blob>
     <app-blob [blobElement]="blob" class="blob-position"></app-blob>
     <img
@@ -9,7 +6,7 @@
       [alt]="developer.alt"
       class="developer-picture" />
   </section>
-  <!-- <mat-card class="card" *ngIf="showText">
+  <section class="card">
     <mat-card-header>
       <mat-card-title>
         {{ developer.firstName }} {{ developer.secondName }}
@@ -22,5 +19,5 @@
         <li>{{ feature }}</li>
       </ul>
     </mat-card-content>
-  </mat-card> -->
+  </section>
 </section>

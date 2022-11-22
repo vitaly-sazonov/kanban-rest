@@ -2,12 +2,8 @@
 
 .app {
   position: relative;
-  padding-top: 56px;
   box-sizing: border-box;
-  min-height: 100vh;
-  margin-bottom: -50px;
-  padding-bottom: 50px;
-  background-color: $color-2;
+  max-height: max-content;
 }
 
 .footer {

@@ -1,6 +1,15 @@
 @import '../../../../styles.scss';
 @import '../../../colors.scss';
 
+.welcome-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: calc(100vh - 50px);
+  padding: 100px 0 50px;
+  box-sizing: border-box;
+  gap: 30px;
+}
+
 .greeting-wrapper,
 .cards-wrapper {
   position: relative;
@@ -16,12 +25,17 @@
 }
 
 .card {
-  max-width: 300px;
+  position: relative;
+  min-width: 300px;
+  min-height: 300px;
+  max-height: 1000px;
+  display: flex;
+  align-items: center;
 }
 
 .greeting-container {
   max-width: 76.875rem;
-  margin: 50px auto 70px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,11 +1,52 @@
+@import '../../../../colors.scss';
+
 .developer-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 320px;
+}
+
+.dev-circle {
   position: relative;
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  transition: 1s;
+  transform: scale(1);
+  z-index: 1;
 }
 
 .card {
+  position: relative;
   min-width: 300px;
   box-sizing: border-box;
+  max-height: 0;
+  opacity: 0;
+  top: -20px;
+  transition: 1s;
+  overflow: hidden;
+  margin-top: -300px;
+  padding: 300px 20px 0;
+  border-radius: 4px;
+  background: linear-gradient(rgba($color: $color-1, $alpha: 0), rgba($color: $color-1, $alpha: 0), rgba($color: $color-1, $alpha: 1), rgba($color: $color-1, $alpha: 1));
+}
+
+.developer-card:hover {
+  z-index: 2;
+}
+
+.developer-card:hover .dev-circle {
+  transform: scale(0.9);
+}
+
+.developer-card:hover .card {
+  top: 0px;
+  opacity: 1;
+  max-height: 800px;
 }
 
 .developer-picture {
@@ -18,21 +59,12 @@
   box-sizing: content-box;
 }
 
-.dev-circle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  height: 300px;
-}
-
 .blob-position {
   position: absolute;
 }
 
-// .show-text {
-//   display: flex;
-//   width: 600px;
-//   flex-direction: column;
-//   align-items: center;
-// }
+.show-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
