@@ -23,6 +23,10 @@ export const loadBoardById = createAction(
   BoardsActions.LoadBoardById,
   props<{ id: string }>()
 );
+export const editBoardById = createAction(
+  BoardsActions.EditBoardById,
+  props<{ id: string; title: string; description: string }>()
+);
 export const loadBoards = createAction(BoardsActions.LoadBoards);
 export const addColumn = createAction(
   ColumnActions.AddColumn,
