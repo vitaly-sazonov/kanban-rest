@@ -87,4 +87,8 @@ export class RegistrationComponent implements OnDestroy {
   registerUser() {
     this.register(user2);
   }
+
+  navigate(path: string) {
+    this.router.navigate([path]);
+  }
 }

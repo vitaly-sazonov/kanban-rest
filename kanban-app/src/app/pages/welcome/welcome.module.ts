@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { DevelopersModule } from './developers/developers.module';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DevelopersModule } from './developers/developers.module';
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
+    MatCardModule,
   ],
 })
 export class WelcomeModule {}

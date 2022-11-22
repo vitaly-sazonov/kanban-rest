@@ -68,6 +68,10 @@ export class LoginComponent implements OnDestroy {
     this.unsubscribe$.complete();
   }
 
+  navigate(path: string) {
+    this.router.navigate([path]);
+  }
+
   // only for login in test
   loginUser() {
     this.authService
