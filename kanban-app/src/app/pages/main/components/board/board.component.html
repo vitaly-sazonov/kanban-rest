@@ -4,13 +4,12 @@
   class="board-container"
   [class.empty]="board?.columns?.length === 0"
   [class.short]="isShort">
-  <figure></figure>
   <mat-card-header
     class="inner-container"
     [routerLink]="['../board', board?.id, 'undefined', 'undefined']">
     <mat-card-title
       class="title"
-      [innerHTML]="(board?.title! | mark: searchRequest) + '(' + length + ')'">
+      [innerHTML]="board?.title! | mark: searchRequest">
     </mat-card-title>
     <mat-card-subtitle
       class="description"
@@ -20,8 +19,24 @@
       "></mat-card-subtitle>
     <section
       class="empty-box"
-      *ngIf="isShort === false && board?.columns?.length === 0">
+      *ngIf="isShort === false && columns?.length === 0">
       <mat-card-subtitle>{{ 'Empty board' | translate }}</mat-card-subtitle>
+    </section>
+    <section class="full-box" *ngIf="isShort === false && columns?.length! > 0">
+      <mat-card-subtitle
+        >{{ 'columns' | translate }}: {{ columns?.length }}</mat-card-subtitle
+      >
+      <mat-card-subtitle
+        >{{ 'tasks' | translate }} {{ getTaskQuantity() }}</mat-card-subtitle
+      >
+    </section>
+    <section class="short-box" *ngIf="isShort && columns?.length! > 0">
+      <mat-card-subtitle
+        >{{ columns?.length }}/{{ getTaskQuantity() }}</mat-card-subtitle
+      >
+    </section>
+    <section class="short-box" *ngIf="isShort && columns?.length === 0">
+      <mat-card-subtitle>{{ 'empty' | translate }}</mat-card-subtitle>
     </section>
   </mat-card-header>
 
