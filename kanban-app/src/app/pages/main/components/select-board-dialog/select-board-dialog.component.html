@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>{{ 'Select board' | translate }}</h2>
+<mat-dialog-content>
+  <ng-container *ngFor="let board of boards">
+    <button mat-raised-button color="primary">
+      {{ 'Create board' | translate }}
+    </button>
+    <app-custom-board [board]="board"> </app-custom-board>
+  </ng-container>
+</mat-dialog-content>

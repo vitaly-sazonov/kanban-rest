@@ -1,0 +1,42 @@
+<div class="columns">
+  <mat-card
+    (mouseenter)="changeStatus()"
+    (mouseleave)="isPreview = false"
+    class="board-container"
+    [class.short]="isShort">
+    <mat-card-header
+      class="inner-container"
+      [routerLink]="['../board', board?.id, 'undefined', 'undefined']">
+      <mat-card-title class="title" [innerHTML]="board?.title!">
+      </mat-card-title>
+      <mat-card-subtitle
+        class="description"
+        *ngIf="isShort === false"
+        [innerHTML]="board?.description"></mat-card-subtitle>
+    </mat-card-header>
+    <mat-icon
+      class="expand-icon"
+      *ngIf="isShort === false"
+      (click)="isShort = true"
+      >expand_less</mat-icon
+    >
+    <mat-icon class="expand-icon" *ngIf="isShort" (click)="isShort = false"
+      >expand_more</mat-icon
+    >
+  </mat-card>
+
+  <mat-card-content [class.short-container]="isShort" class="columns">
+    <div
+      class="column-item"
+      [class.short-item]="isShort"
+      *ngFor="let column of board?.columns | order">
+      <mat-card-title class="title" [innerHTML]="column?.title!">
+      </mat-card-title>
+      <div class="tasks-container" *ngIf="isShort === false">
+        <mat-card-subtitle>
+          {{ 'tasks' | translate }}
+        </mat-card-subtitle>
+      </div>
+    </div>
+  </mat-card-content>
+</div>

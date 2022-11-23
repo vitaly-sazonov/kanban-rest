@@ -13,9 +13,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { CustomBoardComponent } from './components/custom-board/custom-board.component';
+import { SelectBoardDialogComponent } from './components/select-board-dialog/select-board-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [MainComponent, BoardComponent],
+  declarations: [
+    MainComponent,
+    BoardComponent,
+    CustomBoardComponent,
+    SelectBoardDialogComponent,
+  ],
   imports: [
     CommonModule,
     MainRoutingModule,
@@ -28,6 +36,7 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     FormsModule,
     MatCardModule,
+    MatDialogModule,
   ],
 })
 export class MainModule {}

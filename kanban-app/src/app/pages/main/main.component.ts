@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { from, map, mergeMap, of, switchMap, tap } from 'rxjs';
-import { LAST_SEARCH } from 'src/app/constants';
+import { BOARDS, LAST_SEARCH } from 'src/app/constants';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { Board } from 'src/app/interfaces';
 import {
@@ -10,6 +10,11 @@ import {
 } from 'src/app/redux/actions/boards.actions';
 import { selectUserBoards } from 'src/app/redux/selectors/boards.selectors';
 import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmQuestions, PercentSize } from 'src/app/enums';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { SelectBoardDialogComponent } from './components/select-board-dialog/select-board-dialog.component';
+import { CustomBoardComponent } from './components/custom-board/custom-board.component';
 
 @Component({
   selector: 'app-main',
@@ -27,7 +32,11 @@ export class MainComponent implements OnInit {
   columnsQuantity$ = this.getColumnsQuantity();
   tasksQuantity$ = this.getTaskQuantity();
 
-  constructor(private store: Store, private storage: LocalstorageService) {}
+  constructor(
+    private store: Store,
+    private storage: LocalstorageService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.reset();
@@ -74,5 +83,20 @@ export class MainComponent implements OnInit {
       map(column => (q += column.tasks!.length)),
       switchMap(() => of(q))
     );
+  }
+
+  createCustomBoard() {
+    const dialogRef = this.dialog.open(SelectBoardDialogComponent, {
+      panelClass: 'dialog',
+      enterAnimationDuration: '500ms',
+      width: PercentSize.eighty,
+      height: PercentSize.eighty,
+      data: BOARDS,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+      }
+    });
   }
 }

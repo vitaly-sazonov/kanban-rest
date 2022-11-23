@@ -100,10 +100,10 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
       : false;
   }
 
-  getTaskQuantity(){
-    let q=0;
-    this.columns?.forEach(colomn=>q+=colomn.tasks!.length)
-    return q
+  getTaskQuantity() {
+    let q = 0;
+    this.columns?.forEach(colomn => (q += colomn.tasks!.length));
+    return q;
   }
 
   ngOnDestroy(): void {

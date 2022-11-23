@@ -112,5 +112,7 @@
   "Check": {
     "New": "New",
     "Updated": "Updated"
-  }
+  },
+  "Create custom":"Create custom board",
+  "Select board":"Select board"
 }
