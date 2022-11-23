@@ -59,7 +59,6 @@ export class LoginComponent implements AfterViewInit, OnDestroy {
       .getPrevRoute()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(data => {
-        console.log(data);
         if (data === '/welcome/developers') {
           anime({
             targets: `.login-container`,
