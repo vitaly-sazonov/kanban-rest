@@ -10,6 +10,7 @@ import {
   addColumn,
   addTask,
   deleteAllBoards,
+  editBoardById,
   editColumn,
   editTask,
 } from 'src/app/redux/actions/boards.actions';
@@ -57,6 +58,21 @@ export class FormModalComponent implements OnInit, OnDestroy {
               description: new FormControl('', Validators.required),
             });
             this.formAction = (payload: Board) => addBoard({ board: payload });
+            break;
+          case ModalSchemes.editBoard:
+            this.formConstructor = new FormGroup({
+              title: new FormControl(this.modalExtra[1], Validators.required),
+              description: new FormControl(
+                this.modalExtra[2],
+                Validators.required
+              ),
+            });
+            this.formAction = (board: Board) =>
+              editBoardById({
+                id: this.modalExtra[0],
+                title: board.title!,
+                description: board.description!,
+              });
             break;
           case ModalSchemes.addColumn:
             this.formConstructor = new FormGroup({
@@ -128,7 +144,10 @@ export class FormModalComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    if (this.formSelected === ModalSchemes.addBoard) {
+    if (
+      this.formSelected === ModalSchemes.addBoard ||
+      this.formSelected === ModalSchemes.editBoard
+    ) {
       this.store.dispatch(deleteAllBoards());
     }
     const payload = this.getInputFields();

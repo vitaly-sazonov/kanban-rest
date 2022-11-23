@@ -8,6 +8,8 @@ import { PreviousRouteService } from 'src/app/core/services/previous-route.servi
 import { DEVELOPERS } from 'src/app/developers';
 import { DEVELOPERS_BY } from 'src/app/developers-by';
 import { DEVELOPERS_RU } from 'src/app/developers-ru';
+import { DEVELOPERS_UA } from 'src/app/developers-ua';
+import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
 @Component({
   selector: 'app-developers',
   templateUrl: './developers.component.html',
@@ -15,7 +17,7 @@ import { DEVELOPERS_RU } from 'src/app/developers-ru';
 })
 export class DevelopersComponent implements OnInit, AfterViewInit, OnDestroy {
   unsubscribe$ = new Subject();
-  developers = DEVELOPERS;
+  developers = this.getCurrentDevelopers();
 
   constructor(
     private translateService: TranslateService,
@@ -32,16 +34,46 @@ export class DevelopersComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.translateService.onLangChange
       .pipe(
-        map(x =>
-          x.lang === 'en'
-            ? (this.developers = DEVELOPERS)
-            : x.lang === 'ru'
-            ? (this.developers = DEVELOPERS_RU)
-            : (this.developers = DEVELOPERS_BY)
-        ),
+        map(x => {
+          switch (x.lang) {
+            case 'en': {
+              this.developers = DEVELOPERS;
+              break;
+            }
+            case 'ru': {
+              this.developers = DEVELOPERS_RU;
+              break;
+            }
+            case 'by': {
+              this.developers = DEVELOPERS_BY;
+              break;
+            }
+            case 'ua': {
+              this.developers = DEVELOPERS_UA;
+              break;
+            }
+            default:
+              this.developers = DEVELOPERS;
+          }
+        }),
         takeUntil(this.unsubscribe$)
       )
       .subscribe();
+  }
+
+  getCurrentDevelopers(){
+    switch ( this.translateService.currentLang) {
+      case 'en': 
+        return DEVELOPERS;
+      case 'ru': 
+        return DEVELOPERS_RU;  
+      case 'by': 
+       return DEVELOPERS_BY;
+      case 'ua': 
+        return DEVELOPERS_UA;
+      default:
+        return DEVELOPERS;
+    }
   }
 
   ngOnDestroy(): void {

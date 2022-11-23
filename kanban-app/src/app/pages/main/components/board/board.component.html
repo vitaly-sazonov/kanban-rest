@@ -70,9 +70,34 @@
       </div>
     </div>
   </mat-card-content>
-  <button mat-icon-button class="icon-delete">
-    <mat-icon (click)="deleteBoard(board?.id!)">delete</mat-icon>
-  </button>
+
+  <section class="board-menu-container">
+    <button
+      mat-button
+      [matMenuTriggerFor]="boardMenu"
+      yPosition="below"
+      class="menu-button">
+      <mat-icon class="menu-icon">more_vert</mat-icon>
+    </button>
+    <mat-menu class="board-menu" #boardMenu="matMenu">
+      <ng-container>
+        <button
+          mat-menu-item
+          (click)="editBoard(board?.id!, board?.title!, board?.description!)">
+          <mat-icon>edit</mat-icon>
+          <span>{{ 'BOARD.Edit' | translate }}</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>{{ 'BOARD.ChangePicture' | translate }}</span>
+        </button>
+        <button mat-menu-item (click)="deleteBoard(board?.id!)">
+          <mat-icon>delete</mat-icon>
+          <span>{{ 'BOARD.Delete' | translate }}</span>
+        </button>
+      </ng-container>
+    </mat-menu>
+  </section>
   <mat-icon
     class="expand-icon"
     *ngIf="isShort === false"
