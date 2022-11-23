@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,13 +15,16 @@ import { PasswordValidatorSymbols, RouterStateValue } from 'src/app/enums';
 import { UserLogin } from 'src/app/interfaces';
 import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
 import { passwordValidator } from '../password-validator';
+import anime from 'animejs';
+import { PreviousRouteService } from 'src/app/core/services/previous-route.service';
+import { ANIMATIONS, ANIMATION_DURATION } from 'src/app/constants';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent implements AfterViewInit, OnDestroy {
   unsubscribe$ = new Subject();
   isLoading$ = this.store.select(selectFeatureIsLoading);
   login = new FormGroup({
@@ -41,8 +50,33 @@ export class LoginComponent implements OnDestroy {
   constructor(
     private authService: AuthService,
     private store: Store,
-    private router: Router
+    private router: Router,
+    private comeFrom: PreviousRouteService
   ) {}
+
+  ngAfterViewInit(): void {
+    this.comeFrom
+      .getPrevRoute()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(data => {
+        console.log(data);
+        if (data === '/welcome/developers') {
+          anime({
+            targets: `.login-container`,
+            ...ANIMATIONS.bottomTopIn,
+          });
+          anime({
+            targets: `.back`,
+            ...ANIMATIONS.topBottomIn,
+          });
+        }
+        if (data === '/welcome/registration')
+          anime({
+            targets: `.login-container`,
+            ...ANIMATIONS.leftRightIn,
+          });
+      });
+  }
 
   logIn(user: UserLogin) {
     this.authService.login(user).pipe(takeUntil(this.unsubscribe$)).subscribe();
@@ -69,7 +103,23 @@ export class LoginComponent implements OnDestroy {
   }
 
   navigate(path: string) {
-    this.router.navigate([path]);
+    this.comeFrom.setPrevRoute(this.router.url);
+    if (path === 'welcome/developers') {
+      anime({
+        targets: `.login-container`,
+        ...ANIMATIONS.topBottomOut,
+      });
+      anime({
+        targets: `.back`,
+        ...ANIMATIONS.bottomTopOut,
+      });
+    }
+    if (path === 'welcome/registration')
+      anime({
+        targets: `.login-container`,
+        ...ANIMATIONS.rightLeftOut,
+      });
+    setTimeout(() => this.router.navigate([path]), ANIMATION_DURATION);
   }
 
   // only for login in test
