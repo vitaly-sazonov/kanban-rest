@@ -1,13 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import anime from 'animejs';
 import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { user2 } from 'src/app/constants';
+import { ANIMATIONS, ANIMATION_DURATION, user2 } from 'src/app/constants';
+import { PreviousRouteService } from 'src/app/core/services/previous-route.service';
 import { PasswordValidatorSymbols, RouterStateValue } from 'src/app/enums';
 import { UserRegistration } from 'src/app/interfaces';
-import { loginUser } from 'src/app/redux/actions/user.actions';
 import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
 import { passwordValidator } from '../password-validator';
 
@@ -16,7 +17,7 @@ import { passwordValidator } from '../password-validator';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
 })
-export class RegistrationComponent implements OnDestroy {
+export class RegistrationComponent implements AfterViewInit, OnDestroy {
   PasswordValidatorSymbols = PasswordValidatorSymbols;
   isLoading$ = this.store.select(selectFeatureIsLoading);
   unsubscribe$ = new Subject();
@@ -53,8 +54,32 @@ export class RegistrationComponent implements OnDestroy {
   constructor(
     private router: Router,
     private store: Store,
-    private authService: AuthService
+    private authService: AuthService,
+    private comeFrom: PreviousRouteService
   ) {}
+
+  ngAfterViewInit(): void {
+    this.comeFrom
+      .getPrevRoute()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(data => {
+        if (data === '/welcome/developers') {
+          anime({
+            targets: `.register-container`,
+            ...ANIMATIONS.bottomTopIn,
+          });
+          anime({
+            targets: `.back`,
+            ...ANIMATIONS.topBottomIn,
+          });
+        }
+        if (data === '/welcome/login')
+          anime({
+            targets: `.register-container`,
+            ...ANIMATIONS.rightLeftIn,
+          });
+      });
+  }
 
   goToLogin() {
     this.router.navigate([RouterStateValue.login]);
@@ -89,6 +114,22 @@ export class RegistrationComponent implements OnDestroy {
   }
 
   navigate(path: string) {
-    this.router.navigate([path]);
+    this.comeFrom.setPrevRoute(this.router.url);
+    if (path === 'welcome/developers') {
+      anime({
+        targets: `.register-container`,
+        ...ANIMATIONS.topBottomOut,
+      });
+      anime({
+        targets: `.back`,
+        ...ANIMATIONS.bottomTopOut,
+      });
+    }
+    if (path === 'welcome/login')
+      anime({
+        targets: `.register-container`,
+        ...ANIMATIONS.leftRightOut,
+      });
+    setTimeout(() => this.router.navigate([path]), ANIMATION_DURATION);
   }
 }

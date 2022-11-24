@@ -28,6 +28,55 @@ export const TRANSFORM_SPEED = 2;
 export const ROTATE_SPEED = 10;
 export const MS_IN_S = 1000;
 
-export const SCRIPTS = [
-  'https://cdn.jsdelivr.net/npm/kute.js@2.2.4/dist/kute.min.js',
-];
+export const ANIMATION_DURATION = 300;
+
+export const ANIMATIONS = {
+  bottomTopIn: {
+    translateY: [100, 0],
+    opacity: [0, 1],
+    easing: 'easeOutQuad',
+    duration: ANIMATION_DURATION,
+  },
+  topBottomIn: {
+    translateY: [-100, 0],
+    opacity: [0, 1],
+    easing: 'easeOutQuad',
+    duration: ANIMATION_DURATION,
+  },
+  leftRightIn: {
+    translateX: [-100, 0],
+    opacity: [0, 1],
+    easing: 'easeOutQuad',
+    duration: ANIMATION_DURATION,
+  },
+  rightLeftIn: {
+    translateX: [100, 0],
+    opacity: [0, 1],
+    easing: 'easeOutQuad',
+    duration: ANIMATION_DURATION,
+  },
+  bottomTopOut: {
+    translateY: [0, -100],
+    opacity: [1, 0],
+    easing: 'easeOutQuad',
+    duration: ANIMATION_DURATION,
+  },
+  topBottomOut: {
+    translateY: [0, 100],
+    opacity: [1, 0],
+    easing: 'easeOutQuad',
+    duration: ANIMATION_DURATION,
+  },
+  leftRightOut: {
+    translateX: [0, 100],
+    opacity: [1, 0],
+    easing: 'easeOutQuad',
+    duration: ANIMATION_DURATION,
+  },
+  rightLeftOut: {
+    translateX: [0, -100],
+    opacity: [1, 0],
+    easing: 'easeOutQuad',
+    duration: ANIMATION_DURATION,
+  },
+};

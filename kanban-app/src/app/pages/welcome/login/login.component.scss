@@ -2,18 +2,29 @@
 
 .login-wrapper {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: calc(100vh - 50px);
   padding: 100px 0 50px;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.back, .card {
+  width: 100%;
 }
 
 .login-container {
   width: 300px;
   padding: 20px;
+  margin: 0 auto;
   box-sizing: border-box;
+}
+
+.back-button {
+  display: block;
+  margin: 0 auto;
 }
 
 .buttons {
