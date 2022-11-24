@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  concatMap,
   debounceTime,
   forkJoin,
   from,
@@ -83,7 +84,7 @@ export class BoardsEffect {
     let boardId = '';
     let columnId = '';
     let oldBoard: Board;
-    let oldColumns: Column[];
+    let oldTasks: Task[];
     return this.actions$.pipe(
       ofType(restoreBoard),
       tap(({ board }) => (oldBoard = board)),
@@ -95,11 +96,22 @@ export class BoardsEffect {
       ),
       tap((board: Board) => (boardId = board.id!)),
       map(() => oldBoard.columns!),
-      tap(columns => (oldColumns = columns)),
-      mergeMap((columns: Column[]) => from(columns)),
-      mergeMap((column: Column) =>
-        this.http.addColumn(boardId, { title: column.title })
-      ),
+      concatMap((columns: Column[]) => from(columns)),
+      concatMap((column: Column) => {
+        oldTasks = column.tasks!;
+        return this.http.addColumn(boardId, { title: column.title }).pipe(
+          tap((column: any) => (columnId = column.id)),
+          concatMap(() => from(oldTasks)),
+          concatMap((task: any) =>
+            this.http.addTask(boardId, columnId, {
+              title: task.title,
+              description: task.description,
+              userId: task.userId,
+            })
+          )
+        );
+      }),
+
       map(() => loadBoards())
     );
   });
