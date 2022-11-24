@@ -29,7 +29,7 @@ export const editBoardById = createAction(
 );
 export const restoreBoard = createAction(
   BoardsActions.RestoreBoard,
-  props<Board>()
+  props<{ board: Board }>()
 );
 export const loadBoards = createAction(BoardsActions.LoadBoards);
 export const addColumn = createAction(

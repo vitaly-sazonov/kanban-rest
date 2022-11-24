@@ -4,11 +4,7 @@ import { Subscription } from 'rxjs';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { ModalTypes } from 'src/app/enums';
 import { Board } from 'src/app/interfaces';
-import {
-  deleteAllBoards,
-  deleteBoardById,
-  restoreBoard,
-} from 'src/app/redux/actions/boards.actions';
+import { restoreBoard } from 'src/app/redux/actions/boards.actions';
 import { addConfirmMessage } from 'src/app/redux/actions/confirm.actions';
 import { setType, setVisibility } from 'src/app/redux/actions/modal.actions';
 import { selectConfirmationResult } from 'src/app/redux/selectors/confirmation.selectors';
@@ -34,7 +30,7 @@ export class BasketBoardComponent implements OnDestroy {
     ].forEach(action => this.store.dispatch(action));
     this.subscription2 = this.result$.subscribe(data => {
       if (data) {
-        this.store.dispatch(restoreBoard(this.board!));
+        this.store.dispatch(restoreBoard({ board: this.board! }));
         this.basketService.deleteFromBasket(id);
       }
     });

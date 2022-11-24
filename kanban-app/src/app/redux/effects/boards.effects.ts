@@ -86,8 +86,8 @@ export class BoardsEffect {
     let oldColumns: Column[];
     return this.actions$.pipe(
       ofType(restoreBoard),
-      tap((board: Board) => (oldBoard = board)),
-      switchMap(board =>
+      tap(({ board }) => (oldBoard = board)),
+      switchMap(({ board }) =>
         this.http.addBoard({
           title: board.title,
           description: board.description,
