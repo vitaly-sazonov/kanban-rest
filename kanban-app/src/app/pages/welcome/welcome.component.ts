@@ -11,11 +11,40 @@ import { ConfirmService } from 'src/app/core/services/confirm.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { DEVELOPERS } from 'src/app/developers';
+import {
+  state,
+  trigger,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss'],
+  animations: [
+    trigger('waveFlat', [
+      state(
+        'wave',
+        style({
+          backgroundSize: '100% 100%',
+        })
+      ),
+      state(
+        'flat',
+        style({
+          backgroundSize: '100% 0%',
+        })
+      ),
+      transition('wave => flat', [
+        animate('0.5s cubic-bezier(.01,.46,.22,.99)'),
+      ]),
+      transition('flat => wave', [
+        animate('0.5s cubic-bezier(.01,.46,.22,.99)'),
+      ]),
+    ]),
+  ],
 })
 export class WelcomeComponent implements OnInit {
   userResult?: Observable<boolean | null | undefined>; // it is for testing the modal window,then it should be deleted

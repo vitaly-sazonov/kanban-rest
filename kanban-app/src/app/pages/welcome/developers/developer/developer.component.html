@@ -1,16 +1,23 @@
-<mat-card class="card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title
-      >{{ developer.firstName }} {{ developer.secondName }}</mat-card-title
-    >
-    <mat-card-subtitle>{{ developer.git }}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image [src]="developer.photoURL" [alt]="developer.alt" />
-  <mat-card-content>
-    <p>{{ developer.aboutAuthor }}</p>
-    <ul *ngFor="let feature of developer.features">
-      <li>{{ feature }}</li>
-    </ul>
-  </mat-card-content>
-</mat-card>
+<section class="developer-card">
+  <section class="rotate-{{ index + 1 }} dev-circle" #blob>
+    <app-blob [blobElement]="blob" class="blob-position"></app-blob>
+    <img
+      [src]="developer.photoURL"
+      [alt]="developer.alt"
+      class="developer-picture" />
+  </section>
+  <section class="card">
+    <mat-card-header>
+      <mat-card-title>
+        {{ developer.firstName }} {{ developer.secondName }}
+      </mat-card-title>
+      <mat-card-subtitle>{{ developer.git }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ developer.aboutAuthor }}</p>
+      <ul *ngFor="let feature of developer.features">
+        <li>{{ feature }}</li>
+      </ul>
+    </mat-card-content>
+  </section>
+</section>

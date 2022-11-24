@@ -1,1 +1,7 @@
-<router-outlet></router-outlet>
+<section
+  class="welcome-top-background"
+  [@waveFlat]="(isLoading$ | async) ? 'flat' : 'wave'"></section>
+<section
+  class="welcome-bottom-background"
+  [@waveFlat]="(isLoading$ | async) ? 'flat' : 'wave'"></section>
+<router-outlet class="main"></router-outlet>

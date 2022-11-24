@@ -3,6 +3,9 @@
 @include mat.core();
 @import '~ngx-toastr/toastr';
 @import './app/colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans&display=swap');
+
+$main-font: 'Montserrat', sans-serif;
 
 html,
 body {
@@ -11,13 +14,14 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  background-color: $color-2;
 }
 
 .dialog .mat-dialog-container {
   background-color: $modalWindowColor;
   border-radius: 10px;
-  box-shadow: inset 0 0 20px rgba($color: #000000, $alpha: .5);
+  box-shadow: inset 0 0 20px rgba($color: #000000, $alpha: 0.5);
   transform: scale(1);
-  transition: .5s;
+  transition: 0.5s;
 }

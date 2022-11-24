@@ -66,7 +66,6 @@ export const Material = [MatIconModule, MatButtonModule];
     HttpClientModule,
     SharedModule,
     CoreModule,
-    WelcomeModule,
     MainModule,
     StoreModule.forRoot(
       {

@@ -1,88 +1,97 @@
-<form [formGroup]="registration" (ngSubmit)="onSubmit()" class="form">
-  <h2>{{ 'auth.Update' | translate }}</h2>
-  <p>
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>{{ 'auth.Name' | translate }}</mat-label>
-      <input
-        matInput
-        type="text"
-        formControlName="name"
-        [placeholder]="'auth.EnterEmail' | translate" />
-      <mat-error
-        *ngIf="
-          _user?.hasError(PasswordValidatorSymbols.required) && _user?.touched
-        ">
-        {{ 'auth.EmailError.required' | translate }}
-      </mat-error>
-      <mat-error *ngIf="_user?.hasError(PasswordValidatorSymbols.email)">
-        {{ 'auth.EmailError.invalid' | translate }}
-      </mat-error>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>{{ 'auth.Login' | translate }}</mat-label>
-      <input
-        matInput
-        type="text"
-        formControlName="login"
-        [placeholder]="'auth.EnterLogin' | translate" />
-      <mat-error
-        *ngIf="
-          _login?.hasError(PasswordValidatorSymbols.required) && _login?.touched
-        ">
-        {{ 'auth.LoginError.required' | translate }}
-      </mat-error>
-      <mat-error *ngIf="_login?.errors?.[PasswordValidatorSymbols.minLength]">
-        {{ 'auth.LoginError.minLength' | translate }}</mat-error
-      >
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field appearance="fill" class="form-field">
-      <mat-label>{{ 'auth.Password' | translate }}</mat-label>
-      <input
-        matInput
-        formControlName="password"
-        type="password"
-        [placeholder]="'auth.EnterPassword' | translate" />
-      <mat-error *ngIf="_password?.dirty && _password?.invalid" class="error">
-        <mat-error>{{ 'auth.PasswordError.strong' | translate }}</mat-error>
-        <mat-error
-          *ngIf="_password?.errors?.[PasswordValidatorSymbols.minLength]">
-          {{ 'auth.PasswordError.minLength' | translate }}
-        </mat-error>
-        <mat-error
-          *ngIf="_password?.errors?.[PasswordValidatorSymbols.upperCase]">
-          {{ 'auth.PasswordError.uppercase' | translate }}
-        </mat-error>
-        <mat-error
-          *ngIf="_password?.errors?.[PasswordValidatorSymbols.lowerCase]">
-          {{ 'auth.PasswordError.lowercase' | translate }}
-        </mat-error>
-        <mat-error
-          *ngIf="_password?.errors?.[PasswordValidatorSymbols.numbers]">
-          {{ 'auth.PasswordError.number' | translate }}
-        </mat-error>
-        <mat-error
-          *ngIf="_password?.errors?.[PasswordValidatorSymbols.special]">
-          {{ 'auth.PasswordError.symbol' | translate }}
-          ({{ PasswordValidatorSymbols.symbol }})
-        </mat-error>
-      </mat-error>
-    </mat-form-field>
-  </p>
-  <div class="buttons">
-    <mat-spinner
-      diameter="20"
-      color="primary"
-      *ngIf="isLoading$ | async"></mat-spinner>
-    <button
-      mat-raised-button
-      color="accent"
-      type="submit"
-      [disabled]="!registration.valid || (isLoading$ | async)">
-      {{ 'auth.Update' | translate }}
-    </button>
-  </div>
-</form>
+<section class="update-user-wrapper">
+  <mat-card class="update-user-container">
+    <form [formGroup]="registration" (ngSubmit)="onSubmit()" class="form">
+      <h2>{{ 'auth.Update' | translate }}</h2>
+      <p>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>{{ 'auth.Name' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="name"
+            [placeholder]="'auth.EnterEmail' | translate" />
+          <mat-error
+            *ngIf="
+              _user?.hasError(PasswordValidatorSymbols.required) &&
+              _user?.touched
+            ">
+            {{ 'auth.EmailError.required' | translate }}
+          </mat-error>
+          <mat-error *ngIf="_user?.hasError(PasswordValidatorSymbols.email)">
+            {{ 'auth.EmailError.invalid' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>{{ 'auth.Login' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="login"
+            [placeholder]="'auth.EnterLogin' | translate" />
+          <mat-error
+            *ngIf="
+              _login?.hasError(PasswordValidatorSymbols.required) &&
+              _login?.touched
+            ">
+            {{ 'auth.LoginError.required' | translate }}
+          </mat-error>
+          <mat-error
+            *ngIf="_login?.errors?.[PasswordValidatorSymbols.minLength]">
+            {{ 'auth.LoginError.minLength' | translate }}</mat-error
+          >
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>{{ 'auth.Password' | translate }}</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            type="password"
+            [placeholder]="'auth.EnterPassword' | translate" />
+          <mat-error
+            *ngIf="_password?.dirty && _password?.invalid"
+            class="error">
+            <mat-error>{{ 'auth.PasswordError.strong' | translate }}</mat-error>
+            <mat-error
+              *ngIf="_password?.errors?.[PasswordValidatorSymbols.minLength]">
+              {{ 'auth.PasswordError.minLength' | translate }}
+            </mat-error>
+            <mat-error
+              *ngIf="_password?.errors?.[PasswordValidatorSymbols.upperCase]">
+              {{ 'auth.PasswordError.uppercase' | translate }}
+            </mat-error>
+            <mat-error
+              *ngIf="_password?.errors?.[PasswordValidatorSymbols.lowerCase]">
+              {{ 'auth.PasswordError.lowercase' | translate }}
+            </mat-error>
+            <mat-error
+              *ngIf="_password?.errors?.[PasswordValidatorSymbols.numbers]">
+              {{ 'auth.PasswordError.number' | translate }}
+            </mat-error>
+            <mat-error
+              *ngIf="_password?.errors?.[PasswordValidatorSymbols.special]">
+              {{ 'auth.PasswordError.symbol' | translate }}
+              ({{ PasswordValidatorSymbols.symbol }})
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <div class="buttons">
+        <mat-spinner
+          diameter="20"
+          color="primary"
+          *ngIf="isLoading$ | async"></mat-spinner>
+        <button
+          mat-raised-button
+          color="accent"
+          type="submit"
+          [disabled]="!registration.valid || (isLoading$ | async)">
+          {{ 'auth.Update' | translate }}
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</section>
