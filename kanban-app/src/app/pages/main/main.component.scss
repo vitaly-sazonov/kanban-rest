@@ -62,7 +62,7 @@ input:focus {
   left: 219px;
   opacity: 0.5;
   &:hover {
-    opacity: 1;;
+    opacity: 1;
   }
 }
 .template {
@@ -95,6 +95,22 @@ input:focus {
   top: -98px;
 }
 
-.statistics, .result-title{
-  color:$moreColor;
+.statistics,
+.result-title {
+  color: $moreColor;
+}
+.basket {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 20px;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+}
+.columns-all, .tasks-all, .boards-all{
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
 }

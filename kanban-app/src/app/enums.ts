@@ -70,6 +70,7 @@ export enum BoardsActions {
   DeleteAllBoards = '[Boards] Delete All Boards',
   LoadBoards = '[Boards] Load Boards',
   LoadBoardById = '[Boards] Load Board By ID',
+  RestoreBoard = '[Boards] Restore',
 }
 
 export enum ModalTypes {

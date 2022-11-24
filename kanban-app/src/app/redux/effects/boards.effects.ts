@@ -1,9 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { debounceTime, forkJoin, map, of, switchMap, tap } from 'rxjs';
+import {
+  debounceTime,
+  forkJoin,
+  from,
+  map,
+  mergeMap,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
-import { Board, Task } from 'src/app/interfaces';
+import { Board, Column, Task } from 'src/app/interfaces';
 import {
   addBoard,
   addBoards,
@@ -21,6 +30,7 @@ import {
   moveTaskToAnotherColumn,
   removeColumn,
   removeTask,
+  restoreBoard,
 } from '../actions/boards.actions';
 
 @Injectable()
@@ -69,6 +79,31 @@ export class BoardsEffect {
       map(() => loadBoards())
     );
   });
+  restoreBoard$ = createEffect(() => {
+    let boardId = '';
+    let columnId = '';
+    let oldBoard: Board;
+    let oldColumns: Column[];
+    return this.actions$.pipe(
+      ofType(restoreBoard),
+      tap((board: Board) => (oldBoard = board)),
+      switchMap(board =>
+        this.http.addBoard({
+          title: board.title,
+          description: board.description,
+        })
+      ),
+      tap((board: Board) => (boardId = board.id!)),
+      map(() => oldBoard.columns!),
+      tap(columns => (oldColumns = columns)),
+      mergeMap((columns: Column[]) => from(columns)),
+      mergeMap((column: Column) =>
+        this.http.addColumn(boardId, { title: column.title })
+      ),
+      map(() => loadBoards())
+    );
+  });
+
   addBoard$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addBoard),

@@ -24,10 +24,12 @@
     </section>
     <section class="full-box" *ngIf="isShort === false && columns?.length! > 0">
       <mat-card-subtitle
-        >{{ 'columns' | translate }}: {{ columns?.length }}</mat-card-subtitle
+        ><mat-icon>view_column</mat-icon>{{ 'columns' | translate }}:
+        {{ columns?.length }}</mat-card-subtitle
       >
-      <mat-card-subtitle
-        >{{ 'tasks' | translate }} {{ getTaskQuantity() }}</mat-card-subtitle
+      <mat-card-subtitle>
+        <mat-icon>description</mat-icon>{{ 'tasks' | translate }}
+        {{ getTaskQuantity() }}</mat-card-subtitle
       >
     </section>
     <section class="short-box" *ngIf="isShort && columns?.length! > 0">
@@ -103,7 +105,7 @@
           <span>{{ 'BOARD.Edit' | translate }}</span>
         </button>
         <button mat-menu-item>
-          <mat-icon>edit</mat-icon>
+          <mat-icon>insert_photo</mat-icon>
           <span>{{ 'BOARD.ChangePicture' | translate }}</span>
         </button>
         <button mat-menu-item (click)="deleteBoard(board?.id!)">

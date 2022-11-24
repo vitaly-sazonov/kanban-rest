@@ -6,6 +6,7 @@ import { DEVELOPERS } from 'src/app/developers';
 import { DEVELOPERS_BY } from 'src/app/developers-by';
 import { DEVELOPERS_RU } from 'src/app/developers-ru';
 import { DEVELOPERS_UA } from 'src/app/developers-ua';
+import { Language } from 'src/app/enums';
 import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
 @Component({
   selector: 'app-developers',
@@ -26,19 +27,19 @@ export class DevelopersComponent implements OnInit, OnDestroy {
       .pipe(
         map(x => {
           switch (x.lang) {
-            case 'en': {
+            case Language.En: {
               this.developers = DEVELOPERS;
               break;
             }
-            case 'ru': {
+            case Language.Ru: {
               this.developers = DEVELOPERS_RU;
               break;
             }
-            case 'by': {
+            case Language.By: {
               this.developers = DEVELOPERS_BY;
               break;
             }
-            case 'ua': {
+            case Language.Ua: {
               this.developers = DEVELOPERS_UA;
               break;
             }
@@ -51,15 +52,15 @@ export class DevelopersComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  getCurrentDevelopers(){
-    switch ( this.translateService.currentLang) {
-      case 'en': 
+  getCurrentDevelopers() {
+    switch (this.translateService.currentLang) {
+      case Language.En:
         return DEVELOPERS;
-      case 'ru': 
-        return DEVELOPERS_RU;  
-      case 'by': 
-       return DEVELOPERS_BY;
-      case 'ua': 
+      case Language.Ru:
+        return DEVELOPERS_RU;
+      case Language.By:
+        return DEVELOPERS_BY;
+      case Language.Ua:
         return DEVELOPERS_UA;
       default:
         return DEVELOPERS;

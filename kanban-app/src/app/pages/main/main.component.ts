@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { from, map, mergeMap, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, from, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { LAST_SEARCH } from 'src/app/constants';
+import { BasketService } from 'src/app/core/services/basket.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { Board } from 'src/app/interfaces';
 import {
@@ -26,11 +27,18 @@ export class MainComponent implements OnInit {
   boardsQuantity$ = this.getBoardQuantity();
   columnsQuantity$ = this.getColumnsQuantity();
   tasksQuantity$ = this.getTaskQuantity();
+  boardsInBasket = 0;
+  basket$$?: BehaviorSubject<Board[]>;
 
-  constructor(private store: Store, private storage: LocalstorageService) {}
+  constructor(
+    private store: Store,
+    private storage: LocalstorageService,
+    private basket: BasketService
+  ) {}
 
   ngOnInit(): void {
     this.reset();
+    this.basket$$ = this.basket.getBasket();
   }
 
   reset(): void {

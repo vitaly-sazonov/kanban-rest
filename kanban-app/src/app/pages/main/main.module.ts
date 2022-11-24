@@ -14,9 +14,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { BasketComponent } from './components/basket/basket.component';
+import { BasketBoardComponent } from './components/basket-board/basket-board.component';
 
 @NgModule({
-  declarations: [MainComponent, BoardComponent],
+  declarations: [
+    MainComponent,
+    BoardComponent,
+    BasketComponent,
+    BasketBoardComponent,
+  ],
   imports: [
     CommonModule,
     MainRoutingModule,
