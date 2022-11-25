@@ -27,6 +27,9 @@ input:focus {
 
 .statistics-card {
   padding: 30px 10px;
+  background: $color-2;
+  filter: brightness(90%);
+  box-shadow: none;
 }
 
 .statistics-title {
