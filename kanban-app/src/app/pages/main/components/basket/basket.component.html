@@ -1,0 +1,23 @@
+<section class="basket-container">
+  <h1 class="title">
+    {{ 'Basket' | translate }} ({{ (basket$$ | async)?.length || '0' }})
+  </h1>
+  <section class="inner-container" *ngIf="(basket$$ | async)?.length !== 0">
+    <app-basket-board
+      *ngFor="let board of basket$$ | async"
+      [board]="board"></app-basket-board>
+  </section>
+  <button
+    mat-raised-button
+    [disabled]="(basket$$ | async)?.length === 0"
+    color="warn"
+    class="delete-all"
+    (click)="deleteAll()">
+    <mat-icon>delete_forever</mat-icon>
+    {{ 'Delete all' | translate }}
+  </button>
+  <button mat-raised-button color="primary" class="back" [routerLink]="['../']">
+    <mat-icon>arrow_back</mat-icon>
+    {{ 'Back to boards' | translate }}
+  </button>
+</section>

@@ -1,28 +1,30 @@
-<form [formGroup]="formConstructor" (ngSubmit)="submit()">
-  <div class="form-group">
-    <h2>{{ formSelected! + '.header' | translate }}</h2>
+<section>
+  <form [formGroup]="formConstructor" (ngSubmit)="submit()">
+    <div class="form-group">
+      <h2>{{ formSelected! + '.header' | translate }}</h2>
 
-    <ng-container *ngFor="let control of inputFields | keyvalue: keepSorting">
-      <mat-form-field appearance="fill" class="form-field">
-        <mat-label>{{
-          formSelected! + '.' + control.key | translate
-        }}</mat-label>
-        <input
-          matInput
-          class="form-control"
-          name="{{ control.key }}"
-          formControlName="{{ control.key }}" />
-        <mat-error *ngIf="checkForErrors(control.key)">
-          {{ 'formModal.required' | translate }}
-        </mat-error>
-      </mat-form-field>
-    </ng-container>
-    <button
-      mat-raised-button
-      color="primary"
-      type="submit"
-      [disabled]="formConstructor.invalid">
-      {{ formSelected! + '.button' | translate }}
-    </button>
-  </div>
-</form>
+      <ng-container *ngFor="let control of inputFields | keyvalue: keepSorting">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>{{
+            formSelected! + '.' + control.key | translate
+          }}</mat-label>
+          <input
+            matInput
+            class="form-control"
+            name="{{ control.key }}"
+            formControlName="{{ control.key }}" />
+          <mat-error *ngIf="checkForErrors(control.key)">
+            {{ 'formModal.required' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </ng-container>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="formConstructor.invalid">
+        {{ formSelected! + '.button' | translate }}
+      </button>
+    </div>
+  </form>
+</section>

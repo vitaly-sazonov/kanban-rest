@@ -44,6 +44,18 @@ export class HttpService {
       description,
     });
   }
+  updateBoard(
+    boardId: string,
+    title: string,
+    description: string,
+    columns: Column[]
+  ) {
+    return this.http.put(`${QUERY_PARAMS_FIRST.boards}/${boardId}`, {
+      title,
+      description,
+      columns,
+    });
+  }
 
   signIn(user: UserLogin) {
     return this.http

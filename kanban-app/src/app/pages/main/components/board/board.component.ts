@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { BasketService } from 'src/app/core/services/basket.service';
 import { CompareService } from 'src/app/core/services/compare.service';
 import { HashService } from 'src/app/core/services/hash.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
@@ -46,7 +47,7 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
     private hash: HashService,
     private storage: LocalstorageService,
     private modalService: ModalService,
-    private router: Router
+    private basket: BasketService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
     this.isShort = this.isAllShort;
@@ -76,6 +77,7 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
           this.store.dispatch(action)
         );
         this.storage.removeItem(this.board?.id!);
+        this.basket.addToBasket(this.board!);
       }
     });
   }

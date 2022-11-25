@@ -1,0 +1,27 @@
+.basket-container {
+  padding-top: 100px;
+  margin-left: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.inner-container{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+.back {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 170px;
+  cursor: pointer;
+}
+.delete-all {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  width: 170px;
+  cursor: pointer;
+}
+

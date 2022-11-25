@@ -8,7 +8,7 @@
   margin-left: auto;
   margin-left: auto;
   width: 300px;
-  height: 200px;
+  height: 70px;
   padding: 10px;
   background-color: $boardBackgroundColor;
   box-shadow: $boxShadow;
@@ -20,18 +20,13 @@
   position: absolute;
   top: 30px;
   width: 300px;
-  min-height: 200px;
-  cursor: pointer;
+  height: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   overflow-wrap: break-word;
   padding-bottom: 10px;
-
-  &:hover .title {
-    color: $moreColor;
-  }
 }
 
 .container-preview {
@@ -226,46 +221,5 @@
   cursor: auto;
   & mat-card-subtitle {
     color: $moreColor;
-  }
-}
-mat-card-subtitle{
-  display: flex;
-  align-items: center;
-}
-@media (max-width: 1920px) {
-  .container-preview{
-    max-width: 580px;
-  }
-}
-@media (max-width: 1680px) {
-  .container-preview{
-    max-width: 460px;
-  }
-}
-@media (max-width: 1440px) {
-  .container-preview{
-    max-width: 360px;
-  }
-}
-@media (max-width: 1080px) {
-  .container-preview{
-    max-width: 240px;
-  }
-}
-@media (max-width: 830px) {
-  .container-preview{
-    max-width: 120px;
-  }
-}
-@media (max-width: 600px) {
-  .container-preview{
-    max-width: 0px;
-    visibility: hidden;
-  }
-  .inner-container-preview{
-    display: block;
-  }
-  .visible{
-    left:0px;
   }
 }
