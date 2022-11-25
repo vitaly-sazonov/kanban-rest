@@ -1,36 +1,39 @@
-<header class="header">
-  <h1 class="title">{{ 'BOARDS' | translate }}</h1>
-</header>
-<aside class="search-container">
-  <section>
-    <mat-icon class="icon">search</mat-icon>
-    <input
-      matInput
-      class="search-input"
-      placeholder="{{ 'search board' | translate }}"
-      [(ngModel)]="searchRequest"
-      (ngModelChange)="rememberSearch()"
-      autofocus />
-    <mat-icon class="delete-search" (click)="deleteSearch()">close</mat-icon>
-    <h2 class="sort-button" (click)="isReverseBoards = !isReverseBoards">
-      A-Z
-    </h2>
-    <h2 class="sort-direction" [class.rotate]="isReverseBoards"><b>↑</b></h2>
-
-    <mat-icon
-      class="expand-icon"
-      *ngIf="isAllShort === false"
-      (click)="isAllShort = true"
-      >unfold_less</mat-icon
-    >
-    <mat-icon
-      class="expand-icon"
-      *ngIf="isAllShort"
-      (click)="isAllShort = false"
-      >unfold_more</mat-icon
-    >
-  </section>
-</aside>
+<section class="first-container">
+  <header class="header">
+    <h1 class="title">{{ 'BOARDS' | translate }}</h1>
+  </header>
+  <aside class="search-container">
+    <section>
+      <mat-icon class="icon">search</mat-icon>
+      <input
+        matInput
+        class="search-input"
+        placeholder="{{ 'search board' | translate }}"
+        [(ngModel)]="searchRequest"
+        (ngModelChange)="rememberSearch()"
+        autofocus />
+      <mat-icon class="delete-search" (click)="deleteSearch()">close</mat-icon>
+      <section class="sort-section">
+        <h2 class="sort-button" (click)="isReverseBoards = !isReverseBoards">
+          A-Z
+        </h2>
+        <h2 class="sort-direction" [class.rotate]="isReverseBoards">↑</h2>
+      </section>
+      <mat-icon
+        class="expand-icon"
+        *ngIf="isAllShort === false"
+        (click)="isAllShort = true"
+        >unfold_less</mat-icon
+      >
+      <mat-icon
+        class="expand-icon"
+        *ngIf="isAllShort"
+        (click)="isAllShort = false"
+        >unfold_more</mat-icon
+      >
+    </section>
+  </aside>
+</section>
 <main class="boards-container">
   <div
     class="inner-container"

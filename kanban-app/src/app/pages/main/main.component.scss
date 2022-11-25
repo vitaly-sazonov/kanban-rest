@@ -7,6 +7,14 @@ input:focus {
   outline: 0;
   border: transparent;
 }
+.first-container{
+  position: sticky;
+  width:250px;
+  top: 100px;
+  left: 0px;
+  background-color: $color-2;
+  z-index: 8;
+}
 
 .boards-container {
   position: relative;
@@ -29,7 +37,7 @@ input:focus {
 }
 .search-container {
   position: sticky;
-  top: 200px;
+  top: 3000px;
   display: flex;
 }
 .search-input {
@@ -71,28 +79,37 @@ input:focus {
 }
 .expand-icon {
   position: absolute;
-  top: -98px;
+  top: -44px;
   left: 40px;
   color: $moreColor;
   cursor: pointer;
 }
-.sort-button {
+.sort-section {
   position: absolute;
-  top: -100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  top: -49px;
   left: 190px;
+}
+.sort-button {
+  position: relative;
+  top: 0px;
+  left: 0px;
   color: $moreColor;
   cursor: pointer;
 }
 .sort-direction {
-  position: absolute;
-  top: -103px;
-  left: 225px;
+  position: relative;
+  top: -4px;
+  left: 0px;
   color: $moreColor;
-  transition: 1s;
+  transition: 200ms;
 }
 .rotate {
   transform: rotate(180deg);
-  top: -98px;
+  top: 2px;
 }
 
 .statistics,
@@ -109,8 +126,51 @@ input:focus {
     opacity: 1;
   }
 }
-.columns-all, .tasks-all, .boards-all{
+.columns-all,
+.tasks-all,
+.boards-all {
   display: flex;
   align-items: center;
   padding-left: 20px;
+}
+@media (max-width: 840px) {
+  .first-container{
+    width:100%;
+    top: 0px;
+    left: 0px;
+    background-color: $color-2;
+    z-index: 8;
+  }
+  .search-container {
+    display: flex;
+    justify-content: center;
+    position: static;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .header {
+    display: flex;
+    justify-content: center;
+    position: static;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+  }
+  .delete-search {
+    position: relative;
+    top: 7px;
+    left: -25px;
+  }
+  .expand-icon {
+    position: relative;
+    top: -128px;
+    left: 50px;
+  }
+  .sort-section {
+    position: relative;
+    width: 150px;
+    gap: 10px;
+    top: -86px;
+    left: 140px;
+  }
 }
