@@ -4,6 +4,7 @@ import { BehaviorSubject, from, map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { LAST_SEARCH } from 'src/app/constants';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
+import { ScrollService } from 'src/app/core/services/scroll.service';
 import { Board } from 'src/app/interfaces';
 import {
   deleteAllBoards,
@@ -29,11 +30,15 @@ export class MainComponent implements OnInit {
   tasksQuantity$ = this.getTaskQuantity();
   boardsInBasket = 0;
   basket$$?: BehaviorSubject<Board[]>;
+  posY$$ = this.scrollService.getPositionY();
+  downPos = Math.round(document.body.scrollHeight);
+  scrollHeight$$ = this.scrollService.getScrollHeight();
 
   constructor(
     private store: Store,
     private storage: LocalstorageService,
-    private basket: BasketService
+    private basket: BasketService,
+    private scrollService: ScrollService
   ) {}
 
   ngOnInit(): void {
@@ -83,4 +88,11 @@ export class MainComponent implements OnInit {
       switchMap(() => of(q))
     );
   }
+  scrollDown() {
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+  scrollUp() {
+    window.scrollTo(0, 0);
+  }
+  checkDown = (pos: number) => pos < document.body.scrollHeight * 0.7;
 }

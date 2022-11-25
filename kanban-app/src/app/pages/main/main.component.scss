@@ -2,18 +2,18 @@
 
 :host {
   user-select: none;
+  scroll-behavior: smooth;
 }
 input:focus {
   outline: 0;
   border: transparent;
 }
-.first-container{
+.first-container {
   position: sticky;
-  width:250px;
+  width: 250px;
   top: 100px;
   left: 0px;
   background-color: $color-2;
-  
 }
 
 .boards-container {
@@ -28,13 +28,11 @@ input:focus {
   min-height: 300px;
   width: 300px;
   margin-bottom: 50px;
-
 }
 .inner-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
- 
 }
 .search-container {
   position: relative;
@@ -129,16 +127,32 @@ input:focus {
   align-items: center;
   padding-left: 20px;
 }
-.statistics{
+.statistics {
   display: flex;
-  flex-direction:column ;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   max-width: 300px;
 }
+.navigation {
+  position: fixed;
+  top: 50vh;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  & mat-icon {
+    cursor: pointer;
+    opacity: .5;
+    &:hover{
+      opacity: 1;
+    }
+  }
+}
+
 @media (max-width: 840px) {
-  .first-container{
-    width:100%;
+  .first-container {
+    width: 100%;
     top: 0px;
     left: 0px;
     background-color: $color-2;
