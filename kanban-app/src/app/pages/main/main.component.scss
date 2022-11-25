@@ -13,7 +13,7 @@ input:focus {
   top: 100px;
   left: 0px;
   background-color: $color-2;
-  z-index: 8;
+  
 }
 
 .boards-container {
@@ -24,20 +24,20 @@ input:focus {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-  width: fit-content;
   height: auto;
   min-height: 300px;
-  min-width: 300px;
+  width: 300px;
   margin-bottom: 50px;
+
 }
 .inner-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
+ 
 }
 .search-container {
-  position: sticky;
-  top: 3000px;
+  position: relative;
   display: flex;
 }
 .search-input {
@@ -48,7 +48,6 @@ input:focus {
   height: 30px;
   background-color: #eee;
   border: transparent;
-  z-index: 0;
   color: $moreColor;
   border-radius: 5px;
 }
@@ -72,10 +71,6 @@ input:focus {
   &:hover {
     opacity: 1;
   }
-}
-.template {
-  position: fixed;
-  left: 100px;
 }
 .expand-icon {
   position: absolute;
@@ -115,6 +110,7 @@ input:focus {
 .statistics,
 .result-title {
   color: $moreColor;
+  text-align: center;
 }
 .basket {
   display: flex;
@@ -132,6 +128,13 @@ input:focus {
   display: flex;
   align-items: center;
   padding-left: 20px;
+}
+.statistics{
+  display: flex;
+  flex-direction:column ;
+  align-items: center;
+  justify-content: center;
+  max-width: 300px;
 }
 @media (max-width: 840px) {
   .first-container{
@@ -168,6 +171,8 @@ input:focus {
   }
   .sort-section {
     position: relative;
+    padding: 0;
+    margin: 0;
     width: 150px;
     gap: 10px;
     top: -86px;

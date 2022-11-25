@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
   },
-  { path: 'basket', component: BasketComponent },
+  { path: 'bin', component: BasketComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 

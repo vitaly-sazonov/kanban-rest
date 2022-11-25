@@ -2,17 +2,14 @@
   <h1 class="title">
     {{ 'Basket' | translate }} ({{ (basket$$ | async)?.length || '0' }})
   </h1>
-  <section
-    class="inner-container"
-    *ngIf="(basket$$ | async)?.length !== 0"
-    else
-    noBoards>
+  <section class="inner-container" *ngIf="(basket$$ | async)?.length !== 0">
     <app-basket-board
       *ngFor="let board of basket$$ | async"
       [board]="board"></app-basket-board>
   </section>
   <button
     mat-raised-button
+    [disabled]="(basket$$ | async)?.length === 0"
     color="warn"
     class="delete-all"
     (click)="deleteAll()">
@@ -24,11 +21,3 @@
     {{ 'Back to boards' | translate }}
   </button>
 </section>
-<ng-template class="template" #noBoards>
-  <h2 *ngIf="(isLoading$ | async) === false">{{ 'No Boards' | translate }}</h2>
-  <h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>
-  <mat-spinner
-    diameter="30"
-    color="primary"
-    *ngIf="isLoading$ | async"></mat-spinner>
-</ng-template>

@@ -6,19 +6,18 @@
     <section>
       <mat-icon class="icon">search</mat-icon>
       <input
-        matInput
         class="search-input"
         placeholder="{{ 'search board' | translate }}"
         [(ngModel)]="searchRequest"
         (ngModelChange)="rememberSearch()"
         autofocus />
       <mat-icon class="delete-search" (click)="deleteSearch()">close</mat-icon>
-      <section class="sort-section">
+      <div class="sort-section">
         <h2 class="sort-button" (click)="isReverseBoards = !isReverseBoards">
           A-Z
         </h2>
         <h2 class="sort-direction" [class.rotate]="isReverseBoards">↑</h2>
-      </section>
+      </div>
       <mat-icon
         class="expand-icon"
         *ngIf="isAllShort === false"
@@ -46,7 +45,7 @@
         <mat-icon>dashboard</mat-icon>{{ 'Total boards' | translate }}:
         {{ boardsQuantity$ | async }}
       </h2>
-      <h2 [routerLink]="['basket']" class="basket">
+      <h2 [routerLink]="['bin']" class="basket">
         <mat-icon>delete_outline</mat-icon>
         {{ 'Recently deleted boards' | translate }}:
         {{ (basket$$ | async)?.length || '0' }}
