@@ -1,84 +1,104 @@
-<section class="first-container">
-  <header class="header">
+<section class="main-wrapper">
+  <aside class="sidebar-wrapper">
     <h1 class="title">{{ 'BOARDS' | translate }}</h1>
-  </header>
-  <aside class="search-container">
-    <section>
-      <mat-icon class="icon">search</mat-icon>
-      <input
-        class="search-input"
-        placeholder="{{ 'search board' | translate }}"
-        [(ngModel)]="searchRequest"
-        (ngModelChange)="rememberSearch()"
-        autofocus />
-      <mat-icon class="delete-search" (click)="deleteSearch()">close</mat-icon>
-      <div class="sort-section">
-        <h2 class="sort-button" (click)="isReverseBoards = !isReverseBoards">
-          A-Z
-        </h2>
-        <h2 class="sort-direction" [class.rotate]="isReverseBoards">↑</h2>
-      </div>
-      <mat-icon
-        class="expand-icon"
-        *ngIf="isAllShort === false"
-        (click)="isAllShort = true"
-        >unfold_less</mat-icon
-      >
-      <mat-icon
-        class="expand-icon"
-        *ngIf="isAllShort"
-        (click)="isAllShort = false"
-        >unfold_more</mat-icon
-      >
-    </section>
+    <mat-card class="statistics-card">
+      <mat-card-header class="statistics-title">
+        <mat-card-title>{{ 'BoardsStats' | translate }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h4 class="boards-all">
+          <mat-icon>dashboard</mat-icon>{{ 'Total boards' | translate }}:
+          {{ boardsQuantity$ | async }}
+        </h4>
+        <h4 [routerLink]="['bin']" class="basket">
+          <mat-icon>delete_outline</mat-icon>
+          {{ 'Recently deleted boards' | translate }}:
+          {{ (basket$$ | async)?.length || '0' }}
+        </h4>
+        <h4 class="columns-all">
+          <mat-icon>view_column</mat-icon>{{ 'Total columns' | translate }}:
+          {{ columnsQuantity$ | async }}
+        </h4>
+        <h4 class="tasks-all">
+          <mat-icon>description</mat-icon>{{ 'Total tasks' | translate }}:
+          {{ tasksQuantity$ | async }}
+        </h4>
+      </mat-card-content>
+    </mat-card>
   </aside>
-</section>
-<main class="boards-container">
-  <div
-    class="inner-container"
-    *ngIf="
-      ((boards$ | async)! | search: searchRequest).length > 0;
-      else noBoards
-    ">
-    <section class="statistics" *ngIf="isSearching === false">
-      <h2 class="boards-all">
-        <mat-icon>dashboard</mat-icon>{{ 'Total boards' | translate }}:
-        {{ boardsQuantity$ | async }}
-      </h2>
-      <h2 [routerLink]="['bin']" class="basket">
-        <mat-icon>delete_outline</mat-icon>
-        {{ 'Recently deleted boards' | translate }}:
-        {{ (basket$$ | async)?.length || '0' }}
-      </h2>
-      <h2 class="columns-all">
-        <mat-icon>view_column</mat-icon>{{ 'Total columns' | translate }}:
-        {{ columnsQuantity$ | async }}
-      </h2>
-      <h2 class="tasks-all">
-        <mat-icon>description</mat-icon>{{ 'Total tasks' | translate }}:
-        {{ tasksQuantity$ | async }}
-      </h2>
+  <main class="boards-wrapper">
+    <section class="boards-header">
+      <!-- <h1 class="title">{{ 'BOARDS' | translate }}</h1> -->
+      <section class="search-container">
+        <mat-icon class="icon">search</mat-icon>
+        <input
+          type="search"
+          class="search-input"
+          placeholder="{{ 'search board' | translate }}"
+          [(ngModel)]="searchRequest"
+          (ngModelChange)="rememberSearch()"
+          (click)="deleteSearch()"
+          autofocus />
+      </section>
+      <section class="boards-controls">
+        <div class="sort-section">
+          {{ 'Sort' | translate }}
+          <span
+            class="sort-button"
+            (click)="isReverseBoards = !isReverseBoards">
+            {{ !isReverseBoards ? 'A → Z' : 'Z → A' }}
+          </span>
+          <mat-icon class="sort-direction" [class.rotate]="isReverseBoards">
+            keyboard_arrow_up
+          </mat-icon>
+        </div>
+        <div class="expand-section">
+          {{ 'View' | translate }}
+          <span class="expand-text" (click)="isAllShort = !isAllShort">
+            {{ !isAllShort ? ('Max' | translate) : ('Min' | translate) }}
+            <mat-icon class="expand-icon" *ngIf="isAllShort">
+              unfold_less
+            </mat-icon>
+            <mat-icon class="expand-icon" *ngIf="!isAllShort">
+              unfold_more
+            </mat-icon>
+          </span>
+        </div>
+      </section>
     </section>
-    <h2 *ngIf="isSearching" class="result-title">
-      {{ 'Search results' | translate }}:
-    </h2>
-    <app-board
-      *ngFor="
-        let item of (boards$ | async)!
-          | search: searchRequest
-          | sortByAlphabet: isReverseBoards
-      "
-      [board]="item"
-      [searchRequest]="searchRequest"
-      [isAllShort]="isAllShort">
-    </app-board>
-  </div>
-</main>
-<ng-template class="template" #noBoards>
-  <h2 *ngIf="(isLoading$ | async) === false">{{ 'No Boards' | translate }}</h2>
-  <h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>
-  <mat-spinner
-    diameter="30"
-    color="primary"
-    *ngIf="isLoading$ | async"></mat-spinner>
-</ng-template>
+    <section
+      class="boards-container"
+      *ngIf="
+        ((boards$ | async)! | search: searchRequest).length > 0;
+        else noBoards
+      ">
+      <h2 *ngIf="isSearching" class="result-title">
+        {{ 'Search results' | translate }}:
+      </h2>
+      <app-board
+        *ngFor="
+          let item of (boards$ | async)!
+            | search: searchRequest
+            | sortByAlphabet: isReverseBoards
+        "
+        [board]="item"
+        [searchRequest]="searchRequest"
+        [isAllShort]="isAllShort">
+      </app-board>
+    </section>
+    <ng-template class="template" #noBoards>
+      <h2 *ngIf="(isLoading$ | async) === false">
+        {{ 'No Boards' | translate }}
+      </h2>
+      <h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>
+      <mat-spinner
+        diameter="30"
+        color="primary"
+        *ngIf="isLoading$ | async"></mat-spinner>
+    </ng-template>
+  </main>
+
+  <!-- <aside class="search-container">
+
+    </aside> -->
+</section>

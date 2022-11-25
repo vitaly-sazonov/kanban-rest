@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { BasketComponent } from './components/basket/basket.component';
 import { BasketBoardComponent } from './components/basket-board/basket-board.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { BasketBoardComponent } from './components/basket-board/basket-board.com
     FormsModule,
     MatCardModule,
     MatMenuModule,
+    MatSidenavModule,
   ],
 })
 export class MainModule {}
