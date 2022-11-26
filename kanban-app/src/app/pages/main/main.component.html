@@ -13,6 +13,10 @@
           >
           {{ boardsQuantity$ | async }}
         </h4>
+        <h4 class="basket" (click)="createCustomBoard()">
+          <mat-icon class="statistics-icon">create_new_folder</mat-icon>
+          <span class="statistics-text">{{ 'Create custom' | translate }}</span>
+        </h4>
         <h4 [routerLink]="['bin']" class="basket">
           <mat-icon class="statistics-icon">delete_outline</mat-icon>
           <span class="statistics-text"
