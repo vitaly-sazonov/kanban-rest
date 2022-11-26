@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, from, map, mergeMap, of, switchMap, tap } from 'rxjs';
-import { LAST_SEARCH } from 'src/app/constants';
+import { LAST_SEARCH, PICTURES_PER_CATEGORY } from 'src/app/constants';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
+import { PictureCategories } from 'src/app/enums';
 import { Board } from 'src/app/interfaces';
 import {
   deleteAllBoards,
@@ -29,17 +30,17 @@ export class MainComponent implements OnInit {
   tasksQuantity$ = this.getTaskQuantity();
   boardsInBasket = 0;
   basket$$?: BehaviorSubject<Board[]>;
+  isSelectPicture = false;
+  pictureCategories = Object.values(PictureCategories);
+  pictureNames = new Array(PICTURES_PER_CATEGORY)
+    .fill(0)
+    .map((el, index) => index);
 
   constructor(
     private store: Store,
     private storage: LocalstorageService,
     private basket: BasketService
   ) {}
-
-  checkY(event: MouseEvent) {
-    console.log(document.body.scrollHeight);
-    console.log(event.clientY + window.scrollY);
-  }
 
   ngOnInit(): void {
     this.reset();

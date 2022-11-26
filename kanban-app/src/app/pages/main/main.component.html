@@ -81,7 +81,8 @@
       *ngIf="
         ((boards$ | async)! | search: searchRequest).length > 0;
         else noBoards
-      ">
+      "
+      (click)="isSelectPicture = true">
       <h2 *ngIf="isSearching" class="result-title">
         {{ 'Search results' | translate }}:
       </h2>
@@ -107,4 +108,20 @@
         *ngIf="isLoading$ | async"></mat-spinner>
     </ng-template>
   </main>
+</section>
+<section class="pictures-wrapper" *ngIf="isSelectPicture">
+  <h1 class="title">{{ 'ChoosePicture' | translate }}</h1>
+  <section class="pictures-container">
+    <section
+      class="pictures-category"
+      *ngFor="let category of pictureCategories">
+      {{ category }}
+      <img
+        class="picture-thumbnail"
+        *ngFor="let picture of pictureNames"
+        src="../../../assets/img/boards_thumbnails/{{ category }}/{{
+          picture
+        }}.jpg" />
+    </section>
+  </section>
 </section>

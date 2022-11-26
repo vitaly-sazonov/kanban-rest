@@ -84,3 +84,5 @@ export const ANIMATIONS = {
 export const BOARD_HEIGHT = 200;
 export const BOARD_BOTTOM_PADDING = 90;
 export const FOOTER_HEIGHT = 50;
+
+export const PICTURES_PER_CATEGORY = 10;

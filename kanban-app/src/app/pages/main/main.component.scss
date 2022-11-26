@@ -240,6 +240,24 @@ input:focus {
   max-width: 300px;
 }
 
+.pictures-wrapper {
+  width: 76.875rem;
+  height: 700px;
+  background-color: $color-1;
+}
+
+.pictures-category {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.picture-thumbnail {
+  width: 300px;
+  height: 200px;
+}
+
 // @media (max-width: 840px) {
 //   .first-container{
 //     width:100%;

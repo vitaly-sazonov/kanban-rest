@@ -22,6 +22,7 @@ import { FormModalComponent } from './components/form-modal/form-modal.component
 import { ToastComponent } from './components/toast/toast.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
+import { SelectModalComponent } from './components/select-modal/select-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MatCardModule } from '@angular/material/card';
     HeaderComponent,
     ConfirmModalComponent,
     FormModalComponent,
+    SelectModalComponent,
     ModalComponent,
     ToastComponent,
   ],

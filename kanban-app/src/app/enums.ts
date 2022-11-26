@@ -129,3 +129,8 @@ export enum LocalStorageValues {
   UserId = 'userId',
   Language = 'language',
 }
+
+export enum PictureCategories {
+  highTech = 'high_tech',
+  nature = 'nature',
+}
