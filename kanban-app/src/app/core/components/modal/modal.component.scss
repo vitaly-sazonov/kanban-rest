@@ -15,32 +15,34 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  left: 25%;
-  top: 25%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: 50vw;
-  min-width: 300px;
+  min-width: 250px;
   height: 50vh;
   background-color: $modalWindowColor;
   border-radius: 10px;
   z-index: 30;
-  box-shadow: inset 0 0 20px rgba($color: #000000, $alpha: .5);
+  box-shadow: inset 0 0 20px rgba($color: #000000, $alpha: 0.5);
 }
-.invisible{
-  opacity:0;
+.invisible {
+  opacity: 0;
   visibility: hidden;
-  transition: .5s;
+  transition: .2s;
+  
 }
-.visible{
-  opacity:1;
+.visible {
+  opacity: 1;
   visibility: visible;
-  transition: .5s;
+  transition: 10ms;
 }
 
- .invisible .modal-window{
-  transform: scale(.1);
-  transition: .5s;
+.invisible .modal-window {
+  transform: scale(0.1) translate(100%, 100%);
+  transition: 0.5s ;
 }
- .visible .modal-window{
-  transform: scale(1);
-  transition: .5s;
+.visible .modal-window {
+  transform: scale(1) translate(-50%, -50%);
+  transition: 0.5s ;
 }

@@ -1,9 +1,9 @@
-<div class="confirmation-info-block">
+<section class="confirmation-info-block">
   <h2 class="confirmation-info">
     {{ (info$ | async)! | translate }}
   </h2>
-</div>
-<div class="confirmation-buttons-block">
+</section>
+<section class="confirmation-buttons-block">
   <button
     mat-raised-button
     color="primary"
@@ -19,4 +19,4 @@
     (click)="setResult(false)">
     {{ buttonCancel | translate }}
   </button>
-</div>
+</section>

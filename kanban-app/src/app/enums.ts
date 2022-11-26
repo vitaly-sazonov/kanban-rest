@@ -66,10 +66,12 @@ export enum BoardsActions {
   AddBoards = '[Boards] Add Boards',
   AddBoard = '[Boards] Add Board',
   AddCurentBoardId = '[Boards] Add Current Board Id',
+  EditBoardById = '[Boards] Edit Board By Id',
   DeleteBoardById = '[Boards] Delete Board By ID',
   DeleteAllBoards = '[Boards] Delete All Boards',
   LoadBoards = '[Boards] Load Boards',
   LoadBoardById = '[Boards] Load Board By ID',
+  RestoreBoard = '[Boards] Restore',
 }
 
 export enum ModalTypes {
@@ -79,6 +81,7 @@ export enum ModalTypes {
 
 export enum ModalSchemes {
   addBoard = 'addBoard',
+  editBoard = 'editBoard',
   addColumn = 'addColumn',
   editColumn = 'editColumn',
   addTask = 'addTask',

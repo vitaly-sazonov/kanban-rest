@@ -1,4 +1,4 @@
-<div
+<section
   class="modal-container"
   [class.invisible]="(isModalVisible$ | async) === false"
   [class.visible]="isModalVisible$ | async">
@@ -11,4 +11,4 @@
     <app-form-modal
       *ngIf="(modalType$ | async) === ModalTypes.FormType"></app-form-modal>
   </div>
-</div>
+</section>

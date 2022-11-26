@@ -7,3 +7,31 @@
 .hidden {
   display: none;
 }
+
+.welcome-top-background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../assets/img/welcome_background_top.svg');
+  background-position: 0 56px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.welcome-bottom-background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../../../assets/img/welcome_background_bottom.svg');
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.background-hidden {
+  background-size: 100% 0%;
+}
+
+.main {
+  height: 100%;
+}

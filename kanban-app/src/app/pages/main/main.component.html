@@ -1,71 +1,159 @@
-<header class="header">
-  <h1 class="title">{{ 'BOARDS' | translate }}</h1>
-</header>
-<aside class="search-container">
-  <section>
-    <mat-icon class="icon">search</mat-icon>
-    <input
-      matInput
-      class="search-input"
-      placeholder="{{ 'search board' | translate }}"
-      [(ngModel)]="searchRequest"
-      (ngModelChange)="rememberSearch()"
-      autofocus />
-    <mat-icon class="delete-search" (click)="deleteSearch()">close</mat-icon>
-    <h2 class="sort-button" (click)="isReverseBoards = !isReverseBoards">
-      A-Z
-    </h2>
-    <h2 class="sort-direction" [class.rotate]="isReverseBoards"><b>↑</b></h2>
-
-    <mat-icon
-      class="expand-icon"
-      *ngIf="isAllShort === false"
-      (click)="isAllShort = true"
-      >unfold_less</mat-icon
-    >
-    <mat-icon
-      class="expand-icon"
-      *ngIf="isAllShort"
-      (click)="isAllShort = false"
-      >unfold_more</mat-icon
-    >
-    <button (click)="createCustomBoard()">
-      {{ 'Create custom' | translate }}
-    </button>
-  </section>
-</aside>
-<main class="boards-container">
-  <div
-    class="inner-container"
-    *ngIf="
-      ((boards$ | async)! | search: searchRequest).length > 0;
-      else noBoards
-    ">
-    <section class="statistics" *ngIf="isSearching === false">
-      <h2>{{ 'Total boards' | translate }}: {{ boardsQuantity$ | async }}</h2>
-      <h2>{{ 'Total columns' | translate }}: {{ columnsQuantity$ | async }}</h2>
-      <h2>{{ 'Total tasks' | translate }}: {{ tasksQuantity$ | async }}</h2>
+<section class="main-wrapper">
+  <aside class="sidebar-wrapper">
+    <h1 class="title">{{ 'BOARDS' | translate }}</h1>
+    <mat-card class="statistics-card">
+      <mat-card-header class="statistics-title">
+        <mat-card-title>{{ 'BoardsStats' | translate }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="statistics-list">
+        <h4 class="boards-all">
+          <mat-icon class="statistics-icon">dashboard</mat-icon
+          ><span class="statistics-text"
+            >{{ 'Total boards' | translate }}:</span
+          >
+          {{ boardsQuantity$ | async }}
+        </h4>
+        <h4 [routerLink]="['bin']" class="basket">
+          <mat-icon class="statistics-icon">delete_outline</mat-icon>
+          <span class="statistics-text"
+            >{{ 'Recently deleted boards' | translate }}:</span
+          >
+          {{ (basket$$ | async)?.length || '0' }}
+        </h4>
+        <h4 class="columns-all">
+          <mat-icon class="statistics-icon">view_column</mat-icon
+          ><span class="statistics-text"
+            >{{ 'Total columns' | translate }}:</span
+          >
+          {{ columnsQuantity$ | async }}
+        </h4>
+        <h4 class="tasks-all">
+          <mat-icon class="statistics-icon">description</mat-icon
+          ><span class="statistics-text">{{ 'Total tasks' | translate }}:</span>
+          {{ tasksQuantity$ | async }}
+        </h4>
+      </mat-card-content>
+    </mat-card>
+    <section class="first-container">
+      <header class="header">
+        <h1 class="title">
+          {{ 'BOARDS' | translate }}
+        </h1>
+      </header>
+      <nav class="navigation">
+        <mat-icon *ngIf="(posY$$ | async) !== 0" (click)="scrollUp()"
+          >keyboard_double_arrow_up</mat-icon
+        >
+        <mat-icon *ngIf="checkDown((posY$$ | async)!)" (click)="scrollDown()"
+          >keyboard_double_arrow_down</mat-icon
+        >
+      </nav>
+      <aside class="search-container">
+        <section>
+          <mat-icon class="icon">search</mat-icon>
+          <input
+            class="search-input"
+            placeholder="{{ 'search board' | translate }}"
+            [(ngModel)]="searchRequest"
+            (ngModelChange)="rememberSearch()"
+            autofocus />
+          <mat-icon class="delete-search" (click)="deleteSearch()"
+            >close</mat-icon
+          >
+          <div class="sort-section">
+            <h2
+              class="sort-button"
+              (click)="isReverseBoards = !isReverseBoards">
+              A-Z
+            </h2>
+            <h2 class="sort-direction" [class.rotate]="isReverseBoards">↑</h2>
+          </div>
+          <mat-icon
+            class="expand-icon"
+            *ngIf="isAllShort === false"
+            (click)="isAllShort = true"
+            >unfold_less</mat-icon
+          >
+          <mat-icon
+            class="expand-icon"
+            *ngIf="isAllShort"
+            (click)="isAllShort = false"
+            >unfold_more</mat-icon
+          >
+        </section>
+      </aside>
+      <main class="boards-wrapper">
+        <section class="boards-header">
+          <section class="search-container">
+            <mat-icon class="icon">search</mat-icon>
+            <input
+              type="search"
+              class="search-input"
+              placeholder="{{ 'search board' | translate }}"
+              [(ngModel)]="searchRequest"
+              (ngModelChange)="rememberSearch()"
+              (click)="deleteSearch()"
+              autofocus />
+          </section>
+          <section class="boards-controls">
+            <div class="sort-section">
+              <span class="sort-title">{{ 'Sort' | translate }}</span>
+              <span
+                class="sort-button"
+                (click)="isReverseBoards = !isReverseBoards">
+                {{ !isReverseBoards ? 'A → Z' : 'Z → A' }}
+              </span>
+              <mat-icon class="sort-direction" [class.rotate]="isReverseBoards">
+                keyboard_arrow_up
+              </mat-icon>
+            </div>
+            <div class="expand-section">
+              <span class="expand-title">{{ 'View' | translate }}</span>
+              <span class="expand-action" (click)="isAllShort = !isAllShort">
+                <span class="expand-text">
+                  {{ !isAllShort ? ('Max' | translate) : ('Min' | translate) }}
+                </span>
+                <mat-icon class="expand-icon" *ngIf="isAllShort">
+                  unfold_less
+                </mat-icon>
+                <mat-icon class="expand-icon" *ngIf="!isAllShort">
+                  unfold_more
+                </mat-icon>
+              </span>
+            </div>
+          </section>
+        </section>
+        <section
+          class="boards-container"
+          *ngIf="
+            ((boards$ | async)! | search: searchRequest).length > 0;
+            else noBoards
+          ">
+          <h2 *ngIf="isSearching" class="result-title">
+            {{ 'Search results' | translate }}:
+          </h2>
+          <app-board
+            *ngFor="
+              let item of (boards$ | async)!
+                | search: searchRequest
+                | sortByAlphabet: isReverseBoards
+            "
+            [board]="item"
+            [searchRequest]="searchRequest"
+            [isAllShort]="isAllShort">
+          </app-board>
+        </section>
+        <ng-template class="template" #noBoards>
+          <h2 *ngIf="(isLoading$ | async) === false">
+            {{ 'No Boards' | translate }}
+          </h2>
+          <h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>
+          <mat-spinner
+            diameter="30"
+            color="primary"
+            *ngIf="isLoading$ | async"></mat-spinner>
+        </ng-template>
+      </main>
     </section>
-    <h2 *ngIf="isSearching" class="result-title">
-      {{ 'Search results' | translate }}:
-    </h2>
-    <app-board
-      *ngFor="
-        let item of (boards$ | async)!
-          | search: searchRequest
-          | sortByAlphabet: isReverseBoards
-      "
-      [board]="item"
-      [searchRequest]="searchRequest"
-      [isAllShort]="isAllShort">
-    </app-board>
-  </div>
-</main>
-<ng-template class="template" #noBoards>
-  <h2 *ngIf="(isLoading$ | async) === false">{{ 'No Boards' | translate }}</h2>
-  <h3 *ngIf="isLoading$ | async">{{ 'LOADING' | translate }}</h3>
-  <mat-spinner
-    diameter="30"
-    color="primary"
-    *ngIf="isLoading$ | async"></mat-spinner>
-</ng-template>
+  </aside>
+</section>

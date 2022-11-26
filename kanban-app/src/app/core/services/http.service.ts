@@ -38,6 +38,25 @@ export class HttpService {
     return this.http.delete(QUERY_PARAMS_FIRST.boards + `/${id}`);
   }
 
+  editBoard(boardId: string, title: string, description: string) {
+    return this.http.put(`${QUERY_PARAMS_FIRST.boards}/${boardId}`, {
+      title,
+      description,
+    });
+  }
+  updateBoard(
+    boardId: string,
+    title: string,
+    description: string,
+    columns: Column[]
+  ) {
+    return this.http.put(`${QUERY_PARAMS_FIRST.boards}/${boardId}`, {
+      title,
+      description,
+      columns,
+    });
+  }
+
   signIn(user: UserLogin) {
     return this.http
       .post<LoginResponse>(QUERY_PARAMS_FIRST.signin, user)

@@ -1,6 +1,34 @@
+@import '../../../../styles.scss';
+
+.login-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 50px);
+  padding: 100px 0 50px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.back, .card {
+  width: 100%;
+}
+
+.login-container {
+  width: 300px;
+  padding: 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.back-button {
+  display: block;
+  margin: 0 auto;
+}
+
 .buttons {
   display: flex;
-  padding-top: 50px;
   gap: 10px;
   align-items: center;
   justify-content: center;
@@ -8,10 +36,36 @@
 
 .form {
   margin: 0 auto;
-  width: 320px;
+  width: 100%;
   text-align: center;
 }
 
 .form-field {
   width: 100%;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.top {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+::ng-deep .form .mat-form-field-subscript-wrapper {
+  position: relative;
+  padding-bottom: 0;
+}
+
+::ng-deep .form .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+::ng-deep .form .mat-form-field-underline {
+  position: unset;
 }

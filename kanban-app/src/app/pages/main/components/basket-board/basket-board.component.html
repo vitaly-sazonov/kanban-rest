@@ -1,0 +1,29 @@
+<mat-card class="board-container" [class.empty]="board?.columns?.length === 0">
+  <mat-card-header class="inner-container">
+    <mat-card-title class="title">{{ board?.title }} </mat-card-title>
+    <mat-card-subtitle class="description">{{
+      board?.description
+    }}</mat-card-subtitle>
+  </mat-card-header>
+  <section class="board-menu-container">
+    <button
+      mat-button
+      [matMenuTriggerFor]="boardMenu"
+      yPosition="below"
+      class="menu-button">
+      <mat-icon class="menu-icon">more_vert</mat-icon>
+    </button>
+    <mat-menu class="board-menu" #boardMenu="matMenu">
+      <ng-container>
+        <button mat-menu-item (click)="restoreBoardFromBasket(board?.id!)">
+          <mat-icon>restore_from_trash</mat-icon>
+          <span>{{ 'BOARD.Restore' | translate }}</span>
+        </button>
+        <button mat-menu-item (click)="deleteBoardFromBasket(board?.id!)">
+          <mat-icon>delete_outline</mat-icon>
+          <span>{{ 'BOARD.Delete' | translate }}</span>
+        </button>
+      </ng-container>
+    </mat-menu>
+  </section>
+</mat-card>

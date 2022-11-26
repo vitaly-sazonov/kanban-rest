@@ -16,6 +16,10 @@ import { MatCardModule } from '@angular/material/card';
 import { CustomBoardComponent } from './components/custom-board/custom-board.component';
 import { SelectBoardDialogComponent } from './components/select-board-dialog/select-board-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { BasketComponent } from './components/basket/basket.component';
+import { BasketBoardComponent } from './components/basket-board/basket-board.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     BoardComponent,
     CustomBoardComponent,
     SelectBoardDialogComponent,
+    BasketComponent,
+    BasketBoardComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +43,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     MatCardModule,
     MatDialogModule,
+    MatMenuModule,
+    MatSidenavModule,
   ],
 })
 export class MainModule {}

@@ -1,7 +1,73 @@
-.cards {
-  padding: 10px;
+@import '../../../../styles.scss';
+@import '../../../colors.scss';
+
+.welcome-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: calc(100vh - 50px);
+  padding: 100px 0 50px;
+  box-sizing: border-box;
+  gap: 30px;
+}
+
+.greeting-wrapper,
+.cards-wrapper {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.cards-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
+}
+
+.card {
+  position: relative;
+  min-width: 300px;
+  min-height: 300px;
+  max-height: 1000px;
+  display: flex;
+  align-items: center;
+}
+
+.greeting-container {
+  max-width: 76.875rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 30px;
+}
+
+.greeting-title {
+  font-family: $main-font;
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4rem;
+  color: $color-1;
+  margin-bottom: 0;
+}
+
+.greeting-text {
+  width: 67%;
+  margin: 0 auto;
+  font-family: $main-font;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  color: $color-1;
+}
+
+.welcome-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.button-icon {
+  margin-right: 10px;
 }

@@ -6,12 +6,20 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import {
+  BOARD_BOTTOM_PADDING,
+  BOARD_HEIGHT,
+  FOOTER_HEIGHT,
+} from 'src/app/constants';
+import { BasketService } from 'src/app/core/services/basket.service';
 import { CompareService } from 'src/app/core/services/compare.service';
 import { HashService } from 'src/app/core/services/hash.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
-import { ModalTypes } from 'src/app/enums';
+import { ModalService } from 'src/app/core/services/modal.service';
+import { ModalSchemes, ModalTypes, RouterStateValue } from 'src/app/enums';
 import { Board, Column } from 'src/app/interfaces';
 import {
   addCurrentBoardId,
@@ -37,12 +45,15 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
   length: number | undefined;
   compare = this.compareService;
   isShort = false;
+  isExpandUp = false;
 
   constructor(
     private store: Store,
     private compareService: CompareService,
     private hash: HashService,
-    private storage: LocalstorageService
+    private storage: LocalstorageService,
+    private modalService: ModalService,
+    private basket: BasketService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
     this.isShort = this.isAllShort;
@@ -72,11 +83,17 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
           this.store.dispatch(action)
         );
         this.storage.removeItem(this.board?.id!);
+        this.basket.addToBasket(this.board!);
       }
     });
   }
 
-  changeStatus() {
+  changeStatus(event: MouseEvent) {
+    let maxHeight = document.body.scrollHeight;
+    let mousePositionY = event.clientY + window.scrollY;
+    let expandUpHeight =
+      maxHeight - BOARD_HEIGHT - FOOTER_HEIGHT - BOARD_BOTTOM_PADDING;
+    this.isExpandUp = mousePositionY >= expandUpHeight ? true : false;
     this.storage.setItem(
       this.board?.id!,
       this.hash.getHash(JSON.stringify(this.board)).toString()
@@ -104,6 +121,13 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
     let q = 0;
     this.columns?.forEach(colomn => (q += colomn.tasks!.length));
     return q;
+  }
+
+  editBoard(id: string, title: string, description: string) {
+    this.modalService.setExtra([id, title, description]);
+    this.modalService.setScheme(ModalSchemes.editBoard);
+    this.modalService.setType(ModalTypes.FormType);
+    this.store.dispatch(setVisibility({ isVisible: true }));
   }
 
   ngOnDestroy(): void {

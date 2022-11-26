@@ -1,6 +1,21 @@
+.update-user-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 50px);
+  padding: 100px 0 50px;
+  box-sizing: border-box;
+}
+
+.update-user-container {
+  width: 300px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
 .buttons {
   display: flex;
-  padding-top: 50px;
   gap: 10px;
   align-items: center;
   justify-content: center;
@@ -8,10 +23,23 @@
 
 .form {
   margin: 0 auto;
-  width: 320px;
+  width: 100%;
   text-align: center;
 }
 
 .form-field {
   width: 100%;
+}
+
+::ng-deep .form .mat-form-field-subscript-wrapper {
+  position: relative;
+  padding-bottom: 0;
+}
+
+::ng-deep .form .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+::ng-deep .form .mat-form-field-underline {
+  position: unset;
 }

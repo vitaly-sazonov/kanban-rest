@@ -1,8 +1,11 @@
 @import './colors.scss';
 
 .app {
-  padding-top: 65px;
+  position: relative;
   box-sizing: border-box;
   min-height: calc(100vh - 50px);
-  background-color: $color-2;
+}
+
+.footer {
+  position: relative;
 }

@@ -42,6 +42,15 @@
   "AGREE": "Так",
   "CANCEL": "Скасувати",
   "SAMPLE_CONFIRM_INFO": "Ви згодні?",
+  "Search results":"Результати пошуку",
+  "Total boards":"Усі дошки",
+  "Total columns":"Усі колонки",
+  "Total tasks":"Усі завдання",
+  "Basket":"Сміттєва Корзина",
+  "Delete all":"Очистити корзину",
+  "Back to boards":"Назад до дощок",
+  "Recently deleted boards":"Нещодавно видалені дошки",
+  "empty":"нічого немає",
   "ERROR": "Помилка: ",
   "tasks": "завдання:",
   "Empty board": "Порожня дошка",
@@ -55,6 +64,12 @@
     "title": "Назва",
     "description": "Опис",
     "button": "Створити дошку"
+  },
+  "editBoard": {
+    "header": "Редагувати дошку",
+    "title": "Нова назва",
+    "description": "Опис",
+    "button": "Редагувати"
   },
   "addColumn": {
     "header": "Створити колонку",
@@ -79,9 +94,12 @@
     "button": "Редагувати"
   },
   "CONFIRM_DELETE": "Ви бажаєте видалити цю дошку?",
+  "CONFIRM_CLEAR_BASKET": "Ви бажаєте спорожнити корзину?",
+  "CONFIRM_RESTORE_BOARD": "Ви бажаєте відновити цю дошку? ",
   "DELETE": "ВИДАЛИТИ",
   "BOARDS": "ДОШКИ",
   "CLOSE": "ЗАКРИТИ",
+  "BoardsStats": "Статистика: ",
   "more": "БІЛЬШЕ",
   "hide": "сховати",
   "No Boards": "Немає дошок",
@@ -95,7 +113,11 @@
     "addTask": "Додати завдання",
     "noTasks": "У вас тут немає завдань",
     "CONFIRM_DELETE_COLUMN": "Ви дійсно хочете видалити колонку?",
-    "CONFIRM_DELETE_TASK": "Ви дійсно хочете видалити завдання?"
+    "CONFIRM_DELETE_TASK": "Ви дійсно хочете видалити завдання?",
+    "Delete":"Видалити дошку",
+    "Edit":"Редагувати дошку",
+    "ChangePicture":"Змінити зображення",
+    "Restore":"Відновити дошку"
   },
   "ERRORS": {
     "0": "Немає інтернет з'єднання",
@@ -111,5 +133,9 @@
   },
   "Create custom":"",
   "Select board":"",
-  "CreateBoardQuestion":""
+  "CreateBoardQuestion":"",
+  "Sort": "Сортувати: ",
+  "View": "Вид: ",
+  "Max": "розширений",
+  "Min": "скорочений"
 }

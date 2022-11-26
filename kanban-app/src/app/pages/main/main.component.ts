@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
+  BehaviorSubject,
   filter,
   forkJoin,
   from,
@@ -16,6 +17,8 @@ import {
 import { BOARDS, LAST_SEARCH } from 'src/app/constants';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { Board, Column, Task } from 'src/app/interfaces';
+import { BasketService } from 'src/app/core/services/basket.service';
+import { ScrollService } from 'src/app/core/services/scroll.service';
 import {
   deleteAllBoards,
   loadBoards,
@@ -53,19 +56,30 @@ export class MainComponent implements OnInit, OnDestroy {
   userId: string = '';
 
   constructor(
-    private router: Router,
     private store: Store,
     private storage: LocalstorageService,
     public dialog: MatDialog,
-    private http: HttpService
+    private http: HttpService,
+    private basket: BasketService,
+    private scrollService: ScrollService
   ) {}
+  boardsInBasket = 0;
+  basket$$?: BehaviorSubject<Board[]>;
+  posY$$ = this.scrollService.getPositionY();
+  downPos = Math.round(document.body.scrollHeight);
+  scrollHeight$$ = this.scrollService.getScrollHeight();
 
+  checkY(event: MouseEvent) {
+    console.log(document.body.scrollHeight);
+    console.log(event.clientY + window.scrollY);
+  }
   ngOnInit(): void {
     this.userId$.pipe(takeUntil(this.unsubscribe$)).subscribe(x => {
       if (x?.id) this.userId = x?.id;
     });
 
     this.reset();
+    this.basket$$ = this.basket.getBasket();
   }
 
   ngOnDestroy(): void {
@@ -115,7 +129,6 @@ export class MainComponent implements OnInit, OnDestroy {
       switchMap(() => of(q))
     );
   }
-
   createCustomBoard() {
     const dialogRef = this.dialog.open(SelectBoardDialogComponent, {
       panelClass: 'dialog',
@@ -190,4 +203,12 @@ export class MainComponent implements OnInit, OnDestroy {
       ?.find(column => column.title === title)
       ?.tasks?.map(task => ({ ...task, userId: this.userId }));
   }
+
+  scrollDown() {
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+  scrollUp() {
+    window.scrollTo(0, 0);
+  }
+  checkDown = (pos: number) => pos < document.body.scrollHeight * 0.7;
 }

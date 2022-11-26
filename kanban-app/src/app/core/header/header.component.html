@@ -34,7 +34,7 @@
           </mat-button-toggle-group>
         </mat-menu>
       </section>
-      <section class="user-container">
+      <section class="user-container" *ngIf="loginStatus$ | async">
         <button
           mat-button
           [matMenuTriggerFor]="userMenu"
@@ -43,7 +43,7 @@
           <mat-icon class="user-icon">account_circle</mat-icon>
         </button>
         <mat-menu class="user-menu" #userMenu="matMenu">
-          <ng-container *ngIf="loginStatus$ | async; else notLogged">
+          <ng-container>
             <button mat-menu-item (click)="openDialog()">
               <mat-icon>person_remove</mat-icon>
               <span>{{ 'auth.Delete' | translate }}</span>
@@ -60,16 +60,6 @@
               <span>Logout</span>
             </button>
           </ng-container>
-          <ng-template #notLogged>
-            <button mat-menu-item (click)="navigate('welcome/login')">
-              <mat-icon>login</mat-icon>
-              <span>{{ 'auth.Login' | translate }}</span>
-            </button>
-            <button mat-menu-item (click)="navigate('welcome/registration')">
-              <mat-icon>person_add</mat-icon>
-              <span>{{ 'auth.Registration' | translate }}</span>
-            </button>
-          </ng-template>
         </mat-menu>
       </section>
     </section>

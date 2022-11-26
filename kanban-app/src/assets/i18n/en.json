@@ -50,6 +50,10 @@
   "Total boards":"Total boards",
   "Total columns":"Total columns",
   "Total tasks":"Total tasks",
+  "Recently deleted boards":"Recently deleted boards",
+  "Basket":"Recycle Bin",
+  "Delete all":"Clear bin",
+  "Back to boards":"Back to boards",
   "empty":"there is nothing",
   "DeleteUserQuestion": "Are you sure DELETE user?",
   "formModal": {
@@ -60,6 +64,12 @@
     "title": "Title",
     "description": "Description",
     "button": "Create board"
+  },
+  "editBoard": {
+    "header": "Edit Board",
+    "title": "New title",
+    "description": "New description",
+    "button": "Edit"
   },
   "addColumn": {
     "header": "Create Column",
@@ -84,9 +94,12 @@
     "button": "Edit task"
   },
   "CONFIRM_DELETE": "Do you want to delete this board? ",
+  "CONFIRM_CLEAR_BASKET": "Do you want to clear recycle bin? ",
+  "CONFIRM_RESTORE_BOARD": "Do you want to restore this board? ",
   "DELETE": "DELETE",
   "BOARDS": "BOARDS",
   "CLOSE": "CLOSE",
+  "BoardsStats": "Statistics: ",
   "more": "more",
   "hide": "hide",
   "No Boards": "No Boards",
@@ -100,7 +113,15 @@
     "addTask": "Add new task",
     "noTasks": "You have no tasks here",
     "CONFIRM_DELETE_COLUMN": "Are you sure you want to delete this column?",
-    "CONFIRM_DELETE_TASK": "Are you sure you want to delete this task?"
+    "CONFIRM_DELETE_TASK": "Are you sure you want to delete this task?",
+    "Delete":"Delete board",
+    "Edit":"Edit board",
+    "ChangePicture":"Change picture",
+    "Restore":"Restore board"
+  },
+  "WELCOME": {
+    "greetingTitle": "Welcome to ProJect",
+    "greetingText": "The world's most useful kanban tool (according to a survey among the developers of this application). Everything will be under your control with ProJect!"
   },
   "ERRORS": {
     "0": "No internet connection",
@@ -116,5 +137,9 @@
   },
   "Create custom":"Create custom board",
   "Select board":"Select board",
-  "CreateBoardQuestion":"Are you sure you want to create this Board?"
+  "CreateBoardQuestion":"Are you sure you want to create this Board?",
+  "Sort": "Sort boards: ",
+  "View": "View: ",
+  "Max": "expanded",
+  "Min": "minimized"
 }
