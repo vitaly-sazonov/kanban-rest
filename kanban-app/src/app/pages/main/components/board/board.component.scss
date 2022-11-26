@@ -1,24 +1,34 @@
 @import '../../../../colors.scss';
 
-.board-container {
+.board-main {
+  position: relative;
   display: flex;
-  justify-content: center;
+}
+
+.board-container {
+  position: absolute;
+  display: flex;
   align-items: flex-start;
   align-content: space-between;
   flex-wrap: wrap;
   width: 300px;
   min-height: 200px;
   padding: 20px;
-  background-color: $boardBackgroundColor;
-  box-shadow: $boxShadow;
-  border-radius: 5px;
   transition: 500ms;
   box-sizing: border-box;
+  z-index: 0;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160px;
+  width: 100%;
 }
 
 .top-container {
   width: 100%;
-  height: max-content;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -27,6 +37,11 @@
   &:hover .title {
     color: $moreColor;
   }
+}
+
+.title-container {
+  max-height: 125px;
+  overflow: hidden;
 }
 
 ::ng-deep .card-header .mat-card-header-text {
@@ -41,27 +56,47 @@
   width: 100%;
 }
 
-.container-preview {
+.preview-position {
   position: absolute;
-  top: 0px;
-  left: 0px;
-  max-width: 360px;
+  top: 0;
+  left: 0;
+}
+
+.card-placeholder {
+  position: relative;
+  top: 0;
+}
+
+.expand-up {
+  bottom: 0;
+}
+
+.show-preview {
+  z-index: 100;
+  box-shadow: 0 3px 7px 0 rgba($color: #000000, $alpha: 0.25);
+  transform: scale(1.05);
+}
+
+.container-preview {
+  width: 300px;
   overflow-x: auto;
   overflow-y: hidden;
-  height: 208px;
+  height: 0px;
   display: flex;
-  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
-  border-radius: 5px;
-  background-color: $boardBackgroundColor;
-  box-shadow: $previewBoxShadow;
-  padding: 5px;
   opacity: 0;
-  visibility: hidden;
+  margin-top: 0;
   transition: 500ms;
 }
+
+.board-container:hover .container-preview {
+  margin-top: 20px;
+  height: 208px;
+  opacity: 1;
+}
+
 .column-item {
   display: flex;
   flex-direction: column;
@@ -166,6 +201,9 @@
 .short {
   min-height: 80px;
   transition: 500ms;
+  .main-content {
+    min-height: 0;
+  }
 }
 .board-menu-container {
   width: 20px;
@@ -180,8 +218,12 @@
   }
 }
 .short-container {
-  height: 85px;
+  height: 0;
   transition: 500ms;
+}
+.board-container:hover .short-container {
+  height: 85px;
+  opacity: 1;
 }
 .short-item {
   height: 75px;
@@ -227,7 +269,8 @@
   background-color: rgb(204, 204, 204);
 }
 .empty {
-  background-color: #ccc;
+  background-color: $color-2;
+  filter: brightness(105%);
 }
 .full-box mat-card-subtitle {
   color: $moreColor;

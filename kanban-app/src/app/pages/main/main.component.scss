@@ -1,4 +1,5 @@
 @import '../../colors.scss';
+@import '../../../styles.scss';
 
 :host {
   user-select: none;
@@ -13,6 +14,12 @@
   flex-grow: 0;
   padding: 86px 50px 50px;
   gap: 30px;
+}
+
+.title {
+  font-family: $main-font;
+  font-weight: 800;
+  line-height: 44px;
 }
 
 input:focus {

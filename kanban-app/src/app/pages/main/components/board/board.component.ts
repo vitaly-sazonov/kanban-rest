@@ -9,6 +9,11 @@ import {
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import {
+  BOARD_BOTTOM_PADDING,
+  BOARD_HEIGHT,
+  FOOTER_HEIGHT,
+} from 'src/app/constants';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { CompareService } from 'src/app/core/services/compare.service';
 import { HashService } from 'src/app/core/services/hash.service';
@@ -40,6 +45,7 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
   length: number | undefined;
   compare = this.compareService;
   isShort = false;
+  isExpandUp = false;
 
   constructor(
     private store: Store,
@@ -82,7 +88,12 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
     });
   }
 
-  changeStatus() {
+  changeStatus(event: MouseEvent) {
+    let maxHeight = document.body.scrollHeight;
+    let mousePositionY = event.clientY + window.scrollY;
+    let expandUpHeight =
+      maxHeight - BOARD_HEIGHT - FOOTER_HEIGHT - BOARD_BOTTOM_PADDING;
+    this.isExpandUp = mousePositionY >= expandUpHeight ? true : false;
     this.storage.setItem(
       this.board?.id!,
       this.hash.getHash(JSON.stringify(this.board)).toString()

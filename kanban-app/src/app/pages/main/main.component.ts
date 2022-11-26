@@ -36,6 +36,11 @@ export class MainComponent implements OnInit {
     private basket: BasketService
   ) {}
 
+  checkY(event: MouseEvent) {
+    console.log(document.body.scrollHeight);
+    console.log(event.clientY + window.scrollY);
+  }
+
   ngOnInit(): void {
     this.reset();
     this.basket$$ = this.basket.getBasket();
