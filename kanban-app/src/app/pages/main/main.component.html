@@ -5,22 +5,31 @@
       <mat-card-header class="statistics-title">
         <mat-card-title>{{ 'BoardsStats' | translate }}</mat-card-title>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content class="statistics-list">
         <h4 class="boards-all">
-          <mat-icon>dashboard</mat-icon>{{ 'Total boards' | translate }}:
+          <mat-icon class="statistics-icon">dashboard</mat-icon
+          ><span class="statistics-text"
+            >{{ 'Total boards' | translate }}:</span
+          >
           {{ boardsQuantity$ | async }}
         </h4>
         <h4 [routerLink]="['bin']" class="basket">
-          <mat-icon>delete_outline</mat-icon>
-          {{ 'Recently deleted boards' | translate }}:
+          <mat-icon class="statistics-icon">delete_outline</mat-icon>
+          <span class="statistics-text"
+            >{{ 'Recently deleted boards' | translate }}:</span
+          >
           {{ (basket$$ | async)?.length || '0' }}
         </h4>
         <h4 class="columns-all">
-          <mat-icon>view_column</mat-icon>{{ 'Total columns' | translate }}:
+          <mat-icon class="statistics-icon">view_column</mat-icon
+          ><span class="statistics-text"
+            >{{ 'Total columns' | translate }}:</span
+          >
           {{ columnsQuantity$ | async }}
         </h4>
         <h4 class="tasks-all">
-          <mat-icon>description</mat-icon>{{ 'Total tasks' | translate }}:
+          <mat-icon class="statistics-icon">description</mat-icon
+          ><span class="statistics-text">{{ 'Total tasks' | translate }}:</span>
           {{ tasksQuantity$ | async }}
         </h4>
       </mat-card-content>
@@ -41,7 +50,7 @@
       </section>
       <section class="boards-controls">
         <div class="sort-section">
-          {{ 'Sort' | translate }}
+          <span class="sort-title">{{ 'Sort' | translate }}</span>
           <span
             class="sort-button"
             (click)="isReverseBoards = !isReverseBoards">
@@ -52,9 +61,11 @@
           </mat-icon>
         </div>
         <div class="expand-section">
-          {{ 'View' | translate }}
-          <span class="expand-text" (click)="isAllShort = !isAllShort">
-            {{ !isAllShort ? ('Max' | translate) : ('Min' | translate) }}
+          <span class="expand-title">{{ 'View' | translate }}</span>
+          <span class="expand-action" (click)="isAllShort = !isAllShort">
+            <span class="expand-text">
+              {{ !isAllShort ? ('Max' | translate) : ('Min' | translate) }}
+            </span>
             <mat-icon class="expand-icon" *ngIf="isAllShort">
               unfold_less
             </mat-icon>

@@ -14,6 +14,12 @@
   flex-grow: 0;
   padding: 86px 50px 50px;
   gap: 30px;
+  @media (max-width: 1080px) {
+    flex-wrap: wrap;
+  }
+  @media (max-width: 768px) {
+    padding: 86px 10px 50px;
+  }
 }
 
 .title {
@@ -30,6 +36,38 @@ input:focus {
 .sidebar-wrapper {
   width: 300px;
   flex-shrink: 0;
+  @media (max-width: 1080px) {
+    text-align: center;
+    width: 100%;
+    .statistics-card {
+      padding: 10px 10px;
+      .statistics-title {
+        display: none;
+      }
+      .statistics-list {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .statistics-icon{
+          padding-top: 8px;
+          font-size: 1rem;
+          line-height: 1rem;
+        }
+        .columns-all,
+        .basket,
+        .boards-all,
+        .tasks-all {
+          margin: 0;
+          padding: 0;
+        }
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .statistics-text {
+      display: none;
+    }
+  }
 }
 
 .statistics-card {
@@ -58,6 +96,17 @@ input:focus {
   justify-content: flex-start;
   gap: 30px;
   width: 100%;
+  @media (max-width: 1080px) {
+    justify-content: center;
+    gap: 20px;
+  }
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+}
+
+.expand-action {
+  display: flex;
 }
 
 .boards-header {
@@ -67,13 +116,24 @@ input:focus {
   align-items: center;
   width: 100%;
   gap: 30px;
+  @media (max-width: 1080px) {
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    justify-content: center;
+    .expand-title,
+    .expand-text,
+    .sort-title,
+    .sort-direction {
+      display: none;
+    }
+  }
 }
 
 .inner-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
-
 }
 .search-container {
   position: relative;
@@ -126,8 +186,8 @@ input:focus {
   justify-content: center;
 }
 
- .sort-button,
- .expand-text {
+.sort-button,
+.expand-text {
   margin-left: 5px;
   color: $moreColor;
   cursor: pointer;
@@ -166,13 +226,14 @@ input:focus {
   align-items: center;
   padding-left: 20px;
 }
-.statistics{
+.statistics {
   display: flex;
-  flex-direction:column ;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   max-width: 300px;
 }
+
 // @media (max-width: 840px) {
 //   .first-container{
 //     width:100%;
