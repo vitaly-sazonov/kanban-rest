@@ -20,6 +20,12 @@
   @media (max-width: 768px) {
     padding: 86px 10px 50px;
   }
+  @media (max-width: 650px) {
+    padding: 86px 5px 50px;
+  }
+  @media (max-width: 330px) {
+    padding: 86px 0 50px;
+  }
 }
 
 .title {
