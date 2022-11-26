@@ -1,3 +1,4 @@
+
 <section class="main-wrapper">
   <aside class="sidebar-wrapper">
     <h1 class="title">{{ 'BOARDS' | translate }}</h1>
@@ -34,6 +35,50 @@
         </h4>
       </mat-card-content>
     </mat-card>
+<section class="first-container">
+  <header class="header">
+    <h1 class="title">
+      {{ 'BOARDS' | translate }}
+    </h1>
+  </header>
+  <nav class="navigation">
+    <mat-icon *ngIf="(posY$$ | async) !== 0" (click)="scrollUp()"
+      >keyboard_double_arrow_up</mat-icon
+    >
+    <mat-icon *ngIf="checkDown((posY$$ | async)!)" (click)="scrollDown()"
+      >keyboard_double_arrow_down</mat-icon
+    >
+  </nav>
+  <aside class="search-container">
+    <section>
+      <mat-icon class="icon">search</mat-icon>
+      <input
+        class="search-input"
+        placeholder="{{ 'search board' | translate }}"
+        [(ngModel)]="searchRequest"
+        (ngModelChange)="rememberSearch()"
+        autofocus />
+      <mat-icon class="delete-search" (click)="deleteSearch()">close</mat-icon>
+      <div class="sort-section">
+        <h2 class="sort-button" (click)="isReverseBoards = !isReverseBoards">
+          A-Z
+        </h2>
+        <h2 class="sort-direction" [class.rotate]="isReverseBoards">↑</h2>
+      </div>
+      <mat-icon
+        class="expand-icon"
+        *ngIf="isAllShort === false"
+        (click)="isAllShort = true"
+        >unfold_less</mat-icon
+      >
+      <mat-icon
+        class="expand-icon"
+        *ngIf="isAllShort"
+        (click)="isAllShort = false"
+        >unfold_more</mat-icon
+      >
+    </section>
+    
   </aside>
   <main class="boards-wrapper">
     <section class="boards-header">
