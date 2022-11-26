@@ -4,10 +4,9 @@ import { LAST_SEARCH, PICTURES_PER_CATEGORY, BOARDS } from 'src/app/constants';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { PictureCategories } from 'src/app/enums';
-import { Board, Column, Task } from 'src/app/interfaces';
+import { Board } from 'src/app/interfaces';
 import {
   BehaviorSubject,
-  forkJoin,
   from,
   map,
   mergeMap,
@@ -28,12 +27,8 @@ import {
   selectFeatureUser,
 } from 'src/app/redux/selectors/user.selectors';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmQuestions, PercentSize, RouterStateValue } from 'src/app/enums';
-import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { PercentSize } from 'src/app/enums';
 import { SelectBoardDialogComponent } from './components/select-board-dialog/select-board-dialog.component';
-import { CustomBoardComponent } from './components/custom-board/custom-board.component';
-import { HttpService } from 'src/app/core/services/http.service';
-import { Router } from '@angular/router';
 import { CustomBoardService } from 'src/app/core/services/custom-board.service';
 
 @Component({
@@ -67,7 +62,6 @@ export class MainComponent implements OnInit, OnDestroy {
     private storage: LocalstorageService,
     public dialog: MatDialog,
     private customBoardService: CustomBoardService,
-    private http: HttpService,
     private basket: BasketService,
     private scrollService: ScrollService
   ) {}
