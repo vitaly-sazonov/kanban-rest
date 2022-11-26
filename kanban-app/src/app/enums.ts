@@ -31,6 +31,7 @@ export enum RouterStateValue {
   login = 'login',
   edit = 'edit',
   welcome = 'welcome',
+  board = 'board',
 }
 
 export enum PasswordValidatorSymbols {
@@ -117,6 +118,7 @@ export enum LoadingStateAction {
 
 export enum ConfirmQuestions {
   DeleteUserQuestion = 'DeleteUserQuestion',
+  CreateBoard = 'CreateBoardQuestion',
 }
 
 export enum PercentSize {
