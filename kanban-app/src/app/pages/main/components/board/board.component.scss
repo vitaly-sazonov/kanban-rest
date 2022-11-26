@@ -1,4 +1,5 @@
 @import '../../../../colors.scss';
+@import '../../../../../styles.scss';
 
 .board-main {
   position: relative;
@@ -184,17 +185,30 @@
   background-color: $moreColor;
   color: #f5f5f5;
 }
-.update-icon,
-.new-icon {
+
+.board-updates {
+  position: absolute;
+  top: -12px;
+  right: 10px;
   animation: flashing 7s;
   transition: 500ms;
-  position: inherit;
-  top: -90px;
-  left: 65px;
-  color: rgba($color: #f00, $alpha: 0.5);
+}
+
+.update-icon,
+.new-icon {
+  font-family: $main-font;
+  color: $color-1;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 0.7rem;
+  border-radius: 4px;
+  padding: 5px;
+}
+.update-icon {
+  background-color: $moreColor;
 }
 .new-icon {
-  left: 100px;
+  background-color: $toastBackgroundColor;
 }
 
 @keyframes flashing {

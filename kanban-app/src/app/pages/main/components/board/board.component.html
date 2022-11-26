@@ -98,18 +98,24 @@
       </section>
     </section>
 
-    <h2
-      *ngIf="compare.checkIsUpdated(board!) && !compare.checkIsNew(board?.id!)"
-      class="update-icon"
-      [class.short-check]="isShort">
-      {{ 'Check.Updated' | translate }}
-    </h2>
-    <h2
-      *ngIf="compare.checkIsNew(board?.id!)"
-      class="new-icon"
-      [class.short-check]="isShort">
-      {{ 'Check.New' | translate }}
-    </h2>
+    <section
+      class="board-updates"
+      *ngIf="compare.checkIsUpdated(board!) || compare.checkIsNew(board?.id!)">
+      <h2
+        *ngIf="
+          compare.checkIsUpdated(board!) && !compare.checkIsNew(board?.id!)
+        "
+        class="update-icon"
+        [class.short-check]="isShort">
+        {{ 'Check.Updated' | translate }}
+      </h2>
+      <h2
+        *ngIf="compare.checkIsNew(board?.id!)"
+        class="new-icon"
+        [class.short-check]="isShort">
+        {{ 'Check.New' | translate }}
+      </h2>
+    </section>
     <section
       *ngIf="length! > 0 || checkMatching()"
       class="container-preview"
