@@ -1,4 +1,5 @@
 {
+  "YES":"",
   "Developers": "Розробники",
   "Error": {
     "User was not founded!": "Користувач не знайден!",
@@ -98,6 +99,7 @@
   "DELETE": "ВИДАЛИТИ",
   "BOARDS": "ДОШКИ",
   "CLOSE": "ЗАКРИТИ",
+  "BoardsStats": "Статистика: ",
   "more": "БІЛЬШЕ",
   "hide": "сховати",
   "No Boards": "Немає дошок",
@@ -128,5 +130,12 @@
   "Check": {
     "New": "Нове",
     "Updated": "Оновлено"
-  }
+  },
+  "Create custom":"",
+  "Select board":"",
+  "CreateBoardQuestion":"",
+  "Sort": "Сортувати: ",
+  "View": "Вид: ",
+  "Max": "розширений",
+  "Min": "скорочений"
 }

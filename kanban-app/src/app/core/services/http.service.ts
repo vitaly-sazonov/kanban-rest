@@ -30,7 +30,7 @@ export class HttpService {
     return this.http.get(QUERY_PARAMS_FIRST.boards);
   }
 
-  addBoard(board: Board) {
+  addBoard(board: Board): Observable<Board> {
     return this.http.post(QUERY_PARAMS_FIRST.boards, board);
   }
 
@@ -106,8 +106,8 @@ export class HttpService {
     return this.http.get(`${QUERY_PARAMS_FIRST.boards}/${id}`);
   }
 
-  addColumn(boardId: string, column: Column) {
-    return this.http.post(
+  addColumn(boardId: string | undefined, column: Column) {
+    return this.http.post<Column>(
       `${QUERY_PARAMS_FIRST.boards}/${boardId}${QUERY_PARAMS_SECOND.columns}`,
       column
     );

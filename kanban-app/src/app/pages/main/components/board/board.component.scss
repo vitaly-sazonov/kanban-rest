@@ -1,82 +1,143 @@
 @import '../../../../colors.scss';
+@import '../../../../../styles.scss';
 
-.board-container {
+.board-main {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  margin-left: auto;
-  width: 300px;
-  height: 200px;
-  padding: 10px;
-  background-color: $boardBackgroundColor;
-  box-shadow: $boxShadow;
-  border-radius: 5px;
-  transition: 500ms;
 }
 
-.inner-container {
+.board-container {
   position: absolute;
-  top: 30px;
+  display: flex;
+  align-items: flex-start;
+  align-content: space-between;
+  flex-wrap: wrap;
   width: 300px;
   min-height: 200px;
-  cursor: pointer;
+  padding: 20px;
+  transition: 500ms;
+  box-sizing: border-box;
+  top: 0;
+  bottom: unset;
+  z-index: 0;
+
+  @media (max-width: 619.99px) {
+    position: relative;
+  }
+}
+
+.main-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
+  min-height: 160px;
+  width: 100%;
+}
+
+.top-container {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
   overflow-wrap: break-word;
-  padding-bottom: 10px;
 
   &:hover .title {
     color: $moreColor;
   }
 }
 
-.container-preview {
+.title-container {
+  max-height: 125px;
+  overflow: hidden;
+}
+
+::ng-deep .card-header .mat-card-header-text {
+  margin: 0;
+}
+
+.bottom-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.preview-position {
   position: absolute;
-  top: 0px;
-  left: 0px;
-  max-width: 360px;
+  top: 0;
+  left: 0;
+}
+
+.card-placeholder {
+  position: relative;
+  top: 0;
+
+  @media (max-width: 619.99px) {
+    display: none;
+  }
+}
+
+.expand-up {
+  top: unset;
+  bottom: 0;
+}
+
+.show-preview {
+  z-index: 100;
+  box-shadow: 0 3px 7px 0 rgba($color: #000000, $alpha: 0.25);
+  transform: scale(1.05);
+
+  @media (max-width: 619.99px) {
+    transform: scale(1);
+  }
+}
+
+.container-preview {
+  width: 260px;
   overflow-x: auto;
   overflow-y: hidden;
-  height: 208px;
+  height: 0px;
   display: flex;
-  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px;
-  border-radius: 5px;
-  background-color: $boardBackgroundColor;
-  box-shadow: $previewBoxShadow;
-  padding: 5px;
+  gap: 2px;
   opacity: 0;
-  visibility: hidden;
+  margin-top: 0;
   transition: 500ms;
 }
+
+.board-container:hover .container-preview {
+  margin-top: 20px;
+  height: 208px;
+  opacity: 1;
+}
+
 .column-item {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 110px;
+  width: 129px;
   gap: 10px;
   word-break: break-all;
   height: 190px;
   border: 1px solid $whiteBorderColor;
-  background-color: $boardBackgroundColor;
+  background-color: rgba($color: $color-2, $alpha: 0.4);
   padding-left: 5px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  border-radius: 5px;
+  border-radius: 2px;
   opacity: 0.8;
+  flex-shrink: 0;
+  box-sizing: border-box;
 
   &:hover {
     opacity: 1;
     border-color: $moreColor;
   }
+
   &:hover .column-title {
     color: $moreColor;
   }
@@ -91,39 +152,84 @@
 .tasks-container {
   display: flex;
   flex-direction: column;
-  width: 105px;
+  width: 100%;
   height: 150px;
-  background-color: #f5f5f5;
   overflow-y: auto;
+  padding: 0 5px 5px 10px;
+  gap: 5px;
+  box-sizing: border-box;
 }
+
+.task {
+  display: block;
+  margin: 0;
+  height: 1rem;
+  width: 99px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
 .task:hover {
   color: $moreColor;
   cursor: pointer;
 }
+
 .inner-container-preview {
   display: flex;
   transition: 500ms;
 }
+
 .column-title {
+  display: inline-block;
+  font-weight: 800;
+  width: 100px;
   cursor: pointer;
-  word-wrap: break-word;
-  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 10px 10px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $color-2;
 }
+
+.short-title {
+  padding-bottom: 0;
+  margin-bottom: 10px;
+  border: unset;
+}
+
 ::ng-deep mark {
   background-color: $moreColor;
   color: #f5f5f5;
 }
-.update-icon,
-.new-icon {
+
+.board-updates {
+  position: absolute;
+  top: -12px;
+  right: 10px;
   animation: flashing 7s;
   transition: 500ms;
-  position: inherit;
-  top: -90px;
-  left: 65px;
-  color: rgba($color: #f00, $alpha: 0.5);
 }
+
+.update-icon,
 .new-icon {
-  left: 100px;
+  font-family: $main-font;
+  color: $color-1;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 0.7rem;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.update-icon {
+  background-color: $moreColor;
+}
+
+.new-icon {
+  background-color: $toastBackgroundColor;
 }
 
 @keyframes flashing {
@@ -131,141 +237,198 @@
     opacity: 0;
     visibility: hidden;
   }
+
   20% {
     opacity: 1;
     visibility: visible;
     transform: scale(1.1);
   }
+
   40% {
     opacity: 0;
     visibility: hidden;
     transform: scale(1);
   }
+
   60% {
     opacity: 1;
     visibility: visible;
     transform: scale(1.1);
   }
+
   80% {
     opacity: 0;
     visibility: hidden;
     transform: scale(1);
   }
+
   100% {
     opacity: 1;
     visibility: visible;
   }
 }
+
 .short {
-  height: 80px;
+  min-height: 96px;
   transition: 500ms;
+
+  .main-content {
+    min-height: 0;
+  }
 }
+
 .board-menu-container {
-  position: absolute;
-  top: 5px; 
-  left: 255px;
   width: 20px;
   height: 20px;
   opacity: 0.5;
+
   &:hover {
     opacity: 1;
   }
+
+  .mat-button {
+    padding: 0;
+    min-width: unset;
+  }
 }
+
 .short-container {
+  height: 0;
+  transition: 500ms;
+}
+
+.board-container:hover .short-container {
   height: 85px;
-  transition: 500ms;
+  opacity: 1;
 }
+
 .short-item {
-  height: 75px;
+  height: fit-content;
   transition: 500ms;
 }
+
+.bottom-text {
+  opacity: 0.7;
+}
+
+.count {
+  margin-left: 2px;
+  opacity: 0.7;
+}
+
 .expand-icon {
-  position: absolute;
-  left: 5px;
-  top: 5px;
   cursor: pointer;
+
   &:hover {
     color: $moreColor;
   }
 }
+
+.board-icon {
+  width: 16px;
+  height: 16px;
+  font-size: 1rem;
+  margin-right: 3px;
+  color: $moreColor;
+}
+
 .hide {
   opacity: 0;
   visibility: hidden;
   top: 50px;
   transition: 500ms;
 }
+
 .short-check {
   top: -30px;
 }
+
 .empty-box,
 .full-box {
-  position: absolute;
-  top: 100px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
   transition: 500ms;
 }
+
+.bottom-details {
+  display: flex;
+  align-items: center;
+}
+
 ::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
 }
+
 ::-webkit-scrollbar-track {
   background: rgba($color: #000000, $alpha: 0);
 }
+
 ::-webkit-scrollbar-thumb {
   border-radius: 0.815rem;
   background-color: rgb(204, 204, 204);
 }
+
 .empty {
-  background-color: #ccc;
+  background-color: $color-2;
+  filter: brightness(105%);
 }
+
 .full-box mat-card-subtitle {
   color: $moreColor;
   cursor: auto;
 }
+
 .short-box {
   opacity: 0.7;
   cursor: auto;
+
   & mat-card-subtitle {
     color: $moreColor;
   }
 }
-mat-card-subtitle{
+
+mat-card-subtitle {
   display: flex;
   align-items: center;
 }
-@media (max-width: 1920px) {
-  .container-preview{
-    max-width: 580px;
-  }
-}
-@media (max-width: 1680px) {
-  .container-preview{
-    max-width: 460px;
-  }
-}
-@media (max-width: 1440px) {
-  .container-preview{
-    max-width: 360px;
-  }
-}
-@media (max-width: 1080px) {
-  .container-preview{
-    max-width: 240px;
-  }
-}
-@media (max-width: 830px) {
-  .container-preview{
-    max-width: 120px;
-  }
-}
-@media (max-width: 600px) {
-  .container-preview{
-    max-width: 0px;
-    visibility: hidden;
-  }
-  .inner-container-preview{
-    display: block;
-  }
-  .visible{
-    left:0px;
-  }
-}
+
+// @media (max-width: 1920px) {
+//   .container-preview {
+//     max-width: 580px;
+//   }
+// }
+// @media (max-width: 1680px) {
+//   .container-preview {
+//     max-width: 460px;
+//   }
+// }
+// @media (max-width: 1440px) {
+//   .container-preview {
+//     max-width: 360px;
+//   }
+// }
+// @media (max-width: 1080px) {
+//   .container-preview {
+//     max-width: 240px;
+//   }
+// }
+// @media (max-width: 830px) {
+//   .container-preview {
+//     max-width: 120px;
+//   }
+// }
+// @media (max-width: 600px) {
+//   .container-preview {
+//     max-width: 0px;
+//     visibility: hidden;
+//   }
+//   .inner-container-preview {
+//     display: block;
+//   }
+//   .visible {
+//     left: 0px;
+//   }
+// }
