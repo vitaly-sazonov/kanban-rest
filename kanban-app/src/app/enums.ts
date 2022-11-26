@@ -136,3 +136,9 @@ export enum PictureCategories {
   highTech = 'high_tech',
   nature = 'nature',
 }
+
+export enum SystemSound {
+  delete = 'assets/mp3/delete.mp3',
+  notification = 'assets/mp3/notification.mp3',
+  success = 'assets/mp3/success.wav',
+}

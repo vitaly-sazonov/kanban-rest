@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Subscription } from 'rxjs';
+import { AudioService } from 'src/app/core/services/audio.service';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { ModalTypes } from 'src/app/enums';
 import { Board } from 'src/app/interfaces';

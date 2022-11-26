@@ -8,6 +8,8 @@ export const BASKET = 'Basket';
 
 export const LAST_SEARCH = 'lastSearch';
 
+export const KNOWN_ERRORS = [0, 400, 401, 403, 404, 409];
+
 export const user2 = {
   name: 'Alex',
   login: 'user002',

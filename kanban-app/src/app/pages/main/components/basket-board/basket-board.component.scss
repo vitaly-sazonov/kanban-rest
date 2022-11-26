@@ -20,7 +20,7 @@
   position: absolute;
   top: 30px;
   width: 300px;
-  height: 70px;
+  min-height: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,53 +28,8 @@
   overflow-wrap: break-word;
   padding-bottom: 10px;
 }
-
-.container-preview {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  max-width: 360px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  height: 208px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  border-radius: 5px;
-  background-color: $boardBackgroundColor;
-  box-shadow: $previewBoxShadow;
-  padding: 5px;
-  opacity: 0;
-  visibility: hidden;
-  transition: 500ms;
-}
-.column-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 110px;
-  gap: 10px;
-  word-break: break-all;
-  height: 190px;
-  border: 1px solid $whiteBorderColor;
-  background-color: $boardBackgroundColor;
-  padding-left: 5px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  border-radius: 5px;
-  opacity: 0.8;
-
-  &:hover {
-    opacity: 1;
-    border-color: $moreColor;
-  }
-  &:hover .column-title {
-    color: $moreColor;
-  }
+.description{
+  padding-bottom: 10px;
 }
 
 .visible {
@@ -83,78 +38,9 @@
   left: 320px;
 }
 
-.tasks-container {
-  display: flex;
-  flex-direction: column;
-  width: 105px;
-  height: 150px;
-  background-color: #f5f5f5;
-  overflow-y: auto;
-}
-.task:hover {
-  color: $moreColor;
-  cursor: pointer;
-}
-.inner-container-preview {
-  display: flex;
-  transition: 500ms;
-}
-.column-title {
-  cursor: pointer;
-  word-wrap: break-word;
-  margin-top: 10px;
-}
-::ng-deep mark {
-  background-color: $moreColor;
-  color: #f5f5f5;
-}
-.update-icon,
-.new-icon {
-  animation: flashing 7s;
-  transition: 500ms;
-  position: inherit;
-  top: -90px;
-  left: 65px;
-  color: rgba($color: #f00, $alpha: 0.5);
-}
-.new-icon {
-  left: 100px;
-}
 
-@keyframes flashing {
-  0% {
-    opacity: 0;
-    visibility: hidden;
-  }
-  20% {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1.1);
-  }
-  40% {
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(1);
-  }
-  60% {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1.1);
-  }
-  80% {
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 1;
-    visibility: visible;
-  }
-}
-.short {
-  height: 80px;
-  transition: 500ms;
-}
+
+
 .board-menu-container {
   position: absolute;
   top: 5px; 
@@ -166,49 +52,14 @@
     opacity: 1;
   }
 }
-.short-container {
-  height: 85px;
-  transition: 500ms;
-}
-.short-item {
-  height: 75px;
-  transition: 500ms;
-}
-.expand-icon {
-  position: absolute;
-  left: 5px;
-  top: 5px;
-  cursor: pointer;
-  &:hover {
-    color: $moreColor;
-  }
-}
-.hide {
-  opacity: 0;
-  visibility: hidden;
-  top: 50px;
-  transition: 500ms;
-}
-.short-check {
-  top: -30px;
-}
+
 .empty-box,
 .full-box {
   position: absolute;
   top: 100px;
   transition: 500ms;
 }
-::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-::-webkit-scrollbar-track {
-  background: rgba($color: #000000, $alpha: 0);
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 0.815rem;
-  background-color: rgb(204, 204, 204);
-}
+
 .empty {
   background-color: #ccc;
 }
@@ -216,10 +67,4 @@
   color: $moreColor;
   cursor: auto;
 }
-.short-box {
-  opacity: 0.7;
-  cursor: auto;
-  & mat-card-subtitle {
-    color: $moreColor;
-  }
-}
+

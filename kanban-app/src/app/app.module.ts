@@ -21,12 +21,9 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { WelcomeModule } from './pages/welcome/welcome.module';
-import { MainModule } from './pages/main/main.module';
-
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { NotificationEffect } from './redux/effects/notification.effect';
 import { notificationReducer } from './redux/reducers/notification.reducer';
 import { confirmationReducer } from './redux/reducers/confirm.reducer';
@@ -35,11 +32,11 @@ import { modalReducer } from './redux/reducers/modal.reducer';
 import { boardsReducer } from './redux/reducers/boards.reducers';
 import { BoardsEffect } from './redux/effects/boards.effects';
 import { userReducer } from './redux/reducers/user.reducer';
-
 import { ToastrModule } from 'ngx-toastr';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MainModule } from './pages/main/main.module';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
