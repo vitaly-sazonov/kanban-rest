@@ -20,12 +20,6 @@
   @media (max-width: 768px) {
     padding: 86px 10px 50px;
   }
-  @media (max-width: 650px) {
-    padding: 86px 5px 50px;
-  }
-  @media (max-width: 330px) {
-    padding: 86px 0 50px;
-  }
 }
 
 .title {
@@ -239,65 +233,18 @@ input:focus {
   justify-content: center;
   max-width: 300px;
 }
-
-.pictures-wrapper {
-  width: 76.875rem;
-  height: 700px;
-  background-color: $color-1;
-}
-
-.pictures-category {
+.navigation {
+  position: fixed;
+  top: 50vh;
+  left: 10px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: flex-start;
+  flex-direction: column;
+  gap: 20px;
+  & mat-icon {
+    cursor: pointer;
+    opacity: .5;
+    &:hover{
+      opacity: 1;
+    }
+  }
 }
-
-.picture-thumbnail {
-  width: 300px;
-  height: 200px;
-}
-
-// @media (max-width: 840px) {
-//   .first-container{
-//     width:100%;
-//     top: 0px;
-//     left: 0px;
-//     background-color: $color-2;
-//     z-index: 8;
-//   }
-//   .search-container {
-//     display: flex;
-//     justify-content: center;
-//     position: static;
-//     margin-left: auto;
-//     margin-right: auto;
-//   }
-//   .header {
-//     display: flex;
-//     justify-content: center;
-//     position: static;
-//     margin-left: auto;
-//     margin-right: auto;
-//     padding-top: 100px;
-//   }
-//   .delete-search {
-//     position: relative;
-//     top: 7px;
-//     left: -25px;
-//   }
-//   .expand-icon {
-//     position: relative;
-//     top: -128px;
-//     left: 50px;
-//   }
-//   .sort-section {
-//     position: relative;
-//     padding: 0;
-//     margin: 0;
-//     width: 150px;
-//     gap: 10px;
-//     top: -86px;
-//     left: 140px;
-//   }
-// }

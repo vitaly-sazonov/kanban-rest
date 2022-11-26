@@ -1,11 +1,23 @@
 <section class="main-wrapper">
   <aside class="sidebar-wrapper">
     <h1 class="title">{{ 'BOARDS' | translate }}</h1>
+    <nav class="navigation">
+      <mat-icon *ngIf="(posY$$ | async) !== 0" (click)="scrollUp()"
+        >keyboard_double_arrow_up</mat-icon
+      >
+      <mat-icon *ngIf="checkDown((posY$$ | async)!)" (click)="scrollDown()"
+        >keyboard_double_arrow_down</mat-icon
+      >
+    </nav>
     <mat-card class="statistics-card">
       <mat-card-header class="statistics-title">
         <mat-card-title>{{ 'BoardsStats' | translate }}</mat-card-title>
       </mat-card-header>
       <mat-card-content class="statistics-list">
+        <h4 class="basket" (click)="createCustomBoard()">
+          <mat-icon class="statistics-icon">create_new_folder</mat-icon>
+          <span class="statistics-text">{{ 'Create custom' | translate }}</span>
+        </h4>
         <h4 class="boards-all">
           <mat-icon class="statistics-icon">dashboard</mat-icon
           ><span class="statistics-text"
@@ -81,8 +93,7 @@
       *ngIf="
         ((boards$ | async)! | search: searchRequest).length > 0;
         else noBoards
-      "
-      (click)="isSelectPicture = true">
+      ">
       <h2 *ngIf="isSearching" class="result-title">
         {{ 'Search results' | translate }}:
       </h2>
@@ -108,20 +119,4 @@
         *ngIf="isLoading$ | async"></mat-spinner>
     </ng-template>
   </main>
-</section>
-<section class="pictures-wrapper" *ngIf="isSelectPicture">
-  <h1 class="title">{{ 'ChoosePicture' | translate }}</h1>
-  <section class="pictures-container">
-    <section
-      class="pictures-category"
-      *ngFor="let category of pictureCategories">
-      {{ category }}
-      <img
-        class="picture-thumbnail"
-        *ngFor="let picture of pictureNames"
-        src="../../../assets/img/boards_thumbnails/{{ category }}/{{
-          picture
-        }}.jpg" />
-    </section>
-  </section>
 </section>

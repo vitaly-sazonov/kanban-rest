@@ -1,24 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, from, map, mergeMap, of, switchMap, tap } from 'rxjs';
-import { LAST_SEARCH, PICTURES_PER_CATEGORY } from 'src/app/constants';
+import { LAST_SEARCH, PICTURES_PER_CATEGORY, BOARDS } from 'src/app/constants';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { PictureCategories } from 'src/app/enums';
-import { Board } from 'src/app/interfaces';
+import { Board, Column, Task } from 'src/app/interfaces';
+import {
+  BehaviorSubject,
+  forkJoin,
+  from,
+  map,
+  mergeMap,
+  of,
+  Subject,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
+import { ScrollService } from 'src/app/core/services/scroll.service';
 import {
   deleteAllBoards,
   loadBoards,
 } from 'src/app/redux/actions/boards.actions';
 import { selectUserBoards } from 'src/app/redux/selectors/boards.selectors';
-import { selectFeatureIsLoading } from 'src/app/redux/selectors/user.selectors';
+import {
+  selectFeatureIsLoading,
+  selectFeatureUser,
+} from 'src/app/redux/selectors/user.selectors';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmQuestions, PercentSize, RouterStateValue } from 'src/app/enums';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { SelectBoardDialogComponent } from './components/select-board-dialog/select-board-dialog.component';
+import { CustomBoardComponent } from './components/custom-board/custom-board.component';
+import { HttpService } from 'src/app/core/services/http.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
   boards$? = this.store.select(selectUserBoards);
   isLoading$ = this.store.select(selectFeatureIsLoading);
   searchRequest = this.storage.getItem(LAST_SEARCH) || '';
@@ -35,16 +57,34 @@ export class MainComponent implements OnInit {
   pictureNames = new Array(PICTURES_PER_CATEGORY)
     .fill(0)
     .map((el, index) => index);
+  userId$ = this.store.select(selectFeatureUser);
+  unsubscribe$ = new Subject();
+  userId: string = '';
 
   constructor(
     private store: Store,
     private storage: LocalstorageService,
-    private basket: BasketService
+    public dialog: MatDialog,
+    private http: HttpService,
+    private basket: BasketService,
+    private scrollService: ScrollService
   ) {}
+  posY$$ = this.scrollService.getPositionY();
+  downPos = Math.round(document.body.scrollHeight);
+  scrollHeight$$ = this.scrollService.getScrollHeight();
 
   ngOnInit(): void {
+    this.userId$.pipe(takeUntil(this.unsubscribe$)).subscribe(x => {
+      if (x?.id) this.userId = x?.id;
+    });
+
     this.reset();
     this.basket$$ = this.basket.getBasket();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(1);
+    this.unsubscribe$.complete();
   }
 
   reset(): void {
@@ -89,4 +129,86 @@ export class MainComponent implements OnInit {
       switchMap(() => of(q))
     );
   }
+  createCustomBoard() {
+    const dialogRef = this.dialog.open(SelectBoardDialogComponent, {
+      panelClass: 'dialog',
+      enterAnimationDuration: '500ms',
+      width: PercentSize.eighty,
+      height: PercentSize.eighty,
+      data: BOARDS,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const board = result as Board;
+        this.saveBoardToUser(board)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(x => this.reset());
+      }
+    });
+  }
+
+  saveBoardToUser(board: Board) {
+    let boardId: string | undefined;
+    return this.http
+      .addBoard({ title: board.title, description: board.description })
+      .pipe(
+        tap(createdBoard => {
+          boardId = createdBoard.id;
+        }),
+        map(createdBoard =>
+          this.addColumnsToBorder(createdBoard.id, board.columns)
+        ),
+        switchMap(board => forkJoin(board)),
+        map(columns =>
+          columns.map(column => ({
+            columnId: column.id,
+            tasks: this.findColumn(column.title, board),
+            boardId: boardId,
+          }))
+        ),
+        map(columns =>
+          columns
+            .map(column =>
+              column.tasks?.map(task =>
+                this.addTaskToBorder(column.boardId, column.columnId, task)
+              )
+            )
+            .flat()
+        ),
+        switchMap(task => forkJoin(task))
+      );
+  }
+
+  addColumnsToBorder(
+    boardId: string | undefined,
+    columns: Column[] | undefined
+  ) {
+    if (!boardId || !columns) throw Error;
+    return columns.map(column =>
+      this.http.addColumn(boardId, { title: column.title })
+    );
+  }
+
+  addTaskToBorder(
+    boardId: string | undefined,
+    columnId: string | undefined,
+    task: Task
+  ) {
+    if (!boardId || !columnId || !task) return;
+    return this.http.addTask(boardId, columnId, task);
+  }
+
+  findColumn(title: string, board: Board) {
+    return board.columns
+      ?.find(column => column.title === title)
+      ?.tasks?.map(task => ({ ...task, userId: this.userId }));
+  }
+
+  scrollDown() {
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+  scrollUp() {
+    window.scrollTo(0, 0);
+  }
+  checkDown = (pos: number) => pos < document.body.scrollHeight * 0.7;
 }
