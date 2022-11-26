@@ -22,15 +22,20 @@ export class BasketService {
     if (data) {
       this.basket$$.next(JSON.parse(data));
     } else {
+      this.storage.setItem(BASKET, '[]');
       this.basket$$.next([]);
     }
     return this.basket$$;
   }
   addToBasket(board: Board) {
-    let basket = JSON.parse(this.storage.getItem(BASKET)!);
-    basket?.push(board);
-    this.storage.setItem(BASKET, JSON.stringify(basket));
-    this.getBasket();
+    if (this.storage.getItem(BASKET)) {
+      let basket = JSON.parse(this.storage.getItem(BASKET)!);
+      basket?.push(board);
+      this.storage.setItem(BASKET, JSON.stringify(basket));
+      this.getBasket();
+    } else {
+      this.storage.setItem(BASKET, '[]');
+    }
   }
   deleteFromBasket(id: string) {
     let basket = JSON.parse(this.storage.getItem(BASKET)!);
