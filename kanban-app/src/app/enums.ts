@@ -131,6 +131,12 @@ export enum LocalStorageValues {
   UserId = 'userId',
   Language = 'language',
 }
+
+export enum PictureCategories {
+  highTech = 'high_tech',
+  nature = 'nature',
+}
+
 export enum SystemSound {
   delete = 'assets/mp3/delete.mp3',
   notification = 'assets/mp3/notification.mp3',

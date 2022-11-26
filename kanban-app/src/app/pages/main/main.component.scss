@@ -3,7 +3,6 @@
 
 :host {
   user-select: none;
-  scroll-behavior: smooth;
 }
 
 .main-wrapper {
@@ -21,12 +20,6 @@
   @media (max-width: 768px) {
     padding: 86px 10px 50px;
   }
-  @media (max-width: 650px) {
-    padding: 86px 5px 50px;
-  }
-  @media (max-width: 330px) {
-    padding: 86px 0 50px;
-  }
 }
 
 .title {
@@ -39,6 +32,7 @@ input:focus {
   outline: 0;
   border: transparent;
 }
+
 .sidebar-wrapper {
   width: 300px;
   flex-shrink: 0;
@@ -92,13 +86,6 @@ input:focus {
   flex-wrap: wrap;
   gap: 30px;
   width: 100%;
- }
-.first-container {
-  position: sticky;
-  width: 250px;
-  top: 100px;
-  left: 0px;
-  background-color: $color-2;
 }
 
 .boards-container {
@@ -106,7 +93,6 @@ input:focus {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-
   justify-content: flex-start;
   gap: 30px;
   width: 100%;
@@ -142,13 +128,6 @@ input:focus {
       display: none;
     }
   }
-  justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-  height: auto;
-  min-height: 300px;
-  width: 300px;
-  margin-bottom: 50px;
 }
 
 .inner-container {
@@ -254,52 +233,6 @@ input:focus {
   justify-content: center;
   max-width: 300px;
 }
-
-
-// @media (max-width: 840px) {
-//   .first-container{
-//     width:100%;
-//     top: 0px;
-//     left: 0px;
-//     background-color: $color-2;
-//     z-index: 8;
-//   }
-//   .search-container {
-//     display: flex;
-//     justify-content: center;
-//     position: static;
-//     margin-left: auto;
-//     margin-right: auto;
-//   }
-//   .header {
-//     display: flex;
-//     justify-content: center;
-//     position: static;
-//     margin-left: auto;
-//     margin-right: auto;
-//     padding-top: 100px;
-//   }
-//   .delete-search {
-//     position: relative;
-//     top: 7px;
-//     left: -25px;
-//   }
-//   .expand-icon {
-//     position: relative;
-//     top: -128px;
-//     left: 50px;
-//   }
-//   .sort-section {
-//     position: relative;
-//     padding: 0;
-//     margin: 0;
-//     width: 150px;
-//     gap: 10px;
-//     top: -86px;
-//     left: 140px;
-//   }
-// }
-
 .navigation {
   position: fixed;
   top: 50vh;
@@ -313,49 +246,5 @@ input:focus {
     &:hover{
       opacity: 1;
     }
-  }
-}
-
-@media (max-width: 840px) {
-  .first-container {
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    background-color: $color-2;
-    z-index: 8;
-  }
-  .search-container {
-    display: flex;
-    justify-content: center;
-    position: static;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .header {
-    display: flex;
-    justify-content: center;
-    position: static;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 100px;
-  }
-  .delete-search {
-    position: relative;
-    top: 7px;
-    left: -25px;
-  }
-  .expand-icon {
-    position: relative;
-    top: -128px;
-    left: 50px;
-  }
-  .sort-section {
-    position: relative;
-    padding: 0;
-    margin: 0;
-    width: 150px;
-    gap: 10px;
-    top: -86px;
-    left: 140px;
   }
 }

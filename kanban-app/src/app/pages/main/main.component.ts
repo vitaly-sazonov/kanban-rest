@@ -1,23 +1,22 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { LAST_SEARCH, PICTURES_PER_CATEGORY, BOARDS } from 'src/app/constants';
+import { BasketService } from 'src/app/core/services/basket.service';
+import { LocalstorageService } from 'src/app/core/services/localstorage.service';
+import { PictureCategories } from 'src/app/enums';
+import { Board, Column, Task } from 'src/app/interfaces';
 import {
   BehaviorSubject,
-  filter,
   forkJoin,
   from,
   map,
   mergeMap,
   of,
-  pipe,
   Subject,
   switchMap,
   takeUntil,
   tap,
 } from 'rxjs';
-import { BOARDS, LAST_SEARCH } from 'src/app/constants';
-import { LocalstorageService } from 'src/app/core/services/localstorage.service';
-import { Board, Column, Task } from 'src/app/interfaces';
-import { BasketService } from 'src/app/core/services/basket.service';
 import { ScrollService } from 'src/app/core/services/scroll.service';
 import {
   deleteAllBoards,
@@ -51,6 +50,13 @@ export class MainComponent implements OnInit, OnDestroy {
   boardsQuantity$ = this.getBoardQuantity();
   columnsQuantity$ = this.getColumnsQuantity();
   tasksQuantity$ = this.getTaskQuantity();
+  boardsInBasket = 0;
+  basket$$?: BehaviorSubject<Board[]>;
+  isSelectPicture = false;
+  pictureCategories = Object.values(PictureCategories);
+  pictureNames = new Array(PICTURES_PER_CATEGORY)
+    .fill(0)
+    .map((el, index) => index);
   userId$ = this.store.select(selectFeatureUser);
   unsubscribe$ = new Subject();
   userId: string = '';
@@ -63,16 +69,10 @@ export class MainComponent implements OnInit, OnDestroy {
     private basket: BasketService,
     private scrollService: ScrollService
   ) {}
-  boardsInBasket = 0;
-  basket$$?: BehaviorSubject<Board[]>;
   posY$$ = this.scrollService.getPositionY();
   downPos = Math.round(document.body.scrollHeight);
   scrollHeight$$ = this.scrollService.getScrollHeight();
 
-  checkY(event: MouseEvent) {
-    console.log(document.body.scrollHeight);
-    console.log(event.clientY + window.scrollY);
-  }
   ngOnInit(): void {
     this.userId$.pipe(takeUntil(this.unsubscribe$)).subscribe(x => {
       if (x?.id) this.userId = x?.id;
