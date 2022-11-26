@@ -34,6 +34,7 @@ import { SelectBoardDialogComponent } from './components/select-board-dialog/sel
 import { CustomBoardComponent } from './components/custom-board/custom-board.component';
 import { HttpService } from 'src/app/core/services/http.service';
 import { Router } from '@angular/router';
+import { CustomBoardService } from 'src/app/core/services/custom-board.service';
 
 @Component({
   selector: 'app-main',
@@ -65,6 +66,7 @@ export class MainComponent implements OnInit, OnDestroy {
     private store: Store,
     private storage: LocalstorageService,
     public dialog: MatDialog,
+    private customBoardService: CustomBoardService,
     private http: HttpService,
     private basket: BasketService,
     private scrollService: ScrollService
@@ -140,68 +142,12 @@ export class MainComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const board = result as Board;
-        this.saveBoardToUser(board)
+        this.customBoardService
+          .saveBoardToUser(board, this.userId)
           .pipe(takeUntil(this.unsubscribe$))
           .subscribe(x => this.reset());
       }
     });
-  }
-
-  saveBoardToUser(board: Board) {
-    let boardId: string | undefined;
-    return this.http
-      .addBoard({ title: board.title, description: board.description })
-      .pipe(
-        tap(createdBoard => {
-          boardId = createdBoard.id;
-        }),
-        map(createdBoard =>
-          this.addColumnsToBorder(createdBoard.id, board.columns)
-        ),
-        switchMap(board => forkJoin(board)),
-        map(columns =>
-          columns.map(column => ({
-            columnId: column.id,
-            tasks: this.findColumn(column.title, board),
-            boardId: boardId,
-          }))
-        ),
-        map(columns =>
-          columns
-            .map(column =>
-              column.tasks?.map(task =>
-                this.addTaskToBorder(column.boardId, column.columnId, task)
-              )
-            )
-            .flat()
-        ),
-        switchMap(task => forkJoin(task))
-      );
-  }
-
-  addColumnsToBorder(
-    boardId: string | undefined,
-    columns: Column[] | undefined
-  ) {
-    if (!boardId || !columns) throw Error;
-    return columns.map(column =>
-      this.http.addColumn(boardId, { title: column.title })
-    );
-  }
-
-  addTaskToBorder(
-    boardId: string | undefined,
-    columnId: string | undefined,
-    task: Task
-  ) {
-    if (!boardId || !columnId || !task) return;
-    return this.http.addTask(boardId, columnId, task);
-  }
-
-  findColumn(title: string, board: Board) {
-    return board.columns
-      ?.find(column => column.title === title)
-      ?.tasks?.map(task => ({ ...task, userId: this.userId }));
   }
 
   scrollDown() {
