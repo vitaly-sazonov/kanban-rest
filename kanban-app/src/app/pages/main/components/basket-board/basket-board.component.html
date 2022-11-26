@@ -1,9 +1,9 @@
 <mat-card class="board-container" [class.empty]="board?.columns?.length === 0">
   <mat-card-header class="inner-container">
     <mat-card-title class="title">{{ board?.title }} </mat-card-title>
-    <mat-card-subtitle class="description">{{
-      board?.description
-    }}</mat-card-subtitle>
+    <mat-card-subtitle class="description"
+      >{{ board?.description?.slice(0, 70) }}...</mat-card-subtitle
+    >
   </mat-card-header>
   <section class="board-menu-container">
     <button

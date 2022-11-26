@@ -12,7 +12,9 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
+import { AudioService } from 'src/app/core/services/audio.service';
 import { HttpService } from 'src/app/core/services/http.service';
+import { SystemSound } from 'src/app/enums';
 import { Board, Column, Task } from 'src/app/interfaces';
 import {
   addBoard,
@@ -21,6 +23,7 @@ import {
   addColumns,
   addTask,
   addTasks,
+  deleteAllBoards,
   deleteBoardById,
   editBoardById,
   editColumn,
@@ -33,13 +36,15 @@ import {
   removeTask,
   restoreBoard,
 } from '../actions/boards.actions';
+import { deleteConfirmResult } from '../actions/confirm.actions';
 
 @Injectable()
 export class BoardsEffect {
   constructor(
     private actions$: Actions,
     private http: HttpService,
-    private router: Router
+    private router: Router,
+    private audioService: AudioService
   ) {}
   loadAllBoards$ = createEffect(() => {
     return this.actions$.pipe(
@@ -67,6 +72,7 @@ export class BoardsEffect {
   deleteBoardById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(deleteBoardById),
+      tap(() => this.audioService.play(SystemSound.delete)),
       switchMap(({ id }) => this.http.deleteBoard(id)),
       map(() => loadBoards())
     );
@@ -74,6 +80,7 @@ export class BoardsEffect {
   editBoardById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(editBoardById),
+      tap(() => this.audioService.play(SystemSound.success)),
       switchMap(({ id, title, description }) =>
         this.http.editBoard(id, title, description)
       ),
@@ -87,6 +94,7 @@ export class BoardsEffect {
     let oldTasks: Task[];
     return this.actions$.pipe(
       ofType(restoreBoard),
+      tap(() => this.audioService.play(SystemSound.success)),
       tap(({ board }) => (oldBoard = board)),
       switchMap(({ board }) =>
         this.http.addBoard({
@@ -112,13 +120,14 @@ export class BoardsEffect {
         );
       }),
 
-      map(() => loadBoards())
+      map(() => deleteConfirmResult())
     );
   });
 
   addBoard$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addBoard),
+      tap(() => this.audioService.play(SystemSound.success)),
       switchMap(({ board }) => this.http.addBoard(board)),
       tap((board: Board) =>
         this.router.navigate(['../board', board.id, 'undefined', 'undefined'])
@@ -150,6 +159,7 @@ export class BoardsEffect {
   addColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addColumn),
+      tap(() => this.audioService.play(SystemSound.success)),
       switchMap(({ boardId, column }) =>
         this.http
           .addColumn(boardId, column)
@@ -160,6 +170,7 @@ export class BoardsEffect {
   removeColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(removeColumn),
+      tap(() => this.audioService.play(SystemSound.delete)),
       switchMap(({ boardId, columnId }) =>
         this.http
           .removeColumn(boardId, columnId)
@@ -170,6 +181,7 @@ export class BoardsEffect {
   editColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(editColumn),
+      tap(() => this.audioService.play(SystemSound.success)),
       switchMap(({ boardId, columnId, columnOrder, column }) =>
         this.http
           .editColumn(boardId, columnId, columnOrder, column)
@@ -197,6 +209,7 @@ export class BoardsEffect {
   addTask$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addTask),
+      tap(() => this.audioService.play(SystemSound.success)),
       switchMap(({ boardId, columnId, task }) => {
         return this.http
           .addTask(boardId, columnId, task)
@@ -207,6 +220,7 @@ export class BoardsEffect {
   editTask$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(editTask),
+      tap(() => this.audioService.play(SystemSound.success)),
       switchMap(({ boardId, columnId, taskId, taskOrder, task }) => {
         return this.http
           .editTask(boardId, columnId, taskId, {
@@ -222,6 +236,7 @@ export class BoardsEffect {
   removeTask$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(removeTask),
+      tap(() => this.audioService.play(SystemSound.delete)),
       switchMap(({ boardId, columnId, taskId }) =>
         this.http
           .removeTask(boardId, columnId, taskId)
@@ -232,6 +247,7 @@ export class BoardsEffect {
   moveTask$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(moveTaskToAnotherColumn),
+      tap(() => this.audioService.play(SystemSound.success)),
       switchMap(
         ({
           boardId,

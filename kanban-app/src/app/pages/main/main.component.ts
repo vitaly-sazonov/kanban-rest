@@ -94,5 +94,5 @@ export class MainComponent implements OnInit {
   scrollUp() {
     window.scrollTo(0, 0);
   }
-  checkDown = (pos: number) => pos < document.body.scrollHeight * 0.7;
+  checkDown = (pos: number = 0) => pos <= document.body.scrollHeight * 0.7;
 }

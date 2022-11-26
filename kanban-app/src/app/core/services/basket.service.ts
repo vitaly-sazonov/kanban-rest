@@ -2,14 +2,20 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { BASKET } from 'src/app/constants';
+import { SystemSound } from 'src/app/enums';
 import { Board } from 'src/app/interfaces';
+import { AudioService } from './audio.service';
 import { LocalstorageService } from './localstorage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BasketService {
-  constructor(private storage: LocalstorageService, private store: Store) {}
+  constructor(
+    private storage: LocalstorageService,
+    private store: Store,
+    private audioService: AudioService
+  ) {}
   basket$$ = new BehaviorSubject<Board[]>([]);
   getBasket() {
     const data = this.storage.getItem(BASKET);
@@ -34,6 +40,7 @@ export class BasketService {
   }
   deleteAllFromBasket() {
     this.storage.setItem(BASKET, '[]');
+    this.audioService.play(SystemSound.delete);
     this.getBasket();
   }
 }
