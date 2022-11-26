@@ -77,12 +77,14 @@
           class="full-box"
           *ngIf="isShort === false && columns?.length! > 0">
           <div class="bottom-details">
-            <mat-icon>view_column</mat-icon>{{ 'columns' | translate }}:
-            {{ columns?.length }}
+            <mat-icon class="board-icon">view_column</mat-icon
+            ><span class="bottom-text">{{ 'columns' | translate }}:</span>
+            <span class="count">{{ columns?.length }}</span>
           </div>
           <div class="bottom-details">
-            <mat-icon>description</mat-icon>{{ 'tasks' | translate }}
-            {{ getTaskQuantity() }}
+            <mat-icon class="board-icon">description</mat-icon
+            ><span class="bottom-text">{{ 'tasks' | translate }}</span>
+            <span class="count">{{ getTaskQuantity() }}</span>
           </div>
         </section>
         <section class="short-box" *ngIf="isShort && columns?.length! > 0">
@@ -118,21 +120,15 @@
         *ngFor="let column of columns | order">
         <mat-card-subtitle
           class="column-title"
+          [class.short-title]="isShort"
           [routerLink]="['../board', board?.id, column?.id, 'undefined']"
-          [innerHTML]="
-            column.order + '. ' + (column?.title! | mark: searchRequest) + '...'
-          ">
+          [innerHTML]="column?.title! | mark: searchRequest">
         </mat-card-subtitle>
         <div class="tasks-container" *ngIf="isShort === false">
-          <mat-card-subtitle *ngIf="column.tasks?.length! > 0">{{
-            'tasks' | translate
-          }}</mat-card-subtitle>
           <mat-card-subtitle
             class="task"
             *ngFor="let task of column.tasks"
-            [innerHTML]="
-              task.order + '. ' + (task?.title! | mark: searchRequest) + '...'
-            "
+            [innerHTML]="task?.title! | mark: searchRequest"
             [routerLink]="['../board', board?.id, column?.id, task?.id]">
           </mat-card-subtitle>
         </div>

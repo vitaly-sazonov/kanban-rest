@@ -3,7 +3,7 @@
 .app {
   position: relative;
   box-sizing: border-box;
-  max-height: max-content;
+  min-height: calc(100vh - 50px);
 }
 
 .footer {
