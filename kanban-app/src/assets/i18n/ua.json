@@ -1,4 +1,5 @@
 {
+  "YES":"",
   "Developers": "Розробники",
   "Error": {
     "User was not founded!": "Користувач не знайден!",
@@ -107,5 +108,8 @@
   "Check": {
     "New": "Нове",
     "Updated": "Оновлено"
-  }
+  },
+  "Create custom":"",
+  "Select board":"",
+  "CreateBoardQuestion":""
 }

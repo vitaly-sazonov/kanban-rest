@@ -1,7 +1,27 @@
-import { Board } from './interfaces';
+import { Board, Task } from './interfaces';
+
+const taskArray: Task[] = [
+  {
+    title: 'Task: pet the cat',
+    description: 'Domestic cat needs to be stroked gently',
+  },
+  {
+    title: 'Task: pet the cat',
+    description: 'Domestic cat needs to be stroked gently',
+  },
+  {
+    title: 'Task: pet the cat',
+    description: 'Domestic cat needs to be stroked gently',
+  },
+  {
+    title: 'Task: pet the cat',
+    description: 'Domestic cat needs to be stroked gently',
+  },
+];
 
 export const CUSTOM_BOARDS: Board[] = [
   {
+    id: '1',
     title: 'Kanban template',
     description:
       'Use this simple Kanban template to keep the engineering team on the same page and moving through work fluidly.',
@@ -9,7 +29,7 @@ export const CUSTOM_BOARDS: Board[] = [
       {
         title: 'Backlog',
         order: 1,
-        tasks: [],
+        tasks: taskArray,
       },
       {
         title: 'Design',
@@ -39,11 +59,12 @@ export const CUSTOM_BOARDS: Board[] = [
       {
         title: 'Done',
         order: 7,
-        tasks: [],
+        tasks: taskArray,
       },
     ],
   },
   {
+    id: '2',
     title: 'Kanban template',
     description:
       'Use this simple Kanban template to keep the engineering team on the same page and moving through work fluidly.',

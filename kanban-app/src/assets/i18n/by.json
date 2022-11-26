@@ -1,4 +1,5 @@
 {
+  "YES":"Так",
   "Developers": "Распрацоўшчыкі",
   "Error": {
     "User was not founded!": "Карыстальнік не знойдзены!",
@@ -112,5 +113,8 @@
   "Check": {
     "New": "Новае",
     "Updated": "Абноўлена"
-  }
+  },
+  "Create custom":"Стварыць дошку",
+  "Select board":"Выбраць дошку",
+  "CreateBoardQuestion":"Вы сумленна упэунены стварыць дошку?"
 }
