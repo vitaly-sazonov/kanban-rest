@@ -98,6 +98,7 @@
   "DELETE": "DELETE",
   "BOARDS": "BOARDS",
   "CLOSE": "CLOSE",
+  "BoardsStats": "Statistics: ",
   "more": "more",
   "hide": "hide",
   "No Boards": "No Boards",
@@ -132,5 +133,9 @@
   "Check": {
     "New": "New",
     "Updated": "Updated"
-  }
+  },
+  "Sort": "Sort boards: ",
+  "View": "View: ",
+  "Max": "expanded",
+  "Min": "minimized"
 }

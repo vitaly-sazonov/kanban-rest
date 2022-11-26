@@ -1,127 +1,144 @@
-<mat-card
-  (mouseenter)="changeStatus()"
-  (mouseleave)="isPreview = false"
-  class="board-container"
-  [class.empty]="board?.columns?.length === 0"
-  [class.short]="isShort">
-  <mat-card-header
-    class="inner-container"
-    [routerLink]="['../board', board?.id, 'undefined', 'undefined']">
-    <mat-card-title
-      class="title"
-      [innerHTML]="board?.title! | mark: searchRequest">
-    </mat-card-title>
-    <mat-card-subtitle
-      class="description"
-      *ngIf="isShort === false"
-      [innerHTML]="
-        (board?.description! | mark: searchRequest) + '...'
-      "></mat-card-subtitle>
-    <section
-      class="empty-box"
-      *ngIf="isShort === false && columns?.length === 0">
-      <mat-card-subtitle>{{ 'Empty board' | translate }}</mat-card-subtitle>
+<section class="board-main">
+  <section
+    class="board-container card-placeholder"
+    [class.short]="isShort"></section>
+  <mat-card
+    (mouseenter)="changeStatus($event)"
+    (mouseleave)="isPreview = false"
+    class="board-container"
+    [class.empty]="board?.columns?.length === 0"
+    [class.short]="isShort"
+    [class.show-preview]="isPreview"
+    [class.expand-up]="isExpandUp">
+    <section class="main-content">
+      <section class="top-container">
+        <section class="title-container">
+          <mat-card-header class="card-header">
+            <mat-card-title
+              class="title"
+              [innerHTML]="board?.title! | mark: searchRequest"
+              [routerLink]="['../board', board?.id, 'undefined', 'undefined']"
+              >0
+            </mat-card-title>
+            <mat-card-subtitle
+              class="description"
+              *ngIf="isShort === false"
+              [innerHTML]="
+                (board?.description! | mark: searchRequest) + '...'
+              "></mat-card-subtitle>
+          </mat-card-header>
+        </section>
+        <section class="board-menu-container">
+          <button
+            mat-button
+            [matMenuTriggerFor]="boardMenu"
+            yPosition="below"
+            class="menu-button">
+            <mat-icon class="menu-icon">more_vert</mat-icon>
+          </button>
+          <mat-menu class="board-menu" #boardMenu="matMenu">
+            <ng-container>
+              <button
+                mat-menu-item
+                (click)="
+                  editBoard(board?.id!, board?.title!, board?.description!)
+                ">
+                <mat-icon>edit</mat-icon>
+                <span>{{ 'BOARD.Edit' | translate }}</span>
+              </button>
+              <button mat-menu-item>
+                <mat-icon>insert_photo</mat-icon>
+                <span>{{ 'BOARD.ChangePicture' | translate }}</span>
+              </button>
+              <button mat-menu-item (click)="deleteBoard(board?.id!)">
+                <mat-icon>delete</mat-icon>
+                <span>{{ 'BOARD.Delete' | translate }}</span>
+              </button>
+            </ng-container>
+          </mat-menu>
+        </section>
+      </section>
+      <section class="bottom-container">
+        <mat-icon
+          class="expand-icon"
+          *ngIf="isShort === false"
+          (click)="isShort = true"
+          >expand_less</mat-icon
+        >
+        <mat-icon class="expand-icon" *ngIf="isShort" (click)="isShort = false"
+          >expand_more</mat-icon
+        >
+        <section
+          class="empty-box"
+          *ngIf="isShort === false && columns?.length === 0">
+          <div class="bottom-details">{{ 'Empty board' | translate }}</div>
+        </section>
+        <section
+          class="full-box"
+          *ngIf="isShort === false && columns?.length! > 0">
+          <div class="bottom-details">
+            <mat-icon class="board-icon">view_column</mat-icon
+            ><span class="bottom-text">{{ 'columns' | translate }}:</span>
+            <span class="count">{{ columns?.length }}</span>
+          </div>
+          <div class="bottom-details">
+            <mat-icon class="board-icon">description</mat-icon
+            ><span class="bottom-text">{{ 'tasks' | translate }}</span>
+            <span class="count">{{ getTaskQuantity() }}</span>
+          </div>
+        </section>
+        <section class="short-box" *ngIf="isShort && columns?.length! > 0">
+          <div class="bottom-details">
+            {{ columns?.length }}/{{ getTaskQuantity() }}
+          </div>
+        </section>
+        <section class="short-box" *ngIf="isShort && columns?.length === 0">
+          <div class="bottom-details">{{ 'empty' | translate }}</div>
+        </section>
+      </section>
     </section>
-    <section class="full-box" *ngIf="isShort === false && columns?.length! > 0">
-      <mat-card-subtitle
-        ><mat-icon>view_column</mat-icon>{{ 'columns' | translate }}:
-        {{ columns?.length }}</mat-card-subtitle
-      >
-      <mat-card-subtitle>
-        <mat-icon>description</mat-icon>{{ 'tasks' | translate }}
-        {{ getTaskQuantity() }}</mat-card-subtitle
-      >
-    </section>
-    <section class="short-box" *ngIf="isShort && columns?.length! > 0">
-      <mat-card-subtitle
-        >{{ columns?.length }}/{{ getTaskQuantity() }}</mat-card-subtitle
-      >
-    </section>
-    <section class="short-box" *ngIf="isShort && columns?.length === 0">
-      <mat-card-subtitle>{{ 'empty' | translate }}</mat-card-subtitle>
-    </section>
-  </mat-card-header>
 
-  <h2
-    *ngIf="compare.checkIsUpdated(board!) && !compare.checkIsNew(board?.id!)"
-    class="update-icon"
-    [class.short-check]="isShort">
-    {{ 'Check.Updated' | translate }}
-  </h2>
-  <h2
-    *ngIf="compare.checkIsNew(board?.id!)"
-    class="new-icon"
-    [class.short-check]="isShort">
-    {{ 'Check.New' | translate }}
-  </h2>
-  <mat-card-content
-    *ngIf="(length! > 0 && isPreview) || checkMatching()"
-    class="container-preview"
-    [class.visible]="(length! > 0 && isPreview) || checkMatching()"
-    [class.short-container]="isShort">
-    <div class="inner-container-preview">
+    <section
+      class="board-updates"
+      *ngIf="compare.checkIsUpdated(board!) || compare.checkIsNew(board?.id!)">
+      <h2
+        *ngIf="
+          compare.checkIsUpdated(board!) && !compare.checkIsNew(board?.id!)
+        "
+        class="update-icon"
+        [class.short-check]="isShort">
+        {{ 'Check.Updated' | translate }}
+      </h2>
+      <h2
+        *ngIf="compare.checkIsNew(board?.id!)"
+        class="new-icon"
+        [class.short-check]="isShort">
+        {{ 'Check.New' | translate }}
+      </h2>
+    </section>
+    <section
+      *ngIf="length! > 0 || checkMatching()"
+      class="container-preview"
+      [class.short-container]="isShort">
       <div
         class="column-item"
         [class.short-item]="isShort"
         *ngFor="let column of columns | order">
         <mat-card-subtitle
           class="column-title"
+          [class.short-title]="isShort"
           [routerLink]="['../board', board?.id, column?.id, 'undefined']"
-          [innerHTML]="
-            column.order + '. ' + (column?.title! | mark: searchRequest) + '...'
-          ">
+          [innerHTML]="column?.title! | mark: searchRequest">
         </mat-card-subtitle>
         <div class="tasks-container" *ngIf="isShort === false">
-          <mat-card-subtitle *ngIf="column.tasks?.length! > 0">{{
-            'tasks' | translate
-          }}</mat-card-subtitle>
           <mat-card-subtitle
             class="task"
             *ngFor="let task of column.tasks"
-            [innerHTML]="
-              task.order + '. ' + (task?.title! | mark: searchRequest) + '...'
-            "
+            [innerHTML]="task?.title! | mark: searchRequest"
             [routerLink]="['../board', board?.id, column?.id, task?.id]">
           </mat-card-subtitle>
         </div>
       </div>
-    </div>
-  </mat-card-content>
-
-  <section class="board-menu-container">
-    <button
-      mat-button
-      [matMenuTriggerFor]="boardMenu"
-      yPosition="below"
-      class="menu-button">
-      <mat-icon class="menu-icon">more_vert</mat-icon>
-    </button>
-    <mat-menu class="board-menu" #boardMenu="matMenu">
-      <ng-container>
-        <button
-          mat-menu-item
-          (click)="editBoard(board?.id!, board?.title!, board?.description!)">
-          <mat-icon>edit</mat-icon>
-          <span>{{ 'BOARD.Edit' | translate }}</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>insert_photo</mat-icon>
-          <span>{{ 'BOARD.ChangePicture' | translate }}</span>
-        </button>
-        <button mat-menu-item (click)="deleteBoard(board?.id!)">
-          <mat-icon>delete</mat-icon>
-          <span>{{ 'BOARD.Delete' | translate }}</span>
-        </button>
-      </ng-container>
-    </mat-menu>
-  </section>
-  <mat-icon
-    class="expand-icon"
-    *ngIf="isShort === false"
-    (click)="isShort = true"
-    >expand_less</mat-icon
-  >
-  <mat-icon class="expand-icon" *ngIf="isShort" (click)="isShort = false"
-    >expand_more</mat-icon
-  >
-</mat-card>
+    </section>
+  </mat-card>
+</section>
