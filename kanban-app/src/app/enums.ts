@@ -131,3 +131,8 @@ export enum LocalStorageValues {
   UserId = 'userId',
   Language = 'language',
 }
+export enum SystemSound {
+  delete = 'assets/mp3/delete.mp3',
+  notification = 'assets/mp3/notification.mp3',
+  success = 'assets/mp3/success.wav',
+}

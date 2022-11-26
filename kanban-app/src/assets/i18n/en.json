@@ -129,7 +129,8 @@
     "401": "You are not authorized",
     "403": "Forbidden. Access is denied",
     "404": "Not found",
-    "409": "Request has conflict with server"
+    "409": "Request has conflict with server",
+    "unknown":"Unknown error.Something went wrong"
   },
   "Check": {
     "New": "New",
