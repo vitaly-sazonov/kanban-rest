@@ -16,9 +16,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { SeparateTitlePipe } from 'src/app/shared/pipes/separate-title.pipe';
 
 @NgModule({
-  declarations: [BoardPageComponent, SortByPipe],
+  declarations: [BoardPageComponent, SeparateTitlePipe],
   imports: [
     CommonModule,
     BoardPageRoutingModule,

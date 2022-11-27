@@ -1,19 +1,44 @@
 @import '../../../colors.scss';
+@import '../../../../styles.scss';
 
 .board-container {
   width: auto;
   max-width: 100vw;
-  height: calc(100vh - 186px);
+  height: calc(100vh - 216px);
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   flex-grow: 0;
   padding: 86px 50px 50px;
-  gap: 30px;
+}
+
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.back-button,
+.add-column {
+  flex-shrink: 0;
+}
+
+.button-icon {
+  position: relative;
+  top: 1px;
+  font-size: 1.25rem;
+  line-height: 1.25rem;
 }
 
 .title {
+  font-family: $main-font;
+  font-weight: 800;
+  line-height: 44px;
   width: 100%;
+  margin: 0;
 }
 
 .highlighter {
@@ -287,6 +312,8 @@
   background-color: rgba(0, 0, 0, 0.2);
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
