@@ -1,5 +1,48 @@
+@import '../../../colors.scss';
+
 .form-group {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
+  margin: 30px;
+}
+
+.submit-button {
+  width: fit-content;
+}
+
+.picture-container {
+  position: relative;
+  width: 150px;
+  height: 100px;
+
+  &::before {
+    display: block;
+    content: '';
+    width: 150px;
+    height: 100px;
+    background-image: var(--thumb-pic);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.selection-wrapper {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.radio-selector {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+::ng-deep .radio-selector .mat-radio-outer-circle {
+  border-color: $color-1;
 }

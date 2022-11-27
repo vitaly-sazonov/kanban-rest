@@ -1,5 +1,21 @@
 <section class="board-main">
   <section
+    class="board-updates"
+    *ngIf="compare.checkIsUpdated(board!) || compare.checkIsNew(board?.id!)">
+    <h2
+      *ngIf="compare.checkIsUpdated(board!) && !compare.checkIsNew(board?.id!)"
+      class="update-icon"
+      [class.short-check]="isShort">
+      {{ 'Check.Updated' | translate }}
+    </h2>
+    <h2
+      *ngIf="compare.checkIsNew(board?.id!)"
+      class="new-icon"
+      [class.short-check]="isShort">
+      {{ 'Check.New' | translate }}
+    </h2>
+  </section>
+  <section
     class="board-container card-placeholder"
     [class.short]="isShort"></section>
   <mat-card
@@ -9,19 +25,22 @@
     [class.empty]="board?.columns?.length === 0"
     [class.short]="isShort"
     [class.show-preview]="isPreview"
-    [class.expand-up]="isExpandUp">
+    [class.expand-up]="isExpandUp"
+    [style.--bg-image]="picPath">
     <section class="main-content">
       <section class="top-container">
         <section class="title-container">
           <mat-card-header class="card-header">
             <mat-card-title
               class="title"
-              [innerHTML]="board?.title! | mark: searchRequest"
+              [class.white-text]="picPath"
+              [innerHTML]="board?.title! | mark: searchRequest | separateTitle"
               [routerLink]="['../board', board?.id, 'undefined', 'undefined']"
               >0
             </mat-card-title>
             <mat-card-subtitle
               class="description"
+              [class.white-text]="picPath"
               *ngIf="isShort === false"
               [innerHTML]="
                 (board?.description! | mark: searchRequest) + '...'
@@ -33,7 +52,8 @@
             mat-button
             [matMenuTriggerFor]="boardMenu"
             yPosition="below"
-            class="menu-button">
+            class="menu-button"
+            [class.white-text]="picPath">
             <mat-icon class="menu-icon">more_vert</mat-icon>
           </button>
           <mat-menu class="board-menu" #boardMenu="matMenu">
@@ -46,7 +66,11 @@
                 <mat-icon>edit</mat-icon>
                 <span>{{ 'BOARD.Edit' | translate }}</span>
               </button>
-              <button mat-menu-item>
+              <button
+                mat-menu-item
+                (click)="
+                  editPicture(board?.id!, board?.title!, board?.description!)
+                ">
                 <mat-icon>insert_photo</mat-icon>
                 <span>{{ 'BOARD.ChangePicture' | translate }}</span>
               </button>
@@ -61,60 +85,56 @@
       <section class="bottom-container">
         <mat-icon
           class="expand-icon"
+          [class.white-text]="picPath"
           *ngIf="isShort === false"
           (click)="isShort = true"
           >expand_less</mat-icon
         >
-        <mat-icon class="expand-icon" *ngIf="isShort" (click)="isShort = false"
+        <mat-icon
+          class="expand-icon"
+          [class.white-text]="picPath"
+          *ngIf="isShort"
+          (click)="isShort = false"
           >expand_more</mat-icon
         >
         <section
           class="empty-box"
+          [class.white-text]="picPath"
           *ngIf="isShort === false && columns?.length === 0">
           <div class="bottom-details">{{ 'Empty board' | translate }}</div>
         </section>
         <section
           class="full-box"
+          [class.white-text]="picPath"
           *ngIf="isShort === false && columns?.length! > 0">
           <div class="bottom-details">
-            <mat-icon class="board-icon">view_column</mat-icon
+            <mat-icon class="board-icon" [class.white-text]="picPath"
+              >view_column</mat-icon
             ><span class="bottom-text">{{ 'columns' | translate }}:</span>
             <span class="count">{{ columns?.length }}</span>
           </div>
           <div class="bottom-details">
-            <mat-icon class="board-icon">description</mat-icon
+            <mat-icon class="board-icon" [class.white-text]="picPath"
+              >description</mat-icon
             ><span class="bottom-text">{{ 'tasks' | translate }}</span>
             <span class="count">{{ getTaskQuantity() }}</span>
           </div>
         </section>
-        <section class="short-box" *ngIf="isShort && columns?.length! > 0">
+        <section
+          class="short-box"
+          [class.white-text]="picPath"
+          *ngIf="isShort && columns?.length! > 0">
           <div class="bottom-details">
             {{ columns?.length }}/{{ getTaskQuantity() }}
           </div>
         </section>
-        <section class="short-box" *ngIf="isShort && columns?.length === 0">
+        <section
+          class="short-box"
+          [class.white-text]="picPath"
+          *ngIf="isShort && columns?.length === 0">
           <div class="bottom-details">{{ 'empty' | translate }}</div>
         </section>
       </section>
-    </section>
-
-    <section
-      class="board-updates"
-      *ngIf="compare.checkIsUpdated(board!) || compare.checkIsNew(board?.id!)">
-      <h2
-        *ngIf="
-          compare.checkIsUpdated(board!) && !compare.checkIsNew(board?.id!)
-        "
-        class="update-icon"
-        [class.short-check]="isShort">
-        {{ 'Check.Updated' | translate }}
-      </h2>
-      <h2
-        *ngIf="compare.checkIsNew(board?.id!)"
-        class="new-icon"
-        [class.short-check]="isShort">
-        {{ 'Check.New' | translate }}
-      </h2>
     </section>
     <section
       *ngIf="length! > 0 || checkMatching()"
@@ -126,6 +146,7 @@
         *ngFor="let column of columns | order">
         <mat-card-subtitle
           class="column-title"
+          [class.white-text]="picPath && isShort"
           [class.short-title]="isShort"
           [routerLink]="['../board', board?.id, column?.id, 'undefined']"
           [innerHTML]="column?.title! | mark: searchRequest">

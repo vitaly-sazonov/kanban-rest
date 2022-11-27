@@ -71,6 +71,10 @@
     "description": "Опис",
     "button": "Редагувати"
   },
+  "editPicture": {
+    "header": "Оберіть зображення",
+    "button": "Підтвердити"
+  },
   "addColumn": {
     "header": "Створити колонку",
     "title": "Назва",

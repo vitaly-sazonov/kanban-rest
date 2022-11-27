@@ -3,8 +3,11 @@
     <div class="form-group">
       <h2>{{ formSelected! + '.header' | translate }}</h2>
 
-      <ng-container *ngFor="let control of inputFields | keyvalue: keepSorting">
-        <mat-form-field appearance="fill" class="form-field">
+      <ng-container *ngIf="formSelected !== 'editPicture'">
+        <mat-form-field
+          appearance="fill"
+          class="form-field"
+          *ngFor="let control of inputFields | keyvalue: keepSorting">
           <mat-label>{{
             formSelected! + '.' + control.key | translate
           }}</mat-label>
@@ -18,8 +21,20 @@
           </mat-error>
         </mat-form-field>
       </ng-container>
+      <ng-container *ngIf="formSelected === 'editPicture'">
+        <mat-radio-group formControlName="radio" class="selection-wrapper">
+          <section
+            *ngFor="let item of picArray"
+            class="picture-container"
+            [style.--thumb-pic]="picPath + item + picExt">
+            <mat-radio-button value="{{ item }}" class="radio-selector">
+            </mat-radio-button>
+          </section>
+        </mat-radio-group>
+      </ng-container>
       <button
         mat-raised-button
+        class="submit-button"
         color="primary"
         type="submit"
         [disabled]="formConstructor.invalid">

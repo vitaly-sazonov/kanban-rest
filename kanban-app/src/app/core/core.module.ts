@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { forwardRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -13,7 +13,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { ModalComponent } from './components/modal/modal.component';
@@ -22,7 +26,6 @@ import { FormModalComponent } from './components/form-modal/form-modal.component
 import { ToastComponent } from './components/toast/toast.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
-import { SelectModalComponent } from './components/select-modal/select-modal.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,6 @@ import { SelectModalComponent } from './components/select-modal/select-modal.com
     HeaderComponent,
     ConfirmModalComponent,
     FormModalComponent,
-    SelectModalComponent,
     ModalComponent,
     ToastComponent,
   ],

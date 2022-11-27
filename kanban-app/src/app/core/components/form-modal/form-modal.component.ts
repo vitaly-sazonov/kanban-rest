@@ -1,8 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  NG_VALUE_ACCESSOR,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject, switchMap, takeUntil } from 'rxjs';
+import { SPECIAL_SYMBOL, TOTAL_PICTURES } from 'src/app/constants';
 import { ModalSchemes } from 'src/app/enums';
 import { Board, Column, Task } from 'src/app/interfaces';
 import {
@@ -25,6 +33,7 @@ import { ModalService } from '../../services/modal.service';
   styleUrls: ['./form-modal.component.scss'],
 })
 export class FormModalComponent implements OnInit, OnDestroy {
+  picArray = new Array(TOTAL_PICTURES).fill(0).map((el, i) => `${i}`);
   formScheme$ = this.store.select(selectModalScheme);
   formConstructor!: FormGroup;
   formAction!: Function;
@@ -32,11 +41,16 @@ export class FormModalComponent implements OnInit, OnDestroy {
   inputFields = {};
   modalExtra: any[] = [];
   unsubscribe$ = new Subject();
+  titleReg = new RegExp(`^(.*?)${SPECIAL_SYMBOL}`);
+  picReg = new RegExp(`${SPECIAL_SYMBOL}(.*?)$`);
+  picPath = "url('../../../../../assets/img/boards_thumbnails/";
+  picExt = ".jpg')";
 
   constructor(
     private store: Store,
     private http: HttpService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -61,7 +75,14 @@ export class FormModalComponent implements OnInit, OnDestroy {
             break;
           case ModalSchemes.editBoard:
             this.formConstructor = new FormGroup({
-              title: new FormControl(this.modalExtra[1], Validators.required),
+              title: new FormControl(
+                this.modalExtra[1].includes(SPECIAL_SYMBOL)
+                  ? this.modalExtra[1]
+                      .match(this.titleReg)![0]
+                      .replace(SPECIAL_SYMBOL, '')
+                  : this.modalExtra[1],
+                Validators.required
+              ),
               description: new FormControl(
                 this.modalExtra[2],
                 Validators.required
@@ -70,8 +91,21 @@ export class FormModalComponent implements OnInit, OnDestroy {
             this.formAction = (board: Board) =>
               editBoardById({
                 id: this.modalExtra[0],
-                title: board.title!,
+                title: this.modalExtra[1].includes(SPECIAL_SYMBOL)
+                  ? board.title! + this.modalExtra[1].match(this.picReg)![0]
+                  : board.title!,
                 description: board.description!,
+              });
+            break;
+          case ModalSchemes.editPicture:
+            this.formConstructor = this.fb.group({
+              radio: ['', Validators.required],
+            });
+            this.formAction = (payload: { radio: string }) =>
+              editBoardById({
+                id: this.modalExtra[0],
+                title: this.modalExtra[1] + SPECIAL_SYMBOL + payload.radio,
+                description: this.modalExtra[2],
               });
             break;
           case ModalSchemes.addColumn:
@@ -146,7 +180,8 @@ export class FormModalComponent implements OnInit, OnDestroy {
   submit() {
     if (
       this.formSelected === ModalSchemes.addBoard ||
-      this.formSelected === ModalSchemes.editBoard
+      this.formSelected === ModalSchemes.editBoard ||
+      this.formSelected === ModalSchemes.editPicture
     ) {
       this.store.dispatch(deleteAllBoards());
     }

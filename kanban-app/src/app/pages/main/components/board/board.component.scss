@@ -20,6 +20,20 @@
   top: 0;
   bottom: unset;
   z-index: 0;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    display: block;
+    top: -3px;
+    background-image: var(--bg-image);
+    background-repeat: no-repeat;
+    background-position: top center;
+    border-radius: 4px;
+    z-index: -1;
+    filter: brightness(0.5);
+  }
 
   @media (max-width: 619.99px) {
     position: relative;
@@ -108,7 +122,7 @@
 }
 
 .board-container:hover .container-preview {
-  margin-top: 20px;
+  margin-top: 40px;
   height: 208px;
   opacity: 1;
 }
@@ -211,6 +225,7 @@
   right: 10px;
   animation: flashing 7s;
   transition: 500ms;
+  z-index: 5;
 }
 
 .update-icon,
@@ -298,7 +313,7 @@
 }
 
 .board-container:hover .short-container {
-  height: 85px;
+  height: 60px;
   opacity: 1;
 }
 
@@ -393,4 +408,8 @@
 mat-card-subtitle {
   display: flex;
   align-items: center;
+}
+
+.white-text {
+  color: $color-1;
 }

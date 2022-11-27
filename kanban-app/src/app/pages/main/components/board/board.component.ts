@@ -4,8 +4,10 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  Sanitizer,
   SimpleChanges,
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -13,6 +15,7 @@ import {
   BOARD_BOTTOM_PADDING,
   BOARD_HEIGHT,
   FOOTER_HEIGHT,
+  SPECIAL_SYMBOL,
 } from 'src/app/constants';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { CompareService } from 'src/app/core/services/compare.service';
@@ -46,6 +49,9 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
   compare = this.compareService;
   isShort = false;
   isExpandUp = false;
+  titleReg = new RegExp(`^(.*?)${SPECIAL_SYMBOL}`);
+  picReg = new RegExp(`${SPECIAL_SYMBOL}(.*?)$`);
+  picPath: string | null = '';
 
   constructor(
     private store: Store,
@@ -53,7 +59,8 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
     private hash: HashService,
     private storage: LocalstorageService,
     private modalService: ModalService,
-    private basket: BasketService
+    private basket: BasketService,
+    public sanitizer: DomSanitizer
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
     this.isShort = this.isAllShort;
@@ -62,6 +69,11 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
   ngOnInit(): void {
     this.columns = this.board?.columns;
     this.length = this.columns!.length;
+    this.picPath = this.board?.title!.includes(SPECIAL_SYMBOL)
+      ? `url('../../../../../assets/img/boards_thumbnails/${this.board.title
+          ?.match(this.picReg)![0]
+          .replace(SPECIAL_SYMBOL, '')}.jpg')`
+      : null;
   }
 
   isPreview = false;
@@ -126,6 +138,19 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
   editBoard(id: string, title: string, description: string) {
     this.modalService.setExtra([id, title, description]);
     this.modalService.setScheme(ModalSchemes.editBoard);
+    this.modalService.setType(ModalTypes.FormType);
+    this.store.dispatch(setVisibility({ isVisible: true }));
+  }
+
+  editPicture(id: string, title: string, description: string) {
+    this.modalService.setExtra([
+      id,
+      title.includes(SPECIAL_SYMBOL)
+        ? title.match(this.titleReg)![0].replace(SPECIAL_SYMBOL, '')
+        : title,
+      description,
+    ]);
+    this.modalService.setScheme(ModalSchemes.editPicture);
     this.modalService.setType(ModalTypes.FormType);
     this.store.dispatch(setVisibility({ isVisible: true }));
   }

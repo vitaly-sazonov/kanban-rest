@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { forwardRef, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   HttpClient,
@@ -22,7 +22,11 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { WelcomeModule } from './pages/welcome/welcome.module';
 import { environment } from '../environments/environment';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotificationEffect } from './redux/effects/notification.effect';
 import { notificationReducer } from './redux/reducers/notification.reducer';
@@ -37,6 +41,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MainModule } from './pages/main/main.module';
+import { FormModalComponent } from './core/components/form-modal/form-modal.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

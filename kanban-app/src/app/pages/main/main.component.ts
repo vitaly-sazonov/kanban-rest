@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LAST_SEARCH, PICTURES_PER_CATEGORY, BOARDS } from 'src/app/constants';
+import { LAST_SEARCH, TOTAL_PICTURES, BOARDS } from 'src/app/constants';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
+import { Board, Column, Task } from 'src/app/interfaces';
 import { PictureCategories } from 'src/app/enums';
-import { Board } from 'src/app/interfaces';
 import {
   BehaviorSubject,
   from,
@@ -49,10 +49,7 @@ export class MainComponent implements OnInit, OnDestroy {
   boardsInBasket = 0;
   basket$$?: BehaviorSubject<Board[]>;
   isSelectPicture = false;
-  pictureCategories = Object.values(PictureCategories);
-  pictureNames = new Array(PICTURES_PER_CATEGORY)
-    .fill(0)
-    .map((el, index) => index);
+  pictureNames = new Array(TOTAL_PICTURES).fill(0).map((el, index) => index);
   userId$ = this.store.select(selectFeatureUser);
   unsubscribe$ = new Subject();
   userId: string = '';
