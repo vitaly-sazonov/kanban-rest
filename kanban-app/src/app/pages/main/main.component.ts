@@ -4,7 +4,6 @@ import { LAST_SEARCH, TOTAL_PICTURES, BOARDS } from 'src/app/constants';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { LocalstorageService } from 'src/app/core/services/localstorage.service';
 import { Board, Column, Task } from 'src/app/interfaces';
-import { PictureCategories } from 'src/app/enums';
 import {
   BehaviorSubject,
   from,
@@ -58,7 +57,6 @@ export class MainComponent implements OnInit, OnDestroy {
     private store: Store,
     private storage: LocalstorageService,
     public dialog: MatDialog,
-    private customBoardService: CustomBoardService,
     private basket: BasketService,
     private scrollService: ScrollService
   ) {}
@@ -122,25 +120,6 @@ export class MainComponent implements OnInit, OnDestroy {
       switchMap(() => of(q))
     );
   }
-  createCustomBoard() {
-    const dialogRef = this.dialog.open(SelectBoardDialogComponent, {
-      panelClass: 'dialog',
-      enterAnimationDuration: '500ms',
-      width: PercentSize.eighty,
-      height: PercentSize.eighty,
-      data: BOARDS,
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const board = result as Board;
-        this.customBoardService
-          .saveBoardToUser(board, this.userId)
-          .pipe(takeUntil(this.unsubscribe$))
-          .subscribe(x => this.reset());
-      }
-    });
-  }
-
   scrollDown() {
     window.scrollTo(0, document.body.scrollHeight);
   }

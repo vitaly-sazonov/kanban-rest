@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, map, switchMap, tap } from 'rxjs';
+import { SPECIAL_SYMBOL, TOTAL_PICTURES } from 'src/app/constants';
 import { Board, Column, Task } from 'src/app/interfaces';
 import { HttpService } from './http.service';
 
@@ -37,7 +38,11 @@ export class CustomBoardService {
   saveBoardToUser(board: Board, userId: string) {
     let boardId: string | undefined;
     return this.http
-      .addBoard({ title: board.title, description: board.description })
+      .addBoard({
+        title:
+          board.title + SPECIAL_SYMBOL + ((Math.random() * TOTAL_PICTURES) | 0),
+        description: board.description,
+      })
       .pipe(
         tap(createdBoard => {
           boardId = createdBoard.id;

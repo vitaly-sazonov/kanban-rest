@@ -33,11 +33,19 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { LocalstorageService } from '../services/localstorage.service';
 import {
+  BOARDS,
   END_GRADIENT,
   GRADIENT_CHANGE_RATIO,
   MAX_HUE_RANGE,
   START_GRADIENT,
 } from 'src/app/constants';
+import { CustomBoardService } from '../services/custom-board.service';
+import { SelectBoardDialogComponent } from 'src/app/pages/main/components/select-board-dialog/select-board-dialog.component';
+import { Board } from 'src/app/interfaces';
+import {
+  deleteAllBoards,
+  loadBoards,
+} from 'src/app/redux/actions/boards.actions';
 
 @Component({
   selector: 'app-header',
@@ -66,7 +74,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private modalService: ModalService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private customBoardService: CustomBoardService
   ) {}
 
   ngOnInit(): void {
@@ -148,5 +157,30 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         this.deleteUserService().subscribe();
       }
     });
+  }
+
+  createCustomBoard() {
+    const dialogRef = this.dialog.open(SelectBoardDialogComponent, {
+      panelClass: 'dialog',
+      enterAnimationDuration: '500ms',
+      width: PercentSize.eighty,
+      height: PercentSize.eighty,
+      data: BOARDS,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const board = result as Board;
+        this.customBoardService
+          .saveBoardToUser(board, this.userId)
+          .pipe(takeUntil(this.unsubscribe$))
+          .subscribe(x => this.reset());
+      }
+    });
+  }
+
+  reset(): void {
+    [deleteAllBoards(), loadBoards()].forEach(action =>
+      this.store.dispatch(action)
+    );
   }
 }

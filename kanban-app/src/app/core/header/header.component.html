@@ -5,14 +5,25 @@
     </section>
     <section class="create-board-container">
       <button
-        mat-raised-button
-        (click)="callFormModal()"
+        [matMenuTriggerFor]="createMenu"
         mat-raised-button
         *ngIf="loginStatus$ | async">
         <mat-icon>add</mat-icon>
         <span class="board-create-text">{{ createBoard | translate }}</span>
       </button>
     </section>
+    <mat-menu class="create-menu" #createMenu>
+      <ng-container>
+        <button mat-menu-item (click)="callFormModal()">
+          <mat-icon>crop_square</mat-icon>
+          <span class="board-create-text">{{ 'blankBoard' | translate }}</span>
+        </button>
+        <button mat-menu-item (click)="createCustomBoard()">
+          <mat-icon>view_kanban</mat-icon>
+          <span>{{ 'templateBoard' | translate }}</span>
+        </button>
+      </ng-container>
+    </mat-menu>
     <section class="header-top-right">
       <section class="lang-container">
         <button mat-button [matMenuTriggerFor]="menu" class="lang-button">

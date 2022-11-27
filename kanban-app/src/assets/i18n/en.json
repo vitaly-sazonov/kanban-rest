@@ -147,5 +147,7 @@
   "View": "View: ",
   "Max": "expanded",
   "Min": "minimized",
-  "ChoosePicture": "Select image"
+  "ChoosePicture": "Select image",
+  "blankBoard": "Blank board",
+  "templateBoard": "Template board"
 }

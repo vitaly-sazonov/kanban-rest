@@ -1,9 +1,59 @@
+@import '../../../colors.scss';
+@import '../../../../styles.scss';
+
 .board-container {
-  height: calc(100vh - 124px);
+  width: auto;
+  max-width: 100vw;
+  height: calc(100vh - 216px);
   display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
   flex-grow: 0;
-  justify-content: space-between;
-  flex-direction: column;
+  padding: 86px 50px 50px;
+}
+
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.back-button,
+.add-column {
+  flex-shrink: 0;
+}
+
+.button-icon {
+  position: relative;
+  top: 1px;
+  font-size: 1.25rem;
+  line-height: 1.25rem;
+}
+
+.title {
+  font-family: $main-font;
+  font-weight: 800;
+  line-height: 44px;
+  width: 100%;
+  margin: 0;
+}
+
+.highlighter {
+  position: absolute;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);;
+  border: 3px dashed $moreColor;
+  border-radius: 4px;
+  box-sizing: border-box;
+  z-index: 1;
+  margin: 3px;
+}
+
+.task-highlighter {
+  margin: -13px;
 }
 
 .columns-container {
@@ -25,6 +75,7 @@
 }
 
 .column-accordion {
+  position: relative;
   height: 100%;
   width: 100%;
 }
@@ -100,6 +151,10 @@
       opacity: 1;
     }
   }
+}
+
+::ng-deep .mat-accordion .mat-expansion-panel-spacing {
+  margin: 0;
 }
 
 ::ng-deep .column-inner .mat-expansion-panel-body {
@@ -257,6 +312,8 @@
   background-color: rgba(0, 0, 0, 0.2);
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
