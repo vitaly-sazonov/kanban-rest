@@ -71,6 +71,10 @@
     "description": "New description",
     "button": "Edit"
   },
+  "editPicture": {
+    "header": "Edit Picture",
+    "button": "Save changes"
+  },
   "addColumn": {
     "header": "Create Column",
     "title": "Title",

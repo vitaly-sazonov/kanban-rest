@@ -3,7 +3,13 @@
 .form-group {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
+  margin: 30px;
+}
+
+.submit-button {
+  width: fit-content;
 }
 
 .picture-container {
