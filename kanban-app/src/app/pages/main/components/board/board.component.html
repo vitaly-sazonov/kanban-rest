@@ -146,6 +146,7 @@
         *ngFor="let column of columns | order">
         <mat-card-subtitle
           class="column-title"
+          [class.white-text]="picPath && isShort"
           [class.short-title]="isShort"
           [routerLink]="['../board', board?.id, column?.id, 'undefined']"
           [innerHTML]="column?.title! | mark: searchRequest">
