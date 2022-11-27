@@ -11,6 +11,8 @@ import { SearchPipe } from './pipes/search.pipe';
 import { OrderPipe } from './pipes/oder.pipe';
 import { MarkPipe } from './pipes/mark.pipe';
 import { SortByAlphabetPipe } from './pipes/sort-by-alphabet.pipe';
+import { SeparateTitlePipe } from './pipes/separate-title.pipe';
+import { SeparatePicNamePipe } from './pipes/separate-pic-name.pipe';
 
 @NgModule({
   declarations: [
@@ -19,8 +21,18 @@ import { SortByAlphabetPipe } from './pipes/sort-by-alphabet.pipe';
     OrderPipe,
     MarkPipe,
     SortByAlphabetPipe,
+    SeparateTitlePipe,
+    SeparateTitlePipe,
+    SeparatePicNamePipe,
   ],
   imports: [CommonModule, TranslateModule, MatDialogModule, MatButtonModule],
-  exports: [SearchPipe, OrderPipe, MarkPipe, SortByAlphabetPipe],
+  exports: [
+    SearchPipe,
+    OrderPipe,
+    MarkPipe,
+    SortByAlphabetPipe,
+    SeparateTitlePipe,
+    SeparatePicNamePipe,
+  ],
 })
 export class SharedModule {}

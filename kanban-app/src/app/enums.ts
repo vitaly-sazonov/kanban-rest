@@ -77,6 +77,7 @@ export enum BoardsActions {
 export enum ModalTypes {
   ConfirmType,
   FormType,
+  SelectType,
 }
 
 export enum ModalSchemes {
@@ -86,6 +87,7 @@ export enum ModalSchemes {
   editColumn = 'editColumn',
   addTask = 'addTask',
   editTask = 'editTask',
+  editPicture = 'editPicture',
 }
 
 export enum ColumnActions {
@@ -130,11 +132,6 @@ export enum LocalStorageValues {
   Token = 'token',
   UserId = 'userId',
   Language = 'language',
-}
-
-export enum PictureCategories {
-  highTech = 'high_tech',
-  nature = 'nature',
 }
 
 export enum SystemSound {

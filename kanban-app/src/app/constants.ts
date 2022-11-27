@@ -87,4 +87,6 @@ export const BOARD_HEIGHT = 200;
 export const BOARD_BOTTOM_PADDING = 90;
 export const FOOTER_HEIGHT = 50;
 
-export const PICTURES_PER_CATEGORY = 10;
+export const TOTAL_PICTURES = 20;
+
+export const SPECIAL_SYMBOL = 'ㅤ';
