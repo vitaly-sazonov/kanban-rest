@@ -8,9 +8,8 @@ describe('SelectBoardDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SelectBoardDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [SelectBoardDialogComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SelectBoardDialogComponent);
     component = fixture.componentInstance;

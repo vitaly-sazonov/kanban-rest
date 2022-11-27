@@ -6,13 +6,22 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ScrollService {
   onScroll$$ = new BehaviorSubject(0);
-  scrollHeight$$ = new BehaviorSubject(document.body.scrollHeight);
+  scrollHeight$$ = new BehaviorSubject(0);
   constructor() {
     document.addEventListener('scroll', () => {
-      this.scrollHeight$$.next(document.body.scrollHeight);
+      this.scrollHeight$$.next(
+        document.body.scrollHeight - document.body.offsetHeight
+      );
+      this.onScroll$$.next(window.pageYOffset);
+    });
+    document.addEventListener('mousemove', () => {
+      this.scrollHeight$$.next(
+        document.body.scrollHeight - document.body.offsetHeight
+      );
       this.onScroll$$.next(window.pageYOffset);
     });
   }
+  
   getPositionY() {
     return this.onScroll$$;
   }

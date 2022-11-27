@@ -5,7 +5,9 @@
       <mat-icon *ngIf="(posY$$ | async) !== 0" (click)="scrollUp()"
         >keyboard_double_arrow_up</mat-icon
       >
-      <mat-icon *ngIf="checkDown((posY$$ | async)!)" (click)="scrollDown()"
+      <mat-icon
+        *ngIf="(posY$$ | async)! - (scrollHeight$$ | async)! < 0"
+        (click)="scrollDown()"
         >keyboard_double_arrow_down</mat-icon
       >
     </nav>
