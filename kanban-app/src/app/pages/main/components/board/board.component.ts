@@ -74,7 +74,6 @@ export class BoardComponent implements OnDestroy, OnInit, OnChanges {
           ?.match(this.picReg)![0]
           .replace(SPECIAL_SYMBOL, '')}.jpg')`
       : null;
-    console.log(this.picPath);
   }
 
   isPreview = false;

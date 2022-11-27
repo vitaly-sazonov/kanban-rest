@@ -43,6 +43,8 @@ export class FormModalComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
   titleReg = new RegExp(`^(.*?)${SPECIAL_SYMBOL}`);
   picReg = new RegExp(`${SPECIAL_SYMBOL}(.*?)$`);
+  picPath = "url('../../../../../assets/img/boards_thumbnails/";
+  picExt = ".jpg')";
 
   constructor(
     private store: Store,

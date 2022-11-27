@@ -22,10 +22,14 @@
         </mat-form-field>
       </ng-container>
       <ng-container *ngIf="formSelected === 'editPicture'">
-        <mat-radio-group formControlName="radio">
-          <mat-radio-button *ngFor="let item of picArray" value="{{ item }}">
-            {{ item }}
-          </mat-radio-button>
+        <mat-radio-group formControlName="radio" class="selection-wrapper">
+          <section
+            *ngFor="let item of picArray"
+            class="picture-container"
+            [style.--thumb-pic]="picPath + item + picExt">
+            <mat-radio-button value="{{ item }}" class="radio-selector">
+            </mat-radio-button>
+          </section>
         </mat-radio-group>
       </ng-container>
       <button
