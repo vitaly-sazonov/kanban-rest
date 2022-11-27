@@ -2,20 +2,16 @@ import { Board, Task } from './interfaces';
 
 const taskArray: Task[] = [
   {
-    title: 'Task: pet the cat',
+    title: 'Task 1: pet the cat',
     description: 'Domestic cat needs to be stroked gently',
   },
   {
-    title: 'Task: pet the cat',
-    description: 'Domestic cat needs to be stroked gently',
+    title: 'Task 2',
+    description: 'This is second task',
   },
   {
-    title: 'Task: pet the cat',
-    description: 'Domestic cat needs to be stroked gently',
-  },
-  {
-    title: 'Task: pet the cat',
-    description: 'Domestic cat needs to be stroked gently',
+    title: 'Task 3',
+    description: 'This is third task',
   },
 ];
 
@@ -65,42 +61,63 @@ export const CUSTOM_BOARDS: Board[] = [
   },
   {
     id: '2',
-    title: 'Kanban template',
+    title: 'Lean Canvas',
     description:
-      'Use this simple Kanban template to keep the engineering team on the same page and moving through work fluidly.',
+      'Lean Canvas is a 1-page business plan template created by Ash Maurya that helps you deconstruct your idea into its key assumptions.',
     columns: [
       {
-        title: 'Backlog',
+        title: 'Problem',
         order: 1,
-        tasks: [],
+        tasks: [
+          {
+            title: 'What top 3 problems do you face ?',
+            description: 'Top 3 problems you face',
+          },
+        ],
       },
       {
-        title: 'Design',
+        title: 'Customer Segments',
         order: 2,
-        tasks: [],
+        tasks: [
+          {
+            title: 'For whom are we creating value?',
+            description:
+              'For whom are we creating value?\n Who are our most important customers?\nTarget customer?',
+          },
+        ],
       },
       {
-        title: 'To Do',
+        title: 'Unique Value Propositions',
         order: 3,
         tasks: [],
       },
       {
-        title: 'Doing',
+        title: 'Solution',
         order: 4,
         tasks: [],
       },
       {
-        title: 'Code review',
+        title: 'Unfair Advantage',
         order: 5,
         tasks: [],
       },
       {
-        title: 'Testing',
+        title: 'Revenue Streams',
         order: 6,
         tasks: [],
       },
       {
-        title: 'Done',
+        title: 'Cost Structure',
+        order: 7,
+        tasks: [],
+      },
+      {
+        title: 'Key Metrics',
+        order: 7,
+        tasks: [],
+      },
+      {
+        title: 'Channels',
         order: 7,
         tasks: [],
       },

@@ -11,17 +11,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { SortByPipe } from './pipes/sort-by-order.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { SeparateTitlePipe } from 'src/app/shared/pipes/separate-title.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  declarations: [BoardPageComponent, SeparateTitlePipe],
+  declarations: [BoardPageComponent],
   imports: [
     CommonModule,
+    SharedModule,
     BoardPageRoutingModule,
     TranslateModule,
     MatCardModule,

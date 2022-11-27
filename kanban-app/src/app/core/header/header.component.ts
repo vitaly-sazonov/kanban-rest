@@ -4,9 +4,7 @@ import {
   ElementRef,
   OnDestroy,
   OnInit,
-  QueryList,
   ViewChild,
-  ViewChildren,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
