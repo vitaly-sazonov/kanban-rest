@@ -1,0 +1,18 @@
+.boards-container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+
+  @media (max-width: 1080px) {
+    justify-content: center;
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
+}

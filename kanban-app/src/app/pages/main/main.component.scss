@@ -240,11 +240,17 @@ input:focus {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  z-index: 20;
   & mat-icon {
     cursor: pointer;
     opacity: .5;
     &:hover{
       opacity: 1;
     }
+  }
+}
+@media (max-width: 400px) {
+  .navigation{
+    visibility: hidden;
   }
 }
