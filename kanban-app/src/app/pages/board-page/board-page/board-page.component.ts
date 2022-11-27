@@ -61,6 +61,7 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
   columnTitleEdit: string | null = null;
   columnIndex = 0;
   columnMaxHeight = 0;
+  showHighlight = false;
 
   @Input() newTitle = this.columnTitleEdit;
 
@@ -92,7 +93,10 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
             switchMap(() => this.store.select(selectBoardById(this.id))),
             takeUntil(this.unsubscribe$)
           )
-          .subscribe(data => (this.currentBoard$ = of(data)));
+          .subscribe(data => {
+            this.boardData = data;
+            this.currentBoard$ = of(data);
+          });
       });
     this.isLoading$ = this.store.select(selectFeatureIsLoading);
     this.route.paramMap
@@ -104,6 +108,7 @@ export class BoardPageComponent implements OnInit, AfterViewInit, OnDestroy {
       this.id = params['id'];
       this.columnId = params['columnId'];
       this.taskId = params['taskId'];
+      this.showHighlight = this.columnId || this.taskId ? true : false;
       this.currentBoard$ = this.store.select(selectBoardById(this.id));
     });
   }

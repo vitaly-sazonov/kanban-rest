@@ -1,9 +1,34 @@
+@import '../../../colors.scss';
+
 .board-container {
-  height: calc(100vh - 124px);
+  width: auto;
+  max-width: 100vw;
+  height: calc(100vh - 186px);
   display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
   flex-grow: 0;
-  justify-content: space-between;
-  flex-direction: column;
+  padding: 86px 50px 50px;
+  gap: 30px;
+}
+
+.title {
+  width: 100%;
+}
+
+.highlighter {
+  position: absolute;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);;
+  border: 3px dashed $moreColor;
+  border-radius: 4px;
+  box-sizing: border-box;
+  z-index: 1;
+  margin: 3px;
+}
+
+.task-highlighter {
+  margin: -13px;
 }
 
 .columns-container {
@@ -25,6 +50,7 @@
 }
 
 .column-accordion {
+  position: relative;
   height: 100%;
   width: 100%;
 }
@@ -100,6 +126,10 @@
       opacity: 1;
     }
   }
+}
+
+::ng-deep .mat-accordion .mat-expansion-panel-spacing {
+  margin: 0;
 }
 
 ::ng-deep .column-inner .mat-expansion-panel-body {

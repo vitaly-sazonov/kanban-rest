@@ -71,7 +71,16 @@ export class FormModalComponent implements OnInit, OnDestroy {
               title: new FormControl('', Validators.required),
               description: new FormControl('', Validators.required),
             });
-            this.formAction = (payload: Board) => addBoard({ board: payload });
+            this.formAction = (payload: Board) =>
+              addBoard({
+                board: {
+                  ...payload,
+                  title:
+                    payload.title +
+                    SPECIAL_SYMBOL +
+                    ((Math.random() * TOTAL_PICTURES) | 0),
+                },
+              });
             break;
           case ModalSchemes.editBoard:
             this.formConstructor = new FormGroup({

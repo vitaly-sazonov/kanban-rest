@@ -2,8 +2,7 @@
   <section class="spinner-wrapper" *ngIf="isLoading$ | async">
     <mat-spinner class="spinner" diameter="30" color="primary"></mat-spinner>
   </section>
-  <h1>Board</h1>
-  <h2>ID: {{ id }}</h2>
+  <h1 class="title">{{ boardData?.title }}</h1>
   <h2>ColumnID: {{ columnId }}</h2>
   <h2>TaskID: {{ taskId }}</h2>
   <section class="columns-container" #columnsElement>
@@ -33,7 +32,18 @@
             class="column-accordion"
             togglePosition="before"
             (mousedown)="checkHeight(columnElement)"
+            (mouseenter)="
+              showHighlight =
+                item.id === columnId && taskId === 'undefined' && showHighlight
+                  ? !showHighlight
+                  : showHighlight
+            "
             #columnElement>
+            <div
+              class="highlighter"
+              *ngIf="
+                showHighlight && item.id === columnId && taskId === 'undefined'
+              "></div>
             <mat-expansion-panel class="column-inner" expanded>
               <mat-expansion-panel-header class="column-header">
                 <mat-panel-title class="column-title">
@@ -104,6 +114,12 @@
                   <mat-card
                     *ngFor="let taskItem of item.tasks"
                     class="task-item"
+                    (mouseenter)="
+                      showHighlight =
+                        taskItem.id === taskId && showHighlight
+                          ? !showHighlight
+                          : showHighlight
+                    "
                     (click)="
                       editTask(taskItem.id!, item.id!, taskItem.order!, {
                         title: taskItem.title,
@@ -112,6 +128,9 @@
                     "
                     (cdkDragStarted)="isDragging = true"
                     cdkDrag>
+                    <div
+                      class="highlighter task-highlighter"
+                      *ngIf="showHighlight && taskItem.id === taskId"></div>
                     <mat-card class="task-item" *cdkDragPlaceholder>
                       <div class="drag-placeholder"></div>
                       <mat-card-title class="task-title noselect">
